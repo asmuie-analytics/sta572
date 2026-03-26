@@ -1,347 +1,737 @@
 ---
-title: "STA572:Time Series Analysis and Forecasting"
-subtitle: "C2. Univariate Modeling Techniques"
-format: 
-  revealjs:
-    chalkboard: true
-    fontsize: 20pt
-    css: mystyle.css
-    slide-number: true
-author: "Lecturer, Department of Statistics"
-footer: "Asmui Rahim, STA572 , Oct 2025"
-execute: 
-  echo: true
-  warning: false
+title: "Chapter 2: Univariate Modelling Techniques"
 ---
+
+```{r}
+#| label: setup
+#| include: false
+library(fpp2)
+library(forecast)
+library(ggplot2)
+
+theme_ts <- function() {
+  theme_bw(base_size = 12) +
+    theme(plot.title    = element_text(face = "bold", hjust = 0.5),
+          plot.subtitle = element_text(hjust = 0.5, colour = "grey40"),
+          axis.title    = element_text(size = 11),
+          legend.position = "bottom")
+}
+
+# ── shared data ───────────────────────────────────────────────────────────────
+cpi    <- read.csv("data/CPI Malaysia.csv", check.names = FALSE)
+cpits  <- ts(cpi$`Consumer price index (2010 = 100)`, start = 1960, frequency = 1)
+n      <- length(cpits)
+n_train <- 50
+
+est_part <- head(cpits, n_train)
+eva_part <- tail(cpits, n - n_train)
+
+prod       <- read.csv("data/electric.csv")
+electric   <- data.frame(t = seq(1:108), electric = prod[1:108, 3])
+electricts <- ts(electric$electric, start = c(2015, 1), frequency = 12)
+est_elec   <- head(electricts, 0.8 * length(electricts))
+eva_elec   <- tail(electricts, 0.2 * length(electricts))
+
+# ── worked example data ───────────────────────────────────────────────────────
+price <- c(6, 8, 9, 12, 15, 16)
+year  <- 2018:2023
+n_p   <- length(price)
+```
 
 # Introduction
 
-1.  Single Exponential Smoothing
-2.  Holt's Method
-3.  Holt-Winter's Trend and Seasonality
-4.  Decomposition Method
-5.  Forecasting using Decomposition Method
+**Univariate models** belong to a class of models that require only **one variable** to be formulated. They use information from the past values of a variable to forecast its future values.
 
-## Chapter 2: Data Preparation
+::: callout-note
+**Disadvantage:** Univariate techniques cannot provide explanations for the possible *causes* of change in the variable of interest — they only describe *what* has happened, not *why*.
+:::
 
-### Setup Library
+The methods covered in this chapter are:
+
+| Method                       | Best For                             |
+|------------------------------|--------------------------------------|
+| Naive Forecast               | No discernible pattern; benchmark    |
+| Naive with Trend             | Series with slow, steady trend       |
+| Average Change               | Short series with consistent changes |
+| Average Percent Change       | Constant percentage growth           |
+| Single Exponential Smoothing | Stable series, no trend              |
+| Double Exponential Smoothing | Linear trend, short series           |
+| Holt's Method                | Linear trend, more flexible          |
+| ARRES                        | Time-varying alpha needed            |
+| Holt-Winters                 | Trend + seasonality                  |
+| Decomposition Forecasting    | Clear trend + seasonal components    |
+
+------------------------------------------------------------------------
+
+# Naive Methods
+
+## Naive Forecast
+
+The naive forecast strongly believes that **what happens today will happen again tomorrow** (or any other time in the future).
+
+$$F_{t+m} = y_t$$
+
+where $m$ is the number of steps ahead.
+
+**When to use:**
+
+-   Works best when the historical data series contains **no discernible pattern**.
+-   Performs well in series that exhibit **slow change** in fluctuations.
+-   Sudden changes in the current data would severely affect forecast accuracy.
+-   Serves as a **benchmark** — other methods should outperform it.
+
+### Example
+
+Compute the estimated values and forecast for 2024 using naive forecast. Then compute the MSE.
 
 ```{r}
-library(fpp2)
-library(forecast)
+#| label: tbl-naive
+#| tbl-cap: "Naive forecast — worked example"
+
+F_naive <- c(NA, price[-n_p])
+e2_naive <- (price - F_naive)^2
+mse_naive <- mean(e2_naive, na.rm = TRUE)
+
+knitr::kable(
+  data.frame(Year = year, Price = price,
+             F_t = F_naive, e2 = e2_naive),
+  col.names = c("Year", "Price (RM)", "$F_t$", "$e_t^2$"),
+  align = "c", na_mark = "—"
+)
 ```
 
-If no package, need to install.packages("fpp2") and/or install.packages ("forecast").
-
-### Data Preparation
-
-1.  Use "CPI Malaysia.csv" data. For this example, make sure the data is in your project directory.
-
 ```{r}
-cpi <- read.csv("data/CPI Malaysia.csv",check.names=F)
-cpits <- ts(cpi$`Consumer price index (2010 = 100)`, start=1960,frequency=1)
-# estimation
-est_part <- head(cpits, 0.8*length(cpits))
-# evaluation
-eva_part <- tail(cpits,0.2*length(cpits))
+#| label: naive-result
+cat("Forecast for 2024 (Naive):", price[n_p], "\n")
+cat("MSE:", round(mse_naive, 4), "\n")
 ```
 
-2.  Use "electric.csv" data.
-
 ```{r}
-prod <- read.csv("data/electric.csv")
-electric<-data.frame(t=seq(1:108),electric=prod[1:108,3])
-electricts <- ts(electric$electric, start=c(2015,1), frequency=12) 
-est_elec <- head(electricts, 0.8*length(electricts))
-eva_elec <- tail(electricts, 0.2*length(electricts))
+#| label: fig-naive
+#| fig-cap: "Naive forecast vs. actual values"
+#| fig-height: 3.5
+
+ggplot(data.frame(Year = year, Actual = price, Forecast = F_naive),
+       aes(x = Year)) +
+  geom_line(aes(y = Actual,   colour = "Actual"),         linewidth = 0.9) +
+  geom_point(aes(y = Actual,  colour = "Actual"),         size = 2.5) +
+  geom_line(aes(y = Forecast, colour = "Naive Forecast"),
+            linewidth = 0.9, linetype = "dashed", na.rm = TRUE) +
+  geom_point(aes(y = Forecast, colour = "Naive Forecast"),
+             size = 2.5, na.rm = TRUE) +
+  scale_colour_manual(values = c("Actual" = "steelblue",
+                                 "Naive Forecast" = "#d73027")) +
+  labs(title = "Naive Forecast", x = "Year", y = "Price (RM)", colour = NULL) +
+  theme_ts()
 ```
 
-## Single Exponential Smoothing using R
+> **Excel Tutorial:** Naive Forecast in Excel
+
+------------------------------------------------------------------------
+
+## Naive with Trend
+
+The naive method is modified to account for the **trend component**.
+
+$$F_{t+1} = y_t \times \frac{y_t}{y_{t-1}}$$
+
+| Condition       | Interpretation |
+|-----------------|----------------|
+| $y_t > y_{t-1}$ | Upward trend   |
+| $y_t < y_{t-1}$ | Downward trend |
+
+::: callout-note
+This method is **highly sensitive** to changes in actual values.
+:::
+
+### Example
 
 ```{r}
+#| label: tbl-naive-trend
+#| tbl-cap: "Naive with trend — worked example"
+
+growth   <- c(NA, price[-1] / price[-n_p])
+F_trend  <- c(NA, price[-n_p] * c(NA, growth[-c(1,2)]))
+# one-step: F_{t+1} = y_t * (y_t / y_{t-1})
+F_trend  <- c(NA, sapply(2:n_p, function(i) price[i-1] * (price[i-1] / price[max(1,i-2)])))
+e2_trend <- (price - F_trend)^2
+mse_trend <- mean(e2_trend, na.rm = TRUE)
+
+knitr::kable(
+  data.frame(Year = year, Price = price,
+             Growth = round(c(NA, price[-1]/price[-n_p]), 4),
+             F_t = round(F_trend, 4), e2 = round(e2_trend, 4)),
+  col.names = c("Year", "Price (RM)", "$y_t/y_{t-1}$", "$F_t$", "$e_t^2$"),
+  align = "c", na_mark = "—"
+)
+```
+
+```{r}
+#| label: naive-trend-result
+last_g     <- price[n_p] / price[n_p - 1]
+f2024_trend <- price[n_p] * last_g
+cat("Forecast for 2024 (Naive with Trend):", round(f2024_trend, 4), "\n")
+cat("MSE:", round(mse_trend, 4), "\n")
+```
+
+> **Excel Tutorial:** Naive with Trend in Excel
+
+------------------------------------------------------------------------
+
+# Methods of Averages
+
+## Average Change
+
+The forecast equals the actual value in the current period **plus the average of the absolute changes**.
+
+$$F_{t+m} = y_t + \frac{(y_t - y_{t-1}) + (y_{t-1} - y_{t-2})}{2}$$
+
+**When to use:**
+
+-   Less influenced by historical data; responds quickly to changes.
+-   Most useful when historical changes are of **similar size**.
+-   Suitable for **short and intermediate** data series with consistent changes.
+
+### Example
+
+```{r}
+#| label: tbl-avg-change
+#| tbl-cap: "Average change — worked example"
+
+chg   <- c(NA, diff(price))
+F_ac  <- c(NA, NA, sapply(3:n_p, function(i)
+             price[i-1] + mean(diff(price[1:(i-1)]))))
+e2_ac <- (price - F_ac)^2
+mse_ac <- mean(e2_ac, na.rm = TRUE)
+
+knitr::kable(
+  data.frame(Year = year, Price = price,
+             Change = round(chg, 4), F_t = round(F_ac, 4),
+             e2 = round(e2_ac, 4)),
+  col.names = c("Year", "Price (RM)", "$y_t - y_{t-1}$", "$F_t$", "$e_t^2$"),
+  align = "c", na_mark = "—"
+)
+```
+
+```{r}
+#| label: avg-change-result
+f2024_ac <- price[n_p] + mean(diff(price))
+cat("Forecast for 2024 (Average Change):", round(f2024_ac, 4), "\n")
+cat("MSE:", round(mse_ac, 4), "\n")
+```
+
+> **Excel Tutorial:** Average Change in Excel
+
+------------------------------------------------------------------------
+
+## Average Percent Change
+
+$$F_{t+m} = y_t + \frac{\left(\frac{y_t - y_{t-1}}{y_{t-1}}\right) + \left(\frac{y_{t-1} - y_{t-2}}{y_{t-2}}\right)}{2} \times y_t$$
+
+::: callout-important
+May be unsuitable for forecasting **beyond one or two periods** due to compounding effects.
+:::
+
+### Example
+
+```{r}
+#| label: tbl-avg-pct
+#| tbl-cap: "Average percent change — worked example"
+
+pct   <- c(NA, diff(price) / price[-n_p])
+F_apc <- c(NA, NA, sapply(3:n_p, function(i)
+             price[i-1] * (1 + mean(pct[2:(i-1)], na.rm = TRUE))))
+e2_apc  <- (price - F_apc)^2
+mse_apc <- mean(e2_apc, na.rm = TRUE)
+
+knitr::kable(
+  data.frame(Year = year, Price = price,
+             PctChg = round(pct * 100, 2), F_t = round(F_apc, 4),
+             e2 = round(e2_apc, 4)),
+  col.names = c("Year", "Price (RM)", "% Change", "$F_t$", "$e_t^2$"),
+  align = "c", na_mark = "—"
+)
+```
+
+```{r}
+#| label: avg-pct-result
+f2024_apc <- price[n_p] * (1 + mean(pct, na.rm = TRUE))
+cat("Forecast for 2024 (Avg Percent Change):", round(f2024_apc, 4), "\n")
+cat("MSE:", round(mse_apc, 4), "\n")
+```
+
+> **Excel Tutorial:** Average Percent Change in Excel
+
+------------------------------------------------------------------------
+
+# Exponential Smoothing Techniques
+
+## Single Exponential Smoothing
+
+Also known as **simple exponential smoothing (SES)**. Requires only one parameter $\alpha$.
+
+$$F_{t+1} = \alpha y_t + (1-\alpha)F_t, \quad 0 \leq \alpha \leq 1$$
+
+**Advantages over moving average:**
+
+-   Takes into account the **most recent forecast**.
+-   Requires retention of only a **limited amount of data**.
+
+::: callout-important
+**Disadvantage:** Cannot forecast more than **one-step ahead**.
+:::
+
+### Weighted Average Interpretation
+
+Substituting recursively:
+
+$$F_{t+1} = \alpha y_t + \alpha(1-\alpha)y_{t-1} + \alpha(1-\alpha)^2 y_{t-2} + \cdots$$
+
+Weights decrease exponentially — this is the **damping** effect.
+
+| $\alpha$ | Behaviour                                                  |
+|----------|------------------------------------------------------------|
+| Near 1   | Reacts quickly; heavy weight on recent observation         |
+| Near 0   | Smooth; weights diminish slowly; more historical influence |
+
+**Weights when** $\alpha = 0.8$: $0.8,\ 0.16,\ 0.032,\ 0.0064, \ldots$
+
+**Weights when** $\alpha = 0.2$: $0.2,\ 0.16,\ 0.128,\ 0.1024, \ldots$
+
+Compare with **3-period MA**: equal weights of $\frac{1}{3}$ — no distinction between recent and older data.
+
+### Choosing $\alpha$
+
+| Method         | Description                                               |
+|----------------|-----------------------------------------------------------|
+| **Subjective** | Near 1 for rapidly changing data; small for stable series |
+| **Objective**  | Minimise MSE/MAPE/MAE over the estimation set             |
+
+### Steps
+
+1.  Set initial value: $F_1 = y_1$ (or average of first five observations).
+2.  Find the best $\alpha$ that minimises MSE.
+3.  Calculate fitted values.
+4.  Compute squared errors and MSE.
+
+### Example
+
+```{r}
+#| label: tbl-ses
+#| tbl-cap: "Single exponential smoothing (α = 0.8) — worked example"
+
+alpha    <- 0.8
+F_ses    <- numeric(n_p); F_ses[1] <- price[1]
+for (i in 2:n_p)
+  F_ses[i] <- alpha * price[i-1] + (1 - alpha) * F_ses[i-1]
+
+e2_ses  <- (price - F_ses)^2
+mse_ses <- mean(e2_ses[-1])
+
+knitr::kable(
+  data.frame(Year = year, Price = price,
+             F_t = round(F_ses, 4), e2 = round(e2_ses, 4)),
+  col.names = c("Year", "Price (RM)", "$F_t$", "$e_t^2$"),
+  align = "c"
+)
+```
+
+```{r}
+#| label: ses-result
+f2024_ses <- alpha * price[n_p] + (1 - alpha) * F_ses[n_p]
+cat("Forecast for 2024 (SES, α = 0.8):", round(f2024_ses, 4), "\n")
+cat("MSE:", round(mse_ses, 4), "\n")
+```
+
+### SES using R — Malaysia CPI Data
+
+```{r}
+#| label: ses-r-est
 SE_est <- ses(est_part)
 summary(SE_est)
 ```
 
-------------------------------------------------------------------------
-
 ```{r}
-SE_eva <- ses(eva_part, alpha=0.999)
+#| label: ses-r-eval
+SE_eva <- ses(eva_part, alpha = 0.999)
 summary(SE_eva)
 ```
 
-------------------------------------------------------------------------
-
 ```{r}
-SE_all <- ses(cpits,alpha=0.999)
-summary(SE_all)
+#| label: fig-ses
+#| fig-cap: "SES forecast for Malaysia CPI (α = 0.999)"
+#| fig-height: 4
+
+autoplot(cpits) + ylab("CPI (2010 = 100)") + xlab("Year") +
+  autolayer(forecast(ses(cpits, alpha = 0.999), h = 5),
+            series = "SES Forecast", PI = TRUE) +
+  labs(title = "Malaysia CPI: Single Exponential Smoothing Forecast") +
+  theme_ts()
 ```
 
 ------------------------------------------------------------------------
 
+## Double Exponential Smoothing
+
+Useful for series exhibiting a **linear trend**. Generates **multiple-step-ahead forecasts**.
+
+$$S_t = \alpha y_t + (1-\alpha)S_{t-1}$$ $$S'_t = \alpha S_t + (1-\alpha)S'_{t-1}$$ $$a_t = 2S_t - S'_t$$ $$b_t = \frac{\alpha}{1-\alpha}(S_t - S'_t)$$ $$F_{t+m} = a_t + b_t \times m$$
+
+### Example
+
 ```{r}
-autoplot(cpits)+ylab("CPI")+
-  autolayer(forecast(ses(cpits,alpha=0.999),h=5))
+#| label: tbl-des
+#| tbl-cap: "Double exponential smoothing (α = 0.8) — worked example"
+
+alpha <- 0.8
+S <- numeric(n_p); Sp <- numeric(n_p)
+S[1] <- price[1]; Sp[1] <- price[1]
+for (i in 2:n_p) {
+  S[i]  <- alpha * price[i]  + (1 - alpha) * S[i-1]
+  Sp[i] <- alpha * S[i]      + (1 - alpha) * Sp[i-1]
+}
+a_t   <- 2 * S - Sp
+b_t   <- (alpha / (1 - alpha)) * (S - Sp)
+F_des <- c(NA, a_t[-n_p] + b_t[-n_p] * 1)
+e2_des <- (price - F_des)^2
+mse_des <- mean(e2_des, na.rm = TRUE)
+
+knitr::kable(
+  data.frame(Year = year, Price = price,
+             S = round(S, 4), Sp = round(Sp, 4),
+             a = round(a_t, 4), b = round(b_t, 4),
+             F_t = round(F_des, 4), e2 = round(e2_des, 4)),
+  col.names = c("Year", "Price", "$S_t$", "$S'_t$",
+                "$a_t$", "$b_t$", "$F_t$", "$e_t^2$"),
+  align = "c", na_mark = "—"
+)
 ```
+
+```{r}
+#| label: des-result
+f2024_des <- a_t[n_p] + b_t[n_p] * 1
+cat("Forecast for 2024 (DES, α = 0.8, m = 1):", round(f2024_des, 4), "\n")
+cat("MSE:", round(mse_des, 4), "\n")
+```
+
+> **Excel Tutorial:** Double Exponential Smoothing in Excel (α = 0.6)
 
 ------------------------------------------------------------------------
 
-## Holt's Method using R
+## Holt's Method
+
+Suitable for **linear trend** with more flexibility than DES — it uses **two separate smoothing constants** for level ($\alpha$) and slope ($\beta$).
+
+**Level:** $L_t = \alpha y_t + (1-\alpha)(L_{t-1} + T_{t-1})$
+
+**Trend:** $T_t = \beta(L_t - L_{t-1}) + (1-\beta)T_{t-1}$
+
+**Forecast:** $F_{t+m} = L_t + T_t \times m$
+
+where $0 \leq \alpha \leq 1$, $0 \leq \beta \leq 1$.
+
+### Example
 
 ```{r}
+#| label: tbl-holt
+#| tbl-cap: "Holt's method (α = 0.6, β = 0.2) — worked example"
+
+alpha_h <- 0.6; beta_h <- 0.2
+L <- numeric(n_p); Tr <- numeric(n_p)
+L[1] <- price[1]; Tr[1] <- price[2] - price[1]
+for (i in 2:n_p) {
+  L[i]  <- alpha_h * price[i] + (1 - alpha_h) * (L[i-1] + Tr[i-1])
+  Tr[i] <- beta_h * (L[i] - L[i-1]) + (1 - beta_h) * Tr[i-1]
+}
+F_holt <- c(NA, L[-n_p] + Tr[-n_p] * 1)
+e2_h   <- (price - F_holt)^2
+mse_h  <- mean(e2_h, na.rm = TRUE)
+
+knitr::kable(
+  data.frame(Year = year, Price = price,
+             L = round(L, 4), Tr = round(Tr, 4),
+             F_t = round(F_holt, 4), e2 = round(e2_h, 4)),
+  col.names = c("Year", "Price (RM)", "$L_t$", "$T_t$", "$F_t$", "$e_t^2$"),
+  align = "c", na_mark = "—"
+)
+```
+
+```{r}
+#| label: holt-result
+f2024_holt <- L[n_p] + Tr[n_p] * 1
+cat("Forecast for 2024 (Holt, α = 0.6, β = 0.2):", round(f2024_holt, 4), "\n")
+cat("MSE:", round(mse_h, 4), "\n")
+```
+
+### Holt's Method using R — Malaysia CPI Data
+
+```{r}
+#| label: holt-r-est
 Holt_est <- holt(est_part)
 summary(Holt_est)
 ```
 
-------------------------------------------------------------------------
-
 ```{r}
-Holt_eva <- holt(eva_part, alpha=0.9922, 
-                 beta=0.3708)
+#| label: holt-r-eval
+Holt_eva <- holt(eva_part, alpha = 0.9922, beta = 0.3708)
 summary(Holt_eva)
 ```
 
-------------------------------------------------------------------------
-
 ```{r}
-autoplot(cpits)+
-  ylab("CPI")+
-  autolayer(forecast(holt(cpits, alpha=0.9922,
-                          beta=0.3708), h=5))
+#| label: fig-holt
+#| fig-cap: "Holt's method forecast for Malaysia CPI (α = 0.9922, β = 0.3708)"
+#| fig-height: 4
+
+autoplot(cpits) + ylab("CPI (2010 = 100)") + xlab("Year") +
+  autolayer(forecast(holt(cpits, alpha = 0.9922, beta = 0.3708), h = 5),
+            series = "Holt Forecast", PI = TRUE) +
+  labs(title = "Malaysia CPI: Holt's Method Forecast") +
+  theme_ts()
 ```
 
+> **Excel Tutorial:** Holt's Method in Excel (α = 0.6, β = 0.2)
+
 ------------------------------------------------------------------------
 
-## Holt-Winter's Trend and Seasonality using R
+## Adaptive Response Rate Exponential Smoothing (ARRES)
+
+In SES, $\alpha$ is constant. But structural changes in the data may make a fixed $\alpha$ unrealistic. **ARRES** adapts $\alpha$ at each period based on the ratio of smoothed error to smoothed absolute error.
+
+$$F_{t+1} = \alpha_t y_t + (1-\alpha_t)F_t$$
+
+$$\alpha_t = \left|\frac{E_t}{AE_t}\right|, \quad e_t = y_t - F_t$$
+
+$$E_t = \beta e_t + (1-\beta)E_{t-1} \qquad \text{(smoothed average error)}$$
+
+$$AE_t = \beta|e_t| + (1-\beta)AE_{t-1} \qquad \text{(smoothed absolute error)}$$
+
+where $0 < \beta < 1$.
+
+### Example
 
 ```{r}
+#| label: tbl-arres
+#| tbl-cap: "ARRES (α₁ = 0.6, β = 0.2) — worked example"
+
+beta_a <- 0.2
+F_ar   <- numeric(n_p); e_ar  <- numeric(n_p)
+E_ar   <- numeric(n_p); AE_ar <- numeric(n_p)
+alp_ar <- numeric(n_p)
+
+alp_ar[1] <- 0.6; F_ar[1] <- price[1]
+e_ar[1]   <- 0;   E_ar[1] <- 0; AE_ar[1] <- 0
+
+for (i in 2:n_p) {
+  F_ar[i]  <- alp_ar[i-1] * price[i-1] + (1 - alp_ar[i-1]) * F_ar[i-1]
+  e_ar[i]  <- price[i] - F_ar[i]
+  E_ar[i]  <- beta_a * e_ar[i]       + (1 - beta_a) * E_ar[i-1]
+  AE_ar[i] <- beta_a * abs(e_ar[i])  + (1 - beta_a) * AE_ar[i-1]
+  alp_ar[i] <- ifelse(AE_ar[i] == 0, 0, abs(E_ar[i] / AE_ar[i]))
+}
+
+e2_ar  <- e_ar^2
+mse_ar <- mean(e2_ar[-1])
+
+knitr::kable(
+  data.frame(Year = year, Price = price,
+             F_t = round(F_ar, 4), e = round(e_ar, 4),
+             E = round(E_ar, 4), AE = round(AE_ar, 4),
+             alpha = round(alp_ar, 4), e2 = round(e2_ar, 4)),
+  col.names = c("Year", "Price (RM)", "$F_t$", "$e_t$",
+                "$E_t$", "$AE_t$", "$\\alpha_t$", "$e_t^2$"),
+  align = "c"
+)
+```
+
+```{r}
+#| label: arres-result
+cat("MSE (ARRES, β = 0.2):", round(mse_ar, 4), "\n")
+```
+
+> **Excel Tutorial:** ARRES in Excel (β = 0.2)
+
+------------------------------------------------------------------------
+
+## Holt-Winters Trend and Seasonality
+
+When a **seasonal component exists**, Holt-Winters is the most suitable method. Two model variants:
+
+### Multiplicative Model
+
+$$L_t = \alpha\frac{y_t}{S_{t-s}} + (1-\alpha)(L_{t-1}+T_{t-1})$$ $$T_t = \beta(L_t-L_{t-1}) + (1-\beta)T_{t-1}$$ $$S_t = \gamma\frac{y_t}{L_t} + (1-\gamma)S_{t-s}$$ $$F_{t+m} = (L_t + T_t \times m)\cdot S_{t-s+m}$$
+
+### Additive Model
+
+$$L_t = \alpha(y_t - S_{t-s}) + (1-\alpha)(L_{t-1}+T_{t-1})$$ $$T_t = \beta(L_t-L_{t-1}) + (1-\beta)T_{t-1}$$ $$S_t = \gamma(y_t - L_t) + (1-\gamma)S_{t-s}$$ $$F_{t+m} = L_t + T_t \times m + S_{t-s+m}$$
+
+where $0\leq\alpha,\beta,\gamma\leq 1$; $s$ = season length ($s=4$ quarterly, $s=12$ monthly).
+
+### Example — Quarterly Data (α = 0.6, β = 0.2, γ = 0.4)
+
+```{r}
+#| label: tbl-hw-data
+#| tbl-cap: "Holt-Winters example — quarterly price data"
+
+hw_data <- data.frame(Year    = c(rep(2022,4), rep(2023,4)),
+                      Quarter = rep(1:4, 2),
+                      Price   = c(6, 8, 3, 1, 8, 10, 5, 3))
+knitr::kable(hw_data, align = "c")
+```
+
+```{r}
+#| label: fig-hw-quarterly
+#| fig-cap: "Holt-Winters fitted values for quarterly price data"
+#| fig-height: 3.5
+
+hw_ts  <- ts(hw_data$Price, start = c(2022,1), frequency = 4)
+hw_fit <- hw(hw_ts, seasonal = "additive",
+             alpha = 0.6, beta = 0.2, gamma = 0.4)
+summary(hw_fit)
+```
+
+### Holt-Winters using R — Monthly Electricity Data
+
+```{r}
+#| label: hw-elec-est
 HW_est <- hw(est_elec)
 summary(HW_est)
 ```
 
-------------------------------------------------------------------------
-
 ```{r}
-HW_eva <- hw(eva_elec, alpha=0.9253, beta=0.0004, gamma=0.0001)
+#| label: hw-elec-eval
+HW_eva <- hw(eva_elec, alpha = 0.9522, beta = 0.0002, gamma = 0.0008)
 summary(HW_eva)
 ```
 
+```{r}
+#| label: fig-hw-elec
+#| fig-cap: "Holt-Winters 12-month forecast for electricity output index"
+#| fig-height: 4
+
+autoplot(electricts) + ylab("Output Index") + xlab("Year") +
+  autolayer(forecast(hw(electricts, alpha = 0.9522,
+                        beta = 0.0002, gamma = 0.0008), h = 12),
+            series = "HW Forecast", PI = TRUE) +
+  labs(title = "Electricity Output Index: Holt-Winters Forecast") +
+  theme_ts()
+```
+
+> **Excel Tutorial:** Holt-Winters in Excel (α = 0.6, β = 0.2, γ = 0.1)
+
 ------------------------------------------------------------------------
 
+# Forecasting Using Decomposition Method
+
+Assumes **past patterns repeat in the future**. Suitable for data with both **trend and seasonal** components. Cyclical and irregular components are excluded.
+
+| Relationship   | Forecast                     |
+|----------------|------------------------------|
+| Multiplicative | $F_t = \hat{T}_t \times S_t$ |
+| Additive       | $F_t = \hat{T}_t + S_t$      |
+
+### Steps
+
+| Step | Action |
+|----|----|
+| **1** | Compute trend ($\hat{T}_t$) using linear regression or moving average |
+| **2** | Compute seasonal indices ($S_t$) |
+| **3** | Combine trend and seasonal index to obtain forecasts |
+
+### Example
+
+Seasonal indices for motorcycle production ('000), 2021–2023:
+
+| Quarter        | Q1  | Q2  | Q3  | Q4  |
+|----------------|:---:|:---:|:---:|:---:|
+| Seasonal Index | 75  | 96  | 91  | 138 |
+
+Trend: $\hat{T}_t = 3.87 + 1.14t$, where $t = 1$ for Q1 2021.
+
+**Forecast Q1 and Q4 of 2024:**
+
 ```{r}
-autoplot(electricts)+
-  xlab("Year")+
-  ylab("Indeks")+
-  labs(title = "Forecasting Electricity Index using Holt-Winters Method")+
-  autolayer(forecast(hw(electricts, alpha=0.9253, beta=0.0004, gamma=0.0001), h=12))
+#| label: tbl-decomp-example
+#| tbl-cap: "Decomposition forecast for Q1 and Q4 of 2024"
+
+SI  <- c(75, 96, 91, 138)
+t_vals <- c(13, 16)   # Q1 2024 = t13, Q4 2024 = t16
+T_hat  <- 3.87 + 1.14 * t_vals
+F_vals <- T_hat * SI[c(1,4)] / 100
+
+knitr::kable(
+  data.frame(Period = c("Q1 2024","Q4 2024"),
+             t = t_vals, T_hat = round(T_hat, 4),
+             SI = SI[c(1,4)], Forecast = round(F_vals, 4)),
+  col.names = c("Period","$t$","$\\hat{T}_t$","SI","Forecast ('000)"),
+  align = "c"
+)
+```
+
+### Decomposition using R — Electricity Data
+
+```{r}
+#| label: fig-decomp-r
+#| fig-cap: "Decomposition-based 12-month forecast for electricity output index"
+#| fig-height: 4
+
+decomp_fit <- decompose(electricts, type = "multiplicative")
+t_vec      <- seq_along(electricts)
+lm_elec    <- lm(electricts ~ t_vec)
+
+t_future   <- (length(electricts) + 1):(length(electricts) + 12)
+T_future   <- predict(lm_elec, newdata = data.frame(t_vec = t_future))
+SI_elec    <- decomp_fit$seasonal
+SI_future  <- as.numeric(SI_elec[((t_future - 1) %% 12) + 1])
+F_future   <- ts(T_future * SI_future, start = c(2024,1), frequency = 12)
+
+autoplot(electricts) +
+  autolayer(F_future, series = "Decomposition Forecast") +
+  labs(title = "Electricity Output: Decomposition-Based Forecast (2024)",
+       y = "Output Index", x = "Year") +
+  theme_ts()
 ```
 
 ------------------------------------------------------------------------
 
-## Decomposition Method
+# Method Comparison
 
 ```{r}
+#| label: tbl-comparison
+#| tbl-cap: "Summary comparison of univariate methods on the worked example"
 
-data("AirPassengers")
-data <- AirPassengers
-
-plot(data)
+data.frame(
+  Method     = c("Naive","Naive with Trend","Avg Change",
+                 "Avg % Change","SES","DES","Holt's","ARRES"),
+  Trend      = c("No","Yes","No","No","No","Yes","Yes","No"),
+  Seasonal   = c("No","No","No","No","No","No","No","No"),
+  MultiStep  = c("Yes","Yes","Yes","Yes","No","Yes","Yes","No"),
+  MSE        = round(c(mse_naive, mse_trend, mse_ac, mse_apc,
+                       mse_ses, mse_des, mse_h, mse_ar), 4)
+) |>
+  knitr::kable(col.names = c("Method","Handles Trend","Handles Seasonal",
+                              "Multi-step","MSE (example)"),
+               align = "c")
 ```
 
 ------------------------------------------------------------------------
 
-### Plot decompose
+# Summary
 
-```{r}
-data_decompose <- decompose(data)
-data_decompose_mul <- decompose(data, type="multiplicative")
-plot(data_decompose)
-```
-
-------------------------------------------------------------------------
-
-```{r}
-plot(data_decompose_mul)
-```
+-   **Univariate models** use only past values — no explanatory variables.
+-   **Naive** ($F_{t+m} = y_t$) is the benchmark; all other methods should outperform it.
+-   **Naive with Trend** adjusts for the growth rate; highly sensitive to recent changes.
+-   **Average Change / Percent Change** average historical movements; suitable for short series.
+-   **SES** uses exponentially decreasing weights with one parameter $\alpha$; one-step-ahead only.
+-   **DES and Holt's** handle linear trends with multi-step capability; Holt's uses two constants.
+-   **ARRES** adapts $\alpha$ over time — ideal when data behaviour changes.
+-   **Holt-Winters** adds seasonal smoothing ($\gamma$) for trend + seasonal data.
+-   **Decomposition forecasting** extracts trend and seasonal separately, then combines them.
 
 ------------------------------------------------------------------------
 
-### Trend adjusted time series (without trend component)
+# References
 
-```{r}
+-   Mohd Alias Lazim, *Introductory Business Forecasting: A Practical Approach*, 3rd ed., UPENA, UiTM, 2013.
+-   <https://open.dosm.gov.my/data-catalogue>
 
-# trend adjusted time series (additive model)
-trend_adjusted_add <- data-data_decompose$trend
-plot(trend_adjusted_add)
-```
-
-------------------------------------------------------------------------
-
-```{r}
-# trend adjusted time series (multiplicative model)
-trend_adjusted_mul <- data / data_decompose_mul$trend
-plot(trend_adjusted_mul)
-```
-
-------------------------------------------------------------------------
-
-### Seasonal adjusted time series (without seasonal component)
-
-**Step 1**: Adjusted the data by removing the seasonal component.
-
-Example of additive assumption.
-
-```{r}
-#| fig-align: "center"
-
-# seasonal adusted time series
-season_adjusted_add = data - data_decompose$seasonal
-plot(season_adjusted_add)
-```
-
-------------------------------------------------------------------------
-
-Example of multiplicative assumption.
-
-```{r}
-season_adjusted_mul <- data / data_decompose_mul$seasonal
-plot(season_adjusted_mul)
-```
-
-------------------------------------------------------------------------
-
-**Step 2**: Estimate the trend from seasonal adjusted data using linear trend model.
-
-```{r}
-
-time <- 1:length(season_adjusted_mul)
-
-reg_deaseason <- lm(season_adjusted_mul~time)
-summary(reg_deaseason)
-```
-
-------------------------------------------------------------------------
-
-**Step 3**: Determine the seasonal components of the series.
-
-```{r}
-
-h <- 12
-h_time <- (length(season_adjusted_mul)+1):(length(season_adjusted_mul)+h)
-length(season_adjusted_mul)
-print(h_time)
-```
-
-Estimated Seasonal Indices
-
-```{r}
-est_si <- as.numeric(tail(data_decompose_mul$seasonal,12))
-print(est_si)
-```
-
-**Step 4**: Use linear trend model to estimate the $\hat{T}_{t+h}$
-
-```{r}
-h_time <- data.frame(time=h_time)
-h_pred <- predict(reg_deaseason, newdata=h_time)
-h_pred
-```
-
-------------------------------------------------------------------------
-
-**Step 5**: Forecasting using decomposition method assuming multiplicative effect
-
-```{r}
-#| fig-align: "center"
-
-forecast_mul <- h_pred * est_si
-
-plot(1:length(data), data, type = "l", col = "blue", lwd = 2,
-     xlim = c(1, length(data) + h),ylim = range(c(data, forecast_mul)),
-     xlab = "Time", ylab = "Value", main = "Time Series Data and Forecast")
-
-# Add forecast
-lines((length(data) + 1):(length(data) + h), 
-      forecast_mul, col = "red", lwd = 2)
-
-# Add vertical line at forecast start
-abline(v = length(data), lty = 2, col = "gray")
-
-# Add legend
-legend("topleft", legend = c("Original Data", "Forecast"),col = c("blue", "red"), lwd = 2)
-```
-
-------------------------------------------------------------------------
-
-### Forecasting using Seasonal and Trend Decomposition using Loess (STL)
-
-Robust method for decomposing time series data, allowing you to separately analyze the seasonal, trend, and remainder components.
-
-Loess refers to a technique for estimating nonlinear relationships, and the STL method is especially useful because:
-
-1.  It can handle any type of seasonality.
-2.  The seasonal component can change over time, which can be controlled by the user.
-3.  The trend-cycle smoothness can also be user-defined.
-4.  It can be made robust to outliers.
-
-------------------------------------------------------------------------
-
-```{r}
-#| fig-align: "center"
-fit <- stl(data, t.window = 12, s.window = "periodic", robust=TRUE)
-fit.sa <- seasadj(fit)
-plot(fit.sa)
-```
-
-::: callout-note
-## Note:
-
-The STL algorithm is inherently additive, but logging the series converts a multiplicative relationship to an additive one in the log scale. When you back-transform (take exponentials) after decomposing, you retrieve the multiplicative structure for analysis and visualization.
-:::
-
-------------------------------------------------------------------------
-
-```{r}
-autoplot(naive(fit.sa))+
-  ylab("New orders index")+
-  ggtitle("Naive forecast of seasonality adjusted data")
-```
-
-Naive forecast of the seasonally adjusted air passenger data. The forecast then are "reseasonalised" by adding the seasonal naive forecast of the seasonal component.
-
-------------------------------------------------------------------------
-
-Use forecast () function applied to the stl object. Need to specify the method being used on the seasonally adjusted data, and the function will do the reseasonalising for you.
-
-```{r}
-autoplot(forecast(fit, method="naive",h=12))+
-  ylab("New orders index")
-```
-
-------------------------------------------------------------------------
-
-Shortcut approach using stlf() function.
-
-What this function do?
-
-1.  Decompose the time series using STL.
-2.  Forecast the seasonally adjusted series.
-3.  Return the reaseasonalised forecasts.
-
-```{r}
-#| fig-align: "center"
-
-fcast <- stlf(data,method="naive",h=12)
-autoplot(fcast)+
-  ylab("New orders index")
-```
-
-------------------------------------------------------------------------
-
-### Further reading:
-
-<https://otexts.com/fpp2/expsmooth.html>
-
-<https://otexts.com/fpp2/forecasting-decomposition.html>
-
-# End of Slides
+**Data:** <https://drive.google.com/drive/folders/1SlWHeWAAVXre62j9VC-nKDdKiVd1KaM3?usp=sharing>
