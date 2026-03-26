@@ -8,7 +8,10 @@
 # Quarto cache (freeze outputs are kept, intermediate cache is not)
 /.quarto/
 *_cache/
+
+# Ignore *_files/ only outside docs/ (docs/ must be fully committed)
 *_files/
+!docs/**
 
 # OS
 .DS_Store
@@ -18,5 +21,3 @@ Thumbs.db
 test.R
 Untitled.*
 dea_benchmarking.R
-*.png
-!images/*.png   # keep images in the images/ folder
