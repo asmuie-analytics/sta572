@@ -29,11 +29,11 @@ theme_ts <- function() {
 
 By the end of this chapter, students should be able to:
 
-1. Understand Time Series Fundamentals.
-2. Identify Time Series Components.
-3. Understand the Relationship Among Components.
-4. Measure Forecast Performance.
-5. Apply these concepts using R.
+1.  Understand Time Series Fundamentals.
+2.  Identify Time Series Components.
+3.  Understand the Relationship Among Components.
+4.  Measure Forecast Performance.
+5.  Apply these concepts using R.
 
 ## Definition
 
@@ -41,9 +41,9 @@ A time series is fundamentally defined as a **time-oriented or chronological seq
 
 Depending on the context, time series data can take several forms:
 
-- **Instantaneous measurements:** A reading taken at a specific point in time, such as the viscosity of a chemical product at the moment it is measured.
-- **Cumulative quantities:** An accumulated total over the interval, such as the total product demand or sales during a month.
-- **Summary statistics:** A metric that reflects activity of the variable during the time period, such as the daily closing price of a stock.
+-   **Instantaneous measurements:** A reading taken at a specific point in time, such as the viscosity of a chemical product at the moment it is measured.
+-   **Cumulative quantities:** An accumulated total over the interval, such as the total product demand or sales during a month.
+-   **Summary statistics:** A metric that reflects activity of the variable during the time period, such as the daily closing price of a stock.
 
 ### Statistical and Mathematical Definition
 
@@ -58,9 +58,24 @@ where the subscript $t$ denotes the discrete time period.
 An important distinction:
 
 | Concept | Description |
-|---------|-------------|
+|------------------------------|------------------------------------------|
 | **The Time Series Model** | The theoretical sequence of underlying random variables — the ensemble of possibilities |
 | **The Realization** | The actual historical sequence of data observed; a single realization of the stochastic process |
+
+### Arrangement of Time Series Data
+
+```{r}
+#| label: tbl-arrangement
+#| tbl-cap: "Example arrangement of time series data"
+
+df_example <- data.frame(
+  t     = 1:6,
+  Year  = 2018:2023,
+  y_t   = c(3.4, 3.3, 3.9, 4.5, 3.7, 3.5)
+)
+knitr::kable(df_example, col.names = c("$t$", "Year", "$y_t$ (Unemployment Rate, %)"),
+             align = "c")
+```
 
 ## Categorization of Forecasting Models
 
@@ -124,23 +139,23 @@ title(sub = "Figure 3: Monthly Sales of Specialty Oil Filters, Jul 1983 – Jun 
 
 When interpreting a time series plot, always include the following:
 
-| Element | Description |
-|---------|-------------|
-| **Minimum** | The smallest value in the plot |
-| **Maximum** | The largest value in the plot |
+| Element      | Description                                               |
+|--------------|-----------------------------------------------------------|
+| **Minimum**  | The smallest value in the plot                            |
+| **Maximum**  | The largest value in the plot                             |
 | **Outliers** | Values much further away from the rest of the data points |
-| **Trends** | Patterns such as upward/downward movements or clusters |
+| **Trends**   | Patterns such as upward/downward movements or clusters    |
 
 **Example interpretation (Figure 1):** *Malaysia's unemployment rate ranged from a minimum of 2.4% (1997) to a maximum of 7.4% (2020). The data shows a general downward trend from 1986 to 1997 and exhibits considerable fluctuation thereafter, with a sharp spike in 2020 likely attributed to the COVID-19 pandemic.*
 
----
+------------------------------------------------------------------------
 
 # Components of Time Series
 
 A time series is typically composed of four components:
 
 | Component | Notation | Description |
-|-----------|----------|-------------|
+|------------------------|----------------------|----------------------------|
 | Trend | $T_t$ | Long-run direction of the series |
 | Seasonal | $S_t$ | Regular, repeating fluctuations within a fixed period |
 | Cyclical | $C_t$ | Long-wave rises and falls around the trend |
@@ -153,22 +168,47 @@ The **trend component** describes the general upward or downward movements that 
 ### Types of Trends
 
 | Type | Description |
-|------|-------------|
+|-----------------------|-------------------------------------------------|
 | **Upward** | Values increase over time |
 | **Downward** | Values decrease over time |
-| **Horizontal/Flat** | Values remain relatively stable |
+| **No Trend/Flat** | Values remain relatively stable |
 | **Non-linear** | Exhibits curvature — exponential growth, logarithmic decay, etc. |
+
+```{r}
+#| label: fig-trend-types
+#| fig-cap: "Four types of trend in time series data"
+#| fig-height: 5
+
+t  <- 1:60
+p1 <- ggplot(data.frame(t, y = 10 + 0.5*t + rnorm(60, 0, 1.5)),
+             aes(t, y)) + geom_line(colour="#d73027", linewidth=0.8) +
+      labs(title="Upward Trend", x="Time", y="Value") + theme_ts()
+
+p2 <- ggplot(data.frame(t, y = 40 - 0.5*t + rnorm(60, 0, 1.5)),
+             aes(t, y)) + geom_line(colour="#4575b4", linewidth=0.8) +
+      labs(title="Downward Trend", x="Time", y="Value") + theme_ts()
+
+p3 <- ggplot(data.frame(t, y = 25 + rnorm(60, 0, 1.5)),
+             aes(t, y)) + geom_line(colour="#1a9641", linewidth=0.8) +
+      labs(title="No Trend / Flat Trend", x="Time", y="Value") + theme_ts()
+
+p4 <- ggplot(data.frame(t, y = 10 * exp(0.04*t) + rnorm(60, 0, 3)),
+             aes(t, y)) + geom_line(colour="#fc8d59", linewidth=0.8) +
+      labs(title="Non-linear (Exponential) Trend", x="Time", y="Value") + theme_ts()
+
+grid.arrange(p1, p2, p3, p4, nrow = 2)
+```
 
 ### Importance of Studying Trends
 
-- Helps in making **forecasts and predictions** about future values.
-- Provides **insights into underlying patterns and relationships** — useful for decision-making.
-- Helps **identify potential anomalies or changes** in data behaviour over time.
+-   Helps in making **forecasts and predictions** about future values.
+-   Provides **insights into underlying patterns and relationships** which useful for decision-making.
+-   Helps **identify potential anomalies or changes** in data behaviour over time.
 
 ### Identifying Trends
 
-- **Visual Inspection:** Plotting the time series and observing the overall direction.
-- **Statistical Techniques:** Linear regression or moving averages.
+-   **Visual Inspection:** Plotting the time series and observing the overall direction.
+-   **Statistical Techniques:** Linear regression or moving averages.
 
 ### Trend Using Simple Linear Regression
 
@@ -194,17 +234,26 @@ ggplot(data = electric, aes(x = t, y = index)) +
   theme_ts()
 ```
 
+```{r}
+#| label: lm-summary
+
+lm_fit <- lm(index ~ t, data = electric)
+# Linear regression output
+summary(lm_fit)
+```
+
 > **Excel Tutorial:** <https://youtu.be/n6e71G9PImc>
 
 ### Trend Using Moving Average
 
 $$M_t^{(k)} = \frac{1}{k}\sum_{i=0}^{k-1} y_{t-i}$$
 
-- If $k = 3$: **3-period moving average**
-- If $k = 5$: **5-period moving average**
+- If $k = 3$: $M_1 = \dfrac{y_1 + y_2 + y_3}{3}$ — **3-period moving average**
+- If $k = 5$: $M_1 = \dfrac{y_1 + y_2 + y_3 + y_4 + y_5}{5}$ — **5-period moving average**
 
 ::: {.callout-note}
-The larger $k$ is, the **smoother** the series — but more observations are **lost** at both ends.
+- The larger $k$ is, the **smoother** the series, but more observations are **lost** at both ends.
+- The first $\lfloor k/2 \rfloor$ and last $\lfloor k/2 \rfloor$ observations are lost from the moving average series.
 :::
 
 ```{r}
@@ -226,7 +275,7 @@ legend("bottom", legend = c("Actual", "3-period MA", "5-period MA"),
 
 > **Excel Tutorial:** <https://youtu.be/FODxTjhY5TM>
 
----
+------------------------------------------------------------------------
 
 ## Seasonal
 
@@ -235,16 +284,16 @@ The **seasonal component** refers to a recurring pattern that repeats at **regul
 ### Causes of Seasonal Patterns
 
 | Factor | Example |
-|--------|---------|
+|----------------------------------|--------------------------------------|
 | **Weather** | Palm oil production influenced by rainfall (November–March, east coast Malaysia) |
 | **Holidays** | Tourist numbers peak during school holidays |
 | **Cultural Events** | Zakat collection highest during Hari Raya Eidulfitri |
 
 ### Identifying Seasonal Components
 
-- **Visual Inspection:** Plotting the time series and observing recurring patterns.
-- **Seasonal Decomposition:** STL or classical decomposition methods.
-- **Statistical Tests:** Autocorrelation function (ACF) analysis *(Chapter 5)*.
+-   **Visual Inspection:** Plotting the time series and observing recurring patterns.
+-   **Seasonal Decomposition:** STL or classical decomposition methods.
+-   **Statistical Tests:** Autocorrelation function (ACF) analysis *(Chapter 5)*.
 
 ```{r}
 #| label: fig-seasonal
@@ -278,17 +327,17 @@ autoplot(decomp) +
 
 > **Excel Tutorial:** <https://youtu.be/Wwlx2IgB7uw>
 
----
+------------------------------------------------------------------------
 
 ## Cyclical
 
 **Cyclical variation** refers to rises and falls of the series over an **unspecified** period, usually around the long-run trend line.
 
-::: {.callout-important}
-- Requires **sufficiently long** data — typically **more than 5 years**.
-- Easier to detect with **yearly** data.
-- There is **no fixed period** for cyclical recurrence (unlike seasonal).
-- Identification is challenging because data patterns are typically **not stable**.
+::: callout-important
+-   Requires **sufficiently long** data — typically **more than 5 years**.
+-   Easier to detect with **yearly** data.
+-   There is **no fixed period** for cyclical recurrence (unlike seasonal).
+-   Identification is challenging because data patterns are typically **not stable**.
 :::
 
 ![](images/clipboard-4042162418.png){fig-align="center" width="80%"}
@@ -301,28 +350,28 @@ autoplot(decomp) +
 
 $$\text{Percent of Trend} = \frac{y_t}{\hat{T}_t} \times 100$$
 
-| Value | Interpretation |
-|-------|---------------|
+| Value   | Interpretation                  |
+|---------|---------------------------------|
 | $< 100$ | Economy contracting (recession) |
-| $> 100$ | Economy expanding |
+| $> 100$ | Economy expanding               |
 
 #### Relative Cyclical Residual Method
 
 $$\text{Relative Cyclical Residual} = \frac{y_t - \hat{T}_t}{\hat{T}_t} \times 100$$
 
-| Value | Interpretation |
-|-------|---------------|
-| Negative | Trend pulled down by recession |
+| Value    | Interpretation                   |
+|----------|----------------------------------|
+| Negative | Trend pulled down by recession   |
 | Positive | Output above average (expansion) |
 
----
+------------------------------------------------------------------------
 
 ## Irregular / Random
 
 The **irregular or random component** is the portion that **cannot be explained** by trend, seasonal, or cyclical components. It has four distinct sub-types:
 
 | Sub-type | Key Characteristic | Visual Pattern |
-|----------|--------------------|----------------|
+|------------------|------------------------------|------------------------|
 | **Turning Point** | Trend permanently changes direction | Sustained shift in slope |
 | **Random Shock** | Sudden, temporary spike or dip | Sharp impulse, then recovery |
 | **Outlier** | One extreme isolated value | Single point far from neighbours |
@@ -334,9 +383,9 @@ A **turning point** is where the long-run direction **permanently reverses** —
 
 **Examples:**
 
-- Introduction of robotic manufacturing permanently raises production.
-- Sudden change in consumer preference shifts demand to a new sustained level.
-- Policy change (e.g., new minimum wage legislation) permanently alters labour market dynamics.
+-   Introduction of robotic manufacturing permanently raises production.
+-   Sudden change in consumer preference shifts demand to a new sustained level.
+-   Policy change (e.g., new minimum wage legislation) permanently alters labour market dynamics.
 
 ```{r}
 #| label: fig-turning-point
@@ -376,11 +425,49 @@ ggplot(df_u, aes(x = Year, y = u_rate)) +
   theme_ts()
 ```
 
-::: {.callout-note}
+
+```{r}
+#| label: fig-turning-point2
+#| fig-cap: "Turning point — the trend permanently reverses direction at the marked point"
+#| fig-height: 4
+
+t_tp  <- 1:80
+# Before turning point: upward; after: downward
+y_tp  <- ifelse(t_tp <= 45,
+                20 + 0.5 * t_tp,
+                20 + 0.5 * 45 - 0.4 * (t_tp - 45)) +
+         rnorm(80, 0, 1.2)
+
+df_tp <- data.frame(t = t_tp, y = y_tp)
+
+ggplot(df_tp, aes(x = t, y = y)) +
+  geom_line(colour = "#4575b4", linewidth = 0.9) +
+  geom_vline(xintercept = 45, linetype = "dashed", colour = "#d73027",
+             linewidth = 1) +
+  annotate("label", x = 45, y = max(y_tp) - 1,
+           label = "Turning Point\n(t = 45)", colour = "#d73027",
+           fill = "white", size = 3.5, label.size = 0.3) +
+  annotate("segment", x = 5, xend = 42, y = 22, yend = 40,
+           arrow = arrow(length = unit(0.15, "cm")),
+           colour = "#1a9641", linewidth = 0.8) +
+  annotate("text", x = 15, y = 26, label = "Upward trend",
+           colour = "#1a9641", size = 3.5) +
+  annotate("segment", x = 48, xend = 75, y = 42, yend = 30,
+           arrow = arrow(length = unit(0.15, "cm")),
+           colour = "#d73027", linewidth = 0.8) +
+  annotate("text", x = 62, y = 38, label = "Downward trend",
+           colour = "#d73027", size = 3.5) +
+  labs(title = "Turning Point in a Time Series",
+       subtitle = "Before t = 45: upward trend  |  After t = 45: downward trend",
+       x = "Time", y = "Value") +
+  theme_ts()
+```
+
+::: callout-note
 **Turning point vs. Random Shock:** A turning point results in a **permanent direction change**. After a random shock, the series **recovers** toward its previous level.
 :::
 
----
+------------------------------------------------------------------------
 
 ### Random Shock
 
@@ -388,9 +475,9 @@ A **random shock** is an abrupt, **temporary** spike or drop caused by an unexpe
 
 **Examples:**
 
-- Crude oil price sudden drop due to COVID-19.
-- Production of masks increasing tremendously during the pandemic.
-- Stock market crash following a geopolitical crisis or natural disaster.
+-   Crude oil price sudden drop due to COVID-19.
+-   Production of masks increasing tremendously during the pandemic.
+-   Stock market crash following a geopolitical crisis or natural disaster.
 
 ```{r}
 #| label: fig-random-shock
@@ -427,7 +514,7 @@ ggplot(oil_df, aes(x = Date, y = Price)) +
 ```{r}
 #| label: fig-shock-recovery
 #| fig-cap: "Gulf War shock (1990–91): price spikes then recovers to prior trend"
-#| fig-height: 3.5
+#| fig-height: 5
 
 oil_sub <- oil_df[oil_df$Date >= 1989.5 & oil_df$Date <= 1995, ]
 lm_pre  <- lm(Price ~ Date, data = oil_df[oil_df$Date < 1990, ])
@@ -448,7 +535,69 @@ ggplot(oil_sub, aes(x = Date)) +
   theme_ts()
 ```
 
----
+```{r}
+#| label: fig-random-shock2
+#| fig-cap: "Random shock — a sudden spike followed by recovery to the previous level"
+#| fig-height: 4
+
+t_sh  <- 1:80
+trend_sh <- 30 + 0.2 * t_sh
+noise_sh <- rnorm(80, 0, 1.2)
+shock    <- rep(0, 80)
+shock[40] <- -18   # sudden sharp downward shock
+shock[41] <- -10
+shock[42] <- -4    # gradual recovery
+
+y_sh  <- trend_sh + shock + noise_sh
+df_sh <- data.frame(t = t_sh, y = y_sh)
+
+ggplot(df_sh, aes(x = t, y = y)) +
+  geom_line(colour = "#4575b4", linewidth = 0.9) +
+  annotate("rect", xmin = 39, xmax = 43, ymin = -Inf, ymax = Inf,
+           alpha = 0.15, fill = "#d73027") +
+  annotate("label", x = 41, y = min(y_sh) + 3,
+           label = "Shock period\n(e.g. COVID-19)", colour = "#d73027",
+           fill = "white", size = 3.5, label.size = 0.3) +
+  annotate("segment", x = 43, xend = 55, y = y_sh[42] + 1, yend = 35,
+           arrow = arrow(length = unit(0.15, "cm")), colour = "#1a9641",
+           linewidth = 0.8) +
+  annotate("text", x = 58, y = 35.5, label = "Recovery",
+           colour = "#1a9641", size = 3.5) +
+  labs(title = "Random Shock in a Time Series",
+       subtitle = "Sharp temporary drop followed by recovery to original trend",
+       x = "Time", y = "Value") +
+  theme_ts()
+```
+
+```{r}
+#| label: fig-shock-comparison
+#| fig-cap: "Comparison: impulse shock (single period) vs. sustained shock (multiple periods)"
+#| fig-height: 3.5
+
+t2    <- 1:60
+base  <- 20 + 0.15 * t2
+
+# Single-period impulse
+y_imp <- base + rnorm(60, 0, 0.8)
+y_imp[30] <- y_imp[30] + 12
+
+# Multi-period sustained shock (e.g. supply chain disruption for 5 months)
+shock_sus <- rep(0, 60)
+shock_sus[30:34] <- c(8, 10, 9, 7, 4)
+y_sus <- base + shock_sus + rnorm(60, 0, 0.8)
+
+df_imp <- data.frame(t = t2, y = y_imp, type = "Single-period Impulse")
+df_sus <- data.frame(t = t2, y = y_sus, type = "Sustained Shock (5 periods)")
+df_cmp <- rbind(df_imp, df_sus)
+
+ggplot(df_cmp, aes(x = t, y = y)) +
+  geom_line(colour = "#4575b4", linewidth = 0.8) +
+  facet_wrap(~type, scales = "free_y") +
+  labs(title = "Types of Random Shock",
+       x = "Time", y = "Value") +
+  theme_ts()
+```
+------------------------------------------------------------------------
 
 ### Outliers
 
@@ -458,57 +607,56 @@ Outliers arise from: errors in data collection, measurement instrument failure, 
 
 ```{r}
 #| label: fig-outliers
-#| fig-cap: "Outlier detection in oil filter sales using Z-score method (|z| > 2)"
-#| fig-height: 4.5
+#| fig-cap: "Outliers in a time series — isolated extreme data points"
+#| fig-height: 6
 
-data(oilfilters)
-oil_f <- data.frame(Date  = as.numeric(time(oilfilters)),
-                    Sales = as.numeric(oilfilters))
-oil_f$z    <- as.numeric(scale(oil_f$Sales))
-oil_f$flag <- abs(oil_f$z) > 2
-oil_f$label <- ifelse(oil_f$flag, paste0("z = ", round(oil_f$z, 2)), NA)
+t_out  <- 1:60
+y_out  <- 50 + 0.3 * t_out + rnorm(60, 0, 2)
+# Inject outliers
+y_out[15] <- y_out[15] + 20   # high outlier
+y_out[42] <- y_out[42] - 18  # low outlier
 
-ggplot(oil_f, aes(x = Date, y = Sales)) +
+# Z-score to flag outliers
+z_scores  <- abs(scale(y_out))
+is_outlier <- z_scores > 2.5
+
+df_out <- data.frame(t = t_out, y = y_out, outlier = as.vector(is_outlier))
+
+ggplot(df_out, aes(x = t, y = y)) +
   geom_line(colour = "grey50", linewidth = 0.7) +
-  geom_point(aes(colour = flag, size = flag)) +
-  geom_text(aes(label = label), vjust = -1.2, size = 3,
-            colour = "#d73027", na.rm = TRUE) +
-  scale_colour_manual(values = c("FALSE" = "steelblue", "TRUE" = "#d73027"),
-                      labels = c("FALSE" = "Normal", "TRUE" = "Potential Outlier")) +
+  geom_point(aes(colour = outlier, size = outlier)) +
+  scale_colour_manual(values = c("FALSE" = "#4575b4", "TRUE" = "#d73027"),
+                      labels = c("FALSE" = "Normal", "TRUE" = "Outlier")) +
   scale_size_manual(values = c("FALSE" = 1.5, "TRUE" = 3.5)) +
-  labs(title = "Oil Filter Sales with Z-score Outlier Detection",
-       subtitle = "Points with |z| > 2 are flagged as potential outliers",
-       x = "Year", y = "Sales", colour = NULL, size = NULL) +
+  annotate("label", x = 15, y = y_out[15] + 2,
+           label = "High outlier\n(data entry error?)",
+           colour = "#d73027", fill = "white", size = 3.2, label.size = 0.3) +
+  annotate("label", x = 42, y = y_out[42] - 3,
+           label = "Low outlier\n(instrument failure?)",
+           colour = "#d73027", fill = "white", size = 3.2, label.size = 0.3) +
+  labs(title = "Outliers in a Time Series",
+       subtitle = "Flagged using Z-score threshold > 2.5",
+       x = "Time", y = "Value", colour = NULL, size = NULL) +
   theme_ts()
-```
-
-```{r}
-#| label: outlier-detection
-z       <- scale(as.numeric(oilfilters))
-flagged <- which(abs(z) > 2)
-cat("Flagged observations (|z| > 2):\n")
-cat("  Time points :", round(as.numeric(time(oilfilters))[flagged], 3), "\n")
-cat("  Sales values:", as.numeric(oilfilters)[flagged], "\n")
-cat("  Z-scores    :", round(z[flagged], 3), "\n")
 ```
 
 **How to detect outliers:**
 
-1. **Visual inspection** of the time series plot.
-2. **Z-score method** — flag where $|z_t| = |\frac{y_t - \bar{y}}{s}| > 2.5$.
-3. **IQR method** — flag outside $[Q_1 - 1.5 \times IQR,\ Q_3 + 1.5 \times IQR]$.
-4. **Decomposition residuals** — inspect the irregular component after removing trend and seasonal effects.
+1.  **Visual inspection** of the time series plot.
+2.  **Z-score method** — flag where $|z_t| = |\frac{y_t - \bar{y}}{s}| > 2.5$.
+3.  **IQR method** — flag outside $[Q_1 - 1.5 \times IQR,\ Q_3 + 1.5 \times IQR]$.
+4.  **Decomposition residuals** — inspect the irregular component after removing trend and seasonal effects.
 
 **How to deal with outliers:**
 
-| Strategy | When to Use |
-|----------|-------------|
-| **Remove** | Confirmed data entry errors or instrument failures |
-| **Winsorize** | Replace with boundary value (5th/95th percentile) |
-| **Impute** | Replace with average of neighbours |
-| **Robust models** | Use outlier-resistant forecasting techniques |
+| Strategy          | When to Use                                        |
+|-------------------|----------------------------------------------------|
+| **Remove**        | Confirmed data entry errors or instrument failures |
+| **Winsorize**     | Replace with boundary value (5th/95th percentile)  |
+| **Impute**        | Replace with average of neighbours                 |
+| **Robust models** | Use outlier-resistant forecasting techniques       |
 
----
+------------------------------------------------------------------------
 
 ### Random (Pure Noise)
 
@@ -557,22 +705,88 @@ grid.arrange(p1, p2, ncol = 2)
 ### Summary: Distinguishing Irregular Sub-types
 
 | Sub-type | Duration | Reversible? | Real Example |
-|----------|----------|-------------|--------------|
+|-----------------|-----------------|-------------------|--------------------|
 | **Turning Point** | Permanent | No | Malaysia unemployment 1986, 1997 |
 | **Random Shock** | Few periods | Yes — recovers | Gulf War oil spike 1990 |
 | **Outlier** | Single period | N/A | Flagged oil filter observation |
 | **Pure Noise** | Throughout | N/A | Electricity residuals |
 
-::: {.callout-tip}
-**Quick visual check:**
+```{r}
+#| label: fig-all-irregular
+#| fig-cap: "Side-by-side comparison of the four irregular component sub-types"
+#| fig-height: 7
 
-- Does the trend **permanently change direction**? → Turning Point
-- Does the series **spike then return** to where it was? → Random Shock
-- Is **one single point** unusually extreme? → Outlier
-- Are there **small unpatterned wiggles** throughout? → Pure Noise
+t_all <- 1:80
+base_all <- 30 + 0.2 * t_all
+
+# 1. Turning Point
+y1 <- ifelse(t_all <= 45,
+             base_all,
+             base_all[45] - 0.35 * (t_all - 45)) + rnorm(80, 0, 1)
+
+# 2. Random Shock
+shock2 <- rep(0, 80); shock2[c(35, 36, 37)] <- c(-15, -8, -3)
+y2 <- base_all + shock2 + rnorm(80, 0, 1)
+
+# 3. Outlier
+y3 <- base_all + rnorm(80, 0, 1)
+y3[25] <- y3[25] + 22
+
+# 4. Pure Noise
+y4 <- base_all + rnorm(80, 0, 3.5)
+
+make_plot <- function(t, y, title, subtitle, highlight = NULL,
+                      vline = NULL) {
+  df <- data.frame(t = t, y = y)
+  g  <- ggplot(df, aes(x = t, y = y)) +
+    geom_line(colour = "#4575b4", linewidth = 0.8) +
+    labs(title = title, subtitle = subtitle, x = "Time", y = "Value") +
+    theme_ts() +
+    theme(plot.subtitle = element_text(size = 9))
+  if (!is.null(highlight)) {
+    g <- g +
+      geom_point(data = df[highlight, ], aes(x = t, y = y),
+                 colour = "#d73027", size = 3)
+  }
+  if (!is.null(vline)) {
+    g <- g +
+      geom_vline(xintercept = vline, linetype = "dashed",
+                 colour = "#d73027", linewidth = 0.9)
+  }
+  g
+}
+
+pa <- make_plot(t_all, y1, "Turning Point",
+                "Permanent change in trend direction", vline = 45)
+pb <- make_plot(t_all, y2, "Random Shock",
+                "Sharp temporary impulse, then recovery", highlight = 35:37)
+pc <- make_plot(t_all, y3, "Outlier",
+                "Single isolated extreme value", highlight = 25)
+pd <- make_plot(t_all, y4, "Pure Random Noise",
+                "Small unpredictable fluctuations throughout")
+
+grid.arrange(pa, pb, pc, pd, nrow = 2)
+```
+
+::: {.callout-tip}
+**Key distinctions at a glance:**
+
+- **Turning point** → slope changes permanently after one point.
+- **Random shock** → sharp deviation for a few periods, then the series recovers.
+- **Outlier** → exactly one data point is extreme; neighbours are normal.
+- **Pure noise** → small irregular deviations with no pattern throughout the whole series.
 :::
 
----
+::: callout-tip
+**Quick visual check:**
+
+-   Does the trend **permanently change direction**? → Turning Point
+-   Does the series **spike then return** to where it was? → Random Shock
+-   Is **one single point** unusually extreme? → Outlier
+-   Are there **small unpatterned wiggles** throughout? → Pure Noise
+:::
+
+------------------------------------------------------------------------
 
 # Relationship Among Components
 
@@ -604,26 +818,26 @@ grid.arrange(p_add, p_mul, ncol = 2)
 ```
 
 | Feature | Additive | Multiplicative |
-|---------|----------|----------------|
+|-------------------|---------------------|---------------------------------|
 | Seasonal magnitude | Constant | Grows with level |
 | Use when | Seasonal swings roughly constant | Seasonal swings widen as series grows |
 | Linearisation | Not needed | Apply log transform |
 | R function | `decompose(ts, type = "additive")` | `decompose(ts, type = "multiplicative")` |
 
-::: {.callout-tip}
+::: callout-tip
 If seasonal fluctuations **grow proportionally** with the level of the series → use multiplicative. If they remain **roughly constant** → use additive.
 :::
 
----
+------------------------------------------------------------------------
 
 # Measuring Performance
 
 ## Data Partition
 
-| Part | Purpose | Rule of Thumb |
-|------|---------|---------------|
-| **Estimation (Training)** | Fit the forecasting model | 80% of data |
-| **Evaluation (Test)** | Assess forecast accuracy | 20% of data |
+| Part                      | Purpose                   | Rule of Thumb |
+|---------------------------|---------------------------|---------------|
+| **Estimation (Training)** | Fit the forecasting model | 80% of data   |
+| **Evaluation (Test)**     | Assess forecast accuracy  | 20% of data   |
 
 ```{r}
 #| label: data-partition
@@ -639,16 +853,71 @@ str(est_part)
 str(eva_part)
 ```
 
+```{r}
+#| label: fig-data-partition
+#| fig-cap: "Data partition: 80% estimation, 20% evaluation — Malaysia CPI"
+#| fig-height: 3.5
+
+n_est <- length(est_part)
+n_eva <- length(eva_part)
+
+df_cpi <- data.frame(
+  Year  = as.numeric(time(cpits)),
+  Value = as.numeric(cpits),
+  Part  = c(rep("Estimation (80%)", n_est), rep("Evaluation (20%)", n_eva))
+)
+
+ggplot(df_cpi, aes(x = Year, y = Value, colour = Part)) +
+  geom_line(linewidth = 0.9) +
+  geom_vline(xintercept = as.numeric(time(cpits))[n_est],
+             linetype = "dashed", colour = "black") +
+  annotate("label",
+           x = as.numeric(time(cpits))[n_est],
+           y = max(as.numeric(cpits)) * 0.7,
+           label = "Partition\ncut-off", size = 3.2,
+           fill = "white", label.size = 0.3) +
+  scale_colour_manual(values = c("Estimation (80%)" = "#4575b4",
+                                 "Evaluation (20%)" = "#d73027")) +
+  labs(title = "Malaysia CPI: Data Partition for Forecasting Evaluation",
+       x = "Year", y = "CPI (2010 = 100)", colour = NULL) +
+  theme_ts()
+```
+
+
 ## Error Measures
 
-| Measure | Formula | Advantage | Disadvantage |
-|---------|---------|-----------|--------------|
-| **MSE** | $\frac{1}{n}\sum(y_t - \hat{y}_t)^2$ | Penalises large errors | Sensitive to outliers |
-| **MAPE** | $\frac{1}{n}\sum\left\|\frac{y_t - \hat{y}_t}{y_t}\right\| \times 100$ | Scale-independent (%) | Undefined when $y_t = 0$ |
-| **MAE** | $\frac{1}{n}\sum\|y_t - \hat{y}_t\|$ | Robust to outliers | Treats all errors equally |
+The criterion used to differentiate between a poor and a good forecast model is called an **error measure**.
 
-::: {.callout-note}
-The **best model** produces the **lowest** error measure value across multiple measures.
+### Mean Square Error (MSE)
+
+$$\text{MSE} = \frac{1}{n} \sum_{t=1}^{n} (y_t - \hat{y}_t)^2$$
+
+| | |
+|--|--|
+| **Advantage** | Easy to compute; penalises large errors more heavily |
+| **Disadvantage** | Highly sensitive to large forecast errors; not in original units |
+
+### Mean Absolute Percentage Error (MAPE)
+
+$$\text{MAPE} = \frac{1}{n} \sum_{t=1}^{n} \left| \frac{y_t - \hat{y}_t}{y_t} \right| \times 100$$
+
+| | |
+|--|--|
+| **Advantage** | Easy to interpret (%); scale-independent — allows comparison across datasets |
+| **Disadvantage** | Undefined when $y_t = 0$; not suitable for negative values |
+
+### Mean Absolute Error (MAE)
+
+$$\text{MAE} = \frac{1}{n} \sum_{t=1}^{n} |y_t - \hat{y}_t|$$
+
+| | |
+|--|--|
+| **Advantage** | Robust to outliers; in original units; easy to compute |
+| **Disadvantage** | Treats all forecast errors equally regardless of magnitude |
+
+::: callout-note
+- The **best model** produces the **lowest** error measure value.
+- A truly good model gives consistently low values **across multiple error measures**.
 :::
 
 ## Example: Malaysia CPI Data
@@ -659,7 +928,8 @@ The **best model** produces the **lowest** error measure value across multiple m
 #| label: model1
 
 n          <- length(cpits)
-n_train    <- 50
+n_train    <- length(est_part)   # derived from actual 80% split
+n_test     <- n - n_train
 time_train <- 1:n_train
 time_test  <- (n_train + 1):n
 
@@ -715,13 +985,18 @@ cat("MAPE :", round(mape2, 4), "%\n")
 #| label: tbl-model-comparison
 #| tbl-cap: "Error measure comparison: linear vs. quadratic trend"
 
+library(kableExtra)
+
 knitr::kable(
   data.frame(Model = c("Linear", "Quadratic"),
              MSE   = round(c(mse1, mse2),  4),
              MAE   = round(c(mae1, mae2),  4),
              MAPE  = round(c(mape1, mape2), 4)),
-  col.names = c("Model", "MSE", "MAE", "MAPE (%)"), align = "c"
-)
+  col.names = c("Model", "MSE", "MAE", "MAPE (%)"),
+  align = "c"
+) %>%
+  kable_styling() %>%
+  row_spec(2, bold = TRUE, background = "#FFFFCC")
 ```
 
 ### 4-Year Forecast
@@ -780,20 +1055,20 @@ ggplot() +
         legend.position = "bottom", panel.grid.minor = element_blank())
 ```
 
----
+------------------------------------------------------------------------
 
 # Summary
 
-- A **time series** is defined as $\{y_t : t = 1, 2, \ldots, n\}$ — data indexed in ascending time order.
-- A time series plot interpretation should include minimum, maximum, outliers, and overall trends.
-- Four components: **Trend**, **Seasonal**, **Cyclical**, and **Irregular/Random**.
-- The **Irregular** component has four sub-types: **Turning Point**, **Random Shock**, **Outlier**, and **Pure Noise**.
-- Component relationships are modelled as **Additive** or **Multiplicative**.
-- Performance is measured via **MSE**, **MAPE**, and **MAE** on an 80/20 data split — lowest value wins.
+-   A **time series** is defined as $\{y_t : t = 1, 2, \ldots, n\}$ — data indexed in ascending time order.
+-   A time series plot interpretation should include minimum, maximum, outliers, and overall trends.
+-   Four components: **Trend**, **Seasonal**, **Cyclical**, and **Irregular/Random**.
+-   The **Irregular** component has four sub-types: **Turning Point**, **Random Shock**, **Outlier**, and **Pure Noise**.
+-   Component relationships are modelled as **Additive** or **Multiplicative**.
+-   Performance is measured via **MSE**, **MAPE**, and **MAE** on an 80/20 data split — lowest value wins.
 
----
+------------------------------------------------------------------------
 
 # References
 
-- Mohd Alias Lazim, *Introductory Business Forecasting: A Practical Approach*, 3rd ed., UPENA, UiTM, 2013.
-- <https://open.dosm.gov.my/data-catalogue>
+-   Mohd Alias Lazim, *Introductory Business Forecasting: A Practical Approach*, 3rd ed., UPENA, UiTM, 2013.
+-   <https://open.dosm.gov.my/data-catalogue>
