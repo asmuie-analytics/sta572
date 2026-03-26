@@ -19,7 +19,7 @@ execute:
 ## Time Series Plot
 
 ```{r}
-snp <- read.csv("SNP500.csv", header=T)
+snp <- read.csv("data/SNP500.csv", header=T)
 snp_ts <- ts(snp[,6], frequency=1)
 plot(snp_ts)
 ```

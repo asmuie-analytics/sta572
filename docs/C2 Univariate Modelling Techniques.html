@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="C2 Univariate Modelling Techniques_files/libs/clipboard/clipboard.min.js"></script>
-<script src="C2 Univariate Modelling Techniques_files/libs/quarto-html/tabby.min.js"></script>
-<script src="C2 Univariate Modelling Techniques_files/libs/quarto-html/popper.min.js"></script>
-<script src="C2 Univariate Modelling Techniques_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="C2 Univariate Modelling Techniques_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="C2 Univariate Modelling Techniques_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="C2 Univariate Modelling Techniques_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="C2 Univariate Modelling Techniques_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<link href="./images/favicon.png" rel="icon" type="image/png">
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/tabby.min.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.5.57">
 
   <meta name="author" content="Lecturer, Department of Statistics">
-  <title>STA572:Time Series Analysis and Forecasting</title>
+  <title>STA572: Time Series Analysis and Forecasting – STA572:Time Series Analysis and Forecasting</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="C2 Univariate Modelling Techniques_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="C2 Univariate Modelling Techniques_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -95,14 +96,14 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="C2 Univariate Modelling Techniques_files/libs/revealjs/dist/theme/quarto.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto.css">
   <link rel="stylesheet" href="mystyle.css">
-  <link href="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
-  <link href="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
-  <link href="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
 
   .callout {
@@ -421,8 +422,8 @@ Lecturer, Department of Statistics
 <h2>Chapter 2: Data Preparation</h2>
 <h3 id="setup-library">Setup Library</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(fpp2)</span>
-<span id="cb1-2"><a href=""></a><span class="fu">library</span>(forecast)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(fpp2)</span>
+<span id="cb1-2"><a></a><span class="fu">library</span>(forecast)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If no package, need to install.packages(“fpp2”) and/or install.packages (“forecast”).</p>
 <h3 id="data-preparation">Data Preparation</h3>
@@ -430,29 +431,29 @@ Lecturer, Department of Statistics
 <li>Use “CPI Malaysia.csv” data. For this example, make sure the data is in your project directory.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>cpi <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"CPI Malaysia.csv"</span>,<span class="at">check.names=</span>F)</span>
-<span id="cb2-2"><a href=""></a>cpits <span class="ot">&lt;-</span> <span class="fu">ts</span>(cpi<span class="sc">$</span><span class="st">`</span><span class="at">Consumer price index (2010 = 100)</span><span class="st">`</span>, <span class="at">start=</span><span class="dv">1960</span>,<span class="at">frequency=</span><span class="dv">1</span>)</span>
-<span id="cb2-3"><a href=""></a><span class="co"># estimation</span></span>
-<span id="cb2-4"><a href=""></a>est_part <span class="ot">&lt;-</span> <span class="fu">head</span>(cpits, <span class="fl">0.8</span><span class="sc">*</span><span class="fu">length</span>(cpits))</span>
-<span id="cb2-5"><a href=""></a><span class="co"># evaluation</span></span>
-<span id="cb2-6"><a href=""></a>eva_part <span class="ot">&lt;-</span> <span class="fu">tail</span>(cpits,<span class="fl">0.2</span><span class="sc">*</span><span class="fu">length</span>(cpits))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>cpi <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/CPI Malaysia.csv"</span>,<span class="at">check.names=</span>F)</span>
+<span id="cb2-2"><a></a>cpits <span class="ot">&lt;-</span> <span class="fu">ts</span>(cpi<span class="sc">$</span><span class="st">`</span><span class="at">Consumer price index (2010 = 100)</span><span class="st">`</span>, <span class="at">start=</span><span class="dv">1960</span>,<span class="at">frequency=</span><span class="dv">1</span>)</span>
+<span id="cb2-3"><a></a><span class="co"># estimation</span></span>
+<span id="cb2-4"><a></a>est_part <span class="ot">&lt;-</span> <span class="fu">head</span>(cpits, <span class="fl">0.8</span><span class="sc">*</span><span class="fu">length</span>(cpits))</span>
+<span id="cb2-5"><a></a><span class="co"># evaluation</span></span>
+<span id="cb2-6"><a></a>eva_part <span class="ot">&lt;-</span> <span class="fu">tail</span>(cpits,<span class="fl">0.2</span><span class="sc">*</span><span class="fu">length</span>(cpits))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="2" type="1">
 <li>Use “electric.csv” data.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>prod <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"electric.csv"</span>)</span>
-<span id="cb3-2"><a href=""></a>electric<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">t=</span><span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">108</span>),<span class="at">electric=</span>prod[<span class="dv">1</span><span class="sc">:</span><span class="dv">108</span>,<span class="dv">3</span>])</span>
-<span id="cb3-3"><a href=""></a>electricts <span class="ot">&lt;-</span> <span class="fu">ts</span>(electric<span class="sc">$</span>electric, <span class="at">start=</span><span class="fu">c</span>(<span class="dv">2015</span>,<span class="dv">1</span>), <span class="at">frequency=</span><span class="dv">12</span>) </span>
-<span id="cb3-4"><a href=""></a>est_elec <span class="ot">&lt;-</span> <span class="fu">head</span>(electricts, <span class="fl">0.8</span><span class="sc">*</span><span class="fu">length</span>(electricts))</span>
-<span id="cb3-5"><a href=""></a>eva_elec <span class="ot">&lt;-</span> <span class="fu">tail</span>(electricts, <span class="fl">0.2</span><span class="sc">*</span><span class="fu">length</span>(electricts))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>prod <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/electric.csv"</span>)</span>
+<span id="cb3-2"><a></a>electric<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">t=</span><span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">108</span>),<span class="at">electric=</span>prod[<span class="dv">1</span><span class="sc">:</span><span class="dv">108</span>,<span class="dv">3</span>])</span>
+<span id="cb3-3"><a></a>electricts <span class="ot">&lt;-</span> <span class="fu">ts</span>(electric<span class="sc">$</span>electric, <span class="at">start=</span><span class="fu">c</span>(<span class="dv">2015</span>,<span class="dv">1</span>), <span class="at">frequency=</span><span class="dv">12</span>) </span>
+<span id="cb3-4"><a></a>est_elec <span class="ot">&lt;-</span> <span class="fu">head</span>(electricts, <span class="fl">0.8</span><span class="sc">*</span><span class="fu">length</span>(electricts))</span>
+<span id="cb3-5"><a></a>eva_elec <span class="ot">&lt;-</span> <span class="fu">tail</span>(electricts, <span class="fl">0.2</span><span class="sc">*</span><span class="fu">length</span>(electricts))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="single-exponential-smoothing-using-r" class="slide level2">
 <h2>Single Exponential Smoothing using R</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>SE_est <span class="ot">&lt;-</span> <span class="fu">ses</span>(est_part)</span>
-<span id="cb4-2"><a href=""></a><span class="fu">summary</span>(SE_est)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>SE_est <span class="ot">&lt;-</span> <span class="fu">ses</span>(est_part)</span>
+<span id="cb4-2"><a></a><span class="fu">summary</span>(SE_est)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Forecast method: Simple exponential smoothing
@@ -496,8 +497,8 @@ Forecasts:
 <section class="slide level2">
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>SE_eva <span class="ot">&lt;-</span> <span class="fu">ses</span>(eva_part, <span class="at">alpha=</span><span class="fl">0.999</span>)</span>
-<span id="cb6-2"><a href=""></a><span class="fu">summary</span>(SE_eva)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>SE_eva <span class="ot">&lt;-</span> <span class="fu">ses</span>(eva_part, <span class="at">alpha=</span><span class="fl">0.999</span>)</span>
+<span id="cb6-2"><a></a><span class="fu">summary</span>(SE_eva)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Forecast method: Simple exponential smoothing
@@ -541,8 +542,8 @@ Forecasts:
 <section class="slide level2">
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>SE_all <span class="ot">&lt;-</span> <span class="fu">ses</span>(cpits,<span class="at">alpha=</span><span class="fl">0.999</span>)</span>
-<span id="cb8-2"><a href=""></a><span class="fu">summary</span>(SE_all)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>SE_all <span class="ot">&lt;-</span> <span class="fu">ses</span>(cpits,<span class="at">alpha=</span><span class="fl">0.999</span>)</span>
+<span id="cb8-2"><a></a><span class="fu">summary</span>(SE_all)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Forecast method: Simple exponential smoothing
@@ -586,16 +587,16 @@ Forecasts:
 <section class="slide level2">
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="fu">autoplot</span>(cpits)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">"CPI"</span>)<span class="sc">+</span></span>
-<span id="cb10-2"><a href=""></a>  <span class="fu">autolayer</span>(<span class="fu">forecast</span>(<span class="fu">ses</span>(cpits,<span class="at">alpha=</span><span class="fl">0.999</span>),<span class="at">h=</span><span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">autoplot</span>(cpits)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">"CPI"</span>)<span class="sc">+</span></span>
+<span id="cb10-2"><a></a>  <span class="fu">autolayer</span>(<span class="fu">forecast</span>(<span class="fu">ses</span>(cpits,<span class="at">alpha=</span><span class="fl">0.999</span>),<span class="at">h=</span><span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
 <section id="holts-method-using-r" class="slide level2">
 <h2>Holt’s Method using R</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>Holt_est <span class="ot">&lt;-</span> <span class="fu">holt</span>(est_part)</span>
-<span id="cb11-2"><a href=""></a><span class="fu">summary</span>(Holt_est)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>Holt_est <span class="ot">&lt;-</span> <span class="fu">holt</span>(est_part)</span>
+<span id="cb11-2"><a></a><span class="fu">summary</span>(Holt_est)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Forecast method: Holt's method
@@ -641,9 +642,9 @@ Forecasts:
 <section class="slide level2">
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a>Holt_eva <span class="ot">&lt;-</span> <span class="fu">holt</span>(eva_part, <span class="at">alpha=</span><span class="fl">0.9922</span>, </span>
-<span id="cb13-2"><a href=""></a>                 <span class="at">beta=</span><span class="fl">0.3708</span>)</span>
-<span id="cb13-3"><a href=""></a><span class="fu">summary</span>(Holt_eva)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>Holt_eva <span class="ot">&lt;-</span> <span class="fu">holt</span>(eva_part, <span class="at">alpha=</span><span class="fl">0.9922</span>, </span>
+<span id="cb13-2"><a></a>                 <span class="at">beta=</span><span class="fl">0.3708</span>)</span>
+<span id="cb13-3"><a></a><span class="fu">summary</span>(Holt_eva)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Forecast method: Holt's method
@@ -691,18 +692,18 @@ Forecasts:
 <section class="slide level2">
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">autoplot</span>(cpits)<span class="sc">+</span></span>
-<span id="cb15-2"><a href=""></a>  <span class="fu">ylab</span>(<span class="st">"CPI"</span>)<span class="sc">+</span></span>
-<span id="cb15-3"><a href=""></a>  <span class="fu">autolayer</span>(<span class="fu">forecast</span>(<span class="fu">holt</span>(cpits, <span class="at">alpha=</span><span class="fl">0.9922</span>,</span>
-<span id="cb15-4"><a href=""></a>                          <span class="at">beta=</span><span class="fl">0.3708</span>), <span class="at">h=</span><span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">autoplot</span>(cpits)<span class="sc">+</span></span>
+<span id="cb15-2"><a></a>  <span class="fu">ylab</span>(<span class="st">"CPI"</span>)<span class="sc">+</span></span>
+<span id="cb15-3"><a></a>  <span class="fu">autolayer</span>(<span class="fu">forecast</span>(<span class="fu">holt</span>(cpits, <span class="at">alpha=</span><span class="fl">0.9922</span>,</span>
+<span id="cb15-4"><a></a>                          <span class="at">beta=</span><span class="fl">0.3708</span>), <span class="at">h=</span><span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"></section>
 <section id="holt-winters-trend-and-seasonality-using-r" class="slide level2">
 <h2>Holt-Winter’s Trend and Seasonality using R</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a>HW_est <span class="ot">&lt;-</span> <span class="fu">hw</span>(est_elec)</span>
-<span id="cb16-2"><a href=""></a><span class="fu">summary</span>(HW_est)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>HW_est <span class="ot">&lt;-</span> <span class="fu">hw</span>(est_elec)</span>
+<span id="cb16-2"><a></a><span class="fu">summary</span>(HW_est)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Forecast method: Holt-Winters' additive method
@@ -767,8 +768,8 @@ Feb 2024       113.7863  91.23011 136.3424  79.28959 148.2830</code></pre>
 <section class="slide level2">
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a>HW_eva <span class="ot">&lt;-</span> <span class="fu">hw</span>(eva_elec, <span class="at">alpha=</span><span class="fl">0.9253</span>, <span class="at">beta=</span><span class="fl">0.0004</span>, <span class="at">gamma=</span><span class="fl">0.0001</span>)</span>
-<span id="cb18-2"><a href=""></a><span class="fu">summary</span>(HW_eva)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>HW_eva <span class="ot">&lt;-</span> <span class="fu">hw</span>(eva_elec, <span class="at">alpha=</span><span class="fl">0.9253</span>, <span class="at">beta=</span><span class="fl">0.0004</span>, <span class="at">gamma=</span><span class="fl">0.0001</span>)</span>
+<span id="cb18-2"><a></a><span class="fu">summary</span>(HW_eva)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Forecast method: Holt-Winters' additive method
@@ -833,21 +834,21 @@ Dec 2025       132.6479 115.5131 149.7827 106.4425 158.8533</code></pre>
 <section class="slide level2">
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="fu">autoplot</span>(electricts)<span class="sc">+</span></span>
-<span id="cb20-2"><a href=""></a>  <span class="fu">xlab</span>(<span class="st">"Year"</span>)<span class="sc">+</span></span>
-<span id="cb20-3"><a href=""></a>  <span class="fu">ylab</span>(<span class="st">"Indeks"</span>)<span class="sc">+</span></span>
-<span id="cb20-4"><a href=""></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Forecasting Electricity Index using Holt-Winters Method"</span>)<span class="sc">+</span></span>
-<span id="cb20-5"><a href=""></a>  <span class="fu">autolayer</span>(<span class="fu">forecast</span>(<span class="fu">hw</span>(electricts, <span class="at">alpha=</span><span class="fl">0.9253</span>, <span class="at">beta=</span><span class="fl">0.0004</span>, <span class="at">gamma=</span><span class="fl">0.0001</span>), <span class="at">h=</span><span class="dv">12</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">autoplot</span>(electricts)<span class="sc">+</span></span>
+<span id="cb20-2"><a></a>  <span class="fu">xlab</span>(<span class="st">"Year"</span>)<span class="sc">+</span></span>
+<span id="cb20-3"><a></a>  <span class="fu">ylab</span>(<span class="st">"Indeks"</span>)<span class="sc">+</span></span>
+<span id="cb20-4"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Forecasting Electricity Index using Holt-Winters Method"</span>)<span class="sc">+</span></span>
+<span id="cb20-5"><a></a>  <span class="fu">autolayer</span>(<span class="fu">forecast</span>(<span class="fu">hw</span>(electricts, <span class="at">alpha=</span><span class="fl">0.9253</span>, <span class="at">beta=</span><span class="fl">0.0004</span>, <span class="at">gamma=</span><span class="fl">0.0001</span>), <span class="at">h=</span><span class="dv">12</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section>
 <section id="decomposition-method" class="slide level2">
 <h2>Decomposition Method</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="fu">data</span>(<span class="st">"AirPassengers"</span>)</span>
-<span id="cb21-2"><a href=""></a>data <span class="ot">&lt;-</span> AirPassengers</span>
-<span id="cb21-3"><a href=""></a></span>
-<span id="cb21-4"><a href=""></a><span class="fu">plot</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">data</span>(<span class="st">"AirPassengers"</span>)</span>
+<span id="cb21-2"><a></a>data <span class="ot">&lt;-</span> AirPassengers</span>
+<span id="cb21-3"><a></a></span>
+<span id="cb21-4"><a></a><span class="fu">plot</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch"></section>
@@ -855,16 +856,16 @@ Dec 2025       132.6479 115.5131 149.7827 106.4425 158.8533</code></pre>
 
 <h3 id="plot-decompose">Plot decompose</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a>data_decompose <span class="ot">&lt;-</span> <span class="fu">decompose</span>(data)</span>
-<span id="cb22-2"><a href=""></a>data_decompose_mul <span class="ot">&lt;-</span> <span class="fu">decompose</span>(data, <span class="at">type=</span><span class="st">"multiplicative"</span>)</span>
-<span id="cb22-3"><a href=""></a><span class="fu">plot</span>(data_decompose)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>data_decompose <span class="ot">&lt;-</span> <span class="fu">decompose</span>(data)</span>
+<span id="cb22-2"><a></a>data_decompose_mul <span class="ot">&lt;-</span> <span class="fu">decompose</span>(data, <span class="at">type=</span><span class="st">"multiplicative"</span>)</span>
+<span id="cb22-3"><a></a><span class="fu">plot</span>(data_decompose)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a><span class="fu">plot</span>(data_decompose_mul)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">plot</span>(data_decompose_mul)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" class="r-stretch"></section>
@@ -872,18 +873,18 @@ Dec 2025       132.6479 115.5131 149.7827 106.4425 158.8533</code></pre>
 
 <h3 id="trend-adjusted-time-series-without-trend-component">Trend adjusted time series (without trend component)</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a><span class="co"># trend adjusted time series (additive model)</span></span>
-<span id="cb24-2"><a href=""></a>trend_adjusted_add <span class="ot">&lt;-</span> data<span class="sc">-</span>data_decompose<span class="sc">$</span>trend</span>
-<span id="cb24-3"><a href=""></a><span class="fu">plot</span>(trend_adjusted_add)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="co"># trend adjusted time series (additive model)</span></span>
+<span id="cb24-2"><a></a>trend_adjusted_add <span class="ot">&lt;-</span> data<span class="sc">-</span>data_decompose<span class="sc">$</span>trend</span>
+<span id="cb24-3"><a></a><span class="fu">plot</span>(trend_adjusted_add)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="co"># trend adjusted time series (multiplicative model)</span></span>
-<span id="cb25-2"><a href=""></a>trend_adjusted_mul <span class="ot">&lt;-</span> data <span class="sc">/</span> data_decompose_mul<span class="sc">$</span>trend</span>
-<span id="cb25-3"><a href=""></a><span class="fu">plot</span>(trend_adjusted_mul)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="co"># trend adjusted time series (multiplicative model)</span></span>
+<span id="cb25-2"><a></a>trend_adjusted_mul <span class="ot">&lt;-</span> data <span class="sc">/</span> data_decompose_mul<span class="sc">$</span>trend</span>
+<span id="cb25-3"><a></a><span class="fu">plot</span>(trend_adjusted_mul)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-18-1.png" width="960" class="r-stretch"></section>
@@ -893,9 +894,9 @@ Dec 2025       132.6479 115.5131 149.7827 106.4425 158.8533</code></pre>
 <p><strong>Step 1</strong>: Adjusted the data by removing the seasonal component.</p>
 <p>Example of additive assumption.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a><span class="co"># seasonal adusted time series</span></span>
-<span id="cb26-2"><a href=""></a>season_adjusted_add <span class="ot">=</span> data <span class="sc">-</span> data_decompose<span class="sc">$</span>seasonal</span>
-<span id="cb26-3"><a href=""></a><span class="fu">plot</span>(season_adjusted_add)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="co"># seasonal adusted time series</span></span>
+<span id="cb26-2"><a></a>season_adjusted_add <span class="ot">=</span> data <span class="sc">-</span> data_decompose<span class="sc">$</span>seasonal</span>
+<span id="cb26-3"><a></a><span class="fu">plot</span>(season_adjusted_add)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-19-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
@@ -903,8 +904,8 @@ Dec 2025       132.6479 115.5131 149.7827 106.4425 158.8533</code></pre>
 
 <p>Example of multiplicative assumption.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a>season_adjusted_mul <span class="ot">&lt;-</span> data <span class="sc">/</span> data_decompose_mul<span class="sc">$</span>seasonal</span>
-<span id="cb27-2"><a href=""></a><span class="fu">plot</span>(season_adjusted_mul)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>season_adjusted_mul <span class="ot">&lt;-</span> data <span class="sc">/</span> data_decompose_mul<span class="sc">$</span>seasonal</span>
+<span id="cb27-2"><a></a><span class="fu">plot</span>(season_adjusted_mul)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-20-1.png" width="960" class="r-stretch"></section>
@@ -912,10 +913,10 @@ Dec 2025       132.6479 115.5131 149.7827 106.4425 158.8533</code></pre>
 
 <p><strong>Step 2</strong>: Estimate the trend from seasonal adjusted data using linear trend model.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a>time <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(season_adjusted_mul)</span>
-<span id="cb28-2"><a href=""></a></span>
-<span id="cb28-3"><a href=""></a>reg_deaseason <span class="ot">&lt;-</span> <span class="fu">lm</span>(season_adjusted_mul<span class="sc">~</span>time)</span>
-<span id="cb28-4"><a href=""></a><span class="fu">summary</span>(reg_deaseason)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a>time <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(season_adjusted_mul)</span>
+<span id="cb28-2"><a></a></span>
+<span id="cb28-3"><a></a>reg_deaseason <span class="ot">&lt;-</span> <span class="fu">lm</span>(season_adjusted_mul<span class="sc">~</span>time)</span>
+<span id="cb28-4"><a></a><span class="fu">summary</span>(reg_deaseason)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -942,21 +943,21 @@ F-statistic:  6120 on 1 and 142 DF,  p-value: &lt; 2.2e-16</code></pre>
 
 <p><strong>Step 3</strong>: Determine the seasonal components of the series.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a>h <span class="ot">&lt;-</span> <span class="dv">12</span></span>
-<span id="cb30-2"><a href=""></a>h_time <span class="ot">&lt;-</span> (<span class="fu">length</span>(season_adjusted_mul)<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(<span class="fu">length</span>(season_adjusted_mul)<span class="sc">+</span>h)</span>
-<span id="cb30-3"><a href=""></a><span class="fu">length</span>(season_adjusted_mul)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a>h <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb30-2"><a></a>h_time <span class="ot">&lt;-</span> (<span class="fu">length</span>(season_adjusted_mul)<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(<span class="fu">length</span>(season_adjusted_mul)<span class="sc">+</span>h)</span>
+<span id="cb30-3"><a></a><span class="fu">length</span>(season_adjusted_mul)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 144</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a><span class="fu">print</span>(h_time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="fu">print</span>(h_time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] 145 146 147 148 149 150 151 152 153 154 155 156</code></pre>
 </div>
 </div>
 <p>Estimated Seasonal Indices</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href=""></a>est_si <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">tail</span>(data_decompose_mul<span class="sc">$</span>seasonal,<span class="dv">12</span>))</span>
-<span id="cb34-2"><a href=""></a><span class="fu">print</span>(est_si)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a>est_si <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">tail</span>(data_decompose_mul<span class="sc">$</span>seasonal,<span class="dv">12</span>))</span>
+<span id="cb34-2"><a></a><span class="fu">print</span>(est_si)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] 0.9102304 0.8836253 1.0073663 0.9759060 0.9813780 1.1127758 1.2265555
  [8] 1.2199110 1.0604919 0.9217572 0.8011781 0.8988244</code></pre>
@@ -964,9 +965,9 @@ F-statistic:  6120 on 1 and 142 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <p><strong>Step 4</strong>: Use linear trend model to estimate the <span class="math inline">\(\hat{T}_{t+h}\)</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href=""></a>h_time <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">time=</span>h_time)</span>
-<span id="cb36-2"><a href=""></a>h_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(reg_deaseason, <span class="at">newdata=</span>h_time)</span>
-<span id="cb36-3"><a href=""></a>h_pred</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a></a>h_time <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">time=</span>h_time)</span>
+<span id="cb36-2"><a></a>h_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(reg_deaseason, <span class="at">newdata=</span>h_time)</span>
+<span id="cb36-3"><a></a>h_pred</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       1        2        3        4        5        6        7        8 
 471.9296 474.5757 477.2219 479.8680 482.5142 485.1603 487.8064 490.4526 
@@ -979,21 +980,21 @@ F-statistic:  6120 on 1 and 142 DF,  p-value: &lt; 2.2e-16</code></pre>
 
 <p><strong>Step 5</strong>: Forecasting using decomposition method assuming multiplicative effect</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href=""></a>forecast_mul <span class="ot">&lt;-</span> h_pred <span class="sc">*</span> est_si</span>
-<span id="cb38-2"><a href=""></a></span>
-<span id="cb38-3"><a href=""></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(data), data, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
-<span id="cb38-4"><a href=""></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">length</span>(data) <span class="sc">+</span> h),<span class="at">ylim =</span> <span class="fu">range</span>(<span class="fu">c</span>(data, forecast_mul)),</span>
-<span id="cb38-5"><a href=""></a>     <span class="at">xlab =</span> <span class="st">"Time"</span>, <span class="at">ylab =</span> <span class="st">"Value"</span>, <span class="at">main =</span> <span class="st">"Time Series Data and Forecast"</span>)</span>
-<span id="cb38-6"><a href=""></a></span>
-<span id="cb38-7"><a href=""></a><span class="co"># Add forecast</span></span>
-<span id="cb38-8"><a href=""></a><span class="fu">lines</span>((<span class="fu">length</span>(data) <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>(<span class="fu">length</span>(data) <span class="sc">+</span> h), </span>
-<span id="cb38-9"><a href=""></a>      forecast_mul, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb38-10"><a href=""></a></span>
-<span id="cb38-11"><a href=""></a><span class="co"># Add vertical line at forecast start</span></span>
-<span id="cb38-12"><a href=""></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">length</span>(data), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"gray"</span>)</span>
-<span id="cb38-13"><a href=""></a></span>
-<span id="cb38-14"><a href=""></a><span class="co"># Add legend</span></span>
-<span id="cb38-15"><a href=""></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Original Data"</span>, <span class="st">"Forecast"</span>),<span class="at">col =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"red"</span>), <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a>forecast_mul <span class="ot">&lt;-</span> h_pred <span class="sc">*</span> est_si</span>
+<span id="cb38-2"><a></a></span>
+<span id="cb38-3"><a></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(data), data, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb38-4"><a></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">length</span>(data) <span class="sc">+</span> h),<span class="at">ylim =</span> <span class="fu">range</span>(<span class="fu">c</span>(data, forecast_mul)),</span>
+<span id="cb38-5"><a></a>     <span class="at">xlab =</span> <span class="st">"Time"</span>, <span class="at">ylab =</span> <span class="st">"Value"</span>, <span class="at">main =</span> <span class="st">"Time Series Data and Forecast"</span>)</span>
+<span id="cb38-6"><a></a></span>
+<span id="cb38-7"><a></a><span class="co"># Add forecast</span></span>
+<span id="cb38-8"><a></a><span class="fu">lines</span>((<span class="fu">length</span>(data) <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>(<span class="fu">length</span>(data) <span class="sc">+</span> h), </span>
+<span id="cb38-9"><a></a>      forecast_mul, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb38-10"><a></a></span>
+<span id="cb38-11"><a></a><span class="co"># Add vertical line at forecast start</span></span>
+<span id="cb38-12"><a></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">length</span>(data), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"gray"</span>)</span>
+<span id="cb38-13"><a></a></span>
+<span id="cb38-14"><a></a><span class="co"># Add legend</span></span>
+<span id="cb38-15"><a></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Original Data"</span>, <span class="st">"Forecast"</span>),<span class="at">col =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"red"</span>), <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-25-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
@@ -1012,9 +1013,9 @@ F-statistic:  6120 on 1 and 142 DF,  p-value: &lt; 2.2e-16</code></pre>
 <section class="slide level2">
 
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href=""></a>fit <span class="ot">&lt;-</span> <span class="fu">stl</span>(data, <span class="at">t.window =</span> <span class="dv">12</span>, <span class="at">s.window =</span> <span class="st">"periodic"</span>, <span class="at">robust=</span><span class="cn">TRUE</span>)</span>
-<span id="cb39-2"><a href=""></a>fit.sa <span class="ot">&lt;-</span> <span class="fu">seasadj</span>(fit)</span>
-<span id="cb39-3"><a href=""></a><span class="fu">plot</span>(fit.sa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a>fit <span class="ot">&lt;-</span> <span class="fu">stl</span>(data, <span class="at">t.window =</span> <span class="dv">12</span>, <span class="at">s.window =</span> <span class="st">"periodic"</span>, <span class="at">robust=</span><span class="cn">TRUE</span>)</span>
+<span id="cb39-2"><a></a>fit.sa <span class="ot">&lt;-</span> <span class="fu">seasadj</span>(fit)</span>
+<span id="cb39-3"><a></a><span class="fu">plot</span>(fit.sa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-26-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><div class="callout callout-note callout-titled callout-style-default">
@@ -1034,9 +1035,9 @@ F-statistic:  6120 on 1 and 142 DF,  p-value: &lt; 2.2e-16</code></pre>
 <section class="slide level2">
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href=""></a><span class="fu">autoplot</span>(<span class="fu">naive</span>(fit.sa))<span class="sc">+</span></span>
-<span id="cb40-2"><a href=""></a>  <span class="fu">ylab</span>(<span class="st">"New orders index"</span>)<span class="sc">+</span></span>
-<span id="cb40-3"><a href=""></a>  <span class="fu">ggtitle</span>(<span class="st">"Naive forecast of seasonality adjusted data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a></a><span class="fu">autoplot</span>(<span class="fu">naive</span>(fit.sa))<span class="sc">+</span></span>
+<span id="cb40-2"><a></a>  <span class="fu">ylab</span>(<span class="st">"New orders index"</span>)<span class="sc">+</span></span>
+<span id="cb40-3"><a></a>  <span class="fu">ggtitle</span>(<span class="st">"Naive forecast of seasonality adjusted data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-27-1.png" width="960" class="r-stretch"><p>Naive forecast of the seasonally adjusted air passenger data. The forecast then are “reseasonalised” by adding the seasonal naive forecast of the seasonal component.</p>
@@ -1045,8 +1046,8 @@ F-statistic:  6120 on 1 and 142 DF,  p-value: &lt; 2.2e-16</code></pre>
 
 <p>Use forecast () function applied to the stl object. Need to specify the method being used on the seasonally adjusted data, and the function will do the reseasonalising for you.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href=""></a><span class="fu">autoplot</span>(<span class="fu">forecast</span>(fit, <span class="at">method=</span><span class="st">"naive"</span>,<span class="at">h=</span><span class="dv">12</span>))<span class="sc">+</span></span>
-<span id="cb41-2"><a href=""></a>  <span class="fu">ylab</span>(<span class="st">"New orders index"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a><span class="fu">autoplot</span>(<span class="fu">forecast</span>(fit, <span class="at">method=</span><span class="st">"naive"</span>,<span class="at">h=</span><span class="dv">12</span>))<span class="sc">+</span></span>
+<span id="cb41-2"><a></a>  <span class="fu">ylab</span>(<span class="st">"New orders index"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-28-1.png" width="960" class="r-stretch"></section>
@@ -1060,9 +1061,9 @@ F-statistic:  6120 on 1 and 142 DF,  p-value: &lt; 2.2e-16</code></pre>
 <li>Return the reaseasonalised forecasts.</li>
 </ol>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href=""></a>fcast <span class="ot">&lt;-</span> <span class="fu">stlf</span>(data,<span class="at">method=</span><span class="st">"naive"</span>,<span class="at">h=</span><span class="dv">12</span>)</span>
-<span id="cb42-2"><a href=""></a><span class="fu">autoplot</span>(fcast)<span class="sc">+</span></span>
-<span id="cb42-3"><a href=""></a>  <span class="fu">ylab</span>(<span class="st">"New orders index"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a></a>fcast <span class="ot">&lt;-</span> <span class="fu">stlf</span>(data,<span class="at">method=</span><span class="st">"naive"</span>,<span class="at">h=</span><span class="dv">12</span>)</span>
+<span id="cb42-2"><a></a><span class="fu">autoplot</span>(fcast)<span class="sc">+</span></span>
+<span id="cb42-3"><a></a>  <span class="fu">ylab</span>(<span class="st">"New orders index"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-29-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
@@ -1074,6 +1075,7 @@ F-statistic:  6120 on 1 and 142 DF,  p-value: &lt; 2.2e-16</code></pre>
 </section></section>
 <section id="end-of-slides" class="title-slide slide level1 center">
 <h1>End of Slides</h1>
+
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 <p>Asmui Rahim, STA572 , Oct 2025</p>
@@ -1084,20 +1086,20 @@ F-statistic:  6120 on 1 and 142 DF,  p-value: &lt; 2.2e-16</code></pre>
   </div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="C2 Univariate Modelling Techniques_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="site_libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
-  <script src="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="site_libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>

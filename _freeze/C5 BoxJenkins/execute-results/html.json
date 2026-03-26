@@ -1,0 +1,21 @@
+{
+  "hash": "98322ac4dae74d7bb0c1557f0e49047c",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"STA572:Time Series Analysis and Forecasting\"\nsubtitle: \"C5. Box Jenkins Model\"\nformat: \n  revealjs:\n    chalkboard: true\n    fontsize: 20pt\n    css: mystyle.css\n    slide-number: true\nauthor: \"Lecturer, Department of Statistics\"\nfooter: \"Asmui Rahim, STA572 , Oct 2025\"\nexecute: \n  echo: true\n  warning: false\n---\n\n\n\n\n# Model Identification\n\n## Time Series Plot\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nsnp <- read.csv(\"data/SNP500.csv\", header=T)\nsnp_ts <- ts(snp[,6], frequency=1)\nplot(snp_ts)\n```\n\n::: {.cell-output-display}\n![](C5-BoxJenkins_files/figure-revealjs/unnamed-chunk-1-1.png){width=960}\n:::\n:::\n\n\n\n\n------------------------------------------------------------------------\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nset.seed(123)\ne <- rnorm(100, mean=0, sd=1)\nacf(e, main=\"\")\n```\n\n::: {.cell-output-display}\n![](C5-BoxJenkins_files/figure-revealjs/unnamed-chunk-2-1.png){width=960}\n:::\n:::\n",
+    "supporting": [
+      "C5-BoxJenkins_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {
+      "include-after-body": [
+        "\n<script>\n  // htmlwidgets need to know to resize themselves when slides are shown/hidden.\n  // Fire the \"slideenter\" event (handled by htmlwidgets.js) when the current\n  // slide changes (different for each slide format).\n  (function () {\n    // dispatch for htmlwidgets\n    function fireSlideEnter() {\n      const event = window.document.createEvent(\"Event\");\n      event.initEvent(\"slideenter\", true, true);\n      window.document.dispatchEvent(event);\n    }\n\n    function fireSlideChanged(previousSlide, currentSlide) {\n      fireSlideEnter();\n\n      // dispatch for shiny\n      if (window.jQuery) {\n        if (previousSlide) {\n          window.jQuery(previousSlide).trigger(\"hidden\");\n        }\n        if (currentSlide) {\n          window.jQuery(currentSlide).trigger(\"shown\");\n        }\n      }\n    }\n\n    // hookup for slidy\n    if (window.w3c_slidy) {\n      window.w3c_slidy.add_observer(function (slide_num) {\n        // slide_num starts at position 1\n        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);\n      });\n    }\n\n  })();\n</script>\n\n"
+      ]
+    },
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

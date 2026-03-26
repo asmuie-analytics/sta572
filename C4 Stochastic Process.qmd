@@ -156,7 +156,7 @@ adf_test3
 ## Differencing in R
 
 ```{r}
-unrate <- read.csv("employment.csv")
+unrate <- read.csv("data/employment.csv")
 unratets <- ts(unrate$u_rate, start=1982)
 plot(unratets, ylab="unemployement rate", xlab="Year", xaxt="n")
 ```

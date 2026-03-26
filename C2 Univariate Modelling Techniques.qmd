@@ -38,7 +38,7 @@ If no package, need to install.packages("fpp2") and/or install.packages ("foreca
 1.  Use "CPI Malaysia.csv" data. For this example, make sure the data is in your project directory.
 
 ```{r}
-cpi <- read.csv("CPI Malaysia.csv",check.names=F)
+cpi <- read.csv("data/CPI Malaysia.csv",check.names=F)
 cpits <- ts(cpi$`Consumer price index (2010 = 100)`, start=1960,frequency=1)
 # estimation
 est_part <- head(cpits, 0.8*length(cpits))
@@ -49,7 +49,7 @@ eva_part <- tail(cpits,0.2*length(cpits))
 2.  Use "electric.csv" data.
 
 ```{r}
-prod <- read.csv("electric.csv")
+prod <- read.csv("data/electric.csv")
 electric<-data.frame(t=seq(1:108),electric=prod[1:108,3])
 electricts <- ts(electric$electric, start=c(2015,1), frequency=12) 
 est_elec <- head(electricts, 0.8*length(electricts))

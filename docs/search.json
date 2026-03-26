@@ -1,5 +1,89 @@
 [
   {
+    "objectID": "C4 Stochastic Process.html#stationary-process",
+    "href": "C4 Stochastic Process.html#stationary-process",
+    "title": "STA572:Time Series Analysis and Forecasting",
+    "section": "Stationary Process",
+    "text": "Stationary Process\nRandom process\nGenerate random process;\nExample for \\(\\phi_0=2\\) and \\(\\phi_0=8\\).\n\n\n\n\n\n\n\n\n\nAutoregressive Model\nAR(1) model\n\nset.seed(151)\nyt1 &lt;- arima.sim(model=list(order=c(1,0,0), ar=0.2), n=100)\nyt2 &lt;- arima.sim(model=list(order=c(1,0,0), ar=0.5), n=100)\nyt3 &lt;- arima.sim(model=list(order=c(1,0,0), ar=0.8), n=100)\n\nplot(yt1, type=\"l\", col=\"blue\", ylim=c(min(yt3),max(yt3)), ylab=\"\")\nlines(yt2, col=\"green\")\nlines(yt3, col=\"red\")\nlegend(\"bottomright\", legend=c(\"phi=0.2\", \"phi=0.5\", \"phi=0.8\"), col=c(\"blue\", \"green\", \"red\"), lty=1, cex=0.8)"
+  },
+  {
+    "objectID": "C4 Stochastic Process.html#non-stationary-process",
+    "href": "C4 Stochastic Process.html#non-stationary-process",
+    "title": "STA572:Time Series Analysis and Forecasting",
+    "section": "Non stationary process",
+    "text": "Non stationary process\nRandom process\nExample of non-stationary series.\n\nset.seed(111)\nyt &lt;- cumsum(rnorm(100,0,1))\nplot(yt,type=\"l\",ylab=\"\")"
+  },
+  {
+    "objectID": "C4 Stochastic Process.html#checking-for-non-stationary",
+    "href": "C4 Stochastic Process.html#checking-for-non-stationary",
+    "title": "STA572:Time Series Analysis and Forecasting",
+    "section": "Checking for Non-stationary",
+    "text": "Checking for Non-stationary\nNon-stationary series can be determined by:\n\nTime series plot.\nAutocorrelation function (ACF)\nStatistical test- Augmented Dicky-Fuller (ADF) test"
+  },
+  {
+    "objectID": "C4 Stochastic Process.html#differencing-in-r",
+    "href": "C4 Stochastic Process.html#differencing-in-r",
+    "title": "STA572:Time Series Analysis and Forecasting",
+    "section": "Differencing in R",
+    "text": "Differencing in R\n\nunrate &lt;- read.csv(\"data/employment.csv\")\nunratets &lt;- ts(unrate$u_rate, start=1982)\nplot(unratets, ylab=\"unemployement rate\", xlab=\"Year\", xaxt=\"n\")"
+  },
+  {
+    "objectID": "C2 Univariate Modelling Techniques.html#chapter-2-data-preparation",
+    "href": "C2 Univariate Modelling Techniques.html#chapter-2-data-preparation",
+    "title": "STA572:Time Series Analysis and Forecasting",
+    "section": "Chapter 2: Data Preparation",
+    "text": "Chapter 2: Data Preparation\nSetup Library\n\nlibrary(fpp2)\nlibrary(forecast)\n\nIf no package, need to install.packages(“fpp2”) and/or install.packages (“forecast”).\nData Preparation\n\nUse “CPI Malaysia.csv” data. For this example, make sure the data is in your project directory.\n\n\ncpi &lt;- read.csv(\"data/CPI Malaysia.csv\",check.names=F)\ncpits &lt;- ts(cpi$`Consumer price index (2010 = 100)`, start=1960,frequency=1)\n# estimation\nest_part &lt;- head(cpits, 0.8*length(cpits))\n# evaluation\neva_part &lt;- tail(cpits,0.2*length(cpits))\n\n\nUse “electric.csv” data.\n\n\nprod &lt;- read.csv(\"data/electric.csv\")\nelectric&lt;-data.frame(t=seq(1:108),electric=prod[1:108,3])\nelectricts &lt;- ts(electric$electric, start=c(2015,1), frequency=12) \nest_elec &lt;- head(electricts, 0.8*length(electricts))\neva_elec &lt;- tail(electricts, 0.2*length(electricts))"
+  },
+  {
+    "objectID": "C2 Univariate Modelling Techniques.html#single-exponential-smoothing-using-r",
+    "href": "C2 Univariate Modelling Techniques.html#single-exponential-smoothing-using-r",
+    "title": "STA572:Time Series Analysis and Forecasting",
+    "section": "Single Exponential Smoothing using R",
+    "text": "Single Exponential Smoothing using R\n\nSE_est &lt;- ses(est_part)\nsummary(SE_est)\n\n\nForecast method: Simple exponential smoothing\n\nModel Information:\nSimple exponential smoothing \n\nCall:\nses(y = est_part)\n\n  Smoothing parameters:\n    alpha = 0.9999 \n\n  Initial states:\n    l = 21.3004 \n\n  sigma:  2.0227\n\n     AIC     AICc      BIC \n270.0030 270.5247 275.7391 \n\nError measures:\n                   ME     RMSE      MAE      MPE     MAPE      MASE      ACF1\nTraining set 1.542145 1.981825 1.558155 2.974211 3.045736 0.9800978 0.4849583\n\nForecasts:\n     Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95\n2010       98.39994 95.80776 100.9921 94.43554 102.3643\n2011       98.39994 94.73422 102.0657 92.79371 104.0062\n2012       98.39994 93.91044 102.8894 91.53385 105.2660\n2013       98.39994 93.21596 103.5839 90.47173 106.3282\n2014       98.39994 92.60410 104.1958 89.53597 107.2639\n2015       98.39994 92.05094 104.7489 88.68998 108.1099\n2016       98.39994 91.54225 105.2576 87.91201 108.8879\n2017       98.39994 91.06878 105.7311 87.18789 109.6120\n2018       98.39994 90.62408 106.1758 86.50779 110.2921\n2019       98.39994 90.20347 106.5964 85.86452 110.9354"
+  },
+  {
+    "objectID": "C2 Univariate Modelling Techniques.html#holts-method-using-r",
+    "href": "C2 Univariate Modelling Techniques.html#holts-method-using-r",
+    "title": "STA572:Time Series Analysis and Forecasting",
+    "section": "Holt’s Method using R",
+    "text": "Holt’s Method using R\n\nHolt_est &lt;- holt(est_part)\nsummary(Holt_est)\n\n\nForecast method: Holt's method\n\nModel Information:\nHolt's method \n\nCall:\nholt(y = est_part)\n\n  Smoothing parameters:\n    alpha = 0.9922 \n    beta  = 0.3708 \n\n  Initial states:\n    l = 21.2128 \n    b = -0.0636 \n\n  sigma:  1.1718\n\n     AIC     AICc      BIC \n217.2861 218.6498 226.8462 \n\nError measures:\n                    ME    RMSE       MAE       MPE     MAPE      MASE      ACF1\nTraining set 0.1243695 1.12395 0.8068117 0.4127585 1.756522 0.5074939 0.1005745\n\nForecasts:\n     Point Forecast     Lo 80    Hi 80     Lo 95    Hi 95\n2010       100.6626  99.16086 102.1643  98.36590 102.9593\n2011       102.9050 100.36634 105.4436  99.02247 106.7875\n2012       105.1474 101.51089 108.7839  99.58585 110.7089\n2013       107.3898 102.57173 112.2078 100.02122 114.7583\n2014       109.6322 103.54667 115.7176 100.32520 118.9391\n2015       111.8745 104.43792 119.3112 100.50120 123.2479\n2016       114.1169 105.24876 122.9851 100.55423 127.6796\n2017       116.3593 105.98259 126.7361 100.48948 132.2292\n2018       118.6017 106.64262 130.5608 100.31186 136.8916\n2019       120.8441 107.23180 134.4564 100.02588 141.6624"
+  },
+  {
+    "objectID": "C2 Univariate Modelling Techniques.html#holt-winters-trend-and-seasonality-using-r",
+    "href": "C2 Univariate Modelling Techniques.html#holt-winters-trend-and-seasonality-using-r",
+    "title": "STA572:Time Series Analysis and Forecasting",
+    "section": "Holt-Winter’s Trend and Seasonality using R",
+    "text": "Holt-Winter’s Trend and Seasonality using R\n\nHW_est &lt;- hw(est_elec)\nsummary(HW_est)\n\n\nForecast method: Holt-Winters' additive method\n\nModel Information:\nHolt-Winters' additive method \n\nCall:\nhw(y = est_elec)\n\n  Smoothing parameters:\n    alpha = 0.9253 \n    beta  = 4e-04 \n    gamma = 1e-04 \n\n  Initial states:\n    l = 102.4914 \n    b = 0.1712 \n    s = -0.233 -2.2881 3.3367 -0.561 3.7136 1.0978\n           -3.7209 3.5383 -0.1766 4.6854 -8.8695 -0.5228\n\n  sigma:  3.8523\n\n     AIC     AICc      BIC \n631.3403 640.3403 673.0642 \n\nError measures:\n                     ME     RMSE      MAE         MPE     MAPE      MASE\nTraining set 0.01529911 3.475488 2.522562 -0.03638605 2.255034 0.4535252\n                   ACF1\nTraining set 0.06272114\n\nForecasts:\n         Point Forecast     Lo 80    Hi 80     Lo 95    Hi 95\nMar 2022       123.3920 118.45517 128.3289 115.84175 130.9423\nApr 2022       118.7020 111.97466 125.4294 108.41339 128.9907\nMay 2022       122.5889 114.45510 130.7227 110.14932 135.0285\nJun 2022       115.5018 106.17037 124.8333 101.23060 129.7730\nJul 2022       120.4914 110.09866 130.8841 104.59708 136.3857\nAug 2022       123.2787 111.92278 134.6347 105.91130 140.6462\nSep 2022       119.1760 106.93167 131.4203 100.44993 137.9020\nOct 2022       123.2463 110.17328 136.3193 103.25285 143.2397\nNov 2022       117.7928 103.94001 131.6456  96.60677 138.9789\nDec 2022       120.0196 105.42804 134.6111  97.70374 142.3354\nJan 2023       119.9012 104.60604 135.1964  96.50927 143.2932\nFeb 2023       111.7258  95.75746 127.6941  87.30434 136.1472\nMar 2023       125.4525 108.83772 142.0674 100.04236 150.8627\nApr 2023       120.7626 103.52511 138.0000  94.40016 147.1249\nMay 2023       124.6494 106.81062 142.4882  97.36734 151.9315\nJun 2023       117.5623  99.14137 135.9833  89.38991 145.7347\nJul 2023       122.5519 103.56620 141.5376  93.51579 151.5880\nAug 2023       125.3392 105.80473 144.8738  95.46378 155.2147\nSep 2023       121.2365 101.16772 141.3052  90.54397 151.9290\nOct 2023       125.3068 104.71729 145.8963  93.81787 156.7957\nNov 2023       119.8533  98.75553 140.9511  87.58704 152.1196\nDec 2023       122.0801 100.48560 143.6746  89.05417 155.1060\nJan 2024       121.9617  99.88133 144.0421  88.19268 155.7307\nFeb 2024       113.7863  91.23011 136.3424  79.28959 148.2830"
+  },
+  {
+    "objectID": "C2 Univariate Modelling Techniques.html#decomposition-method",
+    "href": "C2 Univariate Modelling Techniques.html#decomposition-method",
+    "title": "STA572:Time Series Analysis and Forecasting",
+    "section": "Decomposition Method",
+    "text": "Decomposition Method\n\ndata(\"AirPassengers\")\ndata &lt;- AirPassengers\n\nplot(data)"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "STA572: Time Series Analysis and Forecasting",
+    "section": "",
+    "text": "Welcome to the course notes for STA572/570: Time Series Analysis and Forecasting."
+  },
+  {
+    "objectID": "index.html#chapters",
+    "href": "index.html#chapters",
+    "title": "STA572: Time Series Analysis and Forecasting",
+    "section": "Chapters",
+    "text": "Chapters\n\n\n\nChapter\nTopic\n\n\n\n\nChapter 1\nIntroduction to Time Series\n\n\nChapter 2\nUnivariate Modelling Techniques\n\n\nChapter 3\nEconometric Modeling\n\n\nChapter 4\nStochastic Processes\n\n\nChapter 5\nBox-Jenkins Methodology"
+  },
+  {
+    "objectID": "index.html#software",
+    "href": "index.html#software",
+    "title": "STA572: Time Series Analysis and Forecasting",
+    "section": "Software",
+    "text": "Software\nAll analysis in this course is performed in R. The following packages are used:\ninstall.packages(c(\"forecast\", \"TSA\", \"ggplot2\", \"ggpubr\",\n                   \"lubridate\", \"gridExtra\"))"
+  },
+  {
     "objectID": "C1 Intro to time series.html",
     "href": "C1 Intro to time series.html",
     "title": "Chapter 1: Introduction to Time Series",
@@ -110,5 +194,54 @@
     "title": "Chapter 1: Introduction to Time Series",
     "section": "4.3 Example: Malaysia CPI Data",
     "text": "4.3 Example: Malaysia CPI Data\n\n4.3.1 Model 1 — Linear Trend\n\n\nShow R Code\nn          &lt;- length(cpits)\nn_train    &lt;- 50\ntime_train &lt;- 1:n_train\ntime_test  &lt;- (n_train + 1):n\n\nmodel1 &lt;- lm(est_part ~ time_train)\nsummary(model1)\n\n\n\nCall:\nlm(formula = est_part ~ time_train)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-6.2836 -3.3028 -0.2493  2.3069 10.7824 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  8.82882    1.11813   7.896 3.16e-10 ***\ntime_train   1.68883    0.03816  44.255  &lt; 2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 3.894 on 48 degrees of freedom\nMultiple R-squared:  0.9761,    Adjusted R-squared:  0.9756 \nF-statistic:  1959 on 1 and 48 DF,  p-value: &lt; 2.2e-16\n\n\n\n\nShow R Code\npred1      &lt;- predict(model1, newdata = data.frame(time_train = time_test))\nactual     &lt;- as.numeric(eva_part)\npredicted1 &lt;- as.numeric(pred1)\n\nmse1  &lt;- mean((actual - predicted1)^2)\nmape1 &lt;- mean(abs((actual - predicted1) / actual)) * 100\nmae1  &lt;- mean(abs(actual - predicted1))\n\ncat(\"=== Model 1: Linear Trend ===\\n\")\n\n\n=== Model 1: Linear Trend ===\n\n\nShow R Code\ncat(\"MSE  :\", round(mse1,  4), \"\\n\")\n\n\nMSE  : 90.1995 \n\n\nShow R Code\ncat(\"MAE  :\", round(mae1,  4), \"\\n\")\n\n\nMAE  : 9.2001 \n\n\nShow R Code\ncat(\"MAPE :\", round(mape1, 4), \"%\\n\")\n\n\nMAPE : 7.959 %\n\n\n\n\n4.3.2 Model 2 — Quadratic Trend\n\n\nShow R Code\nmodel2 &lt;- lm(est_part ~ time_train + I(time_train^2))\nsummary(model2)\n\n\n\nCall:\nlm(formula = est_part ~ time_train + I(time_train^2))\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-5.4353 -1.2541 -0.1506  1.3311  4.3873 \n\nCoefficients:\n                Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)     16.03953    1.05250  15.239  &lt; 2e-16 ***\ntime_train       0.85682    0.09520   9.000 8.57e-12 ***\nI(time_train^2)  0.01631    0.00181   9.014 8.17e-12 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 2.382 on 47 degrees of freedom\nMultiple R-squared:  0.9912,    Adjusted R-squared:  0.9909 \nF-statistic:  2657 on 2 and 47 DF,  p-value: &lt; 2.2e-16\n\n\n\n\nShow R Code\npred2      &lt;- predict(model2, newdata = data.frame(time_train = time_test))\npredicted2 &lt;- as.numeric(pred2)\n\nmse2  &lt;- mean((actual - predicted2)^2)\nmape2 &lt;- mean(abs((actual - predicted2) / actual)) * 100\nmae2  &lt;- mean(abs(actual - predicted2))\n\ncat(\"=== Model 2: Quadratic Trend ===\\n\")\n\n\n=== Model 2: Quadratic Trend ===\n\n\nShow R Code\ncat(\"MSE  :\", round(mse2,  4), \"\\n\")\n\n\nMSE  : 21.6595 \n\n\nShow R Code\ncat(\"MAE  :\", round(mae2,  4), \"\\n\")\n\n\nMAE  : 3.8183 \n\n\nShow R Code\ncat(\"MAPE :\", round(mape2, 4), \"%\\n\")\n\n\nMAPE : 3.2507 %\n\n\n\n\n4.3.3 Model Comparison\n\n\nShow R Code\nknitr::kable(\n  data.frame(Model = c(\"Linear\", \"Quadratic\"),\n             MSE   = round(c(mse1, mse2),  4),\n             MAE   = round(c(mae1, mae2),  4),\n             MAPE  = round(c(mape1, mape2), 4)),\n  col.names = c(\"Model\", \"MSE\", \"MAE\", \"MAPE (%)\"), align = \"c\"\n)\n\n\n\n\nTable 1: Error measure comparison: linear vs. quadratic trend\n\n\n\n\n\n\nModel\nMSE\nMAE\nMAPE (%)\n\n\n\n\nLinear\n90.1995\n9.2001\n7.9590\n\n\nQuadratic\n21.6595\n3.8183\n3.2507\n\n\n\n\n\n\n\n\n\n\n4.3.4 4-Year Forecast\n\n\nShow R Code\nh             &lt;- 4\ntime_all      &lt;- 1:n\ntime_forecast &lt;- (n + 1):(n + h)\n\nfinal_model     &lt;- lm(cpits ~ time_all + I(time_all^2))\nforecast_values &lt;- predict(final_model,\n                           newdata  = data.frame(time_all = time_forecast),\n                           interval = \"prediction\")\nprint(forecast_values)\n\n\n       fit      lwr      upr\n1 132.2664 127.1072 137.4256\n2 134.9212 129.7168 140.1255\n3 137.6011 132.3471 142.8551\n4 140.3063 134.9979 145.6146\n\n\n\n\n\n\n\n\n\n\nFigure 14: Malaysia CPI: observed data and 4-year quadratic trend forecast"
+  },
+  {
+    "objectID": "C3 Econometric Modeling.html#forecasting-econometric-in-r",
+    "href": "C3 Econometric Modeling.html#forecasting-econometric-in-r",
+    "title": "STA572:Time Series Analysis and Forecasting",
+    "section": "Forecasting Econometric in R",
+    "text": "Forecasting Econometric in R\n\n\n\nAsmui Rahim, STA572 , Oct 2025"
+  },
+  {
+    "objectID": "C5 BoxJenkins.html#time-series-plot",
+    "href": "C5 BoxJenkins.html#time-series-plot",
+    "title": "STA572:Time Series Analysis and Forecasting",
+    "section": "Time Series Plot",
+    "text": "Time Series Plot\n\nsnp &lt;- read.csv(\"data/SNP500.csv\", header=T)\nsnp_ts &lt;- ts(snp[,6], frequency=1)\nplot(snp_ts)"
+  },
+  {
+    "objectID": "Untitled.html",
+    "href": "Untitled.html",
+    "title": "Untitled",
+    "section": "",
+    "text": "This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.\nWhen you click the Knit button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document."
+  },
+  {
+    "objectID": "Untitled.html#r-markdown",
+    "href": "Untitled.html#r-markdown",
+    "title": "Untitled",
+    "section": "",
+    "text": "This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.\nWhen you click the Knit button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document."
+  },
+  {
+    "objectID": "Untitled.html#slide-with-bullets",
+    "href": "Untitled.html#slide-with-bullets",
+    "title": "Untitled",
+    "section": "2 Slide with Bullets",
+    "text": "2 Slide with Bullets\n\nBullet 1\nBullet 2\nBullet 3"
+  },
+  {
+    "objectID": "Untitled.html#slide-with-r-output",
+    "href": "Untitled.html#slide-with-r-output",
+    "title": "Untitled",
+    "section": "3 Slide with R Output",
+    "text": "3 Slide with R Output\n\n\nShow R Code\nsummary(cars)\n\n\n     speed           dist       \n Min.   : 4.0   Min.   :  2.00  \n 1st Qu.:12.0   1st Qu.: 26.00  \n Median :15.0   Median : 36.00  \n Mean   :15.4   Mean   : 42.98  \n 3rd Qu.:19.0   3rd Qu.: 56.00  \n Max.   :25.0   Max.   :120.00"
+  },
+  {
+    "objectID": "Untitled.html#slide-with-plot",
+    "href": "Untitled.html#slide-with-plot",
+    "title": "Untitled",
+    "section": "4 Slide with Plot",
+    "text": "4 Slide with Plot"
   }
 ]

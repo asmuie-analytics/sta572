@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="C4 Stochastic Process_files/libs/clipboard/clipboard.min.js"></script>
-<script src="C4 Stochastic Process_files/libs/quarto-html/tabby.min.js"></script>
-<script src="C4 Stochastic Process_files/libs/quarto-html/popper.min.js"></script>
-<script src="C4 Stochastic Process_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="C4 Stochastic Process_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="C4 Stochastic Process_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="C4 Stochastic Process_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="C4 Stochastic Process_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<link href="./images/favicon.png" rel="icon" type="image/png">
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/tabby.min.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.5.57">
 
   <meta name="author" content="Lecturer, Department of Statistics">
-  <title>STA572:Time Series Analysis and Forecasting</title>
+  <title>STA572: Time Series Analysis and Forecasting – STA572:Time Series Analysis and Forecasting</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="C4 Stochastic Process_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="C4 Stochastic Process_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -95,14 +96,14 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="C4 Stochastic Process_files/libs/revealjs/dist/theme/quarto.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto.css">
   <link rel="stylesheet" href="mystyle.css">
-  <link href="C4 Stochastic Process_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="C4 Stochastic Process_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="C4 Stochastic Process_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="C4 Stochastic Process_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
-  <link href="C4 Stochastic Process_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
-  <link href="C4 Stochastic Process_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
 
   .callout {
@@ -423,15 +424,15 @@ Lecturer, Department of Statistics
 <h3 id="autoregressive-model">Autoregressive Model</h3>
 <p>AR(1) model</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">151</span>)</span>
-<span id="cb1-2"><a href=""></a>yt1 <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">model=</span><span class="fu">list</span>(<span class="at">order=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="at">ar=</span><span class="fl">0.2</span>), <span class="at">n=</span><span class="dv">100</span>)</span>
-<span id="cb1-3"><a href=""></a>yt2 <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">model=</span><span class="fu">list</span>(<span class="at">order=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="at">ar=</span><span class="fl">0.5</span>), <span class="at">n=</span><span class="dv">100</span>)</span>
-<span id="cb1-4"><a href=""></a>yt3 <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">model=</span><span class="fu">list</span>(<span class="at">order=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="at">ar=</span><span class="fl">0.8</span>), <span class="at">n=</span><span class="dv">100</span>)</span>
-<span id="cb1-5"><a href=""></a></span>
-<span id="cb1-6"><a href=""></a><span class="fu">plot</span>(yt1, <span class="at">type=</span><span class="st">"l"</span>, <span class="at">col=</span><span class="st">"blue"</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="fu">min</span>(yt3),<span class="fu">max</span>(yt3)), <span class="at">ylab=</span><span class="st">""</span>)</span>
-<span id="cb1-7"><a href=""></a><span class="fu">lines</span>(yt2, <span class="at">col=</span><span class="st">"green"</span>)</span>
-<span id="cb1-8"><a href=""></a><span class="fu">lines</span>(yt3, <span class="at">col=</span><span class="st">"red"</span>)</span>
-<span id="cb1-9"><a href=""></a><span class="fu">legend</span>(<span class="st">"bottomright"</span>, <span class="at">legend=</span><span class="fu">c</span>(<span class="st">"phi=0.2"</span>, <span class="st">"phi=0.5"</span>, <span class="st">"phi=0.8"</span>), <span class="at">col=</span><span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"green"</span>, <span class="st">"red"</span>), <span class="at">lty=</span><span class="dv">1</span>, <span class="at">cex=</span><span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">set.seed</span>(<span class="dv">151</span>)</span>
+<span id="cb1-2"><a></a>yt1 <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">model=</span><span class="fu">list</span>(<span class="at">order=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="at">ar=</span><span class="fl">0.2</span>), <span class="at">n=</span><span class="dv">100</span>)</span>
+<span id="cb1-3"><a></a>yt2 <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">model=</span><span class="fu">list</span>(<span class="at">order=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="at">ar=</span><span class="fl">0.5</span>), <span class="at">n=</span><span class="dv">100</span>)</span>
+<span id="cb1-4"><a></a>yt3 <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">model=</span><span class="fu">list</span>(<span class="at">order=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="at">ar=</span><span class="fl">0.8</span>), <span class="at">n=</span><span class="dv">100</span>)</span>
+<span id="cb1-5"><a></a></span>
+<span id="cb1-6"><a></a><span class="fu">plot</span>(yt1, <span class="at">type=</span><span class="st">"l"</span>, <span class="at">col=</span><span class="st">"blue"</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="fu">min</span>(yt3),<span class="fu">max</span>(yt3)), <span class="at">ylab=</span><span class="st">""</span>)</span>
+<span id="cb1-7"><a></a><span class="fu">lines</span>(yt2, <span class="at">col=</span><span class="st">"green"</span>)</span>
+<span id="cb1-8"><a></a><span class="fu">lines</span>(yt3, <span class="at">col=</span><span class="st">"red"</span>)</span>
+<span id="cb1-9"><a></a><span class="fu">legend</span>(<span class="st">"bottomright"</span>, <span class="at">legend=</span><span class="fu">c</span>(<span class="st">"phi=0.2"</span>, <span class="st">"phi=0.5"</span>, <span class="st">"phi=0.8"</span>), <span class="at">col=</span><span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"green"</span>, <span class="st">"red"</span>), <span class="at">lty=</span><span class="dv">1</span>, <span class="at">cex=</span><span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -446,9 +447,9 @@ Lecturer, Department of Statistics
 <h3 id="random-process-1">Random process</h3>
 <p>Example of non-stationary series.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">111</span>)</span>
-<span id="cb2-2"><a href=""></a>yt <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
-<span id="cb2-3"><a href=""></a><span class="fu">plot</span>(yt,<span class="at">type=</span><span class="st">"l"</span>,<span class="at">ylab=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">set.seed</span>(<span class="dv">111</span>)</span>
+<span id="cb2-2"><a></a>yt <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb2-3"><a></a><span class="fu">plot</span>(yt,<span class="at">type=</span><span class="st">"l"</span>,<span class="at">ylab=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="C4-Stochastic-Process_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section>
@@ -474,11 +475,11 @@ Lecturer, Department of Statistics
 
 <p>Augmented Dickey-Fuller Test</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="fu">library</span>(tseries)</span>
-<span id="cb3-2"><a href=""></a></span>
-<span id="cb3-3"><a href=""></a><span class="co"># Test 1: White Noise (expect stationary)</span></span>
-<span id="cb3-4"><a href=""></a>adf_test1 <span class="ot">&lt;-</span> <span class="fu">adf.test</span>(stationary_series)</span>
-<span id="cb3-5"><a href=""></a>adf_test1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">library</span>(tseries)</span>
+<span id="cb3-2"><a></a></span>
+<span id="cb3-3"><a></a><span class="co"># Test 1: White Noise (expect stationary)</span></span>
+<span id="cb3-4"><a></a>adf_test1 <span class="ot">&lt;-</span> <span class="fu">adf.test</span>(stationary_series)</span>
+<span id="cb3-5"><a></a>adf_test1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Augmented Dickey-Fuller Test
@@ -487,9 +488,9 @@ data:  stationary_series
 Dickey-Fuller = -6.0949, Lag order = 5, p-value = 0.01
 alternative hypothesis: stationary</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="co"># Test 2: Random Walk (expect non-stationary)</span></span>
-<span id="cb5-2"><a href=""></a>adf_test2 <span class="ot">&lt;-</span> <span class="fu">adf.test</span>(random_walk)</span>
-<span id="cb5-3"><a href=""></a>adf_test2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="co"># Test 2: Random Walk (expect non-stationary)</span></span>
+<span id="cb5-2"><a></a>adf_test2 <span class="ot">&lt;-</span> <span class="fu">adf.test</span>(random_walk)</span>
+<span id="cb5-3"><a></a>adf_test2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Augmented Dickey-Fuller Test
@@ -498,10 +499,10 @@ data:  random_walk
 Dickey-Fuller = -1.5623, Lag order = 5, p-value = 0.7594
 alternative hypothesis: stationary</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="co"># Test 3: After differencing random walk</span></span>
-<span id="cb7-2"><a href=""></a>diff_random_walk <span class="ot">&lt;-</span> <span class="fu">diff</span>(random_walk)</span>
-<span id="cb7-3"><a href=""></a>adf_test3 <span class="ot">&lt;-</span> <span class="fu">adf.test</span>(diff_random_walk)</span>
-<span id="cb7-4"><a href=""></a>adf_test3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="co"># Test 3: After differencing random walk</span></span>
+<span id="cb7-2"><a></a>diff_random_walk <span class="ot">&lt;-</span> <span class="fu">diff</span>(random_walk)</span>
+<span id="cb7-3"><a></a>adf_test3 <span class="ot">&lt;-</span> <span class="fu">adf.test</span>(diff_random_walk)</span>
+<span id="cb7-4"><a></a>adf_test3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Augmented Dickey-Fuller Test
@@ -515,20 +516,21 @@ alternative hypothesis: stationary</code></pre>
 <section id="differencing-in-r" class="slide level2">
 <h2>Differencing in R</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>unrate <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"employment.csv"</span>)</span>
-<span id="cb9-2"><a href=""></a>unratets <span class="ot">&lt;-</span> <span class="fu">ts</span>(unrate<span class="sc">$</span>u_rate, <span class="at">start=</span><span class="dv">1982</span>)</span>
-<span id="cb9-3"><a href=""></a><span class="fu">plot</span>(unratets, <span class="at">ylab=</span><span class="st">"unemployement rate"</span>, <span class="at">xlab=</span><span class="st">"Year"</span>, <span class="at">xaxt=</span><span class="st">"n"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>unrate <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/employment.csv"</span>)</span>
+<span id="cb9-2"><a></a>unratets <span class="ot">&lt;-</span> <span class="fu">ts</span>(unrate<span class="sc">$</span>u_rate, <span class="at">start=</span><span class="dv">1982</span>)</span>
+<span id="cb9-3"><a></a><span class="fu">plot</span>(unratets, <span class="at">ylab=</span><span class="st">"unemployement rate"</span>, <span class="at">xlab=</span><span class="st">"Year"</span>, <span class="at">xaxt=</span><span class="st">"n"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="C4-Stochastic-Process_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>ur<span class="ot">&lt;-</span><span class="fu">ts</span>(unrate<span class="sc">$</span>u_rate, <span class="at">start =</span> <span class="dv">1982</span>)</span>
-<span id="cb10-2"><a href=""></a>diff_ur<span class="ot">&lt;-</span><span class="fu">diff</span>(ur)</span>
-<span id="cb10-3"><a href=""></a><span class="fu">autoplot</span>(diff_ur)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>ur<span class="ot">&lt;-</span><span class="fu">ts</span>(unrate<span class="sc">$</span>u_rate, <span class="at">start =</span> <span class="dv">1982</span>)</span>
+<span id="cb10-2"><a></a>diff_ur<span class="ot">&lt;-</span><span class="fu">diff</span>(ur)</span>
+<span id="cb10-3"><a></a><span class="fu">autoplot</span>(diff_ur)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
+
 <img data-src="C4-Stochastic-Process_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"><div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 <p>Asmui Rahim, STA572 , Oct 2025</p>
@@ -539,20 +541,20 @@ alternative hypothesis: stationary</code></pre>
   </div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="C4 Stochastic Process_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="site_libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="C4 Stochastic Process_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="C4 Stochastic Process_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="C4 Stochastic Process_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="C4 Stochastic Process_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="C4 Stochastic Process_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
-  <script src="C4 Stochastic Process_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="C4 Stochastic Process_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="C4 Stochastic Process_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="C4 Stochastic Process_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="C4 Stochastic Process_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="site_libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
