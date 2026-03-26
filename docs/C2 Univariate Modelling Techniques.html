@@ -796,18 +796,21 @@ Important
 <details class="code-fold">
 <summary>Show R Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pct   <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">diff</span>(price) <span class="sc">/</span> price[<span class="sc">-</span>n_p])</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>F_apc <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="fu">sapply</span>(<span class="dv">3</span><span class="sc">:</span>n_p, <span class="cf">function</span>(i)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>             price[i<span class="dv">-1</span>] <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">mean</span>(pct[<span class="dv">2</span><span class="sc">:</span>(i<span class="dv">-1</span>)], <span class="at">na.rm =</span> <span class="cn">TRUE</span>))))</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>e2_apc  <span class="ot">&lt;-</span> (price <span class="sc">-</span> F_apc)<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>mse_apc <span class="ot">&lt;-</span> <span class="fu">mean</span>(e2_apc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">Year =</span> year, <span class="at">Price =</span> price,</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">PctChg =</span> <span class="fu">round</span>(pct <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>), <span class="at">F_t =</span> <span class="fu">round</span>(F_apc, <span class="dv">4</span>),</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">e2 =</span> <span class="fu">round</span>(e2_apc, <span class="dv">4</span>)),</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Year"</span>, <span class="st">"Price (RM)"</span>, <span class="st">"% Change"</span>, <span class="st">"$F_t$"</span>, <span class="st">"$e_t^2$"</span>),</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">align =</span> <span class="st">"c"</span>, <span class="at">na_mark =</span> <span class="st">"—"</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># F_{t+1} = y_t * (1 + (p_t + p_{t-1})/2)</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># p_{t-1} needs y_{t-2}: F(2019) and F(2020) both require y(2017) -&gt; NA</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># First computable forecast is F(2021) at i=4</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>F_apc <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="fu">sapply</span>(<span class="dv">4</span><span class="sc">:</span>n_p, <span class="cf">function</span>(i)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>             price[i<span class="dv">-1</span>] <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">+</span> (pct[i<span class="dv">-1</span>] <span class="sc">+</span> pct[i<span class="dv">-2</span>]) <span class="sc">/</span> <span class="dv">2</span>)))</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>e2_apc  <span class="ot">&lt;-</span> (price <span class="sc">-</span> F_apc)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>mse_apc <span class="ot">&lt;-</span> <span class="fu">mean</span>(e2_apc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">Year =</span> year, <span class="at">Price =</span> price,</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">PctChg =</span> <span class="fu">round</span>(pct <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>), <span class="at">F_t =</span> <span class="fu">round</span>(F_apc, <span class="dv">4</span>),</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">e2 =</span> <span class="fu">round</span>(e2_apc, <span class="dv">4</span>)),</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Year"</span>, <span class="st">"Price (RM)"</span>, <span class="st">"% Change"</span>, <span class="st">"$F_t$"</span>, <span class="st">"$e_t^2$"</span>),</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">align =</span> <span class="st">"c"</span>, <span class="at">na_mark =</span> <span class="st">"—"</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div id="tbl-avg-pct" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -845,8 +848,8 @@ Table&nbsp;4: Average percent change &lt;U+2014&gt; worked example
 <td style="text-align: center;">2020</td>
 <td style="text-align: center;">9</td>
 <td style="text-align: center;">12.50</td>
-<td style="text-align: center;">10.6667</td>
-<td style="text-align: center;">2.7778</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">NA</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">2021</td>
@@ -859,15 +862,15 @@ Table&nbsp;4: Average percent change &lt;U+2014&gt; worked example
 <td style="text-align: center;">2022</td>
 <td style="text-align: center;">15</td>
 <td style="text-align: center;">25.00</td>
-<td style="text-align: center;">15.1667</td>
-<td style="text-align: center;">0.0278</td>
+<td style="text-align: center;">14.7500</td>
+<td style="text-align: center;">0.0625</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">2023</td>
 <td style="text-align: center;">16</td>
 <td style="text-align: center;">6.67</td>
-<td style="text-align: center;">18.9062</td>
-<td style="text-align: center;">8.4463</td>
+<td style="text-align: center;">19.3750</td>
+<td style="text-align: center;">11.3906</td>
 </tr>
 </tbody>
 </table>
@@ -879,18 +882,18 @@ Table&nbsp;4: Average percent change &lt;U+2014&gt; worked example
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>f2024_apc <span class="ot">&lt;-</span> price[n_p] <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">mean</span>(pct, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>f2024_apc <span class="ot">&lt;-</span> price[n_p] <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">+</span> (pct[n_p] <span class="sc">+</span> pct[n_p <span class="sc">-</span> <span class="dv">1</span>]) <span class="sc">/</span> <span class="dv">2</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Forecast for 2024 (Avg Percent Change):"</span>, <span class="fu">round</span>(f2024_apc, <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Forecast for 2024 (Avg Percent Change): 19.5467 </code></pre>
+<pre><code>Forecast for 2024 (Avg Percent Change): 18.5333 </code></pre>
 </div>
 <details class="code-fold">
 <summary>Show R Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"MSE:"</span>, <span class="fu">round</span>(mse_apc, <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>MSE: 3.0327 </code></pre>
+<pre><code>MSE: 4.1107 </code></pre>
 </div>
 </div>
 <blockquote class="blockquote">
@@ -2296,7 +2299,7 @@ Table&nbsp;11: Summary comparison of univariate methods on the worked example
 <td style="text-align: center;">No</td>
 <td style="text-align: center;">No</td>
 <td style="text-align: center;">Yes</td>
-<td style="text-align: center;">3.0327</td>
+<td style="text-align: center;">4.1107</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">SES</td>

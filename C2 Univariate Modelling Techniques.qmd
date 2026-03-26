@@ -242,8 +242,11 @@ May be unsuitable for forecasting **beyond one or two periods** due to compoundi
 #| tbl-cap: "Average percent change — worked example"
 
 pct   <- c(NA, diff(price) / price[-n_p])
-F_apc <- c(NA, NA, sapply(3:n_p, function(i)
-             price[i-1] * (1 + mean(pct[2:(i-1)], na.rm = TRUE))))
+# F_{t+1} = y_t * (1 + (p_t + p_{t-1})/2)
+# p_{t-1} needs y_{t-2}: F(2019) and F(2020) both require y(2017) -> NA
+# First computable forecast is F(2021) at i=4
+F_apc <- c(NA, NA, NA, sapply(4:n_p, function(i)
+             price[i-1] * (1 + (pct[i-1] + pct[i-2]) / 2)))
 e2_apc  <- (price - F_apc)^2
 mse_apc <- mean(e2_apc, na.rm = TRUE)
 
@@ -258,7 +261,7 @@ knitr::kable(
 
 ```{r}
 #| label: avg-pct-result
-f2024_apc <- price[n_p] * (1 + mean(pct, na.rm = TRUE))
+f2024_apc <- price[n_p] * (1 + (pct[n_p] + pct[n_p - 1]) / 2)
 cat("Forecast for 2024 (Avg Percent Change):", round(f2024_apc, 4), "\n")
 cat("MSE:", round(mse_apc, 4), "\n")
 ```
