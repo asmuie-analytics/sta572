@@ -705,31 +705,40 @@ autoplot(electricts) +
 #| label: tbl-comparison
 #| tbl-cap: "Summary comparison of univariate methods on the worked example"
 
-# Number of valid forecast pairs per method (n=6 observations)
-n_pairs <- c(
-  sum(!is.na(F_naive)),   # Naive:        5
-  sum(!is.na(F_trend)),   # Naive Trend:  4
-  sum(!is.na(F_ac)),      # Avg Change:   3
-  sum(!is.na(F_apc)),     # Avg Pct:      3
-  sum(!is.na(F_ses[-1])), # SES:          5 (exclude init row)
-  sum(!is.na(F_des)),     # DES:          5
-  sum(!is.na(F_holt)),    # Holt:         5
-  sum(!is.na(F_ar[-1]))   # ARRES:        5 (exclude init row)
+# Compute HW MSE from the quarterly example (hw_ts / hw_fit already in environment)
+e2_hw   <- (hw_ts - fitted(hw_fit))^2
+mse_hw  <- mean(e2_hw)   # all 8 quarterly observations
+
+# n = number of errors contributing to each MSE
+# (rows with NA forecast are excluded; SES/ARRES exclude init row t=1)
+n_errors <- c(
+  sum(!is.na(F_naive)),    # 5
+  sum(!is.na(F_trend)),    # 4
+  sum(!is.na(F_ac)),       # 3
+  sum(!is.na(F_apc)),      # 3
+  length(F_ses) - 1,       # 5  (exclude init)
+  sum(!is.na(F_des)),      # 5
+  sum(!is.na(F_holt)),     # 5
+  length(F_ar) - 1,        # 5  (exclude init)
+  length(hw_ts)            # 8  (quarterly data)
 )
 
 data.frame(
-  Method     = c("Naive","Naive with Trend","Avg Change",
-                 "Avg % Change","SES","DES","Holt's","ARRES"),
-  Trend      = c("No","Yes","No","No","No","Yes","Yes","No"),
-  Seasonal   = c("No","No","No","No","No","No","No","No"),
-  MultiStep  = c("Yes","Yes","Yes","Yes","No","Yes","Yes","No"),
-  Pairs      = n_pairs,
-  MSE        = round(c(mse_naive, mse_trend, mse_ac, mse_apc,
-                       mse_ses,   mse_des,   mse_h,  mse_ar), 4)
+  Method    = c("Naive","Naive with Trend","Avg Change",
+                "Avg % Change","SES","DES","Holt's","ARRES",
+                "Holt-Winters †"),
+  Trend     = c("No","Yes","No","No","No","Yes","Yes","No","Yes"),
+  Seasonal  = c("No","No","No","No","No","No","No","No","Yes"),
+  MultiStep = c("Yes","Yes","Yes","Yes","No","Yes","Yes","No","Yes"),
+  n         = n_errors,
+  MSE       = round(c(mse_naive, mse_trend, mse_ac, mse_apc,
+                      mse_ses,   mse_des,   mse_h,  mse_ar,
+                      mse_hw), 4)
 ) |>
   knitr::kable(col.names = c("Method","Handles Trend","Handles Seasonal",
-                              "Multi-step","Valid Pairs","MSE (example)"),
-               align = "c")
+                              "Multi-step","n","MSE"),
+               align = "c",
+               caption = "† Holt-Winters MSE is from the quarterly example (n=8); all other methods use the annual price example (n=6). Direct MSE comparison across different datasets is not meaningful.")
 ```
 
 ------------------------------------------------------------------------
