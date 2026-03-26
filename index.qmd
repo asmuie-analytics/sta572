@@ -12,7 +12,7 @@ Welcome to the course notes for **STA572/570: Time Series Analysis and Forecasti
 
 ::: {.g-col-12 .g-col-md-6}
 ### Instructor
-**Dr Nurul Nisa' Khairol Azmi**
+**Muhammad Asmu'i Bin Abdul Rahim**
 Faculty of Computer and Mathematical Sciences
 Universiti Teknologi MARA
 :::
