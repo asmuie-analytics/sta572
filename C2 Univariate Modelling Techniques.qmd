@@ -150,10 +150,10 @@ This method is **highly sensitive** to changes in actual values.
 #| label: tbl-naive-trend
 #| tbl-cap: "Naive with trend — worked example"
 
-growth   <- c(NA, price[-1] / price[-n_p])
-F_trend  <- c(NA, price[-n_p] * c(NA, growth[-c(1,2)]))
-# one-step: F_{t+1} = y_t * (y_t / y_{t-1})
-F_trend  <- c(NA, sapply(2:n_p, function(i) price[i-1] * (price[i-1] / price[max(1,i-2)])))
+# F_{t+1} = y_t * (y_t / y_{t-1})  -- needs TWO prior values, so first two rows are NA
+growth  <- c(NA, price[-1] / price[-n_p])          # growth rate at each t
+F_trend <- c(NA, NA, sapply(3:n_p, function(i)     # F(2019) = NA: needs y(2017) which is absent
+               price[i-1] * (price[i-1] / price[i-2])))
 e2_trend <- (price - F_trend)^2
 mse_trend <- mean(e2_trend, na.rm = TRUE)
 
