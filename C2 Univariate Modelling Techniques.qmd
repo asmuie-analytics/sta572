@@ -198,9 +198,12 @@ $$F_{t+m} = y_t + \frac{(y_t - y_{t-1}) + (y_{t-1} - y_{t-2})}{2}$$
 #| label: tbl-avg-change
 #| tbl-cap: "Average change — worked example"
 
-chg   <- c(NA, diff(price))
-F_ac  <- c(NA, NA, sapply(3:n_p, function(i)
-             price[i-1] + mean(diff(price[1:(i-1)]))))
+chg  <- c(NA, diff(price))
+# F_{t+1} = y_t + [(y_t-y_{t-1}) + (y_{t-1}-y_{t-2})]/2
+# Needs y_{t-2}: F(2019) needs y(2017), F(2020) needs y(2017) -> both NA
+# First computable forecast is F(2021) at i=4
+F_ac  <- c(NA, NA, NA, sapply(4:n_p, function(i)
+             price[i-1] + (chg[i-1] + chg[i-2]) / 2))
 e2_ac <- (price - F_ac)^2
 mse_ac <- mean(e2_ac, na.rm = TRUE)
 
@@ -215,7 +218,7 @@ knitr::kable(
 
 ```{r}
 #| label: avg-change-result
-f2024_ac <- price[n_p] + mean(diff(price))
+f2024_ac <- price[n_p] + (chg[n_p] + chg[n_p - 1]) / 2
 cat("Forecast for 2024 (Average Change):", round(f2024_ac, 4), "\n")
 cat("MSE:", round(mse_ac, 4), "\n")
 ```
