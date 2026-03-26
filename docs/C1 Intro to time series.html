@@ -1,0 +1,2145 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Chapter 1: Introduction to Time Series – STA572: Time Series Analysis and Forecasting</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./images/favicon.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./images/favicon.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">STA572: Time Series Analysis and Forecasting</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-chapters" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Chapters</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-chapters">    
+        <li>
+    <a class="dropdown-item" href="./C1 Intro to time series.html">
+ <span class="dropdown-text">Chapter 1 — Introduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./C2 Univariate Modelling Techniques.html">
+ <span class="dropdown-text">Chapter 2 — Univariate Modelling</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./C3 Econometric Modeling.html">
+ <span class="dropdown-text">Chapter 3 — Econometric Modeling</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./C4 Stochastic Process.html">
+ <span class="dropdown-text">Chapter 4 — Stochastic Process</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./C5 BoxJenkins.html">
+ <span class="dropdown-text">Chapter 5 — Box-Jenkins</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/YOUR-USERNAME/sta572"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a>
+  <ul class="collapse">
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">1.1</span> Learning Objectives</a></li>
+  <li><a href="#definition" id="toc-definition" class="nav-link" data-scroll-target="#definition"><span class="header-section-number">1.2</span> Definition</a>
+  <ul class="collapse">
+  <li><a href="#statistical-and-mathematical-definition" id="toc-statistical-and-mathematical-definition" class="nav-link" data-scroll-target="#statistical-and-mathematical-definition"><span class="header-section-number">1.2.1</span> Statistical and Mathematical Definition</a></li>
+  </ul></li>
+  <li><a href="#categorization-of-forecasting-models" id="toc-categorization-of-forecasting-models" class="nav-link" data-scroll-target="#categorization-of-forecasting-models"><span class="header-section-number">1.3</span> Categorization of Forecasting Models</a></li>
+  <li><a href="#visualization-of-time-series" id="toc-visualization-of-time-series" class="nav-link" data-scroll-target="#visualization-of-time-series"><span class="header-section-number">1.4</span> Visualization of Time Series</a>
+  <ul class="collapse">
+  <li><a href="#example-1-malaysia-unemployment-rate-19822020" id="toc-example-1-malaysia-unemployment-rate-19822020" class="nav-link" data-scroll-target="#example-1-malaysia-unemployment-rate-19822020"><span class="header-section-number">1.4.1</span> Example 1: Malaysia Unemployment Rate (1982–2020)</a></li>
+  <li><a href="#example-2-monthly-oil-price-jan-1986-jan-2006" id="toc-example-2-monthly-oil-price-jan-1986-jan-2006" class="nav-link" data-scroll-target="#example-2-monthly-oil-price-jan-1986-jan-2006"><span class="header-section-number">1.4.2</span> Example 2: Monthly Oil Price (Jan 1986 – Jan 2006)</a></li>
+  <li><a href="#example-3-monthly-sales-of-specialty-oil-filters-19831987" id="toc-example-3-monthly-sales-of-specialty-oil-filters-19831987" class="nav-link" data-scroll-target="#example-3-monthly-sales-of-specialty-oil-filters-19831987"><span class="header-section-number">1.4.3</span> Example 3: Monthly Sales of Specialty Oil Filters (1983–1987)</a></li>
+  </ul></li>
+  <li><a href="#interpretation-of-time-series-plot" id="toc-interpretation-of-time-series-plot" class="nav-link" data-scroll-target="#interpretation-of-time-series-plot"><span class="header-section-number">1.5</span> Interpretation of Time Series Plot</a></li>
+  </ul></li>
+  <li><a href="#components-of-time-series" id="toc-components-of-time-series" class="nav-link" data-scroll-target="#components-of-time-series"><span class="header-section-number">2</span> Components of Time Series</a>
+  <ul class="collapse">
+  <li><a href="#trend" id="toc-trend" class="nav-link" data-scroll-target="#trend"><span class="header-section-number">2.1</span> Trend</a>
+  <ul class="collapse">
+  <li><a href="#types-of-trends" id="toc-types-of-trends" class="nav-link" data-scroll-target="#types-of-trends"><span class="header-section-number">2.1.1</span> Types of Trends</a></li>
+  <li><a href="#importance-of-studying-trends" id="toc-importance-of-studying-trends" class="nav-link" data-scroll-target="#importance-of-studying-trends"><span class="header-section-number">2.1.2</span> Importance of Studying Trends</a></li>
+  <li><a href="#identifying-trends" id="toc-identifying-trends" class="nav-link" data-scroll-target="#identifying-trends"><span class="header-section-number">2.1.3</span> Identifying Trends</a></li>
+  <li><a href="#trend-using-simple-linear-regression" id="toc-trend-using-simple-linear-regression" class="nav-link" data-scroll-target="#trend-using-simple-linear-regression"><span class="header-section-number">2.1.4</span> Trend Using Simple Linear Regression</a></li>
+  <li><a href="#trend-using-moving-average" id="toc-trend-using-moving-average" class="nav-link" data-scroll-target="#trend-using-moving-average"><span class="header-section-number">2.1.5</span> Trend Using Moving Average</a></li>
+  </ul></li>
+  <li><a href="#seasonal" id="toc-seasonal" class="nav-link" data-scroll-target="#seasonal"><span class="header-section-number">2.2</span> Seasonal</a>
+  <ul class="collapse">
+  <li><a href="#causes-of-seasonal-patterns" id="toc-causes-of-seasonal-patterns" class="nav-link" data-scroll-target="#causes-of-seasonal-patterns"><span class="header-section-number">2.2.1</span> Causes of Seasonal Patterns</a></li>
+  <li><a href="#identifying-seasonal-components" id="toc-identifying-seasonal-components" class="nav-link" data-scroll-target="#identifying-seasonal-components"><span class="header-section-number">2.2.2</span> Identifying Seasonal Components</a></li>
+  </ul></li>
+  <li><a href="#cyclical" id="toc-cyclical" class="nav-link" data-scroll-target="#cyclical"><span class="header-section-number">2.3</span> Cyclical</a>
+  <ul class="collapse">
+  <li><a href="#methods-to-identify-cyclical-variation" id="toc-methods-to-identify-cyclical-variation" class="nav-link" data-scroll-target="#methods-to-identify-cyclical-variation"><span class="header-section-number">2.3.1</span> Methods to Identify Cyclical Variation</a></li>
+  </ul></li>
+  <li><a href="#irregular-random" id="toc-irregular-random" class="nav-link" data-scroll-target="#irregular-random"><span class="header-section-number">2.4</span> Irregular / Random</a>
+  <ul class="collapse">
+  <li><a href="#turning-point" id="toc-turning-point" class="nav-link" data-scroll-target="#turning-point"><span class="header-section-number">2.4.1</span> Turning Point</a></li>
+  <li><a href="#random-shock" id="toc-random-shock" class="nav-link" data-scroll-target="#random-shock"><span class="header-section-number">2.4.2</span> Random Shock</a></li>
+  <li><a href="#outliers" id="toc-outliers" class="nav-link" data-scroll-target="#outliers"><span class="header-section-number">2.4.3</span> Outliers</a></li>
+  <li><a href="#random-pure-noise" id="toc-random-pure-noise" class="nav-link" data-scroll-target="#random-pure-noise"><span class="header-section-number">2.4.4</span> Random (Pure Noise)</a></li>
+  <li><a href="#summary-distinguishing-irregular-sub-types" id="toc-summary-distinguishing-irregular-sub-types" class="nav-link" data-scroll-target="#summary-distinguishing-irregular-sub-types"><span class="header-section-number">2.4.5</span> Summary: Distinguishing Irregular Sub-types</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#relationship-among-components" id="toc-relationship-among-components" class="nav-link" data-scroll-target="#relationship-among-components"><span class="header-section-number">3</span> Relationship Among Components</a>
+  <ul class="collapse">
+  <li><a href="#additive-effect" id="toc-additive-effect" class="nav-link" data-scroll-target="#additive-effect"><span class="header-section-number">3.1</span> Additive Effect</a></li>
+  <li><a href="#multiplicative-effect" id="toc-multiplicative-effect" class="nav-link" data-scroll-target="#multiplicative-effect"><span class="header-section-number">3.2</span> Multiplicative Effect</a></li>
+  <li><a href="#additive-vs.-multiplicative" id="toc-additive-vs.-multiplicative" class="nav-link" data-scroll-target="#additive-vs.-multiplicative"><span class="header-section-number">3.3</span> Additive vs.&nbsp;Multiplicative</a></li>
+  </ul></li>
+  <li><a href="#measuring-performance" id="toc-measuring-performance" class="nav-link" data-scroll-target="#measuring-performance"><span class="header-section-number">4</span> Measuring Performance</a>
+  <ul class="collapse">
+  <li><a href="#data-partition" id="toc-data-partition" class="nav-link" data-scroll-target="#data-partition"><span class="header-section-number">4.1</span> Data Partition</a></li>
+  <li><a href="#error-measures" id="toc-error-measures" class="nav-link" data-scroll-target="#error-measures"><span class="header-section-number">4.2</span> Error Measures</a></li>
+  <li><a href="#example-malaysia-cpi-data" id="toc-example-malaysia-cpi-data" class="nav-link" data-scroll-target="#example-malaysia-cpi-data"><span class="header-section-number">4.3</span> Example: Malaysia CPI Data</a>
+  <ul class="collapse">
+  <li><a href="#model-1-linear-trend" id="toc-model-1-linear-trend" class="nav-link" data-scroll-target="#model-1-linear-trend"><span class="header-section-number">4.3.1</span> Model 1 — Linear Trend</a></li>
+  <li><a href="#model-2-quadratic-trend" id="toc-model-2-quadratic-trend" class="nav-link" data-scroll-target="#model-2-quadratic-trend"><span class="header-section-number">4.3.2</span> Model 2 — Quadratic Trend</a></li>
+  <li><a href="#model-comparison" id="toc-model-comparison" class="nav-link" data-scroll-target="#model-comparison"><span class="header-section-number">4.3.3</span> Model Comparison</a></li>
+  <li><a href="#year-forecast" id="toc-year-forecast" class="nav-link" data-scroll-target="#year-forecast"><span class="header-section-number">4.3.4</span> 4-Year Forecast</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">5</span> Summary</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">6</span> References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Chapter 1: Introduction to Time Series</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<section id="learning-objectives" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">1.1</span> Learning Objectives</h2>
+<p>By the end of this chapter, students should be able to:</p>
+<ol type="1">
+<li>Understand Time Series Fundamentals.</li>
+<li>Identify Time Series Components.</li>
+<li>Understand the Relationship Among Components.</li>
+<li>Measure Forecast Performance.</li>
+<li>Apply these concepts using R.</li>
+</ol>
+</section>
+<section id="definition" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="definition"><span class="header-section-number">1.2</span> Definition</h2>
+<p>A time series is fundamentally defined as a <strong>time-oriented or chronological sequence of observations measured on a variable of interest</strong>. These observations are typically collected sequentially over time at fixed, equally spaced intervals, referred to as the <strong>sampling interval</strong>.</p>
+<p>Depending on the context, time series data can take several forms:</p>
+<ul>
+<li><strong>Instantaneous measurements:</strong> A reading taken at a specific point in time, such as the viscosity of a chemical product at the moment it is measured.</li>
+<li><strong>Cumulative quantities:</strong> An accumulated total over the interval, such as the total product demand or sales during a month.</li>
+<li><strong>Summary statistics:</strong> A metric that reflects activity of the variable during the time period, such as the daily closing price of a stock.</li>
+</ul>
+<section id="statistical-and-mathematical-definition" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="statistical-and-mathematical-definition"><span class="header-section-number">1.2.1</span> Statistical and Mathematical Definition</h3>
+<p>A time series is modelled as a <strong>discrete-time stochastic process</strong> — a collection of random variables indexed according to the discrete time order in which they are obtained.</p>
+<p>A time series of length <span class="math inline">\(n\)</span> is represented as:</p>
+<p><span class="math display">\[\{y_t : t = 1, 2, \ldots, n\}\]</span></p>
+<p>where the subscript <span class="math inline">\(t\)</span> denotes the discrete time period.</p>
+<p>An important distinction:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 59%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Concept</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>The Time Series Model</strong></td>
+<td>The theoretical sequence of underlying random variables — the ensemble of possibilities</td>
+</tr>
+<tr class="even">
+<td><strong>The Realization</strong></td>
+<td>The actual historical sequence of data observed; a single realization of the stochastic process</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="categorization-of-forecasting-models" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="categorization-of-forecasting-models"><span class="header-section-number">1.3</span> Categorization of Forecasting Models</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-540299255.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%"></p>
+</figure>
+</div>
+<p><em>Source: Wang, Shouyi &amp; Chaovalitwongse, Wanpracha (2011). Evaluating and Comparing Forecasting Models.</em></p>
+</section>
+<section id="visualization-of-time-series" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="visualization-of-time-series"><span class="header-section-number">1.4</span> Visualization of Time Series</h2>
+<p>A time series can be visualized via a <strong>time series plot</strong>.</p>
+<section id="example-1-malaysia-unemployment-rate-19822020" class="level3" data-number="1.4.1">
+<h3 data-number="1.4.1" class="anchored" data-anchor-id="example-1-malaysia-unemployment-rate-19822020"><span class="header-section-number">1.4.1</span> Example 1: Malaysia Unemployment Rate (1982–2020)</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>unrate   <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/employment.csv"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>unratets <span class="ot">&lt;-</span> <span class="fu">ts</span>(unrate<span class="sc">$</span>u_rate, <span class="at">start =</span> <span class="dv">1982</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(unratets,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Unemployment Rate (%)"</span>, <span class="at">xlab =</span> <span class="st">"Year"</span>, <span class="at">xaxt =</span> <span class="st">"n"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"steelblue"</span>, <span class="at">lwd =</span> <span class="fl">1.5</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>years <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1982</span>, <span class="dv">2020</span>, <span class="at">by =</span> <span class="dv">2</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> years, <span class="at">labels =</span> years, <span class="at">las =</span> <span class="dv">2</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">sub =</span> <span class="st">"Figure 1: Malaysia Unemployment Rate from 1982 to 2020"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.sub =</span> <span class="st">"grey40"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-unemployment" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-unemployment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="C1-Intro-to-time-series_files/figure-html/fig-unemployment-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-unemployment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Malaysia Unemployment Rate, 1982–2020
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="example-2-monthly-oil-price-jan-1986-jan-2006" class="level3" data-number="1.4.2">
+<h3 data-number="1.4.2" class="anchored" data-anchor-id="example-2-monthly-oil-price-jan-1986-jan-2006"><span class="header-section-number">1.4.2</span> Example 2: Monthly Oil Price (Jan 1986 – Jan 2006)</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(oil.price)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(oil.price, <span class="at">ylab =</span> <span class="st">"Price per Barrel (USD)"</span>, <span class="at">type =</span> <span class="st">"l"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"darkred"</span>, <span class="at">lwd =</span> <span class="fl">1.5</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">sub =</span> <span class="st">"Figure 2: Monthly Price of Oil: Jan 1986 – Jan 2006"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.sub =</span> <span class="st">"grey40"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-oilprice" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-oilprice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="C1-Intro-to-time-series_files/figure-html/fig-oilprice-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-oilprice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Monthly price of oil, January 1986 – January 2006
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="example-3-monthly-sales-of-specialty-oil-filters-19831987" class="level3" data-number="1.4.3">
+<h3 data-number="1.4.3" class="anchored" data-anchor-id="example-3-monthly-sales-of-specialty-oil-filters-19831987"><span class="header-section-number">1.4.3</span> Example 3: Monthly Sales of Specialty Oil Filters (1983–1987)</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(oilfilters)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(oilfilters, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">ylab =</span> <span class="st">"Sales"</span>, <span class="at">col =</span> <span class="st">"darkgreen"</span>, <span class="at">lwd =</span> <span class="fl">1.5</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">y =</span> oilfilters, <span class="at">x =</span> <span class="fu">time</span>(oilfilters),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">as.vector</span>(<span class="fu">season</span>(oilfilters)))</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">sub =</span> <span class="st">"Figure 3: Monthly Sales of Specialty Oil Filters, Jul 1983 – Jun 1987"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.sub =</span> <span class="st">"grey40"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-oilfilters" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-oilfilters-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="C1-Intro-to-time-series_files/figure-html/fig-oilfilters-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-oilfilters-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Monthly sales of specialty oil filters, 1983–1987
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="interpretation-of-time-series-plot" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="interpretation-of-time-series-plot"><span class="header-section-number">1.5</span> Interpretation of Time Series Plot</h2>
+<p>When interpreting a time series plot, always include the following:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 59%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Element</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Minimum</strong></td>
+<td>The smallest value in the plot</td>
+</tr>
+<tr class="even">
+<td><strong>Maximum</strong></td>
+<td>The largest value in the plot</td>
+</tr>
+<tr class="odd">
+<td><strong>Outliers</strong></td>
+<td>Values much further away from the rest of the data points</td>
+</tr>
+<tr class="even">
+<td><strong>Trends</strong></td>
+<td>Patterns such as upward/downward movements or clusters</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example interpretation (Figure 1):</strong> <em>Malaysia’s unemployment rate ranged from a minimum of 2.4% (1997) to a maximum of 7.4% (2020). The data shows a general downward trend from 1986 to 1997 and exhibits considerable fluctuation thereafter, with a sharp spike in 2020 likely attributed to the COVID-19 pandemic.</em></p>
+<hr>
+</section>
+</section>
+<section id="components-of-time-series" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Components of Time Series</h1>
+<p>A time series is typically composed of four components:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 32%">
+<col style="width: 29%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>Notation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Trend</td>
+<td><span class="math inline">\(T_t\)</span></td>
+<td>Long-run direction of the series</td>
+</tr>
+<tr class="even">
+<td>Seasonal</td>
+<td><span class="math inline">\(S_t\)</span></td>
+<td>Regular, repeating fluctuations within a fixed period</td>
+</tr>
+<tr class="odd">
+<td>Cyclical</td>
+<td><span class="math inline">\(C_t\)</span></td>
+<td>Long-wave rises and falls around the trend</td>
+</tr>
+<tr class="even">
+<td>Irregular/Random</td>
+<td><span class="math inline">\(I_t\)</span></td>
+<td>Unpredictable, residual variation</td>
+</tr>
+</tbody>
+</table>
+<section id="trend" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="trend"><span class="header-section-number">2.1</span> Trend</h2>
+<p>The <strong>trend component</strong> describes the general upward or downward movements that characterise all economic and business activities.</p>
+<section id="types-of-trends" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="types-of-trends"><span class="header-section-number">2.1.1</span> Types of Trends</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 68%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Upward</strong></td>
+<td>Values increase over time</td>
+</tr>
+<tr class="even">
+<td><strong>Downward</strong></td>
+<td>Values decrease over time</td>
+</tr>
+<tr class="odd">
+<td><strong>Horizontal/Flat</strong></td>
+<td>Values remain relatively stable</td>
+</tr>
+<tr class="even">
+<td><strong>Non-linear</strong></td>
+<td>Exhibits curvature — exponential growth, logarithmic decay, etc.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="importance-of-studying-trends" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="importance-of-studying-trends"><span class="header-section-number">2.1.2</span> Importance of Studying Trends</h3>
+<ul>
+<li>Helps in making <strong>forecasts and predictions</strong> about future values.</li>
+<li>Provides <strong>insights into underlying patterns and relationships</strong> — useful for decision-making.</li>
+<li>Helps <strong>identify potential anomalies or changes</strong> in data behaviour over time.</li>
+</ul>
+</section>
+<section id="identifying-trends" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="identifying-trends"><span class="header-section-number">2.1.3</span> Identifying Trends</h3>
+<ul>
+<li><strong>Visual Inspection:</strong> Plotting the time series and observing the overall direction.</li>
+<li><strong>Statistical Techniques:</strong> Linear regression or moving averages.</li>
+</ul>
+</section>
+<section id="trend-using-simple-linear-regression" class="level3" data-number="2.1.4">
+<h3 data-number="2.1.4" class="anchored" data-anchor-id="trend-using-simple-linear-regression"><span class="header-section-number">2.1.4</span> Trend Using Simple Linear Regression</h3>
+<p>In simple linear regression for trend, the independent variable is time <span class="math inline">\(t\)</span> where <span class="math inline">\(t = 1, 2, \ldots, n\)</span>:</p>
+<p><span class="math display">\[\hat{T}_t = \hat{\beta}_0 + \hat{\beta}_1 t\]</span></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>prod    <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/electric.csv"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>electric <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">t =</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">108</span>), <span class="at">index =</span> prod[<span class="dv">1</span><span class="sc">:</span><span class="dv">108</span>, <span class="dv">3</span>])</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> electric, <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> index)) <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"grey50"</span>, <span class="at">linewidth =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">colour =</span> <span class="st">"#d73027"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_regline_equation</span>(<span class="at">label.x =</span> <span class="dv">30</span>, <span class="at">label.y =</span> <span class="dv">130</span>) <span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Output of Electricity Index with Linear Trend"</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Time (months, Jan 2015 = 1)"</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Output of Electricity (Index)"</span>) <span class="sc">+</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-linear-trend" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-linear-trend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="C1-Intro-to-time-series_files/figure-html/fig-linear-trend-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-linear-trend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Output of electricity index with fitted linear trend (Jan 2015 – Dec 2023)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Excel Tutorial:</strong> <a href="https://youtu.be/n6e71G9PImc" class="uri">https://youtu.be/n6e71G9PImc</a></p>
+</blockquote>
+</section>
+<section id="trend-using-moving-average" class="level3" data-number="2.1.5">
+<h3 data-number="2.1.5" class="anchored" data-anchor-id="trend-using-moving-average"><span class="header-section-number">2.1.5</span> Trend Using Moving Average</h3>
+<p><span class="math display">\[M_t^{(k)} = \frac{1}{k}\sum_{i=0}^{k-1} y_{t-i}\]</span></p>
+<ul>
+<li>If <span class="math inline">\(k = 3\)</span>: <strong>3-period moving average</strong></li>
+<li>If <span class="math inline">\(k = 5\)</span>: <strong>5-period moving average</strong></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The larger <span class="math inline">\(k\)</span> is, the <strong>smoother</strong> the series — but more observations are <strong>lost</strong> at both ends.</p>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ma3 <span class="ot">&lt;-</span> <span class="fu">ma</span>(electric<span class="sc">$</span>index, <span class="dv">3</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ma5 <span class="ot">&lt;-</span> <span class="fu">ma</span>(electric<span class="sc">$</span>index, <span class="dv">5</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">matplot</span>(electric<span class="sc">$</span>t,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">cbind</span>(electric<span class="sc">$</span>index, ma3, ma5),</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>, <span class="st">"green"</span>),</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">"Time (months)"</span>, <span class="at">ylab =</span> <span class="st">"Output Index"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Moving Average Trend"</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"bottom"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Actual"</span>, <span class="st">"3-period MA"</span>, <span class="st">"5-period MA"</span>),</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>, <span class="st">"green"</span>), <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">bty =</span> <span class="st">"n"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-moving-average" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-moving-average-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="C1-Intro-to-time-series_files/figure-html/fig-moving-average-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-moving-average-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Electricity output index: actual vs.&nbsp;3-period and 5-period moving averages
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Excel Tutorial:</strong> <a href="https://youtu.be/FODxTjhY5TM" class="uri">https://youtu.be/FODxTjhY5TM</a></p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="seasonal" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="seasonal"><span class="header-section-number">2.2</span> Seasonal</h2>
+<p>The <strong>seasonal component</strong> refers to a recurring pattern that repeats at <strong>regular, fixed</strong> intervals (daily, weekly, monthly, or yearly).</p>
+<section id="causes-of-seasonal-patterns" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="causes-of-seasonal-patterns"><span class="header-section-number">2.2.1</span> Causes of Seasonal Patterns</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 47%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Factor</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Weather</strong></td>
+<td>Palm oil production influenced by rainfall (November–March, east coast Malaysia)</td>
+</tr>
+<tr class="even">
+<td><strong>Holidays</strong></td>
+<td>Tourist numbers peak during school holidays</td>
+</tr>
+<tr class="odd">
+<td><strong>Cultural Events</strong></td>
+<td>Zakat collection highest during Hari Raya Eidulfitri</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="identifying-seasonal-components" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="identifying-seasonal-components"><span class="header-section-number">2.2.2</span> Identifying Seasonal Components</h3>
+<ul>
+<li><strong>Visual Inspection:</strong> Plotting the time series and observing recurring patterns.</li>
+<li><strong>Seasonal Decomposition:</strong> STL or classical decomposition methods.</li>
+<li><strong>Statistical Tests:</strong> Autocorrelation function (ACF) analysis <em>(Chapter 5)</em>.</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>electric<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fu">as.Date</span>(<span class="st">"2015-01-01"</span>),</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">to   =</span> <span class="fu">as.Date</span>(<span class="st">"2023-12-01"</span>),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">by   =</span> <span class="st">"month"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> electric, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> index)) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"steelblue"</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%b %Y"</span>, <span class="at">date_breaks =</span> <span class="st">"6 months"</span>) <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Monthly Electricity Output Index (Jan 2015 – Dec 2023)"</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Electric Consumption (Index)"</span>) <span class="sc">+</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-seasonal" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-seasonal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="C1-Intro-to-time-series_files/figure-html/fig-seasonal-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-seasonal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Monthly electricity output index showing seasonal pattern (2015–2023)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>elec_ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(electric<span class="sc">$</span>index, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2015</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>decomp  <span class="ot">&lt;-</span> <span class="fu">decompose</span>(elec_ts, <span class="at">type =</span> <span class="st">"additive"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(decomp) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Additive Decomposition: Electricity Output Index"</span>) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">11</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-seasonal-decomp" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-seasonal-decomp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="C1-Intro-to-time-series_files/figure-html/fig-seasonal-decomp-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-seasonal-decomp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Classical additive decomposition of the electricity index
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>Excel Tutorial:</strong> <a href="https://youtu.be/Wwlx2IgB7uw" class="uri">https://youtu.be/Wwlx2IgB7uw</a></p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="cyclical" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="cyclical"><span class="header-section-number">2.3</span> Cyclical</h2>
+<p><strong>Cyclical variation</strong> refers to rises and falls of the series over an <strong>unspecified</strong> period, usually around the long-run trend line.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Requires <strong>sufficiently long</strong> data — typically <strong>more than 5 years</strong>.</li>
+<li>Easier to detect with <strong>yearly</strong> data.</li>
+<li>There is <strong>no fixed period</strong> for cyclical recurrence (unlike seasonal).</li>
+<li>Identification is challenging because data patterns are typically <strong>not stable</strong>.</li>
+</ul>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-4042162418.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+<p><em>Source: <a href="https://www.mathworks.com/help/econ/choose-time-series-filter-for-business-cycle-analysis.html" class="uri">https://www.mathworks.com/help/econ/choose-time-series-filter-for-business-cycle-analysis.html</a></em></p>
+<section id="methods-to-identify-cyclical-variation" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="methods-to-identify-cyclical-variation"><span class="header-section-number">2.3.1</span> Methods to Identify Cyclical Variation</h3>
+<section id="residual-method" class="level4" data-number="2.3.1.1">
+<h4 data-number="2.3.1.1" class="anchored" data-anchor-id="residual-method"><span class="header-section-number">2.3.1.1</span> Residual Method</h4>
+<p><span class="math display">\[\text{Percent of Trend} = \frac{y_t}{\hat{T}_t} \times 100\]</span></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(&lt; 100\)</span></td>
+<td>Economy contracting (recession)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(&gt; 100\)</span></td>
+<td>Economy expanding</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="relative-cyclical-residual-method" class="level4" data-number="2.3.1.2">
+<h4 data-number="2.3.1.2" class="anchored" data-anchor-id="relative-cyclical-residual-method"><span class="header-section-number">2.3.1.2</span> Relative Cyclical Residual Method</h4>
+<p><span class="math display">\[\text{Relative Cyclical Residual} = \frac{y_t - \hat{T}_t}{\hat{T}_t} \times 100\]</span></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Negative</td>
+<td>Trend pulled down by recession</td>
+</tr>
+<tr class="even">
+<td>Positive</td>
+<td>Output above average (expansion)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+</section>
+<section id="irregular-random" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="irregular-random"><span class="header-section-number">2.4</span> Irregular / Random</h2>
+<p>The <strong>irregular or random component</strong> is the portion that <strong>cannot be explained</strong> by trend, seasonal, or cyclical components. It has four distinct sub-types:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 43%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sub-type</th>
+<th>Key Characteristic</th>
+<th>Visual Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Turning Point</strong></td>
+<td>Trend permanently changes direction</td>
+<td>Sustained shift in slope</td>
+</tr>
+<tr class="even">
+<td><strong>Random Shock</strong></td>
+<td>Sudden, temporary spike or dip</td>
+<td>Sharp impulse, then recovery</td>
+</tr>
+<tr class="odd">
+<td><strong>Outlier</strong></td>
+<td>One extreme isolated value</td>
+<td>Single point far from neighbours</td>
+</tr>
+<tr class="even">
+<td><strong>Pure Noise</strong></td>
+<td>Small unpredictable fluctuations</td>
+<td>Irregular scatter around zero</td>
+</tr>
+</tbody>
+</table>
+<section id="turning-point" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="turning-point"><span class="header-section-number">2.4.1</span> Turning Point</h3>
+<p>A <strong>turning point</strong> is where the long-run direction <strong>permanently reverses</strong> — from upward to downward or vice versa. Unlike a shock, the series does <strong>not recover</strong> to its prior direction.</p>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>Introduction of robotic manufacturing permanently raises production.</li>
+<li>Sudden change in consumer preference shifts demand to a new sustained level.</li>
+<li>Policy change (e.g., new minimum wage legislation) permanently alters labour market dynamics.</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>unrate <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/employment.csv"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df_u   <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Year   =</span> <span class="fu">as.numeric</span>(<span class="fu">format</span>(<span class="fu">as.Date</span>(unrate<span class="sc">$</span>date), <span class="st">"%Y"</span>)),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">u_rate =</span> unrate<span class="sc">$</span>u_rate</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_u, <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> u_rate)) <span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"steelblue"</span>, <span class="at">linewidth =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">1.8</span>, <span class="at">colour =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> df_u[df_u<span class="sc">$</span>Year <span class="sc">==</span> <span class="dv">1986</span>, ],</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> u_rate),</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"#d73027"</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">shape =</span> <span class="dv">17</span>) <span class="sc">+</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"label"</span>, <span class="at">x =</span> <span class="dv">1986</span>, <span class="at">y =</span> df_u<span class="sc">$</span>u_rate[df_u<span class="sc">$</span>Year <span class="sc">==</span> <span class="dv">1986</span>] <span class="sc">+</span> <span class="fl">0.5</span>,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"Peak (1986)</span><span class="sc">\n</span><span class="st">Turning Point ↓"</span>,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"#d73027"</span>, <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">3.2</span>, <span class="at">label.size =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> df_u[df_u<span class="sc">$</span>Year <span class="sc">==</span> <span class="dv">1997</span>, ],</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> u_rate),</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"#1a9641"</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">shape =</span> <span class="dv">25</span>) <span class="sc">+</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"label"</span>, <span class="at">x =</span> <span class="dv">1997</span>, <span class="at">y =</span> df_u<span class="sc">$</span>u_rate[df_u<span class="sc">$</span>Year <span class="sc">==</span> <span class="dv">1997</span>] <span class="sc">-</span> <span class="fl">0.6</span>,</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"Trough (1997)</span><span class="sc">\n</span><span class="st">Turning Point ↑"</span>,</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"#1a9641"</span>, <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">3.2</span>, <span class="at">label.size =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> df_u[df_u<span class="sc">$</span>Year <span class="sc">==</span> <span class="dv">2020</span>, ],</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> u_rate),</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"#fc8d59"</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">shape =</span> <span class="dv">17</span>) <span class="sc">+</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"label"</span>, <span class="at">x =</span> <span class="dv">2019</span>, <span class="at">y =</span> df_u<span class="sc">$</span>u_rate[df_u<span class="sc">$</span>Year <span class="sc">==</span> <span class="dv">2020</span>] <span class="sc">+</span> <span class="fl">0.5</span>,</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"COVID-19 (2020)</span><span class="sc">\n</span><span class="st">Shock / Turning Point?"</span>,</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"#fc8d59"</span>, <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">3.2</span>, <span class="at">label.size =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Turning Points in Malaysia's Unemployment Rate (1982–2020)"</span>,</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"▲ Peak = trend reverses downward  |  ▽ Trough = trend reverses upward"</span>,</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Unemployment Rate (%)"</span>) <span class="sc">+</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-turning-point" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-turning-point-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="C1-Intro-to-time-series_files/figure-html/fig-turning-point-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-turning-point-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Turning points in Malaysia’s unemployment rate (1982–2020)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Turning point vs.&nbsp;Random Shock:</strong> A turning point results in a <strong>permanent direction change</strong>. After a random shock, the series <strong>recovers</strong> toward its previous level.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="random-shock" class="level3" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="random-shock"><span class="header-section-number">2.4.2</span> Random Shock</h3>
+<p>A <strong>random shock</strong> is an abrupt, <strong>temporary</strong> spike or drop caused by an unexpected external event. The series typically recovers toward its prior level once the event passes.</p>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>Crude oil price sudden drop due to COVID-19.</li>
+<li>Production of masks increasing tremendously during the pandemic.</li>
+<li>Stock market crash following a geopolitical crisis or natural disaster.</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(oil.price)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>oil_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Date =</span> <span class="fu">as.numeric</span>(<span class="fu">time</span>(oil.price)),</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">Price =</span> <span class="fu">as.numeric</span>(oil.price))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(oil_df, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> Price)) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"steelblue"</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"rect"</span>, <span class="at">xmin =</span> <span class="dv">1990</span>, <span class="at">xmax =</span> <span class="fl">1991.5</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>, <span class="at">alpha =</span> <span class="fl">0.15</span>, <span class="at">fill =</span> <span class="st">"#d73027"</span>) <span class="sc">+</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"label"</span>, <span class="at">x =</span> <span class="fl">1990.75</span>, <span class="at">y =</span> <span class="dv">40</span>,</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"Gulf War</span><span class="sc">\n</span><span class="st">shock (1990–91)"</span>,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"#d73027"</span>, <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">label.size =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"rect"</span>, <span class="at">xmin =</span> <span class="fl">1997.5</span>, <span class="at">xmax =</span> <span class="fl">1999.5</span>,</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>, <span class="at">alpha =</span> <span class="fl">0.15</span>, <span class="at">fill =</span> <span class="st">"#4575b4"</span>) <span class="sc">+</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"label"</span>, <span class="at">x =</span> <span class="fl">1998.5</span>, <span class="at">y =</span> <span class="dv">44</span>,</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"Asian Financial</span><span class="sc">\n</span><span class="st">Crisis (1998)"</span>,</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"#4575b4"</span>, <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">label.size =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"rect"</span>, <span class="at">xmin =</span> <span class="dv">2003</span>, <span class="at">xmax =</span> <span class="dv">2006</span>,</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>           <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>, <span class="at">alpha =</span> <span class="fl">0.12</span>, <span class="at">fill =</span> <span class="st">"#fc8d59"</span>) <span class="sc">+</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"label"</span>, <span class="at">x =</span> <span class="fl">2004.5</span>, <span class="at">y =</span> <span class="dv">20</span>,</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"Iraq War &amp;</span><span class="sc">\n</span><span class="st">price surge"</span>,</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"#a63603"</span>, <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">label.size =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Random Shocks in Monthly Oil Prices (Jan 1986 – Jan 2006)"</span>,</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Each shaded region marks an unexpected external event"</span>,</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Price per Barrel (USD)"</span>) <span class="sc">+</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-random-shock" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-random-shock-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="C1-Intro-to-time-series_files/figure-html/fig-random-shock-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-random-shock-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Random shocks in monthly oil prices (Jan 1986 – Jan 2006)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>oil_sub <span class="ot">&lt;-</span> oil_df[oil_df<span class="sc">$</span>Date <span class="sc">&gt;=</span> <span class="fl">1989.5</span> <span class="sc">&amp;</span> oil_df<span class="sc">$</span>Date <span class="sc">&lt;=</span> <span class="dv">1995</span>, ]</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>lm_pre  <span class="ot">&lt;-</span> <span class="fu">lm</span>(Price <span class="sc">~</span> Date, <span class="at">data =</span> oil_df[oil_df<span class="sc">$</span>Date <span class="sc">&lt;</span> <span class="dv">1990</span>, ])</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>oil_sub<span class="sc">$</span>trend <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm_pre, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Date =</span> oil_sub<span class="sc">$</span>Date))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(oil_sub, <span class="fu">aes</span>(<span class="at">x =</span> Date)) <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Price, <span class="at">colour =</span> <span class="st">"Observed"</span>), <span class="at">linewidth =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> trend, <span class="at">colour =</span> <span class="st">"Pre-shock trend"</span>),</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"segment"</span>, <span class="at">x =</span> <span class="fl">1990.25</span>, <span class="at">xend =</span> <span class="fl">1991.5</span>, <span class="at">y =</span> <span class="dv">38</span>, <span class="at">yend =</span> <span class="dv">22</span>,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.15</span>, <span class="st">"cm"</span>)), <span class="at">colour =</span> <span class="st">"#d73027"</span>) <span class="sc">+</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">1990</span>, <span class="at">y =</span> <span class="dv">39</span>, <span class="at">label =</span> <span class="st">"Spike then</span><span class="sc">\n</span><span class="st">recovery"</span>,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"#d73027"</span>, <span class="at">size =</span> <span class="fl">3.2</span>) <span class="sc">+</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Observed"</span> <span class="ot">=</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Pre-shock trend"</span> <span class="ot">=</span> <span class="st">"#d73027"</span>)) <span class="sc">+</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Gulf War Shock: Price Recovers to Pre-shock Level"</span>,</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Price per Barrel (USD)"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-shock-recovery" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-shock-recovery-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="C1-Intro-to-time-series_files/figure-html/fig-shock-recovery-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-shock-recovery-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: Gulf War shock (1990–91): price spikes then recovers to prior trend
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="outliers" class="level3" data-number="2.4.3">
+<h3 data-number="2.4.3" class="anchored" data-anchor-id="outliers"><span class="header-section-number">2.4.3</span> Outliers</h3>
+<p>An <strong>outlier</strong> is an isolated data point that <strong>significantly deviates</strong> from the overall pattern. Unlike a random shock (which spans several periods), an outlier is typically a <strong>single observation</strong>.</p>
+<p>Outliers arise from: errors in data collection, measurement instrument failure, or genuinely unusual one-off events.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(oilfilters)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>oil_f <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Date  =</span> <span class="fu">as.numeric</span>(<span class="fu">time</span>(oilfilters)),</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">Sales =</span> <span class="fu">as.numeric</span>(oilfilters))</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>oil_f<span class="sc">$</span>z    <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">scale</span>(oil_f<span class="sc">$</span>Sales))</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>oil_f<span class="sc">$</span>flag <span class="ot">&lt;-</span> <span class="fu">abs</span>(oil_f<span class="sc">$</span>z) <span class="sc">&gt;</span> <span class="dv">2</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>oil_f<span class="sc">$</span>label <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(oil_f<span class="sc">$</span>flag, <span class="fu">paste0</span>(<span class="st">"z = "</span>, <span class="fu">round</span>(oil_f<span class="sc">$</span>z, <span class="dv">2</span>)), <span class="cn">NA</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(oil_f, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> Sales)) <span class="sc">+</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"grey50"</span>, <span class="at">linewidth =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> flag, <span class="at">size =</span> flag)) <span class="sc">+</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> label), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">1.2</span>, <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">colour =</span> <span class="st">"#d73027"</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"steelblue"</span>, <span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"#d73027"</span>),</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"Normal"</span>, <span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"Potential Outlier"</span>)) <span class="sc">+</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"FALSE"</span> <span class="ot">=</span> <span class="fl">1.5</span>, <span class="st">"TRUE"</span> <span class="ot">=</span> <span class="fl">3.5</span>)) <span class="sc">+</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Oil Filter Sales with Z-score Outlier Detection"</span>,</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Points with |z| &gt; 2 are flagged as potential outliers"</span>,</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Sales"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>, <span class="at">size =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-outliers" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-outliers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="C1-Intro-to-time-series_files/figure-html/fig-outliers-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-outliers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: Outlier detection in oil filter sales using Z-score method (|z| &gt; 2)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>z       <span class="ot">&lt;-</span> <span class="fu">scale</span>(<span class="fu">as.numeric</span>(oilfilters))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>flagged <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">abs</span>(z) <span class="sc">&gt;</span> <span class="dv">2</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Flagged observations (|z| &gt; 2):</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Flagged observations (|z| &gt; 2):</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"  Time points :"</span>, <span class="fu">round</span>(<span class="fu">as.numeric</span>(<span class="fu">time</span>(oilfilters))[flagged], <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Time points :  </code></pre>
+</div>
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"  Sales values:"</span>, <span class="fu">as.numeric</span>(oilfilters)[flagged], <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sales values:  </code></pre>
+</div>
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"  Z-scores    :"</span>, <span class="fu">round</span>(z[flagged], <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Z-scores    :  </code></pre>
+</div>
+</div>
+<p><strong>How to detect outliers:</strong></p>
+<ol type="1">
+<li><strong>Visual inspection</strong> of the time series plot.</li>
+<li><strong>Z-score method</strong> — flag where <span class="math inline">\(|z_t| = |\frac{y_t - \bar{y}}{s}| &gt; 2.5\)</span>.</li>
+<li><strong>IQR method</strong> — flag outside <span class="math inline">\([Q_1 - 1.5 \times IQR,\ Q_3 + 1.5 \times IQR]\)</span>.</li>
+<li><strong>Decomposition residuals</strong> — inspect the irregular component after removing trend and seasonal effects.</li>
+</ol>
+<p><strong>How to deal with outliers:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Strategy</th>
+<th>When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Remove</strong></td>
+<td>Confirmed data entry errors or instrument failures</td>
+</tr>
+<tr class="even">
+<td><strong>Winsorize</strong></td>
+<td>Replace with boundary value (5th/95th percentile)</td>
+</tr>
+<tr class="odd">
+<td><strong>Impute</strong></td>
+<td>Replace with average of neighbours</td>
+</tr>
+<tr class="even">
+<td><strong>Robust models</strong></td>
+<td>Use outlier-resistant forecasting techniques</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="random-pure-noise" class="level3" data-number="2.4.4">
+<h3 data-number="2.4.4" class="anchored" data-anchor-id="random-pure-noise"><span class="header-section-number">2.4.4</span> Random (Pure Noise)</h3>
+<p>The <strong>random</strong> sub-component refers to small, unpredictable fluctuations that remain after all systematic effects are removed. Also called the <strong>residual</strong> or <strong>error</strong> term.</p>
+<p>Random errors are expected to be <span class="math inline">\(I_t \sim N(0, \sigma^2)\)</span> and uncorrelated across time.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>elec_ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(electric<span class="sc">$</span>index, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2015</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>decomp  <span class="ot">&lt;-</span> <span class="fu">decompose</span>(elec_ts, <span class="at">type =</span> <span class="st">"additive"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>resid_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Date     =</span> <span class="fu">as.numeric</span>(<span class="fu">time</span>(elec_ts)),</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">Residual =</span> <span class="fu">as.numeric</span>(decomp<span class="sc">$</span>random))</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(resid_df, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> Residual)) <span class="sc">+</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"grey40"</span>, <span class="at">linewidth =</span> <span class="fl">0.7</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"#d73027"</span>) <span class="sc">+</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span>  <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sd</span>(decomp<span class="sc">$</span>random, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dotted"</span>, <span class="at">colour =</span> <span class="st">"#4575b4"</span>) <span class="sc">+</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> <span class="fu">sd</span>(decomp<span class="sc">$</span>random, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dotted"</span>, <span class="at">colour =</span> <span class="st">"#4575b4"</span>) <span class="sc">+</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">2023.5</span>, <span class="at">y =</span>  <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sd</span>(decomp<span class="sc">$</span>random, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> <span class="fl">0.2</span>,</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"+2σ"</span>, <span class="at">colour =</span> <span class="st">"#4575b4"</span>, <span class="at">size =</span> <span class="fl">3.2</span>, <span class="at">hjust =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">2023.5</span>, <span class="at">y =</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> <span class="fu">sd</span>(decomp<span class="sc">$</span>random, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">-</span> <span class="fl">0.3</span>,</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"−2σ"</span>, <span class="at">colour =</span> <span class="st">"#4575b4"</span>, <span class="at">size =</span> <span class="fl">3.2</span>, <span class="at">hjust =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Irregular Component (Random Noise)"</span>, <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">expression</span>(I[t])) <span class="sc">+</span> <span class="fu">theme_ts</span>()</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">na.omit</span>(resid_df), <span class="fu">aes</span>(<span class="at">x =</span> Residual)) <span class="sc">+</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)), <span class="at">bins =</span> <span class="dv">12</span>,</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill =</span> <span class="st">"#4575b4"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">colour =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun  =</span> dnorm,</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>                <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="fu">mean</span>(decomp<span class="sc">$</span>random, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>                            <span class="at">sd   =</span> <span class="fu">sd</span>(decomp<span class="sc">$</span>random, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>                <span class="at">colour =</span> <span class="st">"#d73027"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Residuals"</span>,</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">expression</span>(<span class="st">"Should approximate "</span> <span class="sc">*</span> <span class="fu">N</span>(<span class="dv">0</span>, sigma<span class="sc">^</span><span class="dv">2</span>)),</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="fu">expression</span>(I[t]), <span class="at">y =</span> <span class="st">"Density"</span>) <span class="sc">+</span> <span class="fu">theme_ts</span>()</span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p1, p2, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-residuals" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-residuals-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="C1-Intro-to-time-series_files/figure-html/fig-residuals-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-residuals-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12: Irregular (residual) component from the electricity index decomposition
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="summary-distinguishing-irregular-sub-types" class="level3" data-number="2.4.5">
+<h3 data-number="2.4.5" class="anchored" data-anchor-id="summary-distinguishing-irregular-sub-types"><span class="header-section-number">2.4.5</span> Summary: Distinguishing Irregular Sub-types</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 27%">
+<col style="width: 29%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sub-type</th>
+<th>Duration</th>
+<th>Reversible?</th>
+<th>Real Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Turning Point</strong></td>
+<td>Permanent</td>
+<td>No</td>
+<td>Malaysia unemployment 1986, 1997</td>
+</tr>
+<tr class="even">
+<td><strong>Random Shock</strong></td>
+<td>Few periods</td>
+<td>Yes — recovers</td>
+<td>Gulf War oil spike 1990</td>
+</tr>
+<tr class="odd">
+<td><strong>Outlier</strong></td>
+<td>Single period</td>
+<td>N/A</td>
+<td>Flagged oil filter observation</td>
+</tr>
+<tr class="even">
+<td><strong>Pure Noise</strong></td>
+<td>Throughout</td>
+<td>N/A</td>
+<td>Electricity residuals</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Quick visual check:</strong></p>
+<ul>
+<li>Does the trend <strong>permanently change direction</strong>? → Turning Point</li>
+<li>Does the series <strong>spike then return</strong> to where it was? → Random Shock</li>
+<li>Is <strong>one single point</strong> unusually extreme? → Outlier</li>
+<li>Are there <strong>small unpatterned wiggles</strong> throughout? → Pure Noise</li>
+</ul>
+</div>
+</div>
+<hr>
+</section>
+</section>
+</section>
+<section id="relationship-among-components" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Relationship Among Components</h1>
+<section id="additive-effect" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="additive-effect"><span class="header-section-number">3.1</span> Additive Effect</h2>
+<p>In the <strong>additive model</strong>, seasonal variation is constant — its magnitude is independent of the level of the series.</p>
+<p><span class="math display">\[\hat{Y}_t = T_t + S_t + C_t + I_t\]</span></p>
+</section>
+<section id="multiplicative-effect" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="multiplicative-effect"><span class="header-section-number">3.2</span> Multiplicative Effect</h2>
+<p>In the <strong>multiplicative model</strong>, seasonal variation grows proportionally with the level of the data series.</p>
+<p><span class="math display">\[\hat{Y}_t = T_t \times S_t \times C_t \times I_t\]</span></p>
+</section>
+<section id="additive-vs.-multiplicative" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="additive-vs.-multiplicative"><span class="header-section-number">3.3</span> Additive vs.&nbsp;Multiplicative</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>elec_ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(electric<span class="sc">$</span>index, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2015</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>p_add <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(<span class="fu">decompose</span>(elec_ts, <span class="st">"additive"</span>)) <span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Additive Decomposition"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">10</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>p_mul <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(<span class="fu">decompose</span>(elec_ts, <span class="st">"multiplicative"</span>)) <span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Multiplicative Decomposition"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">10</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p_add, p_mul, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-additive-multiplicative" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-additive-multiplicative-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="C1-Intro-to-time-series_files/figure-html/fig-additive-multiplicative-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-additive-multiplicative-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13: Additive vs.&nbsp;multiplicative decomposition of the electricity output index
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 28%">
+<col style="width: 45%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Additive</th>
+<th>Multiplicative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Seasonal magnitude</td>
+<td>Constant</td>
+<td>Grows with level</td>
+</tr>
+<tr class="even">
+<td>Use when</td>
+<td>Seasonal swings roughly constant</td>
+<td>Seasonal swings widen as series grows</td>
+</tr>
+<tr class="odd">
+<td>Linearisation</td>
+<td>Not needed</td>
+<td>Apply log transform</td>
+</tr>
+<tr class="even">
+<td>R function</td>
+<td><code>decompose(ts, type = "additive")</code></td>
+<td><code>decompose(ts, type = "multiplicative")</code></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If seasonal fluctuations <strong>grow proportionally</strong> with the level of the series → use multiplicative. If they remain <strong>roughly constant</strong> → use additive.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="measuring-performance" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Measuring Performance</h1>
+<section id="data-partition" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="data-partition"><span class="header-section-number">4.1</span> Data Partition</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Part</th>
+<th>Purpose</th>
+<th>Rule of Thumb</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Estimation (Training)</strong></td>
+<td>Fit the forecasting model</td>
+<td>80% of data</td>
+</tr>
+<tr class="even">
+<td><strong>Evaluation (Test)</strong></td>
+<td>Assess forecast accuracy</td>
+<td>20% of data</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>cpi   <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/CPI Malaysia.csv"</span>, <span class="at">check.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>cpits <span class="ot">&lt;-</span> <span class="fu">ts</span>(cpi<span class="sc">$</span><span class="st">`</span><span class="at">Consumer price index (2010 = 100)</span><span class="st">`</span>,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">start =</span> <span class="dv">1960</span>, <span class="at">frequency =</span> <span class="dv">1</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>est_part <span class="ot">&lt;-</span> <span class="fu">head</span>(cpits, <span class="fl">0.8</span> <span class="sc">*</span> <span class="fu">length</span>(cpits))</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>eva_part <span class="ot">&lt;-</span> <span class="fu">tail</span>(cpits, <span class="fl">0.2</span> <span class="sc">*</span> <span class="fu">length</span>(cpits))</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(est_part)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> Time-Series [1:50] from 1960 to 2009: 21.3 21.3 21.3 22 21.9 21.8 22.1 23.1 23 22.9 ...</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(eva_part)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> Time-Series [1:13] from 2010 to 2022: 100 103 105 107 110 ...</code></pre>
+</div>
+</div>
+</section>
+<section id="error-measures" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="error-measures"><span class="header-section-number">4.2</span> Error Measures</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 25%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Measure</th>
+<th>Formula</th>
+<th>Advantage</th>
+<th>Disadvantage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>MSE</strong></td>
+<td><span class="math inline">\(\frac{1}{n}\sum(y_t - \hat{y}_t)^2\)</span></td>
+<td>Penalises large errors</td>
+<td>Sensitive to outliers</td>
+</tr>
+<tr class="even">
+<td><strong>MAPE</strong></td>
+<td><span class="math inline">\(\frac{1}{n}\sum\left\|\frac{y_t - \hat{y}_t}{y_t}\right\| \times 100\)</span></td>
+<td>Scale-independent (%)</td>
+<td>Undefined when <span class="math inline">\(y_t = 0\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>MAE</strong></td>
+<td><span class="math inline">\(\frac{1}{n}\sum\|y_t - \hat{y}_t\|\)</span></td>
+<td>Robust to outliers</td>
+<td>Treats all errors equally</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <strong>best model</strong> produces the <strong>lowest</strong> error measure value across multiple measures.</p>
+</div>
+</div>
+</section>
+<section id="example-malaysia-cpi-data" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="example-malaysia-cpi-data"><span class="header-section-number">4.3</span> Example: Malaysia CPI Data</h2>
+<section id="model-1-linear-trend" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="model-1-linear-trend"><span class="header-section-number">4.3.1</span> Model 1 — Linear Trend</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>n          <span class="ot">&lt;-</span> <span class="fu">length</span>(cpits)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>n_train    <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>time_train <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n_train</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>time_test  <span class="ot">&lt;-</span> (n_train <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>n</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(est_part <span class="sc">~</span> time_train)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = est_part ~ time_train)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-6.2836 -3.3028 -0.2493  2.3069 10.7824 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  8.82882    1.11813   7.896 3.16e-10 ***
+time_train   1.68883    0.03816  44.255  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.894 on 48 degrees of freedom
+Multiple R-squared:  0.9761,    Adjusted R-squared:  0.9756 
+F-statistic:  1959 on 1 and 48 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>pred1      <span class="ot">&lt;-</span> <span class="fu">predict</span>(model1, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">time_train =</span> time_test))</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>actual     <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(eva_part)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>predicted1 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(pred1)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>mse1  <span class="ot">&lt;-</span> <span class="fu">mean</span>((actual <span class="sc">-</span> predicted1)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>mape1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>((actual <span class="sc">-</span> predicted1) <span class="sc">/</span> actual)) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>mae1  <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>(actual <span class="sc">-</span> predicted1))</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"=== Model 1: Linear Trend ===</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>=== Model 1: Linear Trend ===</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"MSE  :"</span>, <span class="fu">round</span>(mse1,  <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>MSE  : 90.1995 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"MAE  :"</span>, <span class="fu">round</span>(mae1,  <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>MAE  : 9.2001 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"MAPE :"</span>, <span class="fu">round</span>(mape1, <span class="dv">4</span>), <span class="st">"%</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>MAPE : 7.959 %</code></pre>
+</div>
+</div>
+</section>
+<section id="model-2-quadratic-trend" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="model-2-quadratic-trend"><span class="header-section-number">4.3.2</span> Model 2 — Quadratic Trend</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(est_part <span class="sc">~</span> time_train <span class="sc">+</span> <span class="fu">I</span>(time_train<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = est_part ~ time_train + I(time_train^2))
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-5.4353 -1.2541 -0.1506  1.3311  4.3873 
+
+Coefficients:
+                Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)     16.03953    1.05250  15.239  &lt; 2e-16 ***
+time_train       0.85682    0.09520   9.000 8.57e-12 ***
+I(time_train^2)  0.01631    0.00181   9.014 8.17e-12 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.382 on 47 degrees of freedom
+Multiple R-squared:  0.9912,    Adjusted R-squared:  0.9909 
+F-statistic:  2657 on 2 and 47 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>pred2      <span class="ot">&lt;-</span> <span class="fu">predict</span>(model2, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">time_train =</span> time_test))</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>predicted2 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(pred2)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>mse2  <span class="ot">&lt;-</span> <span class="fu">mean</span>((actual <span class="sc">-</span> predicted2)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>mape2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>((actual <span class="sc">-</span> predicted2) <span class="sc">/</span> actual)) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>mae2  <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>(actual <span class="sc">-</span> predicted2))</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"=== Model 2: Quadratic Trend ===</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>=== Model 2: Quadratic Trend ===</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"MSE  :"</span>, <span class="fu">round</span>(mse2,  <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>MSE  : 21.6595 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"MAE  :"</span>, <span class="fu">round</span>(mae2,  <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>MAE  : 3.8183 </code></pre>
+</div>
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"MAPE :"</span>, <span class="fu">round</span>(mape2, <span class="dv">4</span>), <span class="st">"%</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>MAPE : 3.2507 %</code></pre>
+</div>
+</div>
+</section>
+<section id="model-comparison" class="level3" data-number="4.3.3">
+<h3 data-number="4.3.3" class="anchored" data-anchor-id="model-comparison"><span class="header-section-number">4.3.3</span> Model Comparison</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">Model =</span> <span class="fu">c</span>(<span class="st">"Linear"</span>, <span class="st">"Quadratic"</span>),</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">MSE   =</span> <span class="fu">round</span>(<span class="fu">c</span>(mse1, mse2),  <span class="dv">4</span>),</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">MAE   =</span> <span class="fu">round</span>(<span class="fu">c</span>(mae1, mae2),  <span class="dv">4</span>),</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">MAPE  =</span> <span class="fu">round</span>(<span class="fu">c</span>(mape1, mape2), <span class="dv">4</span>)),</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Model"</span>, <span class="st">"MSE"</span>, <span class="st">"MAE"</span>, <span class="st">"MAPE (%)"</span>), <span class="at">align =</span> <span class="st">"c"</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="tbl-model-comparison" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-model-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Error measure comparison: linear vs.&nbsp;quadratic trend
+</figcaption>
+<div aria-describedby="tbl-model-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Model</th>
+<th style="text-align: center;">MSE</th>
+<th style="text-align: center;">MAE</th>
+<th style="text-align: center;">MAPE (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Linear</td>
+<td style="text-align: center;">90.1995</td>
+<td style="text-align: center;">9.2001</td>
+<td style="text-align: center;">7.9590</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Quadratic</td>
+<td style="text-align: center;">21.6595</td>
+<td style="text-align: center;">3.8183</td>
+<td style="text-align: center;">3.2507</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section>
+<section id="year-forecast" class="level3" data-number="4.3.4">
+<h3 data-number="4.3.4" class="anchored" data-anchor-id="year-forecast"><span class="header-section-number">4.3.4</span> 4-Year Forecast</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>h             <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>time_all      <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>time_forecast <span class="ot">&lt;-</span> (n <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>(n <span class="sc">+</span> h)</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>final_model     <span class="ot">&lt;-</span> <span class="fu">lm</span>(cpits <span class="sc">~</span> time_all <span class="sc">+</span> <span class="fu">I</span>(time_all<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>forecast_values <span class="ot">&lt;-</span> <span class="fu">predict</span>(final_model,</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>                           <span class="at">newdata  =</span> <span class="fu">data.frame</span>(<span class="at">time_all =</span> time_forecast),</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>                           <span class="at">interval =</span> <span class="st">"prediction"</span>)</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(forecast_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>       fit      lwr      upr
+1 132.2664 127.1072 137.4256
+2 134.9212 129.7168 140.1255
+3 137.6011 132.3471 142.8551
+4 140.3063 134.9979 145.6146</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-forecast" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-forecast-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="C1-Intro-to-time-series_files/figure-html/fig-forecast-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-forecast-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14: Malaysia CPI: observed data and 4-year quadratic trend forecast
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+</section>
+<section id="summary" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Summary</h1>
+<ul>
+<li>A <strong>time series</strong> is defined as <span class="math inline">\(\{y_t : t = 1, 2, \ldots, n\}\)</span> — data indexed in ascending time order.</li>
+<li>A time series plot interpretation should include minimum, maximum, outliers, and overall trends.</li>
+<li>Four components: <strong>Trend</strong>, <strong>Seasonal</strong>, <strong>Cyclical</strong>, and <strong>Irregular/Random</strong>.</li>
+<li>The <strong>Irregular</strong> component has four sub-types: <strong>Turning Point</strong>, <strong>Random Shock</strong>, <strong>Outlier</strong>, and <strong>Pure Noise</strong>.</li>
+<li>Component relationships are modelled as <strong>Additive</strong> or <strong>Multiplicative</strong>.</li>
+<li>Performance is measured via <strong>MSE</strong>, <strong>MAPE</strong>, and <strong>MAE</strong> on an 80/20 data split — lowest value wins.</li>
+</ul>
+<hr>
+</section>
+<section id="references" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> References</h1>
+<ul>
+<li>Mohd Alias Lazim, <em>Introductory Business Forecasting: A Practical Approach</em>, 3rd ed., UPENA, UiTM, 2013.</li>
+<li><a href="https://open.dosm.gov.my/data-catalogue" class="uri">https://open.dosm.gov.my/data-catalogue</a></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2025 Dr Nurul Nisa’ Khairol Azmi — UiTM</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

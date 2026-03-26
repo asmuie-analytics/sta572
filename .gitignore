@@ -1,0 +1,22 @@
+# R
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+*.Rmd.lock
+
+# Quarto cache (freeze outputs are kept, intermediate cache is not)
+/.quarto/
+*_cache/
+*_files/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Scratch files
+test.R
+Untitled.*
+dea_benchmarking.R
+*.png
+!images/*.png   # keep images in the images/ folder

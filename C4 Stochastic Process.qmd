@@ -1,0 +1,170 @@
+---
+title: "STA572:Time Series Analysis and Forecasting"
+subtitle: "C4. Stochastic Process"
+format: 
+  revealjs:
+    chalkboard: true
+    fontsize: 20pt
+    css: mystyle.css
+    slide-number: true
+author: "Lecturer, Department of Statistics"
+footer: "Asmui Rahim, STA572 , Oct 2025"
+execute: 
+  echo: true
+  warning: false
+---
+
+## Stationary Process
+
+### Random process
+
+Generate random process;
+
+Example for $\phi_0=2$ and $\phi_0=8$.
+
+```{r, echo=FALSE}
+set.seed(151)
+e <- rnorm(100,0,1)
+
+y1 <- 8+e
+y2 <- 2+e
+x <- seq(1:length(y1))
+
+plot(x,y1,type="l", col="blue", ylim=c(-2,11), ylab="")
+lines(x, y2, type="l", col="green")
+abline(lm(y1~x), col="red")
+abline(lm(y2~x), col="red")
+legend("bottomleft", legend=c("mean=8","mean=2"),
+       col=c("blue","green"), lty=1, cex=0.8)
+
+```
+
+### Autoregressive Model
+
+AR(1) model
+
+```{r}
+set.seed(151)
+yt1 <- arima.sim(model=list(order=c(1,0,0), ar=0.2), n=100)
+yt2 <- arima.sim(model=list(order=c(1,0,0), ar=0.5), n=100)
+yt3 <- arima.sim(model=list(order=c(1,0,0), ar=0.8), n=100)
+
+plot(yt1, type="l", col="blue", ylim=c(min(yt3),max(yt3)), ylab="")
+lines(yt2, col="green")
+lines(yt3, col="red")
+legend("bottomright", legend=c("phi=0.2", "phi=0.5", "phi=0.8"), col=c("blue", "green", "red"), lty=1, cex=0.8)
+```
+
+## Non stationary process
+
+### Random process
+
+Example of non-stationary series.
+
+```{r}
+set.seed(111)
+yt <- cumsum(rnorm(100,0,1))
+plot(yt,type="l",ylab="")
+```
+
+## Checking for Non-stationary
+
+Non-stationary series can be determined by:
+
+-   Time series plot.
+
+-   Autocorrelation function (ACF)
+
+-   Statistical test- Augmented Dicky-Fuller (ADF) test
+
+------------------------------------------------------------------------
+
+Time series plot
+
+```{r, echo=FALSE}
+
+library(tseries)
+library(forecast)
+
+# Example 1: Stationary process (White Noise)
+set.seed(123)
+stationary_series <- rnorm(200, mean = 0, sd = 1)
+
+# Example 2: Non-stationary process (Random Walk)
+random_walk <- cumsum(rnorm(200))
+
+# Example 3: Trend + Seasonality
+time <- 1:200
+trend_seasonal <- 0.05 * time + 5 * sin(2 * pi * time / 12) + rnorm(200)
+
+# Plot comparison
+par(mfrow = c(3, 1))
+plot(stationary_series, type = "l", main = "Stationary: White Noise",
+     ylab = "Value", xlab = "Time")
+abline(h = mean(stationary_series), col = "red", lty = 2)
+
+plot(random_walk, type = "l", main = "Non-Stationary: Random Walk",
+     ylab = "Value", xlab = "Time", col = "darkred")
+
+plot(trend_seasonal, type = "l", main = "Non-Stationary: Trend + Seasonal",
+     ylab = "Value", xlab = "Time", col = "darkgreen")
+```
+
+------------------------------------------------------------------------
+
+```{r, echo=FALSE}
+par(mfrow = c(3, 1))
+
+# ACF of stationary series - drops quickly
+acf(stationary_series, main = "ACF: Stationary (White Noise)")
+
+# ACF of random walk - slow decay (sign of non-stationarity)
+acf(random_walk, main = "ACF: Non-Stationary (Random Walk)")
+
+# ACF of trend+seasonal - slow decay with pattern
+acf(trend_seasonal, main = "ACF: Non-Stationary (Trend+Seasonal)")
+
+# Interpretation:
+# - White noise: ACF ≈ 0 for all lags > 0
+# - Random walk: ACF slowly decays, stays high
+# - Trend+Seasonal: ACF shows pattern and slow decay
+```
+
+------------------------------------------------------------------------
+
+Augmented Dickey-Fuller Test
+
+```{r, warning=FALSE}
+library(tseries)
+
+# Test 1: White Noise (expect stationary)
+adf_test1 <- adf.test(stationary_series)
+adf_test1
+
+# Test 2: Random Walk (expect non-stationary)
+adf_test2 <- adf.test(random_walk)
+adf_test2
+
+# Test 3: After differencing random walk
+diff_random_walk <- diff(random_walk)
+adf_test3 <- adf.test(diff_random_walk)
+adf_test3
+```
+
+------------------------------------------------------------------------
+
+## Differencing in R
+
+```{r}
+unrate <- read.csv("employment.csv")
+unratets <- ts(unrate$u_rate, start=1982)
+plot(unratets, ylab="unemployement rate", xlab="Year", xaxt="n")
+```
+
+------------------------------------------------------------------------
+
+```{r}
+ur<-ts(unrate$u_rate, start = 1982)
+diff_ur<-diff(ur)
+autoplot(diff_ur)
+```

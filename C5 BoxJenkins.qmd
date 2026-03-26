@@ -1,0 +1,33 @@
+---
+title: "STA572:Time Series Analysis and Forecasting"
+subtitle: "C5. Box Jenkins Model"
+format: 
+  revealjs:
+    chalkboard: true
+    fontsize: 20pt
+    css: mystyle.css
+    slide-number: true
+author: "Lecturer, Department of Statistics"
+footer: "Asmui Rahim, STA572 , Oct 2025"
+execute: 
+  echo: true
+  warning: false
+---
+
+# Model Identification
+
+## Time Series Plot
+
+```{r}
+snp <- read.csv("SNP500.csv", header=T)
+snp_ts <- ts(snp[,6], frequency=1)
+plot(snp_ts)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+set.seed(123)
+e <- rnorm(100, mean=0, sd=1)
+acf(e, main="")
+```

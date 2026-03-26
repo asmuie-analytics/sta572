@@ -1,0 +1,52 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "STA572: Time Series Analysis and Forecasting"
+  favicon: images/favicon.png
+  navbar:
+    background: primary
+    logo: images/favicon.png
+    left:
+      - text: "Home"
+        href: index.qmd
+      - text: "Chapters"
+        menu:
+          - text: "Chapter 1 — Introduction"
+            href: "C1 Intro to time series.qmd"
+          - text: "Chapter 2 — Univariate Modelling"
+            href: "C2 Univariate Modelling Techniques.qmd"
+          - text: "Chapter 3 — Econometric Modeling"
+            href: "C3 Econometric Modeling.qmd"
+          - text: "Chapter 4 — Stochastic Process"
+            href: "C4 Stochastic Process.qmd"
+          - text: "Chapter 5 — Box-Jenkins"
+            href: "C5 BoxJenkins.qmd"
+    right:
+      - icon: github
+        href: https://github.com/YOUR-USERNAME/sta572
+
+  sidebar: false
+
+  page-footer:
+    left: "© 2025 Dr Nurul Nisa' Khairol Azmi — UiTM"
+    right: "Built with [Quarto](https://quarto.org)"
+
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-title: "Contents"
+    number-sections: true
+    theme: cosmo
+    highlight-style: github
+    code-fold: true
+    code-summary: "Show R Code"
+    embed-resources: false   # false for website; assets are served separately
+
+execute:
+  warning: false
+  message: false
+  echo: true
+  freeze: auto              # re-render only when source changes

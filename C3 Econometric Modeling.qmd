@@ -1,0 +1,17 @@
+---
+title: "STA572:Time Series Analysis and Forecasting"
+subtitle: "C3. Econometric Modeling"
+format: 
+  revealjs:
+    chalkboard: true
+    fontsize: 20pt
+    css: mystyle.css
+    slide-number: true
+author: "Lecturer, Department of Statistics"
+footer: "Asmui Rahim, STA572 , Oct 2025"
+execute: 
+  echo: true
+  warning: false
+---
+
+## Forecasting Econometric in R

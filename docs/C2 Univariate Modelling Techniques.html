@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="C2 Univariate Modelling Techniques_files/libs/clipboard/clipboard.min.js"></script>
+<script src="C2 Univariate Modelling Techniques_files/libs/quarto-html/tabby.min.js"></script>
+<script src="C2 Univariate Modelling Techniques_files/libs/quarto-html/popper.min.js"></script>
+<script src="C2 Univariate Modelling Techniques_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="C2 Univariate Modelling Techniques_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="C2 Univariate Modelling Techniques_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="C2 Univariate Modelling Techniques_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="C2 Univariate Modelling Techniques_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.5.57">
+
+  <meta name="author" content="Lecturer, Department of Statistics">
+  <title>STA572:Time Series Analysis and Forecasting</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="C2 Univariate Modelling Techniques_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="C2 Univariate Modelling Techniques_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="C2 Univariate Modelling Techniques_files/libs/revealjs/dist/theme/quarto.css">
+  <link rel="stylesheet" href="mystyle.css">
+  <link href="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-titled.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-titled) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-titled .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-titled .callout-title  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-titled.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-titled.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-title {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-title {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-title {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
+  }
+
+  .callout.callout-titled .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-titled) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-title {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-title {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-title {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-title {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-title {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">STA572:Time Series Analysis and Forecasting</h1>
+  <p class="subtitle">C2. Univariate Modeling Techniques</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Lecturer, Department of Statistics 
+</div>
+</div>
+</div>
+
+</section>
+<section>
+<section id="introduction" class="title-slide slide level1 center">
+<h1>Introduction</h1>
+<ol type="1">
+<li>Single Exponential Smoothing</li>
+<li>Holt’s Method</li>
+<li>Holt-Winter’s Trend and Seasonality</li>
+<li>Decomposition Method</li>
+<li>Forecasting using Decomposition Method</li>
+</ol>
+</section>
+<section id="chapter-2-data-preparation" class="slide level2">
+<h2>Chapter 2: Data Preparation</h2>
+<h3 id="setup-library">Setup Library</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(fpp2)</span>
+<span id="cb1-2"><a href=""></a><span class="fu">library</span>(forecast)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If no package, need to install.packages(“fpp2”) and/or install.packages (“forecast”).</p>
+<h3 id="data-preparation">Data Preparation</h3>
+<ol type="1">
+<li>Use “CPI Malaysia.csv” data. For this example, make sure the data is in your project directory.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>cpi <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"CPI Malaysia.csv"</span>,<span class="at">check.names=</span>F)</span>
+<span id="cb2-2"><a href=""></a>cpits <span class="ot">&lt;-</span> <span class="fu">ts</span>(cpi<span class="sc">$</span><span class="st">`</span><span class="at">Consumer price index (2010 = 100)</span><span class="st">`</span>, <span class="at">start=</span><span class="dv">1960</span>,<span class="at">frequency=</span><span class="dv">1</span>)</span>
+<span id="cb2-3"><a href=""></a><span class="co"># estimation</span></span>
+<span id="cb2-4"><a href=""></a>est_part <span class="ot">&lt;-</span> <span class="fu">head</span>(cpits, <span class="fl">0.8</span><span class="sc">*</span><span class="fu">length</span>(cpits))</span>
+<span id="cb2-5"><a href=""></a><span class="co"># evaluation</span></span>
+<span id="cb2-6"><a href=""></a>eva_part <span class="ot">&lt;-</span> <span class="fu">tail</span>(cpits,<span class="fl">0.2</span><span class="sc">*</span><span class="fu">length</span>(cpits))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>Use “electric.csv” data.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>prod <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"electric.csv"</span>)</span>
+<span id="cb3-2"><a href=""></a>electric<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">t=</span><span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">108</span>),<span class="at">electric=</span>prod[<span class="dv">1</span><span class="sc">:</span><span class="dv">108</span>,<span class="dv">3</span>])</span>
+<span id="cb3-3"><a href=""></a>electricts <span class="ot">&lt;-</span> <span class="fu">ts</span>(electric<span class="sc">$</span>electric, <span class="at">start=</span><span class="fu">c</span>(<span class="dv">2015</span>,<span class="dv">1</span>), <span class="at">frequency=</span><span class="dv">12</span>) </span>
+<span id="cb3-4"><a href=""></a>est_elec <span class="ot">&lt;-</span> <span class="fu">head</span>(electricts, <span class="fl">0.8</span><span class="sc">*</span><span class="fu">length</span>(electricts))</span>
+<span id="cb3-5"><a href=""></a>eva_elec <span class="ot">&lt;-</span> <span class="fu">tail</span>(electricts, <span class="fl">0.2</span><span class="sc">*</span><span class="fu">length</span>(electricts))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="single-exponential-smoothing-using-r" class="slide level2">
+<h2>Single Exponential Smoothing using R</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>SE_est <span class="ot">&lt;-</span> <span class="fu">ses</span>(est_part)</span>
+<span id="cb4-2"><a href=""></a><span class="fu">summary</span>(SE_est)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Forecast method: Simple exponential smoothing
+
+Model Information:
+Simple exponential smoothing 
+
+Call:
+ses(y = est_part)
+
+  Smoothing parameters:
+    alpha = 0.9999 
+
+  Initial states:
+    l = 21.3004 
+
+  sigma:  2.0227
+
+     AIC     AICc      BIC 
+270.0030 270.5247 275.7391 
+
+Error measures:
+                   ME     RMSE      MAE      MPE     MAPE      MASE      ACF1
+Training set 1.542145 1.981825 1.558155 2.974211 3.045736 0.9800978 0.4849583
+
+Forecasts:
+     Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
+2010       98.39994 95.80776 100.9921 94.43554 102.3643
+2011       98.39994 94.73422 102.0657 92.79371 104.0062
+2012       98.39994 93.91044 102.8894 91.53385 105.2660
+2013       98.39994 93.21596 103.5839 90.47173 106.3282
+2014       98.39994 92.60410 104.1958 89.53597 107.2639
+2015       98.39994 92.05094 104.7489 88.68998 108.1099
+2016       98.39994 91.54225 105.2576 87.91201 108.8879
+2017       98.39994 91.06878 105.7311 87.18789 109.6120
+2018       98.39994 90.62408 106.1758 86.50779 110.2921
+2019       98.39994 90.20347 106.5964 85.86452 110.9354</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>SE_eva <span class="ot">&lt;-</span> <span class="fu">ses</span>(eva_part, <span class="at">alpha=</span><span class="fl">0.999</span>)</span>
+<span id="cb6-2"><a href=""></a><span class="fu">summary</span>(SE_eva)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Forecast method: Simple exponential smoothing
+
+Model Information:
+Simple exponential smoothing 
+
+Call:
+ses(y = eva_part, alpha = 0.999)
+
+  Smoothing parameters:
+    alpha = 0.999 
+
+  Initial states:
+    l = 100.002 
+
+  sigma:  2.8618
+
+     AIC     AICc      BIC 
+62.50994 63.70994 63.63984 
+
+Error measures:
+                   ME     RMSE      MAE      MPE     MAPE      MASE        ACF1
+Training set 2.093929 2.632431 2.309504 1.825748 2.005296 0.9238016 0.007182097
+
+Forecasts:
+     Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
+2023       127.1959 123.5284 130.8634 121.5870 132.8048
+2024       127.1959 122.0119 132.3799 119.2676 135.1242
+2025       127.1959 120.8479 133.5439 117.4874 136.9044
+2026       127.1959 119.8664 134.5254 115.9864 138.4054
+2027       127.1959 119.0017 135.3901 114.6640 139.7278
+2028       127.1959 118.2199 136.1719 113.4683 140.9235
+2029       127.1959 117.5010 136.8908 112.3688 142.0230
+2030       127.1959 116.8318 137.5600 111.3453 143.0465
+2031       127.1959 116.2032 138.1886 110.3840 144.0077
+2032       127.1959 115.6087 138.7831 109.4749 144.9169</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>SE_all <span class="ot">&lt;-</span> <span class="fu">ses</span>(cpits,<span class="at">alpha=</span><span class="fl">0.999</span>)</span>
+<span id="cb8-2"><a href=""></a><span class="fu">summary</span>(SE_all)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Forecast method: Simple exponential smoothing
+
+Model Information:
+Simple exponential smoothing 
+
+Call:
+ses(y = cpits, alpha = 0.999)
+
+  Smoothing parameters:
+    alpha = 0.999 
+
+  Initial states:
+    l = 21.3006 
+
+  sigma:  2.1778
+
+     AIC     AICc      BIC 
+361.0556 361.2556 365.3418 
+
+Error measures:
+                   ME     RMSE      MAE      MPE     MAPE      MASE      ACF1
+Training set 1.682561 2.143001 1.739649 2.764705 2.858287 0.9850065 0.3882995
+
+Forecasts:
+     Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
+2023       127.1959 124.4049 129.9869 122.9274 131.4644
+2024       127.1959 123.2508 131.1410 121.1623 133.2295
+2025       127.1959 122.3649 132.0269 119.8076 134.5842
+2026       127.1959 121.6180 132.7738 118.6653 135.7265
+2027       127.1959 120.9600 133.4318 117.6589 136.7329
+2028       127.1959 120.3650 134.0268 116.7490 137.6428
+2029       127.1959 119.8179 134.5739 115.9122 138.4796
+2030       127.1959 119.3086 135.0832 115.1333 139.2585
+2031       127.1959 118.8303 135.5615 114.4018 139.9900
+2032       127.1959 118.3778 136.0140 113.7098 140.6819</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="fu">autoplot</span>(cpits)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">"CPI"</span>)<span class="sc">+</span></span>
+<span id="cb10-2"><a href=""></a>  <span class="fu">autolayer</span>(<span class="fu">forecast</span>(<span class="fu">ses</span>(cpits,<span class="at">alpha=</span><span class="fl">0.999</span>),<span class="at">h=</span><span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
+<section id="holts-method-using-r" class="slide level2">
+<h2>Holt’s Method using R</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>Holt_est <span class="ot">&lt;-</span> <span class="fu">holt</span>(est_part)</span>
+<span id="cb11-2"><a href=""></a><span class="fu">summary</span>(Holt_est)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Forecast method: Holt's method
+
+Model Information:
+Holt's method 
+
+Call:
+holt(y = est_part)
+
+  Smoothing parameters:
+    alpha = 0.9922 
+    beta  = 0.3708 
+
+  Initial states:
+    l = 21.2128 
+    b = -0.0636 
+
+  sigma:  1.1718
+
+     AIC     AICc      BIC 
+217.2861 218.6498 226.8462 
+
+Error measures:
+                    ME    RMSE       MAE       MPE     MAPE      MASE      ACF1
+Training set 0.1243695 1.12395 0.8068117 0.4127585 1.756522 0.5074939 0.1005745
+
+Forecasts:
+     Point Forecast     Lo 80    Hi 80     Lo 95    Hi 95
+2010       100.6626  99.16086 102.1643  98.36590 102.9593
+2011       102.9050 100.36634 105.4436  99.02247 106.7875
+2012       105.1474 101.51089 108.7839  99.58585 110.7089
+2013       107.3898 102.57173 112.2078 100.02122 114.7583
+2014       109.6322 103.54667 115.7176 100.32520 118.9391
+2015       111.8745 104.43792 119.3112 100.50120 123.2479
+2016       114.1169 105.24876 122.9851 100.55423 127.6796
+2017       116.3593 105.98259 126.7361 100.48948 132.2292
+2018       118.6017 106.64262 130.5608 100.31186 136.8916
+2019       120.8441 107.23180 134.4564 100.02588 141.6624</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a>Holt_eva <span class="ot">&lt;-</span> <span class="fu">holt</span>(eva_part, <span class="at">alpha=</span><span class="fl">0.9922</span>, </span>
+<span id="cb13-2"><a href=""></a>                 <span class="at">beta=</span><span class="fl">0.3708</span>)</span>
+<span id="cb13-3"><a href=""></a><span class="fu">summary</span>(Holt_eva)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Forecast method: Holt's method
+
+Model Information:
+Holt's method 
+
+Call:
+holt(y = eva_part, alpha = 0.9922, beta = 0.3708)
+
+  Smoothing parameters:
+    alpha = 0.9922 
+    beta  = 0.3708 
+
+  Initial states:
+    l = 97.4232 
+    b = 2.5846 
+
+  sigma:  2.0339
+
+     AIC     AICc      BIC 
+53.02336 55.69003 54.71821 
+
+Error measures:
+                      ME     RMSE      MAE         MPE     MAPE      MASE
+Training set -0.02408487 1.692347 1.361851 -0.03265661 1.146471 0.5447402
+                  ACF1
+Training set 0.0400953
+
+Forecasts:
+     Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
+2023       129.6481 127.0414 132.2547 125.6616 133.6345
+2024       132.1166 127.7101 136.5230 125.3775 138.8557
+2025       134.5851 128.2731 140.8971 124.9317 144.2384
+2026       137.0536 128.6908 145.4164 124.2638 149.8433
+2027       139.5221 128.9594 150.0847 123.3679 155.6763
+2028       141.9906 129.0828 154.8983 122.2499 161.7313
+2029       144.4591 129.0667 159.8515 120.9185 167.9997
+2030       146.9276 128.9169 164.9383 119.3826 174.4726
+2031       149.3961 128.6390 170.1532 117.6509 181.1414
+2032       151.8646 128.2382 175.4911 115.7311 187.9982</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">autoplot</span>(cpits)<span class="sc">+</span></span>
+<span id="cb15-2"><a href=""></a>  <span class="fu">ylab</span>(<span class="st">"CPI"</span>)<span class="sc">+</span></span>
+<span id="cb15-3"><a href=""></a>  <span class="fu">autolayer</span>(<span class="fu">forecast</span>(<span class="fu">holt</span>(cpits, <span class="at">alpha=</span><span class="fl">0.9922</span>,</span>
+<span id="cb15-4"><a href=""></a>                          <span class="at">beta=</span><span class="fl">0.3708</span>), <span class="at">h=</span><span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"></section>
+<section id="holt-winters-trend-and-seasonality-using-r" class="slide level2">
+<h2>Holt-Winter’s Trend and Seasonality using R</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a>HW_est <span class="ot">&lt;-</span> <span class="fu">hw</span>(est_elec)</span>
+<span id="cb16-2"><a href=""></a><span class="fu">summary</span>(HW_est)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Forecast method: Holt-Winters' additive method
+
+Model Information:
+Holt-Winters' additive method 
+
+Call:
+hw(y = est_elec)
+
+  Smoothing parameters:
+    alpha = 0.9253 
+    beta  = 4e-04 
+    gamma = 1e-04 
+
+  Initial states:
+    l = 102.4914 
+    b = 0.1712 
+    s = -0.233 -2.2881 3.3367 -0.561 3.7136 1.0978
+           -3.7209 3.5383 -0.1766 4.6854 -8.8695 -0.5228
+
+  sigma:  3.8523
+
+     AIC     AICc      BIC 
+631.3403 640.3403 673.0642 
+
+Error measures:
+                     ME     RMSE      MAE         MPE     MAPE      MASE
+Training set 0.01529911 3.475488 2.522562 -0.03638605 2.255034 0.4535252
+                   ACF1
+Training set 0.06272114
+
+Forecasts:
+         Point Forecast     Lo 80    Hi 80     Lo 95    Hi 95
+Mar 2022       123.3920 118.45517 128.3289 115.84175 130.9423
+Apr 2022       118.7020 111.97466 125.4294 108.41339 128.9907
+May 2022       122.5889 114.45510 130.7227 110.14932 135.0285
+Jun 2022       115.5018 106.17037 124.8333 101.23060 129.7730
+Jul 2022       120.4914 110.09866 130.8841 104.59708 136.3857
+Aug 2022       123.2787 111.92278 134.6347 105.91130 140.6462
+Sep 2022       119.1760 106.93167 131.4203 100.44993 137.9020
+Oct 2022       123.2463 110.17328 136.3193 103.25285 143.2397
+Nov 2022       117.7928 103.94001 131.6456  96.60677 138.9789
+Dec 2022       120.0196 105.42804 134.6111  97.70374 142.3354
+Jan 2023       119.9012 104.60604 135.1964  96.50927 143.2932
+Feb 2023       111.7258  95.75746 127.6941  87.30434 136.1472
+Mar 2023       125.4525 108.83772 142.0674 100.04236 150.8627
+Apr 2023       120.7626 103.52511 138.0000  94.40016 147.1249
+May 2023       124.6494 106.81062 142.4882  97.36734 151.9315
+Jun 2023       117.5623  99.14137 135.9833  89.38991 145.7347
+Jul 2023       122.5519 103.56620 141.5376  93.51579 151.5880
+Aug 2023       125.3392 105.80473 144.8738  95.46378 155.2147
+Sep 2023       121.2365 101.16772 141.3052  90.54397 151.9290
+Oct 2023       125.3068 104.71729 145.8963  93.81787 156.7957
+Nov 2023       119.8533  98.75553 140.9511  87.58704 152.1196
+Dec 2023       122.0801 100.48560 143.6746  89.05417 155.1060
+Jan 2024       121.9617  99.88133 144.0421  88.19268 155.7307
+Feb 2024       113.7863  91.23011 136.3424  79.28959 148.2830</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a>HW_eva <span class="ot">&lt;-</span> <span class="fu">hw</span>(eva_elec, <span class="at">alpha=</span><span class="fl">0.9253</span>, <span class="at">beta=</span><span class="fl">0.0004</span>, <span class="at">gamma=</span><span class="fl">0.0001</span>)</span>
+<span id="cb18-2"><a href=""></a><span class="fu">summary</span>(HW_eva)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Forecast method: Holt-Winters' additive method
+
+Model Information:
+Holt-Winters' additive method 
+
+Call:
+hw(y = eva_elec, alpha = 0.9253, beta = 4e-04, gamma = 1e-04)
+
+  Smoothing parameters:
+    alpha = 0.9253 
+    beta  = 4e-04 
+    gamma = 1e-04 
+
+  Initial states:
+    l = 123.0679 
+    b = 0.2536 
+    s = -11.5947 -3.1404 -1.8917 -2.8454 2.5155 -1.9169
+           3.9254 4.0507 1.2578 6.6851 -0.4693 3.4239
+
+  sigma:  2.9248
+
+     AIC     AICc      BIC 
+114.6408 174.6408 129.9154 
+
+Error measures:
+                       ME     RMSE      MAE         MPE     MAPE      MASE
+Training set -0.008697317 1.527431 0.975001 -0.01625182 0.763524 0.2630737
+                   ACF1
+Training set -0.3535561
+
+Forecasts:
+         Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
+Jan 2024       125.5687 121.8204 129.3170 119.8362 131.3012
+Feb 2024       117.3679 112.2602 122.4757 109.5563 125.1795
+Mar 2024       132.6400 126.4643 138.8157 123.1951 142.0849
+Apr 2024       129.0003 121.9152 136.0855 118.1645 139.8361
+May 2024       136.4082 128.5170 144.2993 124.3397 148.4766
+Jun 2024       131.2344 122.6117 139.8571 118.0471 144.4217
+Jul 2024       134.2809 124.9834 143.5783 120.0616 148.5001
+Aug 2024       134.4090 124.4821 144.3360 119.2270 149.5910
+Sep 2024       128.8202 118.3008 139.3396 112.7322 144.9082
+Oct 2024       133.5062 122.4255 144.5868 116.5598 150.4525
+Nov 2024       128.3987 116.7835 140.0140 110.6348 146.1627
+Dec 2024       129.6059 117.4792 141.7326 111.0597 148.1521
+Jan 2025       128.6108 115.9928 141.2288 109.3132 147.9083
+Feb 2025       120.4099 107.3188 133.5011 100.3887 140.4311
+Mar 2025       135.6820 122.1339 149.2302 114.9619 156.4022
+Apr 2025       132.0424 118.0517 146.0330 110.6455 153.4393
+May 2025       139.4502 125.0303 153.8702 117.3968 161.5036
+Jun 2025       134.2764 119.4393 149.1136 111.5849 156.9679
+Jul 2025       137.3229 122.0796 152.5662 114.0103 160.6355
+Aug 2025       137.4511 121.8118 153.0903 113.5329 161.3692
+Sep 2025       131.8622 115.8365 147.8880 107.3530 156.3715
+Oct 2025       136.5482 120.1448 152.9516 111.4613 161.6351
+Nov 2025       131.4408 114.6678 148.2137 105.7888 157.0928
+Dec 2025       132.6479 115.5131 149.7827 106.4425 158.8533</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="fu">autoplot</span>(electricts)<span class="sc">+</span></span>
+<span id="cb20-2"><a href=""></a>  <span class="fu">xlab</span>(<span class="st">"Year"</span>)<span class="sc">+</span></span>
+<span id="cb20-3"><a href=""></a>  <span class="fu">ylab</span>(<span class="st">"Indeks"</span>)<span class="sc">+</span></span>
+<span id="cb20-4"><a href=""></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Forecasting Electricity Index using Holt-Winters Method"</span>)<span class="sc">+</span></span>
+<span id="cb20-5"><a href=""></a>  <span class="fu">autolayer</span>(<span class="fu">forecast</span>(<span class="fu">hw</span>(electricts, <span class="at">alpha=</span><span class="fl">0.9253</span>, <span class="at">beta=</span><span class="fl">0.0004</span>, <span class="at">gamma=</span><span class="fl">0.0001</span>), <span class="at">h=</span><span class="dv">12</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section>
+<section id="decomposition-method" class="slide level2">
+<h2>Decomposition Method</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="fu">data</span>(<span class="st">"AirPassengers"</span>)</span>
+<span id="cb21-2"><a href=""></a>data <span class="ot">&lt;-</span> AirPassengers</span>
+<span id="cb21-3"><a href=""></a></span>
+<span id="cb21-4"><a href=""></a><span class="fu">plot</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="plot-decompose">Plot decompose</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a>data_decompose <span class="ot">&lt;-</span> <span class="fu">decompose</span>(data)</span>
+<span id="cb22-2"><a href=""></a>data_decompose_mul <span class="ot">&lt;-</span> <span class="fu">decompose</span>(data, <span class="at">type=</span><span class="st">"multiplicative"</span>)</span>
+<span id="cb22-3"><a href=""></a><span class="fu">plot</span>(data_decompose)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a><span class="fu">plot</span>(data_decompose_mul)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="trend-adjusted-time-series-without-trend-component">Trend adjusted time series (without trend component)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a><span class="co"># trend adjusted time series (additive model)</span></span>
+<span id="cb24-2"><a href=""></a>trend_adjusted_add <span class="ot">&lt;-</span> data<span class="sc">-</span>data_decompose<span class="sc">$</span>trend</span>
+<span id="cb24-3"><a href=""></a><span class="fu">plot</span>(trend_adjusted_add)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="co"># trend adjusted time series (multiplicative model)</span></span>
+<span id="cb25-2"><a href=""></a>trend_adjusted_mul <span class="ot">&lt;-</span> data <span class="sc">/</span> data_decompose_mul<span class="sc">$</span>trend</span>
+<span id="cb25-3"><a href=""></a><span class="fu">plot</span>(trend_adjusted_mul)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-18-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+
+<h3 id="seasonal-adjusted-time-series-without-seasonal-component">Seasonal adjusted time series (without seasonal component)</h3>
+<p><strong>Step 1</strong>: Adjusted the data by removing the seasonal component.</p>
+<p>Example of additive assumption.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a><span class="co"># seasonal adusted time series</span></span>
+<span id="cb26-2"><a href=""></a>season_adjusted_add <span class="ot">=</span> data <span class="sc">-</span> data_decompose<span class="sc">$</span>seasonal</span>
+<span id="cb26-3"><a href=""></a><span class="fu">plot</span>(season_adjusted_add)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-19-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
+<section class="slide level2">
+
+<p>Example of multiplicative assumption.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a>season_adjusted_mul <span class="ot">&lt;-</span> data <span class="sc">/</span> data_decompose_mul<span class="sc">$</span>seasonal</span>
+<span id="cb27-2"><a href=""></a><span class="fu">plot</span>(season_adjusted_mul)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-20-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+
+<p><strong>Step 2</strong>: Estimate the trend from seasonal adjusted data using linear trend model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a>time <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(season_adjusted_mul)</span>
+<span id="cb28-2"><a href=""></a></span>
+<span id="cb28-3"><a href=""></a>reg_deaseason <span class="ot">&lt;-</span> <span class="fu">lm</span>(season_adjusted_mul<span class="sc">~</span>time)</span>
+<span id="cb28-4"><a href=""></a><span class="fu">summary</span>(reg_deaseason)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = season_adjusted_mul ~ time)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-39.540 -12.230  -0.264  11.303  51.058 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 88.23941    2.82685   31.21   &lt;2e-16 ***
+time         2.64614    0.03383   78.23   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 16.87 on 142 degrees of freedom
+Multiple R-squared:  0.9773,    Adjusted R-squared:  0.9772 
+F-statistic:  6120 on 1 and 142 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<p><strong>Step 3</strong>: Determine the seasonal components of the series.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a>h <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb30-2"><a href=""></a>h_time <span class="ot">&lt;-</span> (<span class="fu">length</span>(season_adjusted_mul)<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(<span class="fu">length</span>(season_adjusted_mul)<span class="sc">+</span>h)</span>
+<span id="cb30-3"><a href=""></a><span class="fu">length</span>(season_adjusted_mul)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 144</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a><span class="fu">print</span>(h_time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 145 146 147 148 149 150 151 152 153 154 155 156</code></pre>
+</div>
+</div>
+<p>Estimated Seasonal Indices</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href=""></a>est_si <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">tail</span>(data_decompose_mul<span class="sc">$</span>seasonal,<span class="dv">12</span>))</span>
+<span id="cb34-2"><a href=""></a><span class="fu">print</span>(est_si)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 0.9102304 0.8836253 1.0073663 0.9759060 0.9813780 1.1127758 1.2265555
+ [8] 1.2199110 1.0604919 0.9217572 0.8011781 0.8988244</code></pre>
+</div>
+</div>
+<p><strong>Step 4</strong>: Use linear trend model to estimate the <span class="math inline">\(\hat{T}_{t+h}\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href=""></a>h_time <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">time=</span>h_time)</span>
+<span id="cb36-2"><a href=""></a>h_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(reg_deaseason, <span class="at">newdata=</span>h_time)</span>
+<span id="cb36-3"><a href=""></a>h_pred</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1        2        3        4        5        6        7        8 
+471.9296 474.5757 477.2219 479.8680 482.5142 485.1603 487.8064 490.4526 
+       9       10       11       12 
+493.0987 495.7449 498.3910 501.0371 </code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<p><strong>Step 5</strong>: Forecasting using decomposition method assuming multiplicative effect</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href=""></a>forecast_mul <span class="ot">&lt;-</span> h_pred <span class="sc">*</span> est_si</span>
+<span id="cb38-2"><a href=""></a></span>
+<span id="cb38-3"><a href=""></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(data), data, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb38-4"><a href=""></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">length</span>(data) <span class="sc">+</span> h),<span class="at">ylim =</span> <span class="fu">range</span>(<span class="fu">c</span>(data, forecast_mul)),</span>
+<span id="cb38-5"><a href=""></a>     <span class="at">xlab =</span> <span class="st">"Time"</span>, <span class="at">ylab =</span> <span class="st">"Value"</span>, <span class="at">main =</span> <span class="st">"Time Series Data and Forecast"</span>)</span>
+<span id="cb38-6"><a href=""></a></span>
+<span id="cb38-7"><a href=""></a><span class="co"># Add forecast</span></span>
+<span id="cb38-8"><a href=""></a><span class="fu">lines</span>((<span class="fu">length</span>(data) <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>(<span class="fu">length</span>(data) <span class="sc">+</span> h), </span>
+<span id="cb38-9"><a href=""></a>      forecast_mul, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb38-10"><a href=""></a></span>
+<span id="cb38-11"><a href=""></a><span class="co"># Add vertical line at forecast start</span></span>
+<span id="cb38-12"><a href=""></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">length</span>(data), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"gray"</span>)</span>
+<span id="cb38-13"><a href=""></a></span>
+<span id="cb38-14"><a href=""></a><span class="co"># Add legend</span></span>
+<span id="cb38-15"><a href=""></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Original Data"</span>, <span class="st">"Forecast"</span>),<span class="at">col =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"red"</span>), <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-25-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
+<section class="slide level2">
+
+<h3 id="forecasting-using-seasonal-and-trend-decomposition-using-loess-stl">Forecasting using Seasonal and Trend Decomposition using Loess (STL)</h3>
+<p>Robust method for decomposing time series data, allowing you to separately analyze the seasonal, trend, and remainder components.</p>
+<p>Loess refers to a technique for estimating nonlinear relationships, and the STL method is especially useful because:</p>
+<ol type="1">
+<li>It can handle any type of seasonality.</li>
+<li>The seasonal component can change over time, which can be controlled by the user.</li>
+<li>The trend-cycle smoothness can also be user-defined.</li>
+<li>It can be made robust to outliers.</li>
+</ol>
+</section>
+<section class="slide level2">
+
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href=""></a>fit <span class="ot">&lt;-</span> <span class="fu">stl</span>(data, <span class="at">t.window =</span> <span class="dv">12</span>, <span class="at">s.window =</span> <span class="st">"periodic"</span>, <span class="at">robust=</span><span class="cn">TRUE</span>)</span>
+<span id="cb39-2"><a href=""></a>fit.sa <span class="ot">&lt;-</span> <span class="fu">seasadj</span>(fit)</span>
+<span id="cb39-3"><a href=""></a><span class="fu">plot</span>(fit.sa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-26-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note:</strong></p>
+</div>
+<div class="callout-content">
+<p>The STL algorithm is inherently additive, but logging the series converts a multiplicative relationship to an additive one in the log scale. When you back-transform (take exponentials) after decomposing, you retrieve the multiplicative structure for analysis and visualization.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href=""></a><span class="fu">autoplot</span>(<span class="fu">naive</span>(fit.sa))<span class="sc">+</span></span>
+<span id="cb40-2"><a href=""></a>  <span class="fu">ylab</span>(<span class="st">"New orders index"</span>)<span class="sc">+</span></span>
+<span id="cb40-3"><a href=""></a>  <span class="fu">ggtitle</span>(<span class="st">"Naive forecast of seasonality adjusted data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-27-1.png" width="960" class="r-stretch"><p>Naive forecast of the seasonally adjusted air passenger data. The forecast then are “reseasonalised” by adding the seasonal naive forecast of the seasonal component.</p>
+</section>
+<section class="slide level2">
+
+<p>Use forecast () function applied to the stl object. Need to specify the method being used on the seasonally adjusted data, and the function will do the reseasonalising for you.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href=""></a><span class="fu">autoplot</span>(<span class="fu">forecast</span>(fit, <span class="at">method=</span><span class="st">"naive"</span>,<span class="at">h=</span><span class="dv">12</span>))<span class="sc">+</span></span>
+<span id="cb41-2"><a href=""></a>  <span class="fu">ylab</span>(<span class="st">"New orders index"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-28-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+
+<p>Shortcut approach using stlf() function.</p>
+<p>What this function do?</p>
+<ol type="1">
+<li>Decompose the time series using STL.</li>
+<li>Forecast the seasonally adjusted series.</li>
+<li>Return the reaseasonalised forecasts.</li>
+</ol>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href=""></a>fcast <span class="ot">&lt;-</span> <span class="fu">stlf</span>(data,<span class="at">method=</span><span class="st">"naive"</span>,<span class="at">h=</span><span class="dv">12</span>)</span>
+<span id="cb42-2"><a href=""></a><span class="fu">autoplot</span>(fcast)<span class="sc">+</span></span>
+<span id="cb42-3"><a href=""></a>  <span class="fu">ylab</span>(<span class="st">"New orders index"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="C2-Univariate-Modelling-Techniques_files/figure-revealjs/unnamed-chunk-29-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
+<section class="slide level2">
+
+<h3 id="further-reading">Further reading:</h3>
+<p><a href="https://otexts.com/fpp2/expsmooth.html" class="uri">https://otexts.com/fpp2/expsmooth.html</a></p>
+<p><a href="https://otexts.com/fpp2/forecasting-decomposition.html" class="uri">https://otexts.com/fpp2/forecasting-decomposition.html</a></p>
+</section></section>
+<section id="end-of-slides" class="title-slide slide level1 center">
+<h1>End of Slides</h1>
+<div class="quarto-auto-generated-content">
+<div class="footer footer-default">
+<p>Asmui Rahim, STA572 , Oct 2025</p>
+</div>
+</div>
+</section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="C2 Univariate Modelling Techniques_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="C2 Univariate Modelling Techniques_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>

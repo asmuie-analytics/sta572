@@ -1,0 +1,47 @@
+---
+title: "STA572: Time Series Analysis and Forecasting"
+subtitle: "Course Notes — Universiti Teknologi MARA"
+page-layout: full
+toc: false
+number-sections: false
+---
+
+Welcome to the course notes for **STA572/570: Time Series Analysis and Forecasting**.
+
+::: {.grid}
+
+::: {.g-col-12 .g-col-md-6}
+### Instructor
+**Dr Nurul Nisa' Khairol Azmi**
+Faculty of Computer and Mathematical Sciences
+Universiti Teknologi MARA
+:::
+
+::: {.g-col-12 .g-col-md-6}
+### Course Data
+All datasets used in this course are available at:
+[Google Drive — Course Data](https://drive.google.com/drive/folders/1SlWHeWAAVXre62j9VC-nKDdKiVd1KaM3?usp=sharing)
+:::
+
+:::
+
+---
+
+## Chapters
+
+| Chapter | Topic |
+|---------|-------|
+| [Chapter 1](C1 Intro to time series.qmd) | Introduction to Time Series |
+| [Chapter 2](C2 Univariate Modelling Techniques.qmd) | Univariate Modelling Techniques |
+| [Chapter 3](C3 Econometric Modeling.qmd) | Econometric Modeling |
+| [Chapter 4](C4 Stochastic Process.qmd) | Stochastic Processes |
+| [Chapter 5](C5 BoxJenkins.qmd) | Box-Jenkins Methodology |
+
+## Software
+
+All analysis in this course is performed in **R**. The following packages are used:
+
+```r
+install.packages(c("forecast", "TSA", "ggplot2", "ggpubr",
+                   "lubridate", "gridExtra"))
+```

@@ -1,0 +1,347 @@
+---
+title: "STA572:Time Series Analysis and Forecasting"
+subtitle: "C2. Univariate Modeling Techniques"
+format: 
+  revealjs:
+    chalkboard: true
+    fontsize: 20pt
+    css: mystyle.css
+    slide-number: true
+author: "Lecturer, Department of Statistics"
+footer: "Asmui Rahim, STA572 , Oct 2025"
+execute: 
+  echo: true
+  warning: false
+---
+
+# Introduction
+
+1.  Single Exponential Smoothing
+2.  Holt's Method
+3.  Holt-Winter's Trend and Seasonality
+4.  Decomposition Method
+5.  Forecasting using Decomposition Method
+
+## Chapter 2: Data Preparation
+
+### Setup Library
+
+```{r}
+library(fpp2)
+library(forecast)
+```
+
+If no package, need to install.packages("fpp2") and/or install.packages ("forecast").
+
+### Data Preparation
+
+1.  Use "CPI Malaysia.csv" data. For this example, make sure the data is in your project directory.
+
+```{r}
+cpi <- read.csv("CPI Malaysia.csv",check.names=F)
+cpits <- ts(cpi$`Consumer price index (2010 = 100)`, start=1960,frequency=1)
+# estimation
+est_part <- head(cpits, 0.8*length(cpits))
+# evaluation
+eva_part <- tail(cpits,0.2*length(cpits))
+```
+
+2.  Use "electric.csv" data.
+
+```{r}
+prod <- read.csv("electric.csv")
+electric<-data.frame(t=seq(1:108),electric=prod[1:108,3])
+electricts <- ts(electric$electric, start=c(2015,1), frequency=12) 
+est_elec <- head(electricts, 0.8*length(electricts))
+eva_elec <- tail(electricts, 0.2*length(electricts))
+```
+
+## Single Exponential Smoothing using R
+
+```{r}
+SE_est <- ses(est_part)
+summary(SE_est)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+SE_eva <- ses(eva_part, alpha=0.999)
+summary(SE_eva)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+SE_all <- ses(cpits,alpha=0.999)
+summary(SE_all)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+autoplot(cpits)+ylab("CPI")+
+  autolayer(forecast(ses(cpits,alpha=0.999),h=5))
+```
+
+------------------------------------------------------------------------
+
+## Holt's Method using R
+
+```{r}
+Holt_est <- holt(est_part)
+summary(Holt_est)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+Holt_eva <- holt(eva_part, alpha=0.9922, 
+                 beta=0.3708)
+summary(Holt_eva)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+autoplot(cpits)+
+  ylab("CPI")+
+  autolayer(forecast(holt(cpits, alpha=0.9922,
+                          beta=0.3708), h=5))
+```
+
+------------------------------------------------------------------------
+
+## Holt-Winter's Trend and Seasonality using R
+
+```{r}
+HW_est <- hw(est_elec)
+summary(HW_est)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+HW_eva <- hw(eva_elec, alpha=0.9253, beta=0.0004, gamma=0.0001)
+summary(HW_eva)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+autoplot(electricts)+
+  xlab("Year")+
+  ylab("Indeks")+
+  labs(title = "Forecasting Electricity Index using Holt-Winters Method")+
+  autolayer(forecast(hw(electricts, alpha=0.9253, beta=0.0004, gamma=0.0001), h=12))
+```
+
+------------------------------------------------------------------------
+
+## Decomposition Method
+
+```{r}
+
+data("AirPassengers")
+data <- AirPassengers
+
+plot(data)
+```
+
+------------------------------------------------------------------------
+
+### Plot decompose
+
+```{r}
+data_decompose <- decompose(data)
+data_decompose_mul <- decompose(data, type="multiplicative")
+plot(data_decompose)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+plot(data_decompose_mul)
+```
+
+------------------------------------------------------------------------
+
+### Trend adjusted time series (without trend component)
+
+```{r}
+
+# trend adjusted time series (additive model)
+trend_adjusted_add <- data-data_decompose$trend
+plot(trend_adjusted_add)
+```
+
+------------------------------------------------------------------------
+
+```{r}
+# trend adjusted time series (multiplicative model)
+trend_adjusted_mul <- data / data_decompose_mul$trend
+plot(trend_adjusted_mul)
+```
+
+------------------------------------------------------------------------
+
+### Seasonal adjusted time series (without seasonal component)
+
+**Step 1**: Adjusted the data by removing the seasonal component.
+
+Example of additive assumption.
+
+```{r}
+#| fig-align: "center"
+
+# seasonal adusted time series
+season_adjusted_add = data - data_decompose$seasonal
+plot(season_adjusted_add)
+```
+
+------------------------------------------------------------------------
+
+Example of multiplicative assumption.
+
+```{r}
+season_adjusted_mul <- data / data_decompose_mul$seasonal
+plot(season_adjusted_mul)
+```
+
+------------------------------------------------------------------------
+
+**Step 2**: Estimate the trend from seasonal adjusted data using linear trend model.
+
+```{r}
+
+time <- 1:length(season_adjusted_mul)
+
+reg_deaseason <- lm(season_adjusted_mul~time)
+summary(reg_deaseason)
+```
+
+------------------------------------------------------------------------
+
+**Step 3**: Determine the seasonal components of the series.
+
+```{r}
+
+h <- 12
+h_time <- (length(season_adjusted_mul)+1):(length(season_adjusted_mul)+h)
+length(season_adjusted_mul)
+print(h_time)
+```
+
+Estimated Seasonal Indices
+
+```{r}
+est_si <- as.numeric(tail(data_decompose_mul$seasonal,12))
+print(est_si)
+```
+
+**Step 4**: Use linear trend model to estimate the $\hat{T}_{t+h}$
+
+```{r}
+h_time <- data.frame(time=h_time)
+h_pred <- predict(reg_deaseason, newdata=h_time)
+h_pred
+```
+
+------------------------------------------------------------------------
+
+**Step 5**: Forecasting using decomposition method assuming multiplicative effect
+
+```{r}
+#| fig-align: "center"
+
+forecast_mul <- h_pred * est_si
+
+plot(1:length(data), data, type = "l", col = "blue", lwd = 2,
+     xlim = c(1, length(data) + h),ylim = range(c(data, forecast_mul)),
+     xlab = "Time", ylab = "Value", main = "Time Series Data and Forecast")
+
+# Add forecast
+lines((length(data) + 1):(length(data) + h), 
+      forecast_mul, col = "red", lwd = 2)
+
+# Add vertical line at forecast start
+abline(v = length(data), lty = 2, col = "gray")
+
+# Add legend
+legend("topleft", legend = c("Original Data", "Forecast"),col = c("blue", "red"), lwd = 2)
+```
+
+------------------------------------------------------------------------
+
+### Forecasting using Seasonal and Trend Decomposition using Loess (STL)
+
+Robust method for decomposing time series data, allowing you to separately analyze the seasonal, trend, and remainder components.
+
+Loess refers to a technique for estimating nonlinear relationships, and the STL method is especially useful because:
+
+1.  It can handle any type of seasonality.
+2.  The seasonal component can change over time, which can be controlled by the user.
+3.  The trend-cycle smoothness can also be user-defined.
+4.  It can be made robust to outliers.
+
+------------------------------------------------------------------------
+
+```{r}
+#| fig-align: "center"
+fit <- stl(data, t.window = 12, s.window = "periodic", robust=TRUE)
+fit.sa <- seasadj(fit)
+plot(fit.sa)
+```
+
+::: callout-note
+## Note:
+
+The STL algorithm is inherently additive, but logging the series converts a multiplicative relationship to an additive one in the log scale. When you back-transform (take exponentials) after decomposing, you retrieve the multiplicative structure for analysis and visualization.
+:::
+
+------------------------------------------------------------------------
+
+```{r}
+autoplot(naive(fit.sa))+
+  ylab("New orders index")+
+  ggtitle("Naive forecast of seasonality adjusted data")
+```
+
+Naive forecast of the seasonally adjusted air passenger data. The forecast then are "reseasonalised" by adding the seasonal naive forecast of the seasonal component.
+
+------------------------------------------------------------------------
+
+Use forecast () function applied to the stl object. Need to specify the method being used on the seasonally adjusted data, and the function will do the reseasonalising for you.
+
+```{r}
+autoplot(forecast(fit, method="naive",h=12))+
+  ylab("New orders index")
+```
+
+------------------------------------------------------------------------
+
+Shortcut approach using stlf() function.
+
+What this function do?
+
+1.  Decompose the time series using STL.
+2.  Forecast the seasonally adjusted series.
+3.  Return the reaseasonalised forecasts.
+
+```{r}
+#| fig-align: "center"
+
+fcast <- stlf(data,method="naive",h=12)
+autoplot(fcast)+
+  ylab("New orders index")
+```
+
+------------------------------------------------------------------------
+
+### Further reading:
+
+<https://otexts.com/fpp2/expsmooth.html>
+
+<https://otexts.com/fpp2/forecasting-decomposition.html>
+
+# End of Slides
