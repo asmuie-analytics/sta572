@@ -2235,18 +2235,31 @@ Figure&nbsp;5: Decomposition-based 12-month forecast for electricity output inde
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Method     =</span> <span class="fu">c</span>(<span class="st">"Naive"</span>,<span class="st">"Naive with Trend"</span>,<span class="st">"Avg Change"</span>,</span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"Avg % Change"</span>,<span class="st">"SES"</span>,<span class="st">"DES"</span>,<span class="st">"Holt's"</span>,<span class="st">"ARRES"</span>),</span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Trend      =</span> <span class="fu">c</span>(<span class="st">"No"</span>,<span class="st">"Yes"</span>,<span class="st">"No"</span>,<span class="st">"No"</span>,<span class="st">"No"</span>,<span class="st">"Yes"</span>,<span class="st">"Yes"</span>,<span class="st">"No"</span>),</span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Seasonal   =</span> <span class="fu">c</span>(<span class="st">"No"</span>,<span class="st">"No"</span>,<span class="st">"No"</span>,<span class="st">"No"</span>,<span class="st">"No"</span>,<span class="st">"No"</span>,<span class="st">"No"</span>,<span class="st">"No"</span>),</span>
-<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">MultiStep  =</span> <span class="fu">c</span>(<span class="st">"Yes"</span>,<span class="st">"Yes"</span>,<span class="st">"Yes"</span>,<span class="st">"Yes"</span>,<span class="st">"No"</span>,<span class="st">"Yes"</span>,<span class="st">"Yes"</span>,<span class="st">"No"</span>),</span>
-<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">MSE        =</span> <span class="fu">round</span>(<span class="fu">c</span>(mse_naive, mse_trend, mse_ac, mse_apc,</span>
-<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>                       mse_ses, mse_des, mse_h, mse_ar), <span class="dv">4</span>)</span>
-<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Method"</span>,<span class="st">"Handles Trend"</span>,<span class="st">"Handles Seasonal"</span>,</span>
-<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Multi-step"</span>,<span class="st">"MSE (example)"</span>),</span>
-<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">align =</span> <span class="st">"c"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of valid forecast pairs per method (n=6 observations)</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>n_pairs <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(F_naive)),   <span class="co"># Naive:        5</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(F_trend)),   <span class="co"># Naive Trend:  4</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(F_ac)),      <span class="co"># Avg Change:   3</span></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(F_apc)),     <span class="co"># Avg Pct:      3</span></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(F_ses[<span class="sc">-</span><span class="dv">1</span>])), <span class="co"># SES:          5 (exclude init row)</span></span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(F_des)),     <span class="co"># DES:          5</span></span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(F_holt)),    <span class="co"># Holt:         5</span></span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(F_ar[<span class="sc">-</span><span class="dv">1</span>]))   <span class="co"># ARRES:        5 (exclude init row)</span></span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">Method     =</span> <span class="fu">c</span>(<span class="st">"Naive"</span>,<span class="st">"Naive with Trend"</span>,<span class="st">"Avg Change"</span>,</span>
+<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"Avg % Change"</span>,<span class="st">"SES"</span>,<span class="st">"DES"</span>,<span class="st">"Holt's"</span>,<span class="st">"ARRES"</span>),</span>
+<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">Trend      =</span> <span class="fu">c</span>(<span class="st">"No"</span>,<span class="st">"Yes"</span>,<span class="st">"No"</span>,<span class="st">"No"</span>,<span class="st">"No"</span>,<span class="st">"Yes"</span>,<span class="st">"Yes"</span>,<span class="st">"No"</span>),</span>
+<span id="cb60-17"><a href="#cb60-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">Seasonal   =</span> <span class="fu">c</span>(<span class="st">"No"</span>,<span class="st">"No"</span>,<span class="st">"No"</span>,<span class="st">"No"</span>,<span class="st">"No"</span>,<span class="st">"No"</span>,<span class="st">"No"</span>,<span class="st">"No"</span>),</span>
+<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">MultiStep  =</span> <span class="fu">c</span>(<span class="st">"Yes"</span>,<span class="st">"Yes"</span>,<span class="st">"Yes"</span>,<span class="st">"Yes"</span>,<span class="st">"No"</span>,<span class="st">"Yes"</span>,<span class="st">"Yes"</span>,<span class="st">"No"</span>),</span>
+<span id="cb60-19"><a href="#cb60-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">Pairs      =</span> n_pairs,</span>
+<span id="cb60-20"><a href="#cb60-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">MSE        =</span> <span class="fu">round</span>(<span class="fu">c</span>(mse_naive, mse_trend, mse_ac, mse_apc,</span>
+<span id="cb60-21"><a href="#cb60-21" aria-hidden="true" tabindex="-1"></a>                       mse_ses,   mse_des,   mse_h,  mse_ar), <span class="dv">4</span>)</span>
+<span id="cb60-22"><a href="#cb60-22" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb60-23"><a href="#cb60-23" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Method"</span>,<span class="st">"Handles Trend"</span>,<span class="st">"Handles Seasonal"</span>,</span>
+<span id="cb60-24"><a href="#cb60-24" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Multi-step"</span>,<span class="st">"Valid Pairs"</span>,<span class="st">"MSE (example)"</span>),</span>
+<span id="cb60-25"><a href="#cb60-25" aria-hidden="true" tabindex="-1"></a>               <span class="at">align =</span> <span class="st">"c"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div id="tbl-comparison" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -2257,11 +2270,12 @@ Table&nbsp;11: Summary comparison of univariate methods on the worked example
 <div class="cell-output-display">
 <table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <colgroup>
-<col style="width: 23%">
 <col style="width: 19%">
-<col style="width: 23%">
-<col style="width: 15%">
+<col style="width: 16%">
 <col style="width: 19%">
+<col style="width: 13%">
+<col style="width: 14%">
+<col style="width: 16%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -2269,6 +2283,7 @@ Table&nbsp;11: Summary comparison of univariate methods on the worked example
 <th style="text-align: center;">Handles Trend</th>
 <th style="text-align: center;">Handles Seasonal</th>
 <th style="text-align: center;">Multi-step</th>
+<th style="text-align: center;">Valid Pairs</th>
 <th style="text-align: center;">MSE (example)</th>
 </tr>
 </thead>
@@ -2278,6 +2293,7 @@ Table&nbsp;11: Summary comparison of univariate methods on the worked example
 <td style="text-align: center;">No</td>
 <td style="text-align: center;">No</td>
 <td style="text-align: center;">Yes</td>
+<td style="text-align: center;">5</td>
 <td style="text-align: center;">4.8000</td>
 </tr>
 <tr class="even">
@@ -2285,6 +2301,7 @@ Table&nbsp;11: Summary comparison of univariate methods on the worked example
 <td style="text-align: center;">Yes</td>
 <td style="text-align: center;">No</td>
 <td style="text-align: center;">Yes</td>
+<td style="text-align: center;">4</td>
 <td style="text-align: center;">3.7140</td>
 </tr>
 <tr class="odd">
@@ -2292,6 +2309,7 @@ Table&nbsp;11: Summary comparison of univariate methods on the worked example
 <td style="text-align: center;">No</td>
 <td style="text-align: center;">No</td>
 <td style="text-align: center;">Yes</td>
+<td style="text-align: center;">3</td>
 <td style="text-align: center;">2.4167</td>
 </tr>
 <tr class="even">
@@ -2299,6 +2317,7 @@ Table&nbsp;11: Summary comparison of univariate methods on the worked example
 <td style="text-align: center;">No</td>
 <td style="text-align: center;">No</td>
 <td style="text-align: center;">Yes</td>
+<td style="text-align: center;">3</td>
 <td style="text-align: center;">4.1107</td>
 </tr>
 <tr class="odd">
@@ -2306,6 +2325,7 @@ Table&nbsp;11: Summary comparison of univariate methods on the worked example
 <td style="text-align: center;">No</td>
 <td style="text-align: center;">No</td>
 <td style="text-align: center;">No</td>
+<td style="text-align: center;">5</td>
 <td style="text-align: center;">6.6164</td>
 </tr>
 <tr class="even">
@@ -2313,6 +2333,7 @@ Table&nbsp;11: Summary comparison of univariate methods on the worked example
 <td style="text-align: center;">Yes</td>
 <td style="text-align: center;">No</td>
 <td style="text-align: center;">Yes</td>
+<td style="text-align: center;">5</td>
 <td style="text-align: center;">2.2267</td>
 </tr>
 <tr class="odd">
@@ -2320,6 +2341,7 @@ Table&nbsp;11: Summary comparison of univariate methods on the worked example
 <td style="text-align: center;">Yes</td>
 <td style="text-align: center;">No</td>
 <td style="text-align: center;">Yes</td>
+<td style="text-align: center;">5</td>
 <td style="text-align: center;">0.7241</td>
 </tr>
 <tr class="even">
@@ -2327,6 +2349,7 @@ Table&nbsp;11: Summary comparison of univariate methods on the worked example
 <td style="text-align: center;">No</td>
 <td style="text-align: center;">No</td>
 <td style="text-align: center;">No</td>
+<td style="text-align: center;">5</td>
 <td style="text-align: center;">4.8000</td>
 </tr>
 </tbody>

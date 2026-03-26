@@ -705,17 +705,30 @@ autoplot(electricts) +
 #| label: tbl-comparison
 #| tbl-cap: "Summary comparison of univariate methods on the worked example"
 
+# Number of valid forecast pairs per method (n=6 observations)
+n_pairs <- c(
+  sum(!is.na(F_naive)),   # Naive:        5
+  sum(!is.na(F_trend)),   # Naive Trend:  4
+  sum(!is.na(F_ac)),      # Avg Change:   3
+  sum(!is.na(F_apc)),     # Avg Pct:      3
+  sum(!is.na(F_ses[-1])), # SES:          5 (exclude init row)
+  sum(!is.na(F_des)),     # DES:          5
+  sum(!is.na(F_holt)),    # Holt:         5
+  sum(!is.na(F_ar[-1]))   # ARRES:        5 (exclude init row)
+)
+
 data.frame(
   Method     = c("Naive","Naive with Trend","Avg Change",
                  "Avg % Change","SES","DES","Holt's","ARRES"),
   Trend      = c("No","Yes","No","No","No","Yes","Yes","No"),
   Seasonal   = c("No","No","No","No","No","No","No","No"),
   MultiStep  = c("Yes","Yes","Yes","Yes","No","Yes","Yes","No"),
+  Pairs      = n_pairs,
   MSE        = round(c(mse_naive, mse_trend, mse_ac, mse_apc,
-                       mse_ses, mse_des, mse_h, mse_ar), 4)
+                       mse_ses,   mse_des,   mse_h,  mse_ar), 4)
 ) |>
   knitr::kable(col.names = c("Method","Handles Trend","Handles Seasonal",
-                              "Multi-step","MSE (example)"),
+                              "Multi-step","Valid Pairs","MSE (example)"),
                align = "c")
 ```
 
