@@ -741,6 +741,10 @@ data.frame(
                caption = "* Holt-Winters MSE is from the quarterly example (n=8); all other methods use the annual price example (n=6). Direct MSE comparison across different datasets is not meaningful.")
 ```
 
+::: {.callout-note}
+**Note on Holt-Winters MSE:** Holt-Winters requires seasonal data and therefore uses a different dataset (quarterly, $n = 8$) compared to all other methods (annual price data, $n = 6$). The MSE value of Holt-Winters marked with \* should **not** be directly compared with other methods — different dataset means the MSE not directly comparable with the others.
+:::
+
 ------------------------------------------------------------------------
 
 # Summary
