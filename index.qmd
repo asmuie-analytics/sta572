@@ -33,7 +33,7 @@ All datasets used in this course are available at:
 |---------|-------|
 | [Chapter 1](C1 Intro to time series.qmd) | Introduction to Time Series |
 | [Chapter 2](C2 Univariate Modelling Techniques.qmd) | Univariate Modelling Techniques |
-| [Chapter 3](C3 Econometric Modeling.qmd) | Econometric Modeling |
+| [Chapter 3](C3 Econometric Modelling.qmd) | Econometric Modelling |
 | [Chapter 4](C4 Stochastic Process.qmd) | Stochastic Processes |
 | [Chapter 5](C5 BoxJenkins.qmd) | Box-Jenkins Methodology |
 
