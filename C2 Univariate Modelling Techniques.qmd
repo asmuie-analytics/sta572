@@ -726,7 +726,7 @@ n_errors <- c(
 data.frame(
   Method    = c("Naive","Naive with Trend","Avg Change",
                 "Avg % Change","SES","DES","Holt's","ARRES",
-                "Holt-Winters †"),
+                "Holt-Winters *"),
   Trend     = c("No","Yes","No","No","No","Yes","Yes","No","Yes"),
   Seasonal  = c("No","No","No","No","No","No","No","No","Yes"),
   MultiStep = c("Yes","Yes","Yes","Yes","No","Yes","Yes","No","Yes"),
@@ -738,7 +738,7 @@ data.frame(
   knitr::kable(col.names = c("Method","Handles Trend","Handles Seasonal",
                               "Multi-step","n","MSE"),
                align = "c",
-               caption = "† Holt-Winters MSE is from the quarterly example (n=8); all other methods use the annual price example (n=6). Direct MSE comparison across different datasets is not meaningful.")
+               caption = "* Holt-Winters MSE is from the quarterly example (n=8); all other methods use the annual price example (n=6). Direct MSE comparison across different datasets is not meaningful.")
 ```
 
 ------------------------------------------------------------------------
