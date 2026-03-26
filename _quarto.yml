@@ -4,10 +4,8 @@ project:
 
 website:
   title: "STA572: Time Series Analysis and Forecasting"
-  favicon: images/favicon.png
   navbar:
     background: primary
-    logo: images/favicon.png
     left:
       - text: "Home"
         href: index.qmd
