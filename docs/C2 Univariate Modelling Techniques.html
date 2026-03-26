@@ -956,14 +956,14 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Larger <span class="math inline">\(\alpha\)</span></strong> → faster damping → past observations lose influence quickly. <strong>Smaller <span class="math inline">\(\alpha\)</span></strong> → slower damping → past observations retain influence longer.</p>
+<p><strong>Larger</strong> <span class="math inline">\(\alpha\)</span> → faster damping → past observations lose influence quickly. <strong>Smaller</strong> <span class="math inline">\(\alpha\)</span> → slower damping → past observations retain influence longer.</p>
 </div>
 </div>
-<p><strong>Example: <span class="math inline">\(\alpha = 0.8\)</span></strong></p>
+<p><strong>Example:</strong> <span class="math inline">\(\alpha = 0.8\)</span></p>
 <p>The weights are <span class="math inline">\(0.8,\ 0.16,\ 0.032,\ 0.0064,\ 0.00128\)</span> for <span class="math inline">\(y_t,\ y_{t-1},\ y_{t-2},\ y_{t-3},\ y_{t-4}\)</span> respectively.</p>
 <p><span class="math display">\[F_{t+1} = 0.8y_t + 0.16y_{t-1} + 0.032y_{t-2} + 0.0064y_{t-3} + 0.0012y_{t-4} + \cdots\]</span></p>
 <p>Periods beyond <span class="math inline">\(t-3\)</span> have almost <strong>minimal effect</strong> on the current estimate.</p>
-<p><strong>Example: <span class="math inline">\(\alpha = 0.2\)</span></strong></p>
+<p><strong>Example:</strong> <span class="math inline">\(\alpha = 0.2\)</span></p>
 <p>The weights are <span class="math inline">\(0.2,\ 0.16,\ 0.128,\ 0.1024\)</span> for <span class="math inline">\(y_t,\ y_{t-1},\ y_{t-2},\ y_{t-3}\)</span> respectively.</p>
 <p><span class="math display">\[F_{t+1} = 0.2y_t + 0.16y_{t-1} + 0.128y_{t-2} + 0.1024y_{t-3} + \cdots\]</span></p>
 <p>The weights diminish <strong>slowly</strong> compared to a large value of <span class="math inline">\(\alpha\)</span>.</p>
@@ -997,8 +997,8 @@ Note
 <h3 data-number="4.1.2" class="anchored" data-anchor-id="choosing-alpha"><span class="header-section-number">4.1.2</span> Choosing <span class="math inline">\(\alpha\)</span></h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 21%">
-<col style="width: 78%">
+<col style="width: 23%">
+<col style="width: 76%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -2302,8 +2302,7 @@ Figure&nbsp;5: Decomposition-based 12-month forecast for electricity output inde
 <span id="cb60-30"><a href="#cb60-30" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
 <span id="cb60-31"><a href="#cb60-31" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Method"</span>,<span class="st">"Handles Trend"</span>,<span class="st">"Handles Seasonal"</span>,</span>
 <span id="cb60-32"><a href="#cb60-32" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Multi-step"</span>,<span class="st">"n"</span>,<span class="st">"MSE"</span>),</span>
-<span id="cb60-33"><a href="#cb60-33" aria-hidden="true" tabindex="-1"></a>               <span class="at">align =</span> <span class="st">"c"</span>,</span>
-<span id="cb60-34"><a href="#cb60-34" aria-hidden="true" tabindex="-1"></a>               <span class="at">caption =</span> <span class="st">"* Holt-Winters MSE is from the quarterly example (n=8); all other methods use the annual price example (n=6). Direct MSE comparison across different datasets is not meaningful."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb60-33"><a href="#cb60-33" aria-hidden="true" tabindex="-1"></a>               <span class="at">align =</span> <span class="st">"c"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div id="tbl-comparison" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -2313,7 +2312,6 @@ Table&nbsp;11: Summary comparison of univariate methods on the worked example
 <div aria-describedby="tbl-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <table class="do-not-create-environment cell caption-top table table-sm table-striped small">
-<caption>* Holt-Winters MSE is from the quarterly example (n=8); all other methods use the annual price example (n=6). Direct MSE comparison across different datasets is not meaningful.</caption>
 <colgroup>
 <col style="width: 24%">
 <col style="width: 20%">
