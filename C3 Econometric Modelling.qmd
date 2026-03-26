@@ -1,0 +1,966 @@
+---
+title: "Chapter 3: Econometric Modelling"
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(fpp2)
+library(forecast)
+library(ggplot2)
+library(ggpubr)
+library(lmtest)
+library(car)
+library(gridExtra)
+
+# ── custom ggplot theme ────────────────────────────────────────────────────────
+theme_ts <- function() {
+  theme_bw(base_size = 12) +
+    theme(plot.title    = element_text(face = "bold", hjust = 0.5),
+          plot.subtitle = element_text(hjust = 0.5, colour = "grey40"),
+          axis.title    = element_text(size = 11),
+          legend.position = "bottom")
+}
+
+# ── load economic data ─────────────────────────────────────────────────────────
+econ <- read.csv("data/economic data.csv", check.names = FALSE)
+
+# Show structure so students can see what we are working with
+head(econ)
+str(econ)
+```
+
+# Introduction
+
+## Definition and Concepts
+
+**Econometric modelling** is a branch of economics that employs statistical methods to analyse economic phenomena, forecast future trends, and evaluate economic policies. It combines **economic theory**, **mathematics**, and **statistical techniques** to quantify and understand the relationships between economic variables.
+
+::: {.callout-note}
+Econometric models go beyond univariate time series methods — they explain *why* a variable behaves as it does by relating it to other economic variables (its *determinants*). This gives forecasts a causal interpretation, which is valuable for policy analysis.
+:::
+
+## Purpose
+
+Econometric models are used to:
+
+- Test economic theories and hypotheses.
+- Predict future economic variables and trends.
+- Assess the impact of policy changes or external shocks on the economy.
+- Make informed decisions in business, finance, and public policy.
+
+## Applications of Econometric Modelling
+
+| Application Area | Example |
+|---|---|
+| **Macroeconomic Forecasting** | Central banks forecast GDP growth, inflation, unemployment rates, and interest rates using large structural models. |
+| **Financial Markets** | The Capital Asset Pricing Model (CAPM) and Arbitrage Pricing Theory (APT) estimate expected asset returns based on risk. |
+| **Labour Economics** | Researchers use difference-in-differences and regression discontinuity designs to evaluate minimum wage laws. |
+| **Health Economics** | Instrumental variables and propensity score matching address endogeneity in evaluating healthcare interventions. |
+| **Environmental Economics** | Panel data and spatial econometrics assess the effectiveness of environmental regulations on economic growth. |
+| **Marketing & Consumer Behaviour** | Discrete choice models and time series analysis forecast consumer demand and advertising effectiveness. |
+
+---
+
+# Basic Structure of Econometric Model
+
+## General Form
+
+The variables used in econometric models are:
+
+- **Dependent variable** ($y_t$): the variable we want to explain or forecast.
+- **Independent (explanatory) variables** ($x_{1t}, x_{2t}, \ldots, x_{mt}$): the factors that help explain $y_t$.
+
+The general functional form is:
+
+$$y_t = f(x_{1t},\, x_{2t},\, \ldots,\, x_{mt}) \tag{1}$$
+
+Equation (1) states that the level of $y_t$ is influenced by the behaviour of variables $x_{1t}, x_{2t}, \ldots, x_{mt}$, and the relationship is established from historical data.
+
+## Linear Multiple Regression Model (No Lags)
+
+The standard multiple linear regression model is:
+
+$$y_t = \beta_0 + \beta_1 x_{1t} + \beta_2 x_{2t} + \cdots + \beta_m x_{mt} + \varepsilon_t \tag{2}$$
+
+In compact summation form:
+
+$$y_t = \beta_0 + \sum_{i=1}^{m} \beta_i x_{it} + \varepsilon_t \tag{3}$$
+
+where:
+
+- $\beta_0$ is the intercept (constant term),
+- $\beta_i$ is the coefficient for the $i$-th independent variable,
+- $\varepsilon_t$ is the error (disturbance) term at time $t$,
+- The $x_{it}$ matrix is assumed non-stochastic (fixed), and $y_t$ is a random variable.
+
+## General Model with Lag Variables
+
+A more general model, the **Autoregressive Distributed Lag (ADL)** model, allows both lagged values of the dependent variable and lagged values of the independent variables:
+
+$$y_t = \beta_0 + \beta_1 x_{1t} + \cdots + \beta_m x_{mt} + \phi_1 y_{t-1} + \cdots + \phi_p y_{t-p} + \omega_{11} x_{1(t-1)} + \cdots + \omega_{pm} x_{m(t-j)} + \varepsilon_t \tag{4}$$
+
+::: {.callout-note}
+Including lagged values of $y_t$ in the model is one of the most effective remedies for serial correlation. The ADL model is the foundation of the **General-to-Specific** modelling strategy covered later in this chapter.
+:::
+
+---
+
+# Fundamental of OLS Technique
+
+## Ordinary Least Squares (OLS)
+
+**Ordinary Least Squares (OLS)** is the standard method for estimating the parameters of a linear regression model. Its main objective is to **minimise the sum of squared errors**:
+
+$$\text{Minimise} \quad \sum_{t=1}^{n} \varepsilon_t^2 = \sum_{t=1}^{n} (y_t - \hat{y}_t)^2$$
+
+where $\varepsilon_t = y_t - \hat{y}_t$ is the residual at time $t$.
+
+## Deriving the OLS Estimators (Simple Regression)
+
+Consider a regression model with one independent variable:
+
+$$y_t = \beta_0 + \beta_1 x_{1t} + \varepsilon_t \tag{5}$$
+
+The fitted equation is:
+
+$$\hat{y}_t = \hat{\beta}_0 + \hat{\beta}_1 x_{1t} \tag{6}$$
+
+The residual is:
+
+$$\varepsilon_t = y_t - \hat{y}_t = y_t - (\hat{\beta}_0 + \hat{\beta}_1 x_{1t}) \tag{7, 8}$$
+
+The sum of squared errors to minimise:
+
+$$\sum_{i=1}^{n} \varepsilon_i^2 = \sum_{i=1}^{n} \left[y_t - \hat{\beta}_0 - \hat{\beta}_1 x_{1t}\right]^2 \tag{9}$$
+
+**Partial differentiation with respect to $\beta_0$**, equating to zero:
+
+$$\frac{\partial \sum_{t=1}^{n} \varepsilon_t^2}{\partial \beta_0} = 2\sum_{t=1}^{n}\left(y_t - \hat{\beta}_0 - \hat{\beta}_1 x_{1t}\right)(-1) = 0 \tag{10}$$
+
+This simplifies (through equations 11--12) to the **first normal equation**:
+
+$$\sum_{t=1}^{n} y_t = n\hat{\beta}_0 + \hat{\beta}_1 \sum_{t=1}^{n} x_{1t} \tag{13}$$
+
+**Partial differentiation with respect to $\beta_1$**, equating to zero:
+
+$$\frac{\partial \sum_{t=1}^{n} \varepsilon_t^2}{\partial \beta_1} = \sum_{t=1}^{n}\left(y_t - \hat{\beta}_0 - \hat{\beta}_1 x_{1t}\right)(-x_{1t}) = 0 \tag{14}$$
+
+This gives the **second normal equation**:
+
+$$\sum_{t=1}^{n} x_{1t} y_t = \hat{\beta}_0 \sum_{t=1}^{n} x_{1t} + \hat{\beta}_1 \sum_{t=1}^{n} x_{1t}^2 \tag{16}$$
+
+Solving these two normal equations simultaneously yields the OLS estimates $\hat{\beta}_0$ and $\hat{\beta}_1$.
+
+::: {.callout-note}
+In practice, R's `lm()` function performs all of these calculations internally using matrix algebra. Understanding the derivation helps you interpret what the function is doing under the hood and why the assumptions matter.
+:::
+
+---
+
+# Issues in the Econometric Construction
+
+## Variable Selection Criteria
+
+Variables included in the model must satisfy two conditions:
+
+1. **Statistical significance** — the variable must have a meaningful statistical relationship with $y_t$.
+2. **Theoretical (logical) justification** — the relationship must be supported by economic theory.
+
+Variable selection is the procedure of choosing a subset (from all possible subsets) of independent variables. The common criterion is to **minimise the squared error** while maintaining theoretical coherence.
+
+### Steps for Model Specification
+
+| Step | Description |
+|---|---|
+| **Step 1** | Identify the appropriate economic theory to select independent variables that explain the dependent variable. |
+| **Step 2** | Ensure sufficient data are available. Rule of thumb: at least **5 observations per independent variable**. |
+| **Step 3** | Examine the relationships among variables using historical data to assess the general fitness of the model. |
+
+## Model Cost
+
+- As model complexity increases, data requirements and computational costs increase.
+- More sophisticated models require more time, specialised software, and greater expertise.
+- A parsimonious model is preferred when it achieves comparable predictive performance at lower cost.
+
+## Model Complexity
+
+- Simple linear models are easy to interpret and visualise.
+- Models with many independent variables are difficult to envisage and may overfit the data.
+- **Principle of parsimony**: if two models have the same explanatory power, prefer the simpler one.
+
+## Future Values of Independent Variables
+
+A key practical challenge in multi-variable forecasting:
+
+$$\hat{y}_{t+1} = \hat{\beta}_0 + \hat{\beta}_1 x_{1(t+1)} + \hat{\beta}_2 x_{2(t+1)}$$
+
+To forecast $y_{t+1}$, the analyst must also have (or forecast) $x_{1(t+1)}$ and $x_{2(t+1)}$.
+
+::: {.callout-note}
+**Challenge:** If the future values of independent variables are themselves estimated with error, those errors propagate into the forecast of $y$. This is a key limitation of econometric forecasting compared to univariate methods — more variables means more sources of forecast error.
+:::
+
+---
+
+# Assumptions
+
+## Assumptions Pertaining to the Model
+
+For OLS estimates to have desirable properties (unbiasedness, efficiency), the following model-level assumptions must hold:
+
+1. **Linearity** — $y_t$ is a linear function of the independent variables.
+2. **Correct specification** — all relevant variables are included; no irrelevant variables are present.
+3. **No multicollinearity** — the $x_t$'s must be mutually independent.
+4. **Sufficient sample size** — the number of observations $n$ must exceed the number of regressors $m$.
+
+## Assumptions Pertaining to the Error Term
+
+1. **IID errors** — the error terms $\varepsilon_t$ are identically and independently distributed.
+2. **Homoscedasticity** — $\text{Var}(\varepsilon_t) = \sigma^2$ is constant for all $t$.
+3. **No autocorrelation** — $\text{Cov}(\varepsilon_t, \varepsilon_s) = 0$ for all $t \neq s$.
+4. **Exogeneity** — the independent variables are uncorrelated with the error terms.
+5. **Normality** — $\varepsilon_t \sim N(0, \sigma^2)$.
+
+## Specification Error
+
+A model is **correctly specified** if it includes the correct set of independent variables. Common misspecification situations are:
+
+| Type | Description |
+|---|---|
+| **Under-specification** | Relevant variables are omitted from the model. |
+| **Over-specification** | Irrelevant variables are included in the model. |
+| **Wrong functional form** | Linear model used when the true relationship is non-linear. |
+| **Poor residuals** | Diagnostic checks on residuals indicate systematic patterns. |
+
+---
+
+# Model Estimation Procedure
+
+## Two Main Strategies
+
+Two main strategies exist for estimating an econometric model:
+
+| Strategy | Description |
+|---|---|
+| **General-to-Specific** | Start with the most general model and systematically remove insignificant variables. Also called *backward stepwise*. |
+| **Specific-to-General** | Start with a simple model and add variables one at a time. Also called *forward stepwise*. |
+
+## General-to-Specific (Backward Stepwise)
+
+The General-to-Specific approach is based on the **principle of parsimony**:
+
+> *If there are two or more competing explanations of the same phenomenon, each having the same explanatory power, choose the simpler one.*
+
+**Procedure:**
+
+1. Formulate a sufficiently large **unrestricted (general) model** — the ADL model — including all candidate independent variables and their lags:
+
+$$y_t = \beta_0 + \sum_{m=1}^{k} \beta_m x_{mt} + \sum_{j=1}^{p} \phi_j y_{t-j} + \sum_{m=1}^{k}\sum_{j=1}^{q} \omega_{mj} x_{m(t-j)} + \varepsilon_t$$
+
+2. Apply diagnostic tests at each stage.
+3. Drop the **most insignificant** variable (highest $p$-value) at each step — one at a time.
+4. A variable may also be dropped if it registers the **wrong sign** contrary to theoretical expectations.
+5. Repeat until all remaining variables are significant and pass all diagnostics.
+
+::: {.callout-note}
+**Why drop one variable at a time?** The significance of one variable depends on what other variables are in the model. Dropping multiple variables simultaneously can lead to incorrect conclusions about which variables truly matter.
+:::
+
+**Practical considerations for the general model:**
+
+- Maintain a small number of explanatory variables to control cost, avoid multicollinearity, and keep the model interpretable.
+- If multicollinearity exists, the offending variable (usually with the highest VIF) is a candidate for removal.
+
+## Specific-to-General (Forward Stepwise)
+
+**Procedure:**
+
+1. Start with the simplest model, e.g.:
+$$y_t = \beta_0 + \beta_1 x_{1t} + \varepsilon_t \quad \text{or} \quad y_t = \phi_0 + \phi_1 y_{t-1} + \varepsilon_t$$
+
+2. If the model is inadequate or mis-specified, add the next most promising variable (based on correlation with $y_t$).
+3. Repeat until a well-specified model is obtained.
+
+::: {.callout-note}
+In this course, we primarily use the **General-to-Specific** approach, as illustrated in the worked example with Malaysian car registration data.
+:::
+
+---
+
+# Statistical Validation and Testing Procedure
+
+Failure to satisfy any of the following tests indicates that a model assumption is violated. Remedial action should then be taken: reformulate the model, include new variables, obtain more data, or apply variable transformations.
+
+| Test | Purpose | Decision Rule |
+|---|---|---|
+| **F-test** | Overall model fitness | If $p < 0.05$, at least one variable is significant |
+| **t-test** | Significance of each coefficient | If $p < 0.05$, retain the variable |
+| **Adjusted $R^2$** | Goodness of fit | Higher is better; preferred over $R^2$ |
+| **Breusch-Pagan** | Heteroscedasticity | If $p > 0.05$, variances are constant (no problem) |
+| **Durbin-Watson** | Serial correlation | DW $\approx$ 2 and $p > 0.05$ means no problem |
+| **VIF** | Multicollinearity | VIF $> 10$ indicates a serious problem |
+
+## General Fitness (F-Test)
+
+The F-test evaluates the **overall significance** of the model:
+
+- $H_0$: All slope coefficients are zero ($\beta_1 = \beta_2 = \cdots = \beta_m = 0$).
+- $H_1$: At least one coefficient is non-zero.
+
+**Decision:** If the $p$-value from the F-test is less than 0.05, the model has overall fit and at least one variable is significant. Proceed to examine individual coefficients using t-tests. Otherwise, the model is considered poorly fit.
+
+## Regression Coefficients (t-Test)
+
+After confirming the model is overall significant via the F-test, examine each individual coefficient $\beta_1, \beta_2, \ldots, \beta_m$:
+
+- $H_0$: $\beta_i = 0$ (variable $i$ has no effect on $y$)
+- $H_1$: $\beta_i \neq 0$
+
+**Decision:** If $p < 0.05$, retain the variable. Otherwise, consider removing it from the model.
+
+## Goodness of Fit ($R^2$ and Adjusted $R^2$)
+
+The **coefficient of determination** $R^2$ measures the proportion of total variation in $y_t$ explained by the regression:
+
+$$R^2 = 1 - \frac{\text{SSR}}{\text{SST}} = 1 - \frac{\sum_{t=1}^{n}(y_t - \hat{y}_t)^2}{\sum_{t=1}^{n}(y_t - \bar{y})^2}$$
+
+$R^2 \in [0, 1]$, where 0 indicates no fit and 1 indicates perfect fit.
+
+**Problem with $R^2$:** It increases mechanically whenever a new variable is added, even if the variable adds no explanatory value. Therefore, use **Adjusted $R^2$**:
+
+$$\bar{R}^2 = 1 - \frac{(1 - R^2)(n - 1)}{n - m - 1}$$
+
+where $n$ is the number of observations and $m$ is the number of independent variables. Adjusted $R^2$ penalises for adding variables and is the preferred measure of goodness of fit.
+
+## Heteroscedasticity
+
+**Homoscedasticity** means the variance of the error term is constant:
+$$\text{Var}(\varepsilon_t) = \sigma^2 \quad \text{for all } t$$
+
+If this assumption is violated, the errors are **heteroscedastic** — their variance changes over time or across observations. Consequences:
+
+- OLS estimates are no longer the minimum variance (BLUE) estimators.
+- Standard errors and inference become unreliable.
+- Forecasts become less predictable as the forecast horizon extends.
+
+**Breusch-Pagan Test:**
+- $H_0$: Error variance is constant (homoscedastic).
+- $H_1$: Error variance is non-constant (heteroscedastic).
+- **Decision:** If $p > 0.05$, no heteroscedasticity problem. If $p < 0.05$, heteroscedasticity is present — consider transforming the dependent variable (e.g., log transformation).
+
+## Serial Correlation (Autocorrelation)
+
+The error terms must be uncorrelated across time:
+$$\text{Cov}(\varepsilon_t, \varepsilon_{t-s}) = 0 \quad \text{for all } s \neq 0$$
+
+The most common form is **first-order autocorrelation**:
+$$\varepsilon_t = \rho \varepsilon_{t-1} + \nu_t \tag{17}$$
+
+### Consequences of Autocorrelation
+
+By repeated substitution of equation (17):
+
+$$\varepsilon_t = \rho \varepsilon_{t-1} + \nu_t = \rho^k \varepsilon_{t-k} + \sum_{j=0}^{k-1} \rho^j \nu_{t-j} \tag{18}$$
+
+Under perfect correlation ($\rho = 1$):
+$$\varepsilon_t = \varepsilon_{t-k} + \sum_{j=1}^{k-1} \nu_{t-j} \tag{19}$$
+
+$$\text{Var}(\varepsilon_t) = \sigma^2_\varepsilon + k\sigma^2_\nu$$
+
+Since the variance of $\varepsilon_t$ **grows with $k$**, forecast accuracy deteriorates as the forecast horizon increases. When $\rho = 0$, $\text{Var}(\varepsilon_t) = \sigma^2_\varepsilon$ is constant and there is no serial correlation.
+
+### Durbin-Watson Test
+
+$$DW = \frac{\sum_{t=2}^{n}(\varepsilon_t - \varepsilon_{t-1})^2}{\sum_{t=1}^{n} \varepsilon_t^2} \tag{20}$$
+
+| DW Value | Interpretation |
+|---|---|
+| DW $< 2$ | Positive serial correlation |
+| DW $\approx 2$ | No serial correlation |
+| DW $> 2$ | Negative serial correlation |
+
+- **Decision:** If the $p$-value from the Durbin-Watson test is less than 0.05, serial correlation is present.
+- **Remedy:** Include a lag of the dependent variable ($y_{t-1}$) or a lag of an independent variable. Usually, lag 1 is sufficient to resolve the problem.
+
+## Multicollinearity
+
+**Multicollinearity** occurs when two or more independent variables are linearly related to each other.
+
+### Example
+
+Consider $y_t = \beta_0 + \beta_1 x_{1t} + \beta_2 x_{2t} + \varepsilon_t$ where $x_{1t} = 2x_{2t}$:
+
+$$y_t = \beta_0 + 2\beta_1 x_{2t} + \beta_2 x_{2t} + \varepsilon_t = \beta_0 + (2\beta_1 + \beta_2)x_{2t} + \varepsilon_t$$
+
+It is impossible to separate the individual effects of $x_{1t}$ and $x_{2t}$ — their contributions are **confounded**.
+
+### Consequences
+
+- Standard errors of the coefficients become inflated.
+- Individual variables appear insignificant (high $p$-values) despite the model having a high $R^2$.
+- Signs of coefficients may be reversed relative to theoretical expectations.
+
+### Detection — Variance Inflation Factor (VIF)
+
+$$\text{VIF}_i = \frac{1}{1 - R_i^2}$$
+
+where $R_i^2$ is the $R^2$ from regressing variable $i$ on all other independent variables.
+
+| VIF | Interpretation |
+|---|---|
+| VIF $< 5$ | No problem |
+| $5 \leq$ VIF $< 10$ | Moderate concern |
+| VIF $\geq 10$ | Serious multicollinearity — action required |
+
+### Remedial Actions
+
+1. **Do nothing** if it does not affect model performance or forecasting accuracy.
+2. **Drop the offending variable** — choose the one with the least theoretical support or the highest VIF.
+3. **Increase the sample size** — more data reduces the impact of multicollinearity.
+
+---
+
+# Forecasting Using Econometric Models in R
+
+## Worked Example: Forecasting New Car Registrations in Malaysia
+
+This section demonstrates the complete step-by-step procedure for building an econometric model for forecasting purposes.
+
+**Objective:** Develop an econometric model to forecast the demand for cars in Malaysia, measured by the **Number of New Car Registrations ('000)**.
+
+### Data Overview
+
+```{r}
+#| label: tbl-data-head
+#| tbl-cap: "First six rows of the economic dataset"
+knitr::kable(head(econ), digits = 2)
+```
+
+```{r}
+#| label: fig-car-ts
+#| fig-cap: "Number of new car registrations in Malaysia, 1969--2022"
+#| fig-height: 3.5
+
+ggplot(econ, aes(x = Year, y = `Number of Car Registration ('000)`)) +
+  geom_line(colour = "steelblue", linewidth = 0.9) +
+  geom_point(colour = "steelblue", size = 1.8) +
+  labs(title = "New Car Registrations in Malaysia",
+       x = "Year",
+       y = "Number ('000)") +
+  theme_ts()
+```
+
+### Variable Names
+
+```{r}
+#| label: varnames
+# Check the exact column names before modelling
+names(econ)
+```
+
+The dataset contains **54 annual observations** from 1969 to 2022. Based on economic theory, the expected relationships between each independent variable and new car registrations are:
+
+| Independent Variable | Expected Sign | Rationale |
+|---|---|---|
+| Unemployment Rate (%) | Negative | Higher unemployment reduces household income and car purchases |
+| CPI | Negative | Higher prices reduce real purchasing power |
+| BLR (%) | Negative | Higher lending rates raise financing costs, dampening demand |
+| GDP | Positive | Higher national income supports consumer spending |
+| Total Export | Positive | Export growth reflects economic prosperity |
+| Total Population | Positive | More people, more demand for cars |
+| Income | Positive | Higher per capita income directly boosts car demand |
+
+### Creating the Lag Variable
+
+```{r}
+#| label: lag-var
+# Create lag 1 of number of car registrations
+# This is needed to address serial correlation (see Model 2 onwards)
+lag1 <- c(NA, econ$`Number of Car Registration ('000)`[
+  1:(length(econ$`Number of Car Registration ('000)`) - 1)])
+```
+
+---
+
+## Model 1 — Full Model (All Variables, No Lag)
+
+The first model includes all seven independent variables. This is the **general model** in the General-to-Specific procedure.
+
+$$\hat{y}_t = \hat{\beta}_0 + \hat{\beta}_1(\text{Unemployment}) + \hat{\beta}_2(\text{CPI}) + \hat{\beta}_3(\text{BLR}) + \hat{\beta}_4(\text{GDP}) + \hat{\beta}_5(\text{Export}) + \hat{\beta}_6(\text{Population}) + \hat{\beta}_7(\text{Income})$$
+
+```{r}
+#| label: model1
+# Model 1: full model with all independent variables
+# Dependent variable Y: Number of Car Registration ('000)
+# Independent variables X: all economic predictors
+model1 <- lm(`Number of Car Registration ('000)` ~
+               `Unemployment Rate (%)` + CPI + `BLR (%)` +
+               GDP + `Total Export` + `Total Population` + Income,
+             data = econ)
+
+summary(model1)
+```
+
+```{r}
+#| label: model1-diag
+# Diagnostic tests for Model 1
+cat("--- VIF (Multicollinearity) ---\n")
+vif(model1)
+
+cat("\n--- Durbin-Watson Test (Serial Correlation) ---\n")
+durbinWatsonTest(model1)
+
+cat("\n--- Breusch-Pagan Test (Heteroscedasticity) ---\n")
+bptest(model1)
+```
+
+```{r}
+#| label: fig-model1-resid
+#| fig-cap: "Residual diagnostics for Model 1"
+#| fig-height: 5
+
+p1 <- ggplot(data.frame(Fitted = fitted(model1), Residuals = residuals(model1)),
+             aes(x = Fitted, y = Residuals)) +
+  geom_point(colour = "steelblue", alpha = 0.7) +
+  geom_hline(yintercept = 0, linetype = "dashed", colour = "red") +
+  labs(title = "Residuals vs Fitted", x = "Fitted values", y = "Residuals") +
+  theme_ts()
+
+p2 <- ggplot(data.frame(Residuals = residuals(model1)), aes(sample = Residuals)) +
+  stat_qq(colour = "steelblue") +
+  stat_qq_line(colour = "red", linetype = "dashed") +
+  labs(title = "Normal Q-Q Plot") +
+  theme_ts()
+
+grid.arrange(p1, p2, ncol = 2)
+```
+
+::: {.callout-note}
+**Model 1 Interpretation:**
+
+- The adjusted $R^2$ and F-test are highly significant — the variables collectively explain most of the variation in car registrations.
+- However, **CPI** and **GDP** registered signs *contrary* to theoretical expectations (positive instead of negative/positive as expected in this context).
+- The **VIF of GDP** is extremely high, indicating severe multicollinearity.
+- The **Breusch-Pagan** $p$-value $> 0.05$: no heteroscedasticity problem.
+- The **Durbin-Watson** test is significant ($p < 0.05$): **serial correlation problem exists**.
+
+**Action:** Add the lag variable of new car registration to address the serial correlation.
+:::
+
+---
+
+## Model 2 — Add Lag of Dependent Variable
+
+Adding $y_{t-1}$ (lag 1 of car registrations) is the standard remedy for serial correlation.
+
+$$\hat{y}_t = \hat{\beta}_0 + \hat{\beta}_1(\text{Unemployment}) + \hat{\beta}_2(\text{CPI}) + \hat{\beta}_3(\text{BLR}) + \hat{\beta}_4(\text{GDP}) + \hat{\beta}_5(\text{Export}) + \hat{\beta}_6(\text{Population}) + \hat{\beta}_7(\text{Income}) + \hat{\phi}_1 y_{t-1}$$
+
+```{r}
+#| label: model2
+# Model 2: add lag1 to address serial correlation
+model2 <- lm(`Number of Car Registration ('000)` ~
+               `Unemployment Rate (%)` + CPI + `BLR (%)` +
+               GDP + `Total Export` + `Total Population` + Income + lag1,
+             data = econ)
+
+summary(model2)
+```
+
+```{r}
+#| label: model2-diag
+cat("--- VIF (Multicollinearity) ---\n")
+vif(model2)
+
+cat("\n--- Durbin-Watson Test (Serial Correlation) ---\n")
+durbinWatsonTest(model2)
+
+cat("\n--- Breusch-Pagan Test (Heteroscedasticity) ---\n")
+bptest(model2)
+```
+
+::: {.callout-note}
+**Model 2 Interpretation:**
+
+- The DW value improved to approximately 1.85 and $p > 0.05$: **serial correlation problem resolved**.
+- Only **Total Export**, **Unemployment Rate**, and the **lag variable** are statistically significant.
+- **CPI** and **GDP** still show incorrect signs, and GDP has a very high VIF — multicollinearity persists.
+
+**Action:** Drop GDP (most insignificant with highest VIF) from the model.
+:::
+
+---
+
+## Model 3 — Remove GDP
+
+```{r}
+#| label: model3
+# Model 3: remove GDP (most insignificant + highest VIF)
+model3 <- lm(`Number of Car Registration ('000)` ~
+               `Unemployment Rate (%)` + CPI + `BLR (%)` +
+               `Total Export` + `Total Population` + Income + lag1,
+             data = econ)
+
+summary(model3)
+```
+
+```{r}
+#| label: model3-diag
+cat("--- VIF (Multicollinearity) ---\n")
+vif(model3)
+
+cat("\n--- Durbin-Watson Test (Serial Correlation) ---\n")
+durbinWatsonTest(model3)
+
+cat("\n--- Breusch-Pagan Test (Heteroscedasticity) ---\n")
+bptest(model3)
+```
+
+::: {.callout-note}
+**Model 3 Interpretation:**
+
+- The model improved with higher $R^2$ and no serial correlation problem.
+- However, **CPI** and **Income** registered incorrect signs.
+- **Income** is the most insignificant variable.
+
+**Action:** Drop Income from the model.
+:::
+
+---
+
+## Model 4 — Remove Income
+
+```{r}
+#| label: model4
+# Model 4: remove Income (incorrect sign + most insignificant)
+model4 <- lm(`Number of Car Registration ('000)` ~
+               `Unemployment Rate (%)` + `BLR (%)` +
+               `Total Export` + `Total Population` + CPI + lag1,
+             data = econ)
+
+summary(model4)
+```
+
+```{r}
+#| label: model4-diag
+cat("--- VIF (Multicollinearity) ---\n")
+vif(model4)
+
+cat("\n--- Durbin-Watson Test (Serial Correlation) ---\n")
+durbinWatsonTest(model4)
+
+cat("\n--- Breusch-Pagan Test (Heteroscedasticity) ---\n")
+bptest(model4)
+```
+
+::: {.callout-note}
+**Model 4 Interpretation:**
+
+- The model produces a high $R^2$ but most variables remain insignificant — a hallmark of multicollinearity.
+- **Total Population** has an incorrect sign (negative, contrary to the expected positive relationship) and is insignificant.
+
+**Action:** Remove Total Population from the model.
+:::
+
+---
+
+## Model 5 — Remove Total Population
+
+```{r}
+#| label: model5
+# Model 5: remove Total Population (incorrect sign + insignificant)
+model5 <- lm(`Number of Car Registration ('000)` ~
+               `Unemployment Rate (%)` + `BLR (%)` +
+               `Total Export` + CPI + lag1,
+             data = econ)
+
+summary(model5)
+```
+
+```{r}
+#| label: model5-diag
+cat("--- VIF (Multicollinearity) ---\n")
+vif(model5)
+
+cat("\n--- Durbin-Watson Test (Serial Correlation) ---\n")
+durbinWatsonTest(model5)
+
+cat("\n--- Breusch-Pagan Test (Heteroscedasticity) ---\n")
+bptest(model5)
+```
+
+::: {.callout-note}
+**Model 5 Interpretation:**
+
+- The model still shows evidence of multicollinearity: high $R^2$ but insignificant variables.
+- **CPI** is the most insignificant variable.
+
+**Action:** Remove CPI from the model.
+:::
+
+---
+
+## Model 6 — Remove CPI
+
+```{r}
+#| label: model6
+# Model 6: remove CPI (most insignificant)
+model6 <- lm(`Number of Car Registration ('000)` ~
+               `Unemployment Rate (%)` + `BLR (%)` +
+               `Total Export` + lag1,
+             data = econ)
+
+summary(model6)
+```
+
+```{r}
+#| label: model6-diag
+cat("--- VIF (Multicollinearity) ---\n")
+vif(model6)
+
+cat("\n--- Durbin-Watson Test (Serial Correlation) ---\n")
+durbinWatsonTest(model6)
+
+cat("\n--- Breusch-Pagan Test (Heteroscedasticity) ---\n")
+bptest(model6)
+```
+
+::: {.callout-note}
+**Model 6 Interpretation:**
+
+- After removing CPI, the model improved significantly: high $R^2$ with three significant variables.
+- The Durbin-Watson value confirms **no serial correlation problem**.
+- However, VIF values for **Total Export** and the lag variable indicate multicollinearity still exists between these two variables.
+
+**Action:** Remove Total Export from the model.
+:::
+
+---
+
+## Model 7 — Final Model (Remove Total Export)
+
+```{r}
+#| label: model7
+# Model 7: final model — remove Total Export
+# Remaining variables: Unemployment Rate, BLR, lag1
+model7 <- lm(`Number of Car Registration ('000)` ~
+               `Unemployment Rate (%)` + `BLR (%)` + lag1,
+             data = econ)
+
+summary(model7)
+```
+
+```{r}
+#| label: model7-diag
+cat("--- VIF (Multicollinearity) ---\n")
+vif(model7)
+
+cat("\n--- Durbin-Watson Test (Serial Correlation) ---\n")
+durbinWatsonTest(model7)
+
+cat("\n--- Breusch-Pagan Test (Heteroscedasticity) ---\n")
+bptest(model7)
+```
+
+```{r}
+#| label: fig-model7-resid
+#| fig-cap: "Residual diagnostics for the final model (Model 7)"
+#| fig-height: 5
+
+p3 <- ggplot(data.frame(Fitted = fitted(model7), Residuals = residuals(model7)),
+             aes(x = Fitted, y = Residuals)) +
+  geom_point(colour = "steelblue", alpha = 0.7) +
+  geom_hline(yintercept = 0, linetype = "dashed", colour = "red") +
+  labs(title = "Residuals vs Fitted (Model 7)", x = "Fitted values", y = "Residuals") +
+  theme_ts()
+
+p4 <- ggplot(data.frame(Residuals = residuals(model7)), aes(sample = Residuals)) +
+  stat_qq(colour = "steelblue") +
+  stat_qq_line(colour = "red", linetype = "dashed") +
+  labs(title = "Normal Q-Q Plot (Model 7)") +
+  theme_ts()
+
+grid.arrange(p3, p4, ncol = 2)
+```
+
+```{r}
+#| label: fig-model7-fit
+#| fig-cap: "Actual vs fitted values for Model 7 (final model)"
+#| fig-height: 3.5
+
+fit_df <- data.frame(
+  Year    = econ$Year[!is.na(lag1)],
+  Actual  = econ$`Number of Car Registration ('000)`[!is.na(lag1)],
+  Fitted  = fitted(model7)
+)
+
+ggplot(fit_df, aes(x = Year)) +
+  geom_line(aes(y = Actual, colour = "Actual"),   linewidth = 0.9) +
+  geom_line(aes(y = Fitted, colour = "Fitted"),
+            linewidth = 0.9, linetype = "dashed") +
+  scale_colour_manual(values = c("Actual" = "steelblue", "Fitted" = "#d73027")) +
+  labs(title = "New Car Registrations: Actual vs Fitted (Model 7)",
+       x = "Year", y = "Number ('000)", colour = NULL) +
+  theme_ts()
+```
+
+::: {.callout-note}
+**Model 7 Interpretation (Final Model):**
+
+- The model is overall **highly significant** (F-test $p < 0.05$).
+- All three variables — **Unemployment Rate**, **BLR**, and the **lag of car registrations** — are statistically significant.
+- **No serial correlation**: DW $\approx 2$, $p > 0.05$.
+- **No multicollinearity**: all VIF values are well below 10.
+- **No heteroscedasticity**: Breusch-Pagan $p > 0.05$.
+- All signs are consistent with economic theory.
+:::
+
+---
+
+## The Final Estimated Equation
+
+The final estimated model is:
+
+$$\hat{y}_t = 264.94 - 16.68\, x_{1t} - 13.84\, x_{2t} + 0.78\, y_{t-1}$$
+
+where:
+
+- $\hat{y}_t$ = estimated number of new car registrations ('000) in year $t$,
+- $x_{1t}$ = Unemployment Rate (%) in year $t$,
+- $x_{2t}$ = Base Lending Rate, BLR (%) in year $t$,
+- $y_{t-1}$ = lag 1 of new car registrations ('000).
+
+### Interpretation of Coefficients
+
+| Coefficient | Value | Interpretation |
+|---|---|---|
+| Intercept | 264.94 | Baseline car registrations when all predictors are zero |
+| Unemployment Rate | $-16.68$ | A 1 percentage-point increase in unemployment reduces car demand by approximately **16,680 units** |
+| BLR | $-13.84$ | A 1 percentage-point increase in BLR reduces car demand by approximately **13,840 units** |
+| Lag of car registrations | $+0.78$ | If car registrations increased by 1,000 last year, demand this year increases by approximately **780 units** |
+
+All signs are consistent with economic theory: higher unemployment and higher borrowing costs both suppress consumer demand for cars, while past registration levels exhibit strong positive persistence.
+
+---
+
+## Forecasting with the Final Model
+
+### Point Forecast for 2023
+
+Given:
+
+- Unemployment Rate for 2023: $x_{1,2023} = 3.3\%$
+- BLR for 2023: $x_{2,2023} = 6.89\%$
+- Number of car registrations in 2022: $y_{2022} = 744.78$ ('000)
+
+```{r}
+#| label: forecast-2023
+# Extract coefficients from the final model
+coefs <- coef(model7)
+cat("Model coefficients:\n")
+print(round(coefs, 4))
+
+# Future values of independent variables for 2023
+unemp_2023 <- 3.3     # Unemployment Rate (%)
+blr_2023   <- 6.89    # BLR (%)
+y_2022     <- 744.78  # Car registrations in 2022 ('000)
+
+# One-step-ahead forecast
+y_hat_2023 <- coefs["(Intercept)"] +
+              coefs["`Unemployment Rate (%)`"] * unemp_2023 +
+              coefs["`BLR (%)`"] * blr_2023 +
+              coefs["lag1"] * y_2022
+
+cat("\nForecast for 2023 (number of new car registrations, '000):",
+    round(y_hat_2023, 2), "\n")
+cat("Forecast in actual units:", round(y_hat_2023 * 1000), "\n")
+```
+
+::: {.callout-note}
+**Forecasting caveat:** The quality of this forecast depends on how accurately we know (or can forecast) the unemployment rate and BLR for 2023. If those values are themselves uncertain, the forecast error will be larger than the model's in-sample statistics suggest.
+:::
+
+### Model Selection Summary Table
+
+```{r}
+#| label: tbl-model-summary
+#| tbl-cap: "Summary of all models in the General-to-Specific procedure"
+
+model_summary <- data.frame(
+  Model    = paste0("Model ", 1:7),
+  Variables_Dropped = c(
+    "None (full model)",
+    "— (add lag1)",
+    "GDP removed",
+    "Income removed",
+    "Total Population removed",
+    "CPI removed",
+    "Total Export removed"
+  ),
+  Adj_R2   = c(
+    round(summary(model1)$adj.r.squared, 4),
+    round(summary(model2)$adj.r.squared, 4),
+    round(summary(model3)$adj.r.squared, 4),
+    round(summary(model4)$adj.r.squared, 4),
+    round(summary(model5)$adj.r.squared, 4),
+    round(summary(model6)$adj.r.squared, 4),
+    round(summary(model7)$adj.r.squared, 4)
+  ),
+  DW_pval  = c(
+    round(durbinWatsonTest(model1)$p, 3),
+    round(durbinWatsonTest(model2)$p, 3),
+    round(durbinWatsonTest(model3)$p, 3),
+    round(durbinWatsonTest(model4)$p, 3),
+    round(durbinWatsonTest(model5)$p, 3),
+    round(durbinWatsonTest(model6)$p, 3),
+    round(durbinWatsonTest(model7)$p, 3)
+  ),
+  BP_pval  = c(
+    round(bptest(model1)$p.value, 3),
+    round(bptest(model2)$p.value, 3),
+    round(bptest(model3)$p.value, 3),
+    round(bptest(model4)$p.value, 3),
+    round(bptest(model5)$p.value, 3),
+    round(bptest(model6)$p.value, 3),
+    round(bptest(model7)$p.value, 3)
+  )
+)
+
+knitr::kable(model_summary,
+             col.names = c("Model", "Change from Previous",
+                           "Adj. R²", "DW p-value", "BP p-value"),
+             align = "lllll")
+```
+
+---
+
+# Summary
+
+This chapter covered the complete framework for **econometric modelling** in time series forecasting. The key takeaways are:
+
+1. **Model Structure:** Econometric models relate a dependent variable to multiple independent (explanatory) variables, grounded in economic theory. The ADL model incorporates both current and lagged variables.
+
+2. **OLS Estimation:** Ordinary Least Squares minimises the sum of squared residuals. Understanding its derivation helps interpret model output and diagnose problems.
+
+3. **Issues in Model Construction:** Variable selection must balance statistical significance with theoretical justification. Practical challenges include model cost, complexity, and the need for future values of predictors.
+
+4. **Assumptions:** Five key assumptions govern OLS — linearity, correct specification, no multicollinearity, homoscedasticity, and no serial correlation. Violations require diagnostic tests and remedial action.
+
+5. **Model Estimation Strategies:**
+   - **General-to-Specific** (backward): Start with the full model and systematically drop the most insignificant variable at each stage until a parsimonious model is reached.
+   - **Specific-to-General** (forward): Start simple and add variables one at a time.
+
+6. **Statistical Validation:** A valid model must pass six diagnostic tests: F-test, t-tests, adjusted $R^2$, Breusch-Pagan (heteroscedasticity), Durbin-Watson (serial correlation), and VIF (multicollinearity).
+
+7. **Worked Example:** The final model for Malaysian new car registrations identified **Unemployment Rate**, **BLR**, and the **lag of car registrations** as the significant determinants. The model satisfies all diagnostic conditions and produces an interpretable, parsimonious equation.
+
+---
+
+# References
+
+- Mohd Alias Lazim (2013). *Introductory Business Forecasting: A Practical Approach*, 3rd ed. UPENA, UiTM. ISBN: 978-983-3643.
+- Department of Statistics Malaysia. Open Data Catalogue. <https://open.dosm.gov.my/data-catalogue>
+- World Bank Open Data. <https://data.worldbank.org>
+- Gujarati, D. N. & Porter, D. C. (2009). *Basic Econometrics*, 5th ed. McGraw-Hill.
+- Hendry, D. F. & Doornik, J. A. (2014). *Empirical Model Discovery and Theory Evaluation*. MIT Press.
