@@ -20,7 +20,7 @@ Universiti Teknologi MARA
 ::: {.g-col-12 .g-col-md-6}
 ### Course Data
 All datasets used in this course are available at:
-[Google Drive — Course Data](https://drive.google.com/drive/folders/1SlWHeWAAVXre62j9VC-nKDdKiVd1KaM3?usp=sharing)
+[GitHub — Course Data](https://github.com/asmuie-analytics/sta572/tree/main/data)
 :::
 
 :::
