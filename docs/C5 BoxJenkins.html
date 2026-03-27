@@ -264,7 +264,8 @@ window.Quarto = {
   <li><a href="#stage-4-model-application-forecasting-non-seasonal" id="toc-stage-4-model-application-forecasting-non-seasonal" class="nav-link" data-scroll-target="#stage-4-model-application-forecasting-non-seasonal"><span class="header-section-number">6.4</span> Stage 4 — Model Application: Forecasting (Non-Seasonal)</a>
   <ul class="collapse">
   <li><a href="#three-steps-for-point-forecasts" id="toc-three-steps-for-point-forecasts" class="nav-link" data-scroll-target="#three-steps-for-point-forecasts"><span class="header-section-number">6.4.1</span> Three Steps for Point Forecasts</a></li>
-  <li><a href="#forecast-plot" id="toc-forecast-plot" class="nav-link" data-scroll-target="#forecast-plot"><span class="header-section-number">6.4.2</span> Forecast Plot</a></li>
+  <li><a href="#forecast-exercise" id="toc-forecast-exercise" class="nav-link" data-scroll-target="#forecast-exercise"><span class="header-section-number">6.4.2</span> Forecast Exercise</a></li>
+  <li><a href="#forecast-plot" id="toc-forecast-plot" class="nav-link" data-scroll-target="#forecast-plot"><span class="header-section-number">6.4.3</span> Forecast Plot</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#box-jenkins-seasonal-arima-sarima" id="toc-box-jenkins-seasonal-arima-sarima" class="nav-link" data-scroll-target="#box-jenkins-seasonal-arima-sarima"><span class="header-section-number">7</span> Box-Jenkins: Seasonal ARIMA (SARIMA)</a>
@@ -1325,22 +1326,153 @@ y_t = (1 + \phi_1)\,y_{t-1} - \phi_1\,y_{t-2} + \varepsilon_t + \theta_1\,\varep
 \hat{y}_{T+2|T} = (1 + \hat\phi_1)\,\hat{y}_{T+1|T} - \hat\phi_1\,y_T \tag{29}
 \]</span></p>
 <p>The process continues for all future periods <span class="math inline">\(h = 3, 4, \ldots\)</span></p>
-<div class="callout callout-style-default callout-tip callout-titled">
+</section>
+<section id="forecast-exercise" class="level3" data-number="6.4.2">
+<h3 data-number="6.4.2" class="anchored" data-anchor-id="forecast-exercise"><span class="header-section-number">6.4.2</span> Forecast Exercise</h3>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Tip
+Exercise
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Exercise:</strong> Using the estimated ARIMA(2,1,1) coefficients and the last three observed values plus their residuals, prove the one-step and two-step-ahead point forecasts manually.</p>
+<p>The price of S&amp;P 500 futures (daily data, 190 observations, April 1 – December 31, 2025) was fitted with an ARIMA(2,1,1) model, producing the following output.</p>
+<p><strong>Model coefficients:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;">ar1</th>
+<th style="text-align: center;">ar2</th>
+<th style="text-align: center;">ma1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Estimate</td>
+<td style="text-align: center;">0.6848</td>
+<td style="text-align: center;">0.0219</td>
+<td style="text-align: center;">−0.7805</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Std. Error</td>
+<td style="text-align: center;">0.2093</td>
+<td style="text-align: center;">0.0947</td>
+<td style="text-align: center;">0.1924</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Last three observations (fitted values and residuals):</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 24%">
+<col style="width: 27%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Time</th>
+<th style="text-align: right;">Price (<span class="math inline">\(y_t\)</span>)</th>
+<th style="text-align: right;">Fitted (<span class="math inline">\(\hat{y}_t\)</span>)</th>
+<th style="text-align: right;">Residual (<span class="math inline">\(\varepsilon_t\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Dec 29, 2025 (obs 188)</td>
+<td style="text-align: right;">6,979.25</td>
+<td style="text-align: right;">6,973.62</td>
+<td style="text-align: right;">5.63</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Dec 30, 2025 (obs 189)</td>
+<td style="text-align: right;">6,955.00</td>
+<td style="text-align: right;">6,973.10</td>
+<td style="text-align: right;">−18.10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Dec 31, 2025 (obs 190)</td>
+<td style="text-align: right;">6,944.25</td>
+<td style="text-align: right;">6,952.45</td>
+<td style="text-align: right;">−8.20</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Prove that the S&amp;P 500 forecast for January 1, 2026 (obs 191) and January 2, 2026 (obs 192) are 6,942.76 and 6,941.50 respectively.</strong></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Step 1 — Expand the ARIMA(2,1,1) equation</strong></p>
+<p>The ARIMA(2,1,1) model in differenced form is:</p>
+<p><span class="math display">\[
+(1 - \hat\phi_1 B - \hat\phi_2 B^2)(1-B)\,y_t = (1 + \hat\theta_1 B)\,\varepsilon_t
+\]</span></p>
+<p>Expanding the left-hand side:</p>
+<p><span class="math display">\[
+(y_t - y_{t-1}) - \hat\phi_1(y_{t-1} - y_{t-2}) - \hat\phi_2(y_{t-2} - y_{t-3})
+= \varepsilon_t + \hat\theta_1\,\varepsilon_{t-1}
+\]</span></p>
+<p>Solving for <span class="math inline">\(y_t\)</span>:</p>
+<p><span class="math display">\[
+y_t = (1+\hat\phi_1)\,y_{t-1} + (-\hat\phi_1+\hat\phi_2)\,y_{t-2} - \hat\phi_2\,y_{t-3}
+      + \varepsilon_t + \hat\theta_1\,\varepsilon_{t-1} \tag{30}
+\]</span></p>
+<p>With <span class="math inline">\(\hat\phi_1 = 0.6848\)</span>, <span class="math inline">\(\hat\phi_2 = 0.0219\)</span>, <span class="math inline">\(\hat\theta_1 = -0.7805\)</span>:</p>
+<p><span class="math display">\[
+y_t = 1.6848\,y_{t-1} - 0.6629\,y_{t-2} - 0.0219\,y_{t-3}
+      + \varepsilon_t - 0.7805\,\varepsilon_{t-1}
+\]</span></p>
+<p><strong>Step 2 — One-step-ahead forecast: <span class="math inline">\(\hat{y}_{191|190}\)</span> (January 1, 2026)</strong></p>
+<p>Substitute <span class="math inline">\(t = T+1 = 191\)</span>. Set <span class="math inline">\(\varepsilon_{T+1} = 0\)</span> (future error unknown); replace past errors with residuals (<span class="math inline">\(\varepsilon_T = -8.20\)</span>):</p>
+<p><span class="math display">\[
+\hat{y}_{191} = 1.6848\,y_{190} - 0.6629\,y_{189} - 0.0219\,y_{188}
+                + \hat\theta_1\,\varepsilon_{190}
+\]</span></p>
+<p><span class="math display">\[
+= 1.6848 \times 6944.25 \;-\; 0.6629 \times 6955.00 \;-\; 0.0219 \times 6979.25
+  \;+\; (-0.7805)\times(-8.20)
+\]</span></p>
+<p><span class="math display">\[
+= 11{,}699.67 \;-\; 4{,}610.47 \;-\; 152.85 \;+\; 6.40
+\]</span></p>
+<p><span class="math display">\[
+\boxed{\hat{y}_{191} = 6{,}942.76}
+\]</span></p>
+<p><strong>Step 3 — Two-step-ahead forecast: <span class="math inline">\(\hat{y}_{192|190}\)</span> (January 2, 2026)</strong></p>
+<p>Substitute <span class="math inline">\(t = T+2 = 192\)</span>. Set <span class="math inline">\(\varepsilon_{T+2} = \varepsilon_{T+1} = 0\)</span>; replace <span class="math inline">\(y_{T+1}\)</span> with <span class="math inline">\(\hat{y}_{191} = 6{,}942.76\)</span>:</p>
+<p><span class="math display">\[
+\hat{y}_{192} = 1.6848\,\hat{y}_{191} - 0.6629\,y_{190} - 0.0219\,y_{189}
+\]</span></p>
+<p><span class="math display">\[
+= 1.6848 \times 6942.76 \;-\; 0.6629 \times 6944.25 \;-\; 0.0219 \times 6955.00
+\]</span></p>
+<p><span class="math display">\[
+= 11{,}697.16 \;-\; 4{,}603.34 \;-\; 152.31
+\]</span></p>
+<p><span class="math display">\[
+\boxed{\hat{y}_{192} = 6{,}941.50}
+\]</span></p>
+</div>
 </div>
 </div>
 </section>
-<section id="forecast-plot" class="level3" data-number="6.4.2">
-<h3 data-number="6.4.2" class="anchored" data-anchor-id="forecast-plot"><span class="header-section-number">6.4.2</span> Forecast Plot</h3>
+<section id="forecast-plot" class="level3" data-number="6.4.3">
+<h3 data-number="6.4.3" class="anchored" data-anchor-id="forecast-plot"><span class="header-section-number">6.4.3</span> Forecast Plot</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
