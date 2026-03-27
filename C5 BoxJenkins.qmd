@@ -493,6 +493,82 @@ with the recursion $\phi_j^{(k)} = \phi_j^{(k-1)} - \alpha_k\,\phi_{k-j}^{(k-1)}
 | **MA($q$)** | There are $k$ significant spike(s) | The coefficients show a decay pattern | If the ACF shows that there is one significant spike observed at lag 1 and PACF exhibits a decay pattern, the suggested model is MA(1). |
 | **ARMA($p$,$q$)** | There are $k$ significant spike(s) | There are $k$ significant spike(s) | If the ACF shows that there is one significant spike observed at lag 1 and PACF shows that there is one significant spike observed at lag 1, the suggested model is ARMA(1,1). |
 
+### Example: Constructing ACF and PACF Plots from a Table
+
+For a time series with $T = 100$ observations, the sample ACF and PACF values at
+lags 1 to 7 are given as:
+
+| Lag | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|:----|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| **ACF** | 0.35 | 0.15 | 0.029 | −0.04 | −0.021 | −0.11 | −0.01 |
+| **PACF** | 0.25 | 0.13 | −0.012 | −0.165 | −0.018 | −0.10 | 0.035 |
+
+The **95% confidence band** is:
+
+$$\pm \frac{1.96}{\sqrt{T}} = \pm \frac{1.96}{\sqrt{100}} = \pm 0.196$$
+
+Any spike that falls **outside** $\pm 0.196$ is considered statistically significant.
+
+```{r}
+#| label: fig-acf-pacf-example
+#| fig-cap: "ACF (left) and PACF (right) plots constructed from the table of values for a 100-observation series. The dashed blue lines mark the 95% significance bounds (±0.196). Only lag 1 is significant in both plots, suggesting an ARMA(1,1) or possibly AR(1) model."
+#| fig-height: 4
+
+T_obs  <- 100
+ci     <- 1.96 / sqrt(T_obs)   # ±0.196
+
+lag_vals  <- 1:7
+acf_vals  <- c(0.35, 0.15, 0.029, -0.04, -0.021, -0.11, -0.01)
+pacf_vals <- c(0.25, 0.13, -0.012, -0.165, -0.018, -0.10, 0.035)
+
+df_acf  <- data.frame(lag = lag_vals, value = acf_vals,
+                      sig = abs(acf_vals)  > ci)
+df_pacf <- data.frame(lag = lag_vals, value = pacf_vals,
+                      sig = abs(pacf_vals) > ci)
+
+p_acf_ex <- ggplot(df_acf, aes(x = lag, y = value, fill = sig)) +
+  geom_bar(stat = "identity", width = 0.4, colour = "black", linewidth = 0.3) +
+  geom_hline(yintercept =  ci, linetype = "dashed", colour = "steelblue") +
+  geom_hline(yintercept = -ci, linetype = "dashed", colour = "steelblue") +
+  geom_hline(yintercept =  0,  colour = "black",    linewidth = 0.4) +
+  scale_fill_manual(values = c("TRUE" = "#d62728", "FALSE" = "grey60"),
+                    guide = "none") +
+  scale_x_continuous(breaks = lag_vals) +
+  labs(title = "ACF", x = "Lag", y = "ACF") +
+  theme_ts()
+
+p_pacf_ex <- ggplot(df_pacf, aes(x = lag, y = value, fill = sig)) +
+  geom_bar(stat = "identity", width = 0.4, colour = "black", linewidth = 0.3) +
+  geom_hline(yintercept =  ci, linetype = "dashed", colour = "steelblue") +
+  geom_hline(yintercept = -ci, linetype = "dashed", colour = "steelblue") +
+  geom_hline(yintercept =  0,  colour = "black",    linewidth = 0.4) +
+  scale_fill_manual(values = c("TRUE" = "#d62728", "FALSE" = "grey60"),
+                    guide = "none") +
+  scale_x_continuous(breaks = lag_vals) +
+  labs(title = "PACF", x = "Lag", y = "PACF") +
+  theme_ts()
+
+grid.arrange(p_acf_ex, p_pacf_ex, ncol = 2)
+```
+
+**Interpretation:**
+
+- **ACF:** Lag 1 (0.35) exceeds the bound of ±0.196 → significant. Lags 2–7 are
+  within bounds → ACF cuts off after lag 1. This is consistent with an **MA(1)**
+  pattern.
+- **PACF:** Lag 1 (0.25) exceeds the bound → significant. Lags 2–7 are within bounds
+  → PACF cuts off after lag 1. This is consistent with an **AR(1)** pattern.
+- Both ACF and PACF show only one significant spike at lag 1 → the suggested model
+  is **ARMA(1,1)**.
+
+::: {.callout-note}
+When both ACF and PACF show $k$ significant spikes at the same lags, the series
+is best described by an ARMA model. Here $k=1$ at lag 1, so **ARMA(1,1)** is
+the starting candidate.
+:::
+
+---
+
 ```{r}
 #| label: fig-acf-pacf-patterns
 #| fig-cap: "ACF (left column) and PACF (right column) patterns for AR(1) (top row), MA(1) (middle row), and ARMA(1,1) (bottom row). Note how the AR PACF cuts off at lag 1, the MA ACF cuts off at lag 1, and both plots tail off for ARMA."
