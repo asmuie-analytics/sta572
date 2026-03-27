@@ -828,6 +828,19 @@ grid.arrange(p_add, p_mul, ncol = 2)
 If seasonal fluctuations **grow proportionally** with the level of the series → use multiplicative. If they remain **roughly constant** → use additive.
 :::
 
+### Examples
+
+::: {#fig-addmult-examples layout-ncol=1}
+
+![**Example 1** — Airline passengers (top): seasonal swings *widen* as the series grows → **multiplicative**. Milk production (bottom): seasonal swings remain *roughly constant* → **additive**.](Example 1.png){#fig-example1}
+
+![**Example 2** — CO₂ concentration (left) and Australian electricity production (right): both exhibit seasonal fluctuations that grow proportionally with the level → **multiplicative**.](Example 2.png){#fig-example2}
+
+![**Example 3** — Additive seasonality (left): the band of variation around the trend (dashed lines) stays constant. Multiplicative seasonality (right): the band widens as the level rises.](Example 3.png){#fig-example3}
+
+Real-world examples illustrating additive and multiplicative seasonal patterns.
+:::
+
 ------------------------------------------------------------------------
 
 # Measuring Performance
