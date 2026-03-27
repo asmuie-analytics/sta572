@@ -247,18 +247,21 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#step-1a-time-series-plot" id="toc-step-1a-time-series-plot" class="nav-link" data-scroll-target="#step-1a-time-series-plot"><span class="header-section-number">6.1.1</span> Step 1a: Time Series Plot</a></li>
   <li><a href="#step-1b-acf-and-pacf-of-the-raw-series" id="toc-step-1b-acf-and-pacf-of-the-raw-series" class="nav-link" data-scroll-target="#step-1b-acf-and-pacf-of-the-raw-series"><span class="header-section-number">6.1.2</span> Step 1b: ACF and PACF of the Raw Series</a></li>
+  <li><a href="#step-1c-adf-test-on-raw-series" id="toc-step-1c-adf-test-on-raw-series" class="nav-link" data-scroll-target="#step-1c-adf-test-on-raw-series"><span class="header-section-number">6.1.3</span> Step 1c: ADF Test on Raw Series</a></li>
+  <li><a href="#step-1d-first-order-differencing" id="toc-step-1d-first-order-differencing" class="nav-link" data-scroll-target="#step-1d-first-order-differencing"><span class="header-section-number">6.1.4</span> Step 1d: First-Order Differencing</a></li>
+  <li><a href="#step-1e-acf-and-pacf-of-differenced-series" id="toc-step-1e-acf-and-pacf-of-differenced-series" class="nav-link" data-scroll-target="#step-1e-acf-and-pacf-of-differenced-series"><span class="header-section-number">6.1.5</span> Step 1e: ACF and PACF of Differenced Series</a></li>
   </ul></li>
-  <li><a href="#illustration-non-seasonal-arima-with-simulated-data" id="toc-illustration-non-seasonal-arima-with-simulated-data" class="nav-link" data-scroll-target="#illustration-non-seasonal-arima-with-simulated-data"><span class="header-section-number">6.2</span> Illustration: Non-Seasonal ARIMA with Simulated Data</a></li>
-  <li><a href="#stage-2-model-estimation-non-seasonal" id="toc-stage-2-model-estimation-non-seasonal" class="nav-link" data-scroll-target="#stage-2-model-estimation-non-seasonal"><span class="header-section-number">6.3</span> Stage 2 — Model Estimation (Non-Seasonal)</a></li>
-  <li><a href="#stage-3-model-validation-non-seasonal" id="toc-stage-3-model-validation-non-seasonal" class="nav-link" data-scroll-target="#stage-3-model-validation-non-seasonal"><span class="header-section-number">6.4</span> Stage 3 — Model Validation (Non-Seasonal)</a>
+  <li><a href="#stage-2-model-estimation-non-seasonal" id="toc-stage-2-model-estimation-non-seasonal" class="nav-link" data-scroll-target="#stage-2-model-estimation-non-seasonal"><span class="header-section-number">6.2</span> Stage 2 — Model Estimation (Non-Seasonal)</a></li>
+  <li><a href="#stage-3-model-validation-non-seasonal" id="toc-stage-3-model-validation-non-seasonal" class="nav-link" data-scroll-target="#stage-3-model-validation-non-seasonal"><span class="header-section-number">6.3</span> Stage 3 — Model Validation (Non-Seasonal)</a>
   <ul class="collapse">
-  <li><a href="#ljung-box-test" id="toc-ljung-box-test" class="nav-link" data-scroll-target="#ljung-box-test"><span class="header-section-number">6.4.1</span> Ljung-Box Test</a></li>
-  <li><a href="#information-criteria" id="toc-information-criteria" class="nav-link" data-scroll-target="#information-criteria"><span class="header-section-number">6.4.2</span> Information Criteria</a></li>
-  <li><a href="#parameter-redundancy" id="toc-parameter-redundancy" class="nav-link" data-scroll-target="#parameter-redundancy"><span class="header-section-number">6.4.3</span> Parameter Redundancy</a></li>
+  <li><a href="#ljung-box-test" id="toc-ljung-box-test" class="nav-link" data-scroll-target="#ljung-box-test"><span class="header-section-number">6.3.1</span> Ljung-Box Test</a></li>
+  <li><a href="#information-criteria" id="toc-information-criteria" class="nav-link" data-scroll-target="#information-criteria"><span class="header-section-number">6.3.2</span> Information Criteria</a></li>
+  <li><a href="#parameter-redundancy" id="toc-parameter-redundancy" class="nav-link" data-scroll-target="#parameter-redundancy"><span class="header-section-number">6.3.3</span> Parameter Redundancy</a></li>
   </ul></li>
-  <li><a href="#stage-4-model-application-forecasting-non-seasonal" id="toc-stage-4-model-application-forecasting-non-seasonal" class="nav-link" data-scroll-target="#stage-4-model-application-forecasting-non-seasonal"><span class="header-section-number">6.5</span> Stage 4 — Model Application: Forecasting (Non-Seasonal)</a>
+  <li><a href="#stage-4-model-application-forecasting-non-seasonal" id="toc-stage-4-model-application-forecasting-non-seasonal" class="nav-link" data-scroll-target="#stage-4-model-application-forecasting-non-seasonal"><span class="header-section-number">6.4</span> Stage 4 — Model Application: Forecasting (Non-Seasonal)</a>
   <ul class="collapse">
-  <li><a href="#three-steps-for-point-forecasts" id="toc-three-steps-for-point-forecasts" class="nav-link" data-scroll-target="#three-steps-for-point-forecasts"><span class="header-section-number">6.5.1</span> Three Steps for Point Forecasts</a></li>
+  <li><a href="#three-steps-for-point-forecasts" id="toc-three-steps-for-point-forecasts" class="nav-link" data-scroll-target="#three-steps-for-point-forecasts"><span class="header-section-number">6.4.1</span> Three Steps for Point Forecasts</a></li>
+  <li><a href="#forecast-plot" id="toc-forecast-plot" class="nav-link" data-scroll-target="#forecast-plot"><span class="header-section-number">6.4.2</span> Forecast Plot</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#box-jenkins-seasonal-arima-sarima" id="toc-box-jenkins-seasonal-arima-sarima" class="nav-link" data-scroll-target="#box-jenkins-seasonal-arima-sarima"><span class="header-section-number">7</span> Box-Jenkins: Seasonal ARIMA (SARIMA)</a>
@@ -889,7 +892,7 @@ Figure&nbsp;4: ACF (left column) and PACF (right column) patterns for AR(1) (top
 </section>
 <section id="box-jenkins-non-seasonal-arima" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Box-Jenkins: Non-Seasonal ARIMA</h1>
-<p>We demonstrate the full four-stage Box-Jenkins procedure using Malaysia’s <strong>Industrial Production Index (IPI) — Manufacturing (Section C)</strong>, monthly data, January 2015 to November 2025.</p>
+<p>We demonstrate the full four-stage Box-Jenkins procedure using <strong>S&amp;P 500 E-mini Futures (ES=F)</strong> daily adjusted close prices, April–December 2025, downloaded directly from Yahoo Finance via the <code>quantmod</code> package.</p>
 <section id="stage-1-model-identification" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="stage-1-model-identification"><span class="header-section-number">6.1</span> Stage 1 — Model Identification</h2>
 <section id="step-1a-time-series-plot" class="level3" data-number="6.1.1">
@@ -897,20 +900,20 @@ Figure&nbsp;4: ACF (left column) and PACF (right column) patterns for AR(1) (top
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(ipi_ts) <span class="sc">+</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Malaysia IPI — Manufacturing (Section C)"</span>,</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Monthly, base year 2015 = 100"</span>,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Index"</span>) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(<span class="fu">as.ts</span>(est_snp)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"S&amp;P 500 Futures (ES=F) — Estimation Set"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Daily adjusted close price, Apr–Oct 2025"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Observation"</span>, <span class="at">y =</span> <span class="st">"Price (USD)"</span>) <span class="sc">+</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="fig-ipi-ts" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-snp-ts" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-ipi-ts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="C5-BoxJenkins_files/figure-html/fig-ipi-ts-1.png" class="img-fluid figure-img" width="672">
+<div aria-describedby="fig-snp-ts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="C5-BoxJenkins_files/figure-html/fig-snp-ts-1.png" class="img-fluid figure-img" width="672">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ipi-ts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: Malaysia IPI Manufacturing Index (Section C), January 2015 to November 2025. The series exhibits both trend-like movement and clear seasonal fluctuations.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-snp-ts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: S&amp;P 500 E-mini Futures (ES=F) daily adjusted close price, April–December 2025. The series wanders without a fixed mean — a sign of non-stationarity.
 </figcaption>
 </figure>
 </div>
@@ -922,27 +925,65 @@ Figure&nbsp;5: Malaysia IPI Manufacturing Index (Section C), January 2015 to Nov
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split into estimation (first ~70%) and evaluation (last ~30%)</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>n_ipi     <span class="ot">&lt;-</span> <span class="fu">length</span>(ipi_ts)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>n_est     <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fl">0.70</span> <span class="sc">*</span> n_ipi)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>ipi_est   <span class="ot">&lt;-</span> <span class="fu">head</span>(ipi_ts, n_est)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>ipi_eva   <span class="ot">&lt;-</span> <span class="fu">tail</span>(ipi_ts, n_ipi <span class="sc">-</span> n_est)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>p_acf  <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(ipi_est,  <span class="at">lag.max =</span> <span class="dv">48</span>) <span class="sc">+</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"ACF — IPI Level"</span>) <span class="sc">+</span> <span class="fu">theme_ts</span>()</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>p_pacf <span class="ot">&lt;-</span> <span class="fu">ggPacf</span>(ipi_est, <span class="at">lag.max =</span> <span class="dv">48</span>) <span class="sc">+</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"PACF — IPI Level"</span>) <span class="sc">+</span> <span class="fu">theme_ts</span>()</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p_acf, p_pacf, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>p_acf_snp  <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(est_snp,  <span class="at">lag.max =</span> <span class="dv">30</span>) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"ACF — SNP Level"</span>) <span class="sc">+</span> <span class="fu">theme_ts</span>()</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>p_pacf_snp <span class="ot">&lt;-</span> <span class="fu">ggPacf</span>(est_snp, <span class="at">lag.max =</span> <span class="dv">30</span>) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"PACF — SNP Level"</span>) <span class="sc">+</span> <span class="fu">theme_ts</span>()</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p_acf_snp, p_pacf_snp, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="fig-ipi-acf-raw" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-snp-acf-raw" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-ipi-acf-raw-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="C5-BoxJenkins_files/figure-html/fig-ipi-acf-raw-1.png" class="img-fluid figure-img" width="672">
+<div aria-describedby="fig-snp-acf-raw-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="C5-BoxJenkins_files/figure-html/fig-snp-acf-raw-1.png" class="img-fluid figure-img" width="672">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ipi-acf-raw-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: ACF (left) and PACF (right) of the raw IPI series. The ACF shows a slow, sinusoidal decay with significant spikes at the seasonal lags (12, 24, …) — indicating both non-stationarity and seasonality. This series requires seasonal treatment: use SARIMA.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-snp-acf-raw-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: ACF (left) and PACF (right) of the raw S&amp;P 500 price series. The ACF decays very slowly to zero — a clear sign of non-stationarity. First-order differencing is required.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="step-1c-adf-test-on-raw-series" class="level3" data-number="6.1.3">
+<h3 data-number="6.1.3" class="anchored" data-anchor-id="step-1c-adf-test-on-raw-series"><span class="header-section-number">6.1.3</span> Step 1c: ADF Test on Raw Series</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(est_snp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Augmented Dickey-Fuller Test
+
+data:  est_snp
+Dickey-Fuller = -2.857, Lag order = 5, p-value = 0.2192
+alternative hypothesis: stationary</code></pre>
+</div>
+</div>
+<p>Since <span class="math inline">\(p\)</span>-value <span class="math inline">\(&gt; 0.05\)</span>, we <strong>fail to reject</strong> <span class="math inline">\(H_0\)</span> — the series is <strong>non-stationary</strong>.</p>
+</section>
+<section id="step-1d-first-order-differencing" class="level3" data-number="6.1.4">
+<h3 data-number="6.1.4" class="anchored" data-anchor-id="step-1d-first-order-differencing"><span class="header-section-number">6.1.4</span> Step 1d: First-Order Differencing</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show R Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>diff_snp <span class="ot">&lt;-</span> <span class="fu">diff</span>(est_snp)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(<span class="fu">as.ts</span>(diff_snp)) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"S&amp;P 500 Futures — First Difference"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Daily price changes"</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Observation"</span>, <span class="at">y =</span> <span class="fu">expression</span>(Delta <span class="sc">~</span> <span class="st">"Price"</span>)) <span class="sc">+</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-snp-diff" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-snp-diff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="C5-BoxJenkins_files/figure-html/fig-snp-diff-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-snp-diff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: S&amp;P 500 first-differenced series (daily price changes). The series now fluctuates around a near-zero constant level — indicating stationarity.
 </figcaption>
 </figure>
 </div>
@@ -951,102 +992,61 @@ Figure&nbsp;6: ACF (left) and PACF (right) of the raw IPI series. The ACF shows 
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(ipi_est)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(<span class="fu">na.omit</span>(diff_snp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Augmented Dickey-Fuller Test
 
-data:  ipi_est
-Dickey-Fuller = -3.8336, Lag order = 4, p-value = 0.0207
+data:  na.omit(diff_snp)
+Dickey-Fuller = -6.1097, Lag order = 5, p-value = 0.01
 alternative hypothesis: stationary</code></pre>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The ACF shows a <strong>sinusoidal (wavelength) pattern</strong> with significant spikes at lags 12, 24, 36 — indicating a <strong>seasonal component</strong>. This series requires <strong>SARIMA</strong> modelling, covered in the next section. A pure non-seasonal ARIMA is not appropriate for a seasonal series.</p>
-</div>
-</div>
-<hr>
+<p>Since <span class="math inline">\(p\)</span>-value <span class="math inline">\(\leq 0.05\)</span>, we <strong>reject</strong> <span class="math inline">\(H_0\)</span> — the differenced series is <strong>stationary</strong>. Order of differencing: <span class="math inline">\(d = 1\)</span>.</p>
 </section>
-</section>
-<section id="illustration-non-seasonal-arima-with-simulated-data" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="illustration-non-seasonal-arima-with-simulated-data"><span class="header-section-number">6.2</span> Illustration: Non-Seasonal ARIMA with Simulated Data</h2>
-<p>To clearly demonstrate non-seasonal ARIMA identification without seasonal complications, we simulate 200 observations from a known ARIMA(2,1,1) process.</p>
+<section id="step-1e-acf-and-pacf-of-differenced-series" class="level3" data-number="6.1.5">
+<h3 data-number="6.1.5" class="anchored" data-anchor-id="step-1e-acf-and-pacf-of-differenced-series"><span class="header-section-number">6.1.5</span> Step 1e: ACF and PACF of Differenced Series</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2025</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>sim_arima <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">ar =</span> <span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.2</span>), <span class="at">ma =</span> <span class="sc">-</span><span class="fl">0.7</span>),</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">200</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>p_ts   <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(sim_arima) <span class="sc">+</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Simulated ARIMA(2,1,1)"</span>, <span class="at">x =</span> <span class="st">"Time"</span>, <span class="at">y =</span> <span class="st">"Value"</span>) <span class="sc">+</span> <span class="fu">theme_ts</span>()</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>p_adf_note <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x=</span><span class="fl">0.5</span>, <span class="at">y=</span><span class="fl">0.5</span>,</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"ADF test on diff(series):</span><span class="sc">\n</span><span class="st">p-value &lt; 0.05 → Stationary"</span>,</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="dv">4</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>p_acf  <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(<span class="fu">diff</span>(sim_arima),  <span class="at">lag.max =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"ACF — First Difference"</span>) <span class="sc">+</span> <span class="fu">theme_ts</span>()</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>p_pacf <span class="ot">&lt;-</span> <span class="fu">ggPacf</span>(<span class="fu">diff</span>(sim_arima), <span class="at">lag.max =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"PACF — First Difference"</span>) <span class="sc">+</span> <span class="fu">theme_ts</span>()</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p_ts, p_adf_note, p_acf, p_pacf, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>p_acf_d  <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(diff_snp,  <span class="at">lag.max =</span> <span class="dv">30</span>, <span class="at">na.action =</span> na.omit) <span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"ACF — First Difference"</span>) <span class="sc">+</span> <span class="fu">theme_ts</span>()</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>p_pacf_d <span class="ot">&lt;-</span> <span class="fu">ggPacf</span>(diff_snp, <span class="at">lag.max =</span> <span class="dv">30</span>, <span class="at">na.action =</span> na.omit) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"PACF — First Difference"</span>) <span class="sc">+</span> <span class="fu">theme_ts</span>()</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p_acf_d, p_pacf_d, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="fig-nonseasonal-demo" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-snp-acf-diff" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-nonseasonal-demo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="C5-BoxJenkins_files/figure-html/fig-nonseasonal-demo-1.png" class="img-fluid figure-img" width="672">
+<div aria-describedby="fig-snp-acf-diff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="C5-BoxJenkins_files/figure-html/fig-snp-acf-diff-1.png" class="img-fluid figure-img" width="672">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-nonseasonal-demo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7: Simulated ARIMA(2,1,1) series (top left), ACF of the differenced series (top right), and PACF of the differenced series (bottom right). One significant spike in the ACF at lag 1 suggests MA(1); two significant spikes in the PACF at lags 1 and 2 suggest AR(2). Combined: ARIMA(2,1,1).
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-snp-acf-diff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: ACF (left) and PACF (right) of the first-differenced S&amp;P 500 series. One significant spike at lag 3 on the ACF suggests MA(1); significant spikes at lags 3 and 8 on the PACF suggest AR(2). Suggested model: ARIMA(2,1,1).
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell">
-<details class="code-fold">
-<summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(<span class="fu">diff</span>(sim_arima))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Augmented Dickey-Fuller Test
-
-data:  diff(sim_arima)
-Dickey-Fuller = -4.7894, Lag order = 5, p-value = 0.01
-alternative hypothesis: stationary</code></pre>
-</div>
-</div>
-<p>After first differencing, the ADF test confirms stationarity (<span class="math inline">\(p &lt; 0.05\)</span>).</p>
+<p><strong>Suggested model:</strong> ARIMA(2,1,1)</p>
+<p>Competing models to compare: ARIMA(1,1,0) and ARIMA(2,1,2).</p>
 <hr>
 </section>
-<section id="stage-2-model-estimation-non-seasonal" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="stage-2-model-estimation-non-seasonal"><span class="header-section-number">6.3</span> Stage 2 — Model Estimation (Non-Seasonal)</h2>
-<p>Using the simulated data, three candidate models are estimated and compared: ARIMA(2,1,1), ARIMA(1,1,0), and ARIMA(2,1,2).</p>
+</section>
+<section id="stage-2-model-estimation-non-seasonal" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="stage-2-model-estimation-non-seasonal"><span class="header-section-number">6.2</span> Stage 2 — Model Estimation (Non-Seasonal)</h2>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sim_tbl <span class="ot">&lt;-</span> <span class="fu">as_tsibble</span>(<span class="fu">ts</span>(<span class="fu">as.numeric</span>(sim_arima)))</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>m211 <span class="ot">&lt;-</span> sim_tbl <span class="sc">|&gt;</span> <span class="fu">model</span>(<span class="fu">ARIMA</span>(value <span class="sc">~</span> <span class="fu">pdq</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>)))</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>m110 <span class="ot">&lt;-</span> sim_tbl <span class="sc">|&gt;</span> <span class="fu">model</span>(<span class="fu">ARIMA</span>(value <span class="sc">~</span> <span class="fu">pdq</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>)))</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>m212 <span class="ot">&lt;-</span> sim_tbl <span class="sc">|&gt;</span> <span class="fu">model</span>(<span class="fu">ARIMA</span>(value <span class="sc">~</span> <span class="fu">pdq</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>)))</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">report</span>(m211)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>est_tbl <span class="ot">&lt;-</span> <span class="fu">as_tsibble</span>(<span class="fu">ts</span>(<span class="fu">as.numeric</span>(est_snp)))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>eva_tbl <span class="ot">&lt;-</span> <span class="fu">as_tsibble</span>(<span class="fu">ts</span>(<span class="fu">as.numeric</span>(eva_snp)))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>m211 <span class="ot">&lt;-</span> est_tbl <span class="sc">|&gt;</span> <span class="fu">model</span>(<span class="fu">ARIMA</span>(value <span class="sc">~</span> <span class="fu">pdq</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>)))</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>m110 <span class="ot">&lt;-</span> est_tbl <span class="sc">|&gt;</span> <span class="fu">model</span>(<span class="fu">ARIMA</span>(value <span class="sc">~</span> <span class="fu">pdq</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>)))</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>m212 <span class="ot">&lt;-</span> est_tbl <span class="sc">|&gt;</span> <span class="fu">model</span>(<span class="fu">ARIMA</span>(value <span class="sc">~</span> <span class="fu">pdq</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>)))</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">report</span>(m211)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Series: value 
@@ -1054,23 +1054,36 @@ Model: ARIMA(2,1,1)
 
 Coefficients:
          ar1     ar2      ma1
-      0.8009  0.0923  -0.7900
-s.e.  0.3344  0.1217   0.3375
+      0.6848  0.0219  -0.7805
+s.e.  0.2093  0.0947   0.1924
 
-sigma^2 estimated as 0.9473:  log likelihood=-276.95
-AIC=561.89   AICc=562.1   BIC=575.08</code></pre>
+sigma^2 estimated as 5408:  log likelihood=-861.72
+AIC=1731.45   AICc=1731.72   BIC=1743.52</code></pre>
 </div>
 </div>
 <p><strong>Estimated equation for ARIMA(2,1,1):</strong></p>
 <p><span class="math display">\[
 (1 - \hat\phi_1 B - \hat\phi_2 B^2)(1 - B)\,y_t = (1 + \hat\theta_1 B)\,\varepsilon_t \tag{21}
 \]</span></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Exercise:</strong> Write the estimated equations for ARIMA(1,1,0) and ARIMA(2,1,2) using the coefficient values from <code>report()</code>.</p>
+</div>
+</div>
 <hr>
 </section>
-<section id="stage-3-model-validation-non-seasonal" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="stage-3-model-validation-non-seasonal"><span class="header-section-number">6.4</span> Stage 3 — Model Validation (Non-Seasonal)</h2>
-<section id="ljung-box-test" class="level3" data-number="6.4.1">
-<h3 data-number="6.4.1" class="anchored" data-anchor-id="ljung-box-test"><span class="header-section-number">6.4.1</span> Ljung-Box Test</h3>
+<section id="stage-3-model-validation-non-seasonal" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="stage-3-model-validation-non-seasonal"><span class="header-section-number">6.3</span> Stage 3 — Model Validation (Non-Seasonal)</h2>
+<section id="ljung-box-test" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="ljung-box-test"><span class="header-section-number">6.3.1</span> Ljung-Box Test</h3>
 <p>The <strong>Ljung-Box statistic</strong> tests whether residuals are white noise:</p>
 <p><span class="math display">\[
 Q^*_{\text{calc}} = T(T+2)\sum_{k=1}^{h} \frac{r_k^2}{T-k} \tag{22}
@@ -1084,25 +1097,25 @@ Q^*_{\text{calc}} = T(T+2)\sum_{k=1}^{h} \frac{r_k^2}{T-k} \tag{22}
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>resid211 <span class="ot">&lt;-</span> <span class="fu">residuals</span>(m211)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Box.test</span>(resid211<span class="sc">$</span>.resid, <span class="at">lag =</span> <span class="dv">14</span>, <span class="at">type =</span> <span class="st">"Ljung-Box"</span>, <span class="at">fitdf =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>resid211 <span class="ot">&lt;-</span> <span class="fu">residuals</span>(m211)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Box.test</span>(resid211<span class="sc">$</span>.resid, <span class="at">lag =</span> <span class="dv">20</span>, <span class="at">type =</span> <span class="st">"Ljung-Box"</span>, <span class="at">fitdf =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Box-Ljung test
 
 data:  resid211$.resid
-X-squared = 20.74, df = 11, p-value = 0.03616</code></pre>
+X-squared = 21.023, df = 16, p-value = 0.1776</code></pre>
 </div>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>p_ra  <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(resid211<span class="sc">$</span>.resid,  <span class="at">lag.max =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Residual ACF"</span>)  <span class="sc">+</span> <span class="fu">theme_ts</span>()</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>p_rpa <span class="ot">&lt;-</span> <span class="fu">ggPacf</span>(resid211<span class="sc">$</span>.resid, <span class="at">lag.max =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Residual PACF"</span>) <span class="sc">+</span> <span class="fu">theme_ts</span>()</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p_ra, p_rpa, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>p_ra  <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(resid211<span class="sc">$</span>.resid,  <span class="at">lag.max =</span> <span class="dv">20</span>, <span class="at">na.action =</span> na.omit) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Residual ACF"</span>)  <span class="sc">+</span> <span class="fu">theme_ts</span>()</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>p_rpa <span class="ot">&lt;-</span> <span class="fu">ggPacf</span>(resid211<span class="sc">$</span>.resid, <span class="at">lag.max =</span> <span class="dv">20</span>, <span class="at">na.action =</span> na.omit) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Residual PACF"</span>) <span class="sc">+</span> <span class="fu">theme_ts</span>()</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p_ra, p_rpa, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-resid-acf-nonseasonal" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1111,15 +1124,15 @@ X-squared = 20.74, df = 11, p-value = 0.03616</code></pre>
 <img src="C5-BoxJenkins_files/figure-html/fig-resid-acf-nonseasonal-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-resid-acf-nonseasonal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8: ACF and PACF of residuals from ARIMA(2,1,1) fit on the simulated series. No significant spikes confirm that the residuals are white noise.
+Figure&nbsp;9: ACF and PACF of residuals from ARIMA(2,1,1) fitted to the S&amp;P 500 estimation set. No significant spikes confirm the residuals are white noise.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="information-criteria" class="level3" data-number="6.4.2">
-<h3 data-number="6.4.2" class="anchored" data-anchor-id="information-criteria"><span class="header-section-number">6.4.2</span> Information Criteria</h3>
+<section id="information-criteria" class="level3" data-number="6.3.2">
+<h3 data-number="6.3.2" class="anchored" data-anchor-id="information-criteria"><span class="header-section-number">6.3.2</span> Information Criteria</h3>
 <p><strong>Akaike’s Information Criterion (AIC):</strong></p>
 <p><span class="math display">\[
 \text{AIC} = -2\log(L) + 2(p + q + k + 1) \tag{23}
@@ -1137,46 +1150,46 @@ Figure&nbsp;8: ACF and PACF of residuals from ARIMA(2,1,1) fit on the simulated 
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(m211) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Model =</span> <span class="st">"ARIMA(2,1,1)"</span>),</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(m110) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Model =</span> <span class="st">"ARIMA(1,1,0)"</span>),</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(m212) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Model =</span> <span class="st">"ARIMA(2,1,2)"</span>)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Model, AIC, AICc, BIC) <span class="sc">|&gt;</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(AIC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(m211) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Model =</span> <span class="st">"ARIMA(2,1,1)"</span>),</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(m110) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Model =</span> <span class="st">"ARIMA(1,1,0)"</span>),</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(m212) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Model =</span> <span class="st">"ARIMA(2,1,2)"</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Model, AIC, AICc, BIC) <span class="sc">|&gt;</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(AIC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 x 4
   Model          AIC  AICc   BIC
   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1 ARIMA(2,1,1)  562.  562.  575.
-2 ARIMA(2,1,2)  563.  564.  580.
-3 ARIMA(1,1,0)  566.  566.  573.</code></pre>
+1 ARIMA(2,1,2) 1725. 1725. 1743.
+2 ARIMA(1,1,0) 1728. 1728. 1734.
+3 ARIMA(2,1,1) 1731. 1732. 1744.</code></pre>
 </div>
 </div>
-<p>The model with the lowest AIC/BIC (fewest parameters that still fit well) is selected as the best model.</p>
+<p>The model with the lowest AIC/BIC is selected as the best model.</p>
 </section>
-<section id="parameter-redundancy" class="level3" data-number="6.4.3">
-<h3 data-number="6.4.3" class="anchored" data-anchor-id="parameter-redundancy"><span class="header-section-number">6.4.3</span> Parameter Redundancy</h3>
-<p>When two ARMA models are observationally equivalent (i.e., produce the same series), we say they exhibit <strong>parameter redundancy</strong>. For example, a white noise process <span class="math inline">\(y_t = \varepsilon_t\)</span> can be rewritten as:</p>
+<section id="parameter-redundancy" class="level3" data-number="6.3.3">
+<h3 data-number="6.3.3" class="anchored" data-anchor-id="parameter-redundancy"><span class="header-section-number">6.3.3</span> Parameter Redundancy</h3>
+<p>When two ARMA models produce the same series, they exhibit <strong>parameter redundancy</strong>. For example, a white noise process <span class="math inline">\(y_t = \varepsilon_t\)</span> can be rewritten as:</p>
 <p><span class="math display">\[
 y_t = -0.5\,y_{t-1} + \varepsilon_t + 0.5\,\varepsilon_{t-1} \tag{26}
 \]</span></p>
-<p>which looks like ARMA(1,1) — but is not a genuinely different model. Always inspect ACF/PACF diagnostics to avoid over-parameterisation.</p>
+<p>which superficially resembles ARMA(1,1) but is not a genuinely different model. Always inspect ACF/PACF diagnostics to avoid over-parameterisation.</p>
 <hr>
 </section>
 </section>
-<section id="stage-4-model-application-forecasting-non-seasonal" class="level2" data-number="6.5">
-<h2 data-number="6.5" class="anchored" data-anchor-id="stage-4-model-application-forecasting-non-seasonal"><span class="header-section-number">6.5</span> Stage 4 — Model Application: Forecasting (Non-Seasonal)</h2>
-<section id="three-steps-for-point-forecasts" class="level3" data-number="6.5.1">
-<h3 data-number="6.5.1" class="anchored" data-anchor-id="three-steps-for-point-forecasts"><span class="header-section-number">6.5.1</span> Three Steps for Point Forecasts</h3>
+<section id="stage-4-model-application-forecasting-non-seasonal" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="stage-4-model-application-forecasting-non-seasonal"><span class="header-section-number">6.4</span> Stage 4 — Model Application: Forecasting (Non-Seasonal)</h2>
+<section id="three-steps-for-point-forecasts" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1" class="anchored" data-anchor-id="three-steps-for-point-forecasts"><span class="header-section-number">6.4.1</span> Three Steps for Point Forecasts</h3>
 <ol type="1">
 <li>Expand the ARIMA equation so that <span class="math inline">\(y_t\)</span> is on the left-hand side.</li>
 <li>Rewrite replacing <span class="math inline">\(t\)</span> with <span class="math inline">\(T + h\)</span>.</li>
 <li>On the right-hand side: replace <strong>future observations</strong> with their forecasts, <strong>future errors</strong> with zero, and <strong>past errors</strong> with corresponding residuals.</li>
 </ol>
 <p><strong>Example: ARIMA(1,1,1) forecast derivation</strong></p>
-<p>Expanded equation (Equation 11):</p>
+<p>Expanded equation (from Equation 11):</p>
 <p><span class="math display">\[
 y_t = (1 + \phi_1)\,y_{t-1} - \phi_1\,y_{t-2} + \varepsilon_t + \theta_1\,\varepsilon_{t-1} \tag{27}
 \]</span></p>
@@ -1184,20 +1197,40 @@ y_t = (1 + \phi_1)\,y_{t-1} - \phi_1\,y_{t-2} + \varepsilon_t + \theta_1\,\varep
 <p><span class="math display">\[
 \hat{y}_{T+1|T} = (1 + \hat\phi_1)\,y_T - \hat\phi_1\,y_{T-1} + \hat\theta_1\,\varepsilon_T \tag{28}
 \]</span></p>
-<p><strong>Two-step-ahead forecast</strong> (substitute <span class="math inline">\(t = T+2\)</span>, set <span class="math inline">\(\varepsilon_{T+2} = \varepsilon_{T+1} = 0\)</span>, replace <span class="math inline">\(y_{T+1}\)</span> with <span class="math inline">\(\hat{y}_{T+1|T}\)</span>):</p>
+<p><strong>Two-step-ahead forecast</strong> (<span class="math inline">\(\varepsilon_{T+2} = \varepsilon_{T+1} = 0\)</span>, replace <span class="math inline">\(y_{T+1}\)</span> with <span class="math inline">\(\hat{y}_{T+1|T}\)</span>):</p>
 <p><span class="math display">\[
 \hat{y}_{T+2|T} = (1 + \hat\phi_1)\,\hat{y}_{T+1|T} - \hat\phi_1\,y_T \tag{29}
 \]</span></p>
 <p>The process continues for all future periods <span class="math inline">\(h = 3, 4, \ldots\)</span></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Exercise:</strong> Using the estimated ARIMA(2,1,1) coefficients and the last three observed values plus their residuals, prove the one-step and two-step-ahead point forecasts manually.</p>
+</div>
+</div>
+</section>
+<section id="forecast-plot" class="level3" data-number="6.4.2">
+<h3 data-number="6.4.2" class="anchored" data-anchor-id="forecast-plot"><span class="header-section-number">6.4.2</span> Forecast Plot</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>m211 <span class="sc">|&gt;</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(sim_tbl, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">95</span>)) <span class="sc">+</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"ARIMA(2,1,1) — 10-Step Forecast"</span>,</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Time"</span>, <span class="at">y =</span> <span class="st">"Value"</span>) <span class="sc">+</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>snp_tbl <span class="ot">&lt;-</span> <span class="fu">as_tsibble</span>(<span class="fu">ts</span>(<span class="fu">as.numeric</span>(snp)))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>m211_full <span class="ot">&lt;-</span> snp_tbl <span class="sc">|&gt;</span> <span class="fu">model</span>(<span class="fu">ARIMA</span>(value <span class="sc">~</span> <span class="fu">pdq</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>)))</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>m211_full <span class="sc">|&gt;</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(snp_tbl, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">95</span>)) <span class="sc">+</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"S&amp;P 500 Futures — ARIMA(2,1,1) 10-Step Forecast"</span>,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Observation"</span>, <span class="at">y =</span> <span class="st">"Price (USD)"</span>) <span class="sc">+</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-forecast-nonseasonal" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1206,7 +1239,7 @@ y_t = (1 + \phi_1)\,y_{t-1} - \phi_1\,y_{t-2} + \varepsilon_t + \theta_1\,\varep
 <img src="C5-BoxJenkins_files/figure-html/fig-forecast-nonseasonal-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-forecast-nonseasonal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;9: Ten-step-ahead forecast for the simulated ARIMA(2,1,1) series. The dark line is the point forecast; shaded bands represent the 80% and 95% prediction intervals.
+Figure&nbsp;10: Ten-step-ahead forecast for the S&amp;P 500 series. The model is refitted to the full available series before forecasting. Shaded bands show 80% and 95% prediction intervals.
 </figcaption>
 </figure>
 </div>
@@ -1235,19 +1268,19 @@ Figure&nbsp;9: Ten-step-ahead forecast for the simulated ARIMA(2,1,1) series. Th
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimation (first 82 obs) and evaluation (remaining) sets</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>n_total  <span class="ot">&lt;-</span> <span class="fu">length</span>(ipi_ts)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>sest     <span class="ot">&lt;-</span> <span class="fu">head</span>(ipi_ts, <span class="dv">82</span>)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>seva     <span class="ot">&lt;-</span> <span class="fu">tail</span>(ipi_ts, n_total <span class="sc">-</span> <span class="dv">82</span>)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Estimation set:"</span>, <span class="fu">length</span>(sest), <span class="st">"observations</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimation (first 82 obs) and evaluation (remaining) sets</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>n_total  <span class="ot">&lt;-</span> <span class="fu">length</span>(ipi_ts)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>sest     <span class="ot">&lt;-</span> <span class="fu">head</span>(ipi_ts, <span class="dv">82</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>seva     <span class="ot">&lt;-</span> <span class="fu">tail</span>(ipi_ts, n_total <span class="sc">-</span> <span class="dv">82</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Estimation set:"</span>, <span class="fu">length</span>(sest), <span class="st">"observations</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Estimation set: 82 observations</code></pre>
 </div>
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Evaluation set:"</span>, <span class="fu">length</span>(seva), <span class="st">"observations</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Evaluation set:"</span>, <span class="fu">length</span>(seva), <span class="st">"observations</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Evaluation set: 49 observations</code></pre>
@@ -1259,9 +1292,9 @@ Figure&nbsp;9: Ten-step-ahead forecast for the simulated ARIMA(2,1,1) series. Th
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(<span class="fu">decompose</span>(sest)) <span class="sc">+</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Decomposition of IPI Manufacturing"</span>) <span class="sc">+</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(<span class="fu">decompose</span>(sest)) <span class="sc">+</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Decomposition of IPI Manufacturing"</span>) <span class="sc">+</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-ipi-decompose" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1270,7 +1303,7 @@ Figure&nbsp;9: Ten-step-ahead forecast for the simulated ARIMA(2,1,1) series. Th
 <img src="C5-BoxJenkins_files/figure-html/fig-ipi-decompose-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ipi-decompose-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;10: Classical decomposition of the IPI Manufacturing series. The seasonal component clearly repeats each year, confirming the need for seasonal differencing.
+Figure&nbsp;11: Classical decomposition of the IPI Manufacturing series. The seasonal component clearly repeats each year, confirming the need for seasonal differencing.
 </figcaption>
 </figure>
 </div>
@@ -1282,9 +1315,9 @@ Figure&nbsp;10: Classical decomposition of the IPI Manufacturing series. The sea
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggAcf</span>(sest, <span class="at">lag.max =</span> <span class="dv">48</span>) <span class="sc">+</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"ACF — IPI Estimation Set"</span>) <span class="sc">+</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggAcf</span>(sest, <span class="at">lag.max =</span> <span class="dv">48</span>) <span class="sc">+</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"ACF — IPI Estimation Set"</span>) <span class="sc">+</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-ipi-acf-est" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1293,7 +1326,7 @@ Figure&nbsp;10: Classical decomposition of the IPI Manufacturing series. The sea
 <img src="C5-BoxJenkins_files/figure-html/fig-ipi-acf-est-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ipi-acf-est-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;11: ACF of the IPI estimation set (up to 48 lags). The sinusoidal pattern with peaks at lags 12, 24, 36 indicates strong seasonality.
+Figure&nbsp;12: ACF of the IPI estimation set (up to 48 lags). The sinusoidal pattern with peaks at lags 12, 24, 36 indicates strong seasonality.
 </figcaption>
 </figure>
 </div>
@@ -1302,7 +1335,7 @@ Figure&nbsp;11: ACF of the IPI estimation set (up to 48 lags). The sinusoidal pa
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(sest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(sest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -1320,17 +1353,17 @@ alternative hypothesis: stationary</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>zt <span class="ot">&lt;-</span> <span class="fu">diff</span>(sest, <span class="dv">12</span>)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>p_zt    <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(zt) <span class="sc">+</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">expression</span>(<span class="st">"Seasonally Differenced IPI "</span> <span class="sc">~</span> (z[t])),</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>p_acfzt <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(zt, <span class="at">lag.max =</span> <span class="dv">48</span>) <span class="sc">+</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"ACF — After Seasonal Differencing"</span>) <span class="sc">+</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p_zt, p_acfzt, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>zt <span class="ot">&lt;-</span> <span class="fu">diff</span>(sest, <span class="dv">12</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>p_zt    <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(zt) <span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">expression</span>(<span class="st">"Seasonally Differenced IPI "</span> <span class="sc">~</span> (z[t])),</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>p_acfzt <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(zt, <span class="at">lag.max =</span> <span class="dv">48</span>) <span class="sc">+</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"ACF — After Seasonal Differencing"</span>) <span class="sc">+</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p_zt, p_acfzt, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-seasonal-diff" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1339,7 +1372,7 @@ alternative hypothesis: stationary</code></pre>
 <img src="C5-BoxJenkins_files/figure-html/fig-seasonal-diff-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-seasonal-diff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;12: IPI after seasonal differencing (<span class="math inline">\(z_t = y_t - y_{t-12}\)</span>). The seasonal pattern is substantially reduced.
+Figure&nbsp;13: IPI after seasonal differencing (<span class="math inline">\(z_t = y_t - y_{t-12}\)</span>). The seasonal pattern is substantially reduced.
 </figcaption>
 </figure>
 </div>
@@ -1348,7 +1381,7 @@ Figure&nbsp;12: IPI after seasonal differencing (<span class="math inline">\(z_t
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(zt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(zt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -1366,17 +1399,17 @@ alternative hypothesis: stationary</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>wt <span class="ot">&lt;-</span> <span class="fu">diff</span>(zt, <span class="dv">1</span>)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>p_wt    <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(wt) <span class="sc">+</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">expression</span>(<span class="st">"After Seasonal + Regular Differencing "</span> <span class="sc">~</span> (w[t])),</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>p_acfwt <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(wt, <span class="at">lag.max =</span> <span class="dv">48</span>) <span class="sc">+</span></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"ACF — After Both Differences"</span>) <span class="sc">+</span></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p_wt, p_acfwt, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>wt <span class="ot">&lt;-</span> <span class="fu">diff</span>(zt, <span class="dv">1</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>p_wt    <span class="ot">&lt;-</span> <span class="fu">autoplot</span>(wt) <span class="sc">+</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">expression</span>(<span class="st">"After Seasonal + Regular Differencing "</span> <span class="sc">~</span> (w[t])),</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>p_acfwt <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(wt, <span class="at">lag.max =</span> <span class="dv">48</span>) <span class="sc">+</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"ACF — After Both Differences"</span>) <span class="sc">+</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p_wt, p_acfwt, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-regular-diff" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1385,7 +1418,7 @@ alternative hypothesis: stationary</code></pre>
 <img src="C5-BoxJenkins_files/figure-html/fig-regular-diff-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-regular-diff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;13: IPI after seasonal differencing followed by first-order differencing (<span class="math inline">\(w_t = z_t - z_{t-1}\)</span>). The series fluctuates around zero with no trend or seasonal pattern — stationary.
+Figure&nbsp;14: IPI after seasonal differencing followed by first-order differencing (<span class="math inline">\(w_t = z_t - z_{t-1}\)</span>). The series fluctuates around zero with no trend or seasonal pattern — stationary.
 </figcaption>
 </figure>
 </div>
@@ -1394,7 +1427,7 @@ Figure&nbsp;13: IPI after seasonal differencing followed by first-order differen
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(wt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(wt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -1411,12 +1444,12 @@ alternative hypothesis: stationary</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>p_acf_w  <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(wt,  <span class="at">lag.max =</span> <span class="dv">48</span>) <span class="sc">+</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"ACF — Stationary Series"</span>) <span class="sc">+</span> <span class="fu">theme_ts</span>()</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>p_pacf_w <span class="ot">&lt;-</span> <span class="fu">ggPacf</span>(wt, <span class="at">lag.max =</span> <span class="dv">48</span>) <span class="sc">+</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"PACF — Stationary Series"</span>) <span class="sc">+</span> <span class="fu">theme_ts</span>()</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p_acf_w, p_pacf_w, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>p_acf_w  <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(wt,  <span class="at">lag.max =</span> <span class="dv">48</span>) <span class="sc">+</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"ACF — Stationary Series"</span>) <span class="sc">+</span> <span class="fu">theme_ts</span>()</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>p_pacf_w <span class="ot">&lt;-</span> <span class="fu">ggPacf</span>(wt, <span class="at">lag.max =</span> <span class="dv">48</span>) <span class="sc">+</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"PACF — Stationary Series"</span>) <span class="sc">+</span> <span class="fu">theme_ts</span>()</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p_acf_w, p_pacf_w, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-acf-pacf-wt" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1425,7 +1458,7 @@ alternative hypothesis: stationary</code></pre>
 <img src="C5-BoxJenkins_files/figure-html/fig-acf-pacf-wt-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-acf-pacf-wt-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;14: ACF (left) and PACF (right) of the fully differenced IPI series <span class="math inline">\(w_t\)</span>. Significant spikes at low lags determine non-seasonal orders (<span class="math inline">\(p\)</span>, <span class="math inline">\(q\)</span>); significant spikes at seasonal lags 12, 24 determine seasonal orders (<span class="math inline">\(P\)</span>, <span class="math inline">\(Q\)</span>).
+Figure&nbsp;15: ACF (left) and PACF (right) of the fully differenced IPI series <span class="math inline">\(w_t\)</span>. Significant spikes at low lags determine non-seasonal orders (<span class="math inline">\(p\)</span>, <span class="math inline">\(q\)</span>); significant spikes at seasonal lags 12, 24 determine seasonal orders (<span class="math inline">\(P\)</span>, <span class="math inline">\(Q\)</span>).
 </figcaption>
 </figure>
 </div>
@@ -1473,15 +1506,15 @@ Figure&nbsp;14: ACF (left) and PACF (right) of the fully differenced IPI series 
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>sest_tbl <span class="ot">&lt;-</span> <span class="fu">as_tsibble</span>(sest)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>seva_tbl <span class="ot">&lt;-</span> <span class="fu">as_tsibble</span>(seva)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>ipi_tbl  <span class="ot">&lt;-</span> <span class="fu">as_tsibble</span>(ipi_ts)</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>smodel1 <span class="ot">&lt;-</span> sest_tbl <span class="sc">|&gt;</span> <span class="fu">model</span>(<span class="fu">ARIMA</span>(value <span class="sc">~</span> <span class="fu">pdq</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>) <span class="sc">+</span> <span class="fu">PDQ</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)))</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>smodel2 <span class="ot">&lt;-</span> sest_tbl <span class="sc">|&gt;</span> <span class="fu">model</span>(<span class="fu">ARIMA</span>(value <span class="sc">~</span> <span class="fu">pdq</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">+</span> <span class="fu">PDQ</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)))</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>smodel3 <span class="ot">&lt;-</span> sest_tbl <span class="sc">|&gt;</span> <span class="fu">model</span>(<span class="fu">ARIMA</span>(value <span class="sc">~</span> <span class="fu">pdq</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>) <span class="sc">+</span> <span class="fu">PDQ</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)))</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="fu">report</span>(smodel1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>sest_tbl <span class="ot">&lt;-</span> <span class="fu">as_tsibble</span>(sest)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>seva_tbl <span class="ot">&lt;-</span> <span class="fu">as_tsibble</span>(seva)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>ipi_tbl  <span class="ot">&lt;-</span> <span class="fu">as_tsibble</span>(ipi_ts)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>smodel1 <span class="ot">&lt;-</span> sest_tbl <span class="sc">|&gt;</span> <span class="fu">model</span>(<span class="fu">ARIMA</span>(value <span class="sc">~</span> <span class="fu">pdq</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>) <span class="sc">+</span> <span class="fu">PDQ</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)))</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>smodel2 <span class="ot">&lt;-</span> sest_tbl <span class="sc">|&gt;</span> <span class="fu">model</span>(<span class="fu">ARIMA</span>(value <span class="sc">~</span> <span class="fu">pdq</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">+</span> <span class="fu">PDQ</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)))</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>smodel3 <span class="ot">&lt;-</span> sest_tbl <span class="sc">|&gt;</span> <span class="fu">model</span>(<span class="fu">ARIMA</span>(value <span class="sc">~</span> <span class="fu">pdq</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>) <span class="sc">+</span> <span class="fu">PDQ</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)))</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="fu">report</span>(smodel1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Series: value 
@@ -1527,13 +1560,13 @@ Tip
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>se1 <span class="ot">&lt;-</span> <span class="fu">residuals</span>(smodel1)</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>p_ra  <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(se1<span class="sc">$</span>.resid,  <span class="at">lag.max =</span> <span class="dv">48</span>) <span class="sc">+</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Residual ACF"</span>)  <span class="sc">+</span> <span class="fu">theme_ts</span>()</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>p_rpa <span class="ot">&lt;-</span> <span class="fu">ggPacf</span>(se1<span class="sc">$</span>.resid, <span class="at">lag.max =</span> <span class="dv">48</span>) <span class="sc">+</span></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Residual PACF"</span>) <span class="sc">+</span> <span class="fu">theme_ts</span>()</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p_ra, p_rpa, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>se1 <span class="ot">&lt;-</span> <span class="fu">residuals</span>(smodel1)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>p_ra  <span class="ot">&lt;-</span> <span class="fu">ggAcf</span>(se1<span class="sc">$</span>.resid,  <span class="at">lag.max =</span> <span class="dv">48</span>) <span class="sc">+</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Residual ACF"</span>)  <span class="sc">+</span> <span class="fu">theme_ts</span>()</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>p_rpa <span class="ot">&lt;-</span> <span class="fu">ggPacf</span>(se1<span class="sc">$</span>.resid, <span class="at">lag.max =</span> <span class="dv">48</span>) <span class="sc">+</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Residual PACF"</span>) <span class="sc">+</span> <span class="fu">theme_ts</span>()</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p_ra, p_rpa, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-sarima-resid" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1542,7 +1575,7 @@ Tip
 <img src="C5-BoxJenkins_files/figure-html/fig-sarima-resid-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sarima-resid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;15: ACF (left) and PACF (right) of residuals from SARIMA<span class="math inline">\((1,1,1)(1,1,1)_{12}\)</span>. Residuals should have no significant spikes — confirming white noise.
+Figure&nbsp;16: ACF (left) and PACF (right) of residuals from SARIMA<span class="math inline">\((1,1,1)(1,1,1)_{12}\)</span>. Residuals should have no significant spikes — confirming white noise.
 </figcaption>
 </figure>
 </div>
@@ -1568,7 +1601,7 @@ Q^*_{\text{calc}} = T(T+2)\sum_{k=1}^{h}\frac{r_k^2}{T-k} \tag{32}
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Box.test</span>(se1<span class="sc">$</span>.resid, <span class="at">lag =</span> <span class="dv">24</span>, <span class="at">type =</span> <span class="st">"Ljung-Box"</span>, <span class="at">fitdf =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Box.test</span>(se1<span class="sc">$</span>.resid, <span class="at">lag =</span> <span class="dv">24</span>, <span class="at">type =</span> <span class="st">"Ljung-Box"</span>, <span class="at">fitdf =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -1584,22 +1617,22 @@ X-squared = 19.067, df = 20, p-value = 0.5174</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ljung-Box p-values for all three models</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>lb_results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Model =</span> <span class="fu">c</span>(<span class="st">"SARIMA(1,1,1)(1,1,1)[12]"</span>,</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SARIMA(2,1,2)(1,1,1)[12]"</span>,</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SARIMA(1,1,0)(1,1,1)[12]"</span>),</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value =</span> <span class="fu">c</span>(</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Box.test</span>(<span class="fu">residuals</span>(smodel1)<span class="sc">$</span>.resid, <span class="at">lag=</span><span class="dv">24</span>, <span class="at">type=</span><span class="st">"Ljung-Box"</span>, <span class="at">fitdf=</span><span class="dv">4</span>)<span class="sc">$</span>p.value,</span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Box.test</span>(<span class="fu">residuals</span>(smodel2)<span class="sc">$</span>.resid, <span class="at">lag=</span><span class="dv">24</span>, <span class="at">type=</span><span class="st">"Ljung-Box"</span>, <span class="at">fitdf=</span><span class="dv">6</span>)<span class="sc">$</span>p.value,</span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Box.test</span>(<span class="fu">residuals</span>(smodel3)<span class="sc">$</span>.resid, <span class="at">lag=</span><span class="dv">24</span>, <span class="at">type=</span><span class="st">"Ljung-Box"</span>, <span class="at">fitdf=</span><span class="dv">3</span>)<span class="sc">$</span>p.value</span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>lb_results<span class="sc">$</span>Decision <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(lb_results<span class="sc">$</span>p_value <span class="sc">&gt;</span> <span class="fl">0.05</span>,</span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Fail to reject H0"</span>, <span class="st">"Reject H0"</span>)</span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>lb_results<span class="sc">$</span>Conclusion <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(lb_results<span class="sc">$</span>p_value <span class="sc">&gt;</span> <span class="fl">0.05</span>,</span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"White noise"</span>, <span class="st">"Not white noise"</span>)</span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(lb_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ljung-Box p-values for all three models</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>lb_results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Model =</span> <span class="fu">c</span>(<span class="st">"SARIMA(1,1,1)(1,1,1)[12]"</span>,</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SARIMA(2,1,2)(1,1,1)[12]"</span>,</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SARIMA(1,1,0)(1,1,1)[12]"</span>),</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value =</span> <span class="fu">c</span>(</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Box.test</span>(<span class="fu">residuals</span>(smodel1)<span class="sc">$</span>.resid, <span class="at">lag=</span><span class="dv">24</span>, <span class="at">type=</span><span class="st">"Ljung-Box"</span>, <span class="at">fitdf=</span><span class="dv">4</span>)<span class="sc">$</span>p.value,</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Box.test</span>(<span class="fu">residuals</span>(smodel2)<span class="sc">$</span>.resid, <span class="at">lag=</span><span class="dv">24</span>, <span class="at">type=</span><span class="st">"Ljung-Box"</span>, <span class="at">fitdf=</span><span class="dv">6</span>)<span class="sc">$</span>p.value,</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Box.test</span>(<span class="fu">residuals</span>(smodel3)<span class="sc">$</span>.resid, <span class="at">lag=</span><span class="dv">24</span>, <span class="at">type=</span><span class="st">"Ljung-Box"</span>, <span class="at">fitdf=</span><span class="dv">3</span>)<span class="sc">$</span>p.value</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>lb_results<span class="sc">$</span>Decision <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(lb_results<span class="sc">$</span>p_value <span class="sc">&gt;</span> <span class="fl">0.05</span>,</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Fail to reject H0"</span>, <span class="st">"Reject H0"</span>)</span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>lb_results<span class="sc">$</span>Conclusion <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(lb_results<span class="sc">$</span>p_value <span class="sc">&gt;</span> <span class="fl">0.05</span>,</span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"White noise"</span>, <span class="st">"Not white noise"</span>)</span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(lb_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                     Model   p_value          Decision  Conclusion
@@ -1612,13 +1645,13 @@ X-squared = 19.067, df = 20, p-value = 0.5174</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(smodel1) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Model =</span> <span class="st">"SARIMA(1,1,1)(1,1,1)[12]"</span>),</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(smodel2) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Model =</span> <span class="st">"SARIMA(2,1,2)(1,1,1)[12]"</span>),</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(smodel3) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Model =</span> <span class="st">"SARIMA(1,1,0)(1,1,1)[12]"</span>)</span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Model, AIC, AICc, BIC) <span class="sc">|&gt;</span></span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(AIC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(smodel1) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Model =</span> <span class="st">"SARIMA(1,1,1)(1,1,1)[12]"</span>),</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(smodel2) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Model =</span> <span class="st">"SARIMA(2,1,2)(1,1,1)[12]"</span>),</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glance</span>(smodel3) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Model =</span> <span class="st">"SARIMA(1,1,0)(1,1,1)[12]"</span>)</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Model, AIC, AICc, BIC) <span class="sc">|&gt;</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(AIC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 x 4
@@ -1639,17 +1672,17 @@ X-squared = 19.067, df = 20, p-value = 0.5174</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify best model (lowest AIC among those with white noise residuals)</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>best_sarima <span class="ot">&lt;-</span> sest_tbl <span class="sc">|&gt;</span> <span class="fu">model</span>(<span class="fu">ARIMA</span>(value <span class="sc">~</span> <span class="fu">pdq</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">+</span> <span class="fu">PDQ</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)))</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>best_sarima <span class="sc">|&gt;</span></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">refit</span>(ipi_tbl) <span class="sc">|&gt;</span></span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">12</span>) <span class="sc">|&gt;</span></span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(ipi_tbl, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">95</span>)) <span class="sc">+</span></span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Malaysia IPI Manufacturing — 12-Month Ahead Forecast"</span>,</span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"SARIMA(2,1,2)(1,1,1)[12]"</span>,</span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Index"</span>) <span class="sc">+</span></span>
-<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify best model (lowest AIC among those with white noise residuals)</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>best_sarima <span class="ot">&lt;-</span> sest_tbl <span class="sc">|&gt;</span> <span class="fu">model</span>(<span class="fu">ARIMA</span>(value <span class="sc">~</span> <span class="fu">pdq</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">+</span> <span class="fu">PDQ</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)))</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>best_sarima <span class="sc">|&gt;</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">refit</span>(ipi_tbl) <span class="sc">|&gt;</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">12</span>) <span class="sc">|&gt;</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(ipi_tbl, <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">95</span>)) <span class="sc">+</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Malaysia IPI Manufacturing — 12-Month Ahead Forecast"</span>,</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"SARIMA(2,1,2)(1,1,1)[12]"</span>,</span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Index"</span>) <span class="sc">+</span></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-sarima-forecast" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1658,7 +1691,7 @@ X-squared = 19.067, df = 20, p-value = 0.5174</code></pre>
 <img src="C5-BoxJenkins_files/figure-html/fig-sarima-forecast-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sarima-forecast-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;16: SARIMA forecast for IPI Manufacturing. The best model (selected by AIC/BIC) is refitted to the complete IPI series and used to forecast 12 months ahead. Shaded bands show 80% and 95% prediction intervals.
+Figure&nbsp;17: SARIMA forecast for IPI Manufacturing. The best model (selected by AIC/BIC) is refitted to the complete IPI series and used to forecast 12 months ahead. Shaded bands show 80% and 95% prediction intervals.
 </figcaption>
 </figure>
 </div>

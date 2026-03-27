@@ -16,6 +16,7 @@ library(fable)
 library(tsibble)
 library(feasts)
 library(dplyr)
+library(quantmod)
 
 # ── custom ggplot theme ────────────────────────────────────────────────────────
 theme_ts <- function() {
@@ -36,6 +37,18 @@ ipi_ts <- ts(ipi_data$index,
              start     = c(as.integer(format(min(ipi_data$date), "%Y")),
                            as.integer(format(min(ipi_data$date), "%m"))),
              frequency = 12)
+
+# ── load S&P 500 E-mini Futures (ES=F) from Yahoo Finance ─────────────────────
+getSymbols("ES=F", src = "yahoo", from = "2025-04-01", to = "2025-12-31",
+           auto.assign = TRUE)
+snp     <- get("ES=F")[, "ES=F.Adjusted"]
+snp     <- na.omit(snp)
+
+# Partition: 80% estimation, 20% evaluation
+n_snp   <- nrow(snp)
+n_e     <- floor(0.8 * n_snp)
+est_snp <- snp[1:n_e, ]
+eva_snp <- snp[(n_e + 1):n_snp, ]
 ```
 
 # Introduction
@@ -504,119 +517,109 @@ grid.arrange(p1, p2, p3, p4, p5, p6, nrow=3)
 
 # Box-Jenkins: Non-Seasonal ARIMA
 
-We demonstrate the full four-stage Box-Jenkins procedure using Malaysia's **Industrial
-Production Index (IPI) — Manufacturing (Section C)**, monthly data, January 2015
-to November 2025.
+We demonstrate the full four-stage Box-Jenkins procedure using **S&P 500 E-mini
+Futures (ES=F)** daily adjusted close prices, April–December 2025, downloaded
+directly from Yahoo Finance via the `quantmod` package.
 
 ## Stage 1 — Model Identification
 
 ### Step 1a: Time Series Plot
 
 ```{r}
-#| label: fig-ipi-ts
-#| fig-cap: "Malaysia IPI Manufacturing Index (Section C), January 2015 to November 2025. The series exhibits both trend-like movement and clear seasonal fluctuations."
+#| label: fig-snp-ts
+#| fig-cap: "S&P 500 E-mini Futures (ES=F) daily adjusted close price, April–December 2025. The series wanders without a fixed mean — a sign of non-stationarity."
 #| fig-height: 4
 
-autoplot(ipi_ts) +
-  labs(title = "Malaysia IPI — Manufacturing (Section C)",
-       subtitle = "Monthly, base year 2015 = 100",
-       x = "Year", y = "Index") +
+autoplot(as.ts(est_snp)) +
+  labs(title = "S&P 500 Futures (ES=F) — Estimation Set",
+       subtitle = "Daily adjusted close price, Apr–Oct 2025",
+       x = "Observation", y = "Price (USD)") +
   theme_ts()
 ```
 
 ### Step 1b: ACF and PACF of the Raw Series
 
 ```{r}
-#| label: fig-ipi-acf-raw
-#| fig-cap: "ACF (left) and PACF (right) of the raw IPI series. The ACF shows a slow, sinusoidal decay with significant spikes at the seasonal lags (12, 24, ...) — indicating both non-stationarity and seasonality. This series requires seasonal treatment: use SARIMA."
+#| label: fig-snp-acf-raw
+#| fig-cap: "ACF (left) and PACF (right) of the raw S&P 500 price series. The ACF decays very slowly to zero — a clear sign of non-stationarity. First-order differencing is required."
 #| fig-height: 4
 
-# Split into estimation (first ~70%) and evaluation (last ~30%)
-n_ipi     <- length(ipi_ts)
-n_est     <- round(0.70 * n_ipi)
-ipi_est   <- head(ipi_ts, n_est)
-ipi_eva   <- tail(ipi_ts, n_ipi - n_est)
-
-p_acf  <- ggAcf(ipi_est,  lag.max = 48) +
-  labs(title = "ACF — IPI Level") + theme_ts()
-p_pacf <- ggPacf(ipi_est, lag.max = 48) +
-  labs(title = "PACF — IPI Level") + theme_ts()
-
-grid.arrange(p_acf, p_pacf, ncol = 2)
+p_acf_snp  <- ggAcf(est_snp,  lag.max = 30) +
+  labs(title = "ACF — SNP Level") + theme_ts()
+p_pacf_snp <- ggPacf(est_snp, lag.max = 30) +
+  labs(title = "PACF — SNP Level") + theme_ts()
+grid.arrange(p_acf_snp, p_pacf_snp, ncol = 2)
 ```
 
+### Step 1c: ADF Test on Raw Series
+
 ```{r}
-#| label: adf-ipi-raw
+#| label: adf-snp-raw
 #| echo: true
 
-adf.test(ipi_est)
+adf.test(est_snp)
 ```
 
-::: {.callout-note}
-The ACF shows a **sinusoidal (wavelength) pattern** with significant spikes at lags
-12, 24, 36 — indicating a **seasonal component**. This series requires **SARIMA**
-modelling, covered in the next section. A pure non-seasonal ARIMA is not appropriate
-for a seasonal series.
-:::
+Since $p$-value $> 0.05$, we **fail to reject** $H_0$ — the series is **non-stationary**.
 
----
-
-## Illustration: Non-Seasonal ARIMA with Simulated Data
-
-To clearly demonstrate non-seasonal ARIMA identification without seasonal
-complications, we simulate 200 observations from a known ARIMA(2,1,1) process.
+### Step 1d: First-Order Differencing
 
 ```{r}
-#| label: fig-nonseasonal-demo
-#| fig-cap: "Simulated ARIMA(2,1,1) series (top left), ACF of the differenced series (top right), and PACF of the differenced series (bottom right). One significant spike in the ACF at lag 1 suggests MA(1); two significant spikes in the PACF at lags 1 and 2 suggest AR(2). Combined: ARIMA(2,1,1)."
-#| fig-height: 6
+#| label: fig-snp-diff
+#| fig-cap: "S&P 500 first-differenced series (daily price changes). The series now fluctuates around a near-zero constant level — indicating stationarity."
+#| fig-height: 4
 
-set.seed(2025)
-sim_arima <- arima.sim(
-  model = list(order = c(2,1,1), ar = c(0.6, 0.2), ma = -0.7),
-  n = 200
-)
+diff_snp <- diff(est_snp)
 
-p_ts   <- autoplot(sim_arima) +
-  labs(title = "Simulated ARIMA(2,1,1)", x = "Time", y = "Value") + theme_ts()
-p_adf_note <- ggplot() +
-  annotate("text", x=0.5, y=0.5,
-           label = "ADF test on diff(series):\np-value < 0.05 → Stationary",
-           size = 4, hjust = 0.5) +
-  theme_void()
-p_acf  <- ggAcf(diff(sim_arima),  lag.max = 20) +
+autoplot(as.ts(diff_snp)) +
+  labs(title = "S&P 500 Futures — First Difference",
+       subtitle = "Daily price changes",
+       x = "Observation", y = expression(Delta ~ "Price")) +
+  theme_ts()
+```
+
+```{r}
+#| label: adf-snp-diff
+#| echo: true
+
+adf.test(na.omit(diff_snp))
+```
+
+Since $p$-value $\leq 0.05$, we **reject** $H_0$ — the differenced series is
+**stationary**. Order of differencing: $d = 1$.
+
+### Step 1e: ACF and PACF of Differenced Series
+
+```{r}
+#| label: fig-snp-acf-diff
+#| fig-cap: "ACF (left) and PACF (right) of the first-differenced S&P 500 series. One significant spike at lag 3 on the ACF suggests MA(1); significant spikes at lags 3 and 8 on the PACF suggest AR(2). Suggested model: ARIMA(2,1,1)."
+#| fig-height: 4
+
+p_acf_d  <- ggAcf(diff_snp,  lag.max = 30, na.action = na.omit) +
   labs(title = "ACF — First Difference") + theme_ts()
-p_pacf <- ggPacf(diff(sim_arima), lag.max = 20) +
+p_pacf_d <- ggPacf(diff_snp, lag.max = 30, na.action = na.omit) +
   labs(title = "PACF — First Difference") + theme_ts()
-
-grid.arrange(p_ts, p_adf_note, p_acf, p_pacf, nrow = 2)
+grid.arrange(p_acf_d, p_pacf_d, ncol = 2)
 ```
 
-```{r}
-#| label: adf-simulated
-#| echo: true
+**Suggested model:** ARIMA(2,1,1)
 
-adf.test(diff(sim_arima))
-```
-
-After first differencing, the ADF test confirms stationarity ($p < 0.05$).
+Competing models to compare: ARIMA(1,1,0) and ARIMA(2,1,2).
 
 ---
 
 ## Stage 2 — Model Estimation (Non-Seasonal)
 
-Using the simulated data, three candidate models are estimated and compared:
-ARIMA(2,1,1), ARIMA(1,1,0), and ARIMA(2,1,2).
-
 ```{r}
 #| label: nonseasonal-estimation
 #| echo: true
 
-sim_tbl <- as_tsibble(ts(as.numeric(sim_arima)))
+est_tbl <- as_tsibble(ts(as.numeric(est_snp)))
+eva_tbl <- as_tsibble(ts(as.numeric(eva_snp)))
 
-m211 <- sim_tbl |> model(ARIMA(value ~ pdq(2,1,1)))
-m110 <- sim_tbl |> model(ARIMA(value ~ pdq(1,1,0)))
-m212 <- sim_tbl |> model(ARIMA(value ~ pdq(2,1,2)))
+m211 <- est_tbl |> model(ARIMA(value ~ pdq(2,1,1)))
+m110 <- est_tbl |> model(ARIMA(value ~ pdq(1,1,0)))
+m212 <- est_tbl |> model(ARIMA(value ~ pdq(2,1,2)))
 
 report(m211)
 ```
@@ -626,6 +629,11 @@ report(m211)
 $$
 (1 - \hat\phi_1 B - \hat\phi_2 B^2)(1 - B)\,y_t = (1 + \hat\theta_1 B)\,\varepsilon_t \tag{21}
 $$
+
+::: {.callout-tip}
+**Exercise:** Write the estimated equations for ARIMA(1,1,0) and ARIMA(2,1,2) using
+the coefficient values from `report()`.
+:::
 
 ---
 
@@ -652,17 +660,17 @@ well-specified.
 #| echo: true
 
 resid211 <- residuals(m211)
-Box.test(resid211$.resid, lag = 14, type = "Ljung-Box", fitdf = 3)
+Box.test(resid211$.resid, lag = 20, type = "Ljung-Box", fitdf = 4)
 ```
 
 ```{r}
 #| label: fig-resid-acf-nonseasonal
-#| fig-cap: "ACF and PACF of residuals from ARIMA(2,1,1) fit on the simulated series. No significant spikes confirm that the residuals are white noise."
+#| fig-cap: "ACF and PACF of residuals from ARIMA(2,1,1) fitted to the S&P 500 estimation set. No significant spikes confirm the residuals are white noise."
 #| fig-height: 4
 
-p_ra  <- ggAcf(resid211$.resid,  lag.max = 20) +
+p_ra  <- ggAcf(resid211$.resid,  lag.max = 20, na.action = na.omit) +
   labs(title = "Residual ACF")  + theme_ts()
-p_rpa <- ggPacf(resid211$.resid, lag.max = 20) +
+p_rpa <- ggPacf(resid211$.resid, lag.max = 20, na.action = na.omit) +
   labs(title = "Residual PACF") + theme_ts()
 grid.arrange(p_ra, p_rpa, ncol = 2)
 ```
@@ -704,21 +712,19 @@ bind_rows(
   arrange(AIC)
 ```
 
-The model with the lowest AIC/BIC (fewest parameters that still fit well) is selected
-as the best model.
+The model with the lowest AIC/BIC is selected as the best model.
 
 ### Parameter Redundancy
 
-When two ARMA models are observationally equivalent (i.e., produce the same series),
-we say they exhibit **parameter redundancy**. For example, a white noise process
-$y_t = \varepsilon_t$ can be rewritten as:
+When two ARMA models produce the same series, they exhibit **parameter redundancy**.
+For example, a white noise process $y_t = \varepsilon_t$ can be rewritten as:
 
 $$
 y_t = -0.5\,y_{t-1} + \varepsilon_t + 0.5\,\varepsilon_{t-1} \tag{26}
 $$
 
-which looks like ARMA(1,1) — but is not a genuinely different model. Always inspect
-ACF/PACF diagnostics to avoid over-parameterisation.
+which superficially resembles ARMA(1,1) but is not a genuinely different model.
+Always inspect ACF/PACF diagnostics to avoid over-parameterisation.
 
 ---
 
@@ -733,7 +739,7 @@ ACF/PACF diagnostics to avoid over-parameterisation.
 
 **Example: ARIMA(1,1,1) forecast derivation**
 
-Expanded equation (Equation 11):
+Expanded equation (from Equation 11):
 
 $$
 y_t = (1 + \phi_1)\,y_{t-1} - \phi_1\,y_{t-2} + \varepsilon_t + \theta_1\,\varepsilon_{t-1} \tag{27}
@@ -745,7 +751,7 @@ $$
 \hat{y}_{T+1|T} = (1 + \hat\phi_1)\,y_T - \hat\phi_1\,y_{T-1} + \hat\theta_1\,\varepsilon_T \tag{28}
 $$
 
-**Two-step-ahead forecast** (substitute $t = T+2$, set $\varepsilon_{T+2} = \varepsilon_{T+1} = 0$,
+**Two-step-ahead forecast** ($\varepsilon_{T+2} = \varepsilon_{T+1} = 0$,
 replace $y_{T+1}$ with $\hat{y}_{T+1|T}$):
 
 $$
@@ -754,16 +760,28 @@ $$
 
 The process continues for all future periods $h = 3, 4, \ldots$
 
+::: {.callout-tip}
+**Exercise:** Using the estimated ARIMA(2,1,1) coefficients and the last three
+observed values plus their residuals, prove the one-step and two-step-ahead
+point forecasts manually.
+:::
+
+### Forecast Plot
+
 ```{r}
 #| label: fig-forecast-nonseasonal
-#| fig-cap: "Ten-step-ahead forecast for the simulated ARIMA(2,1,1) series. The dark line is the point forecast; shaded bands represent the 80% and 95% prediction intervals."
+#| fig-cap: "Ten-step-ahead forecast for the S&P 500 series. The model is refitted to the full available series before forecasting. Shaded bands show 80% and 95% prediction intervals."
 #| fig-height: 4
 
-m211 |>
+snp_tbl <- as_tsibble(ts(as.numeric(snp)))
+
+m211_full <- snp_tbl |> model(ARIMA(value ~ pdq(2,1,1)))
+
+m211_full |>
   forecast(h = 10) |>
-  autoplot(sim_tbl, level = c(80, 95)) +
-  labs(title = "ARIMA(2,1,1) — 10-Step Forecast",
-       x = "Time", y = "Value") +
+  autoplot(snp_tbl, level = c(80, 95)) +
+  labs(title = "S&P 500 Futures — ARIMA(2,1,1) 10-Step Forecast",
+       x = "Observation", y = "Price (USD)") +
   theme_ts()
 ```
 
