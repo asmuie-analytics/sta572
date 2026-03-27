@@ -33,90 +33,74 @@ cpi_ts <- ts(cpi_raw$CPI, start = 1960, frequency = 1)
 
 ## Definition and Concepts
 
-A **stochastic time series** is a sequence of data points collected or generated over
-time where the values of the series are not deterministic, but rather subject to
-randomness or uncertainty. In other words, the values of the time series at any given
-point in time are not completely predictable, but rather follow a probabilistic
-distribution.
+A **stochastic time series** is a sequence of data points collected or generated over time where the values of the series are not deterministic, but rather subject to randomness or uncertainty. In other words, the values of the time series at any given point in time are not completely predictable, but rather follow a probabilistic distribution.
 
-Stochastic time series are commonly used in fields such as finance, economics,
-engineering, and environmental science to model and analyse phenomena that exhibit
-random behaviour over time. They are described and analysed using statistical methods,
-including techniques from probability theory, time series analysis, and stochastic
-processes.
+Stochastic time series are commonly used in fields such as finance, economics, engineering, and environmental science to model and analyse phenomena that exhibit random behaviour over time. They are described and analysed using statistical methods, including techniques from probability theory, time series analysis, and stochastic processes.
 
 Common stochastic processes used to model time series include:
 
-- **Autoregressive (AR)** processes
-- **Moving Average (MA)** processes
-- **Autoregressive Integrated Moving Average (ARIMA)** processes
-- More complex models such as **GARCH** (Generalised Autoregressive Conditional
-  Heteroskedasticity)
+-   **Autoregressive (AR)** processes
+-   **Moving Average (MA)** processes
+-   **Autoregressive Integrated Moving Average (ARIMA)** processes
+-   More complex models such as **GARCH** (Generalised Autoregressive Conditional Heteroskedasticity)
 
 Analysing stochastic time series involves:
 
-- Estimating parameters of the stochastic model
-- Testing for randomness or stationarity
-- Identifying trends and seasonal patterns
-- Assessing the presence of autocorrelation or other dependencies between successive
-  observations
+-   Estimating parameters of the stochastic model
+-   Testing for randomness or stationarity
+-   Identifying trends and seasonal patterns
+-   Assessing the presence of autocorrelation or other dependencies between successive observations
 
----
+------------------------------------------------------------------------
 
 # Lead vs Lag Variable
 
-When describing stochastic processes, the subscripts $t - k$ and $t + k$ are used to
-refer to past and future observations respectively.
+When describing stochastic processes, the subscripts $t - k$ and $t + k$ are used to refer to past and future observations respectively.
 
-- **Lag** — the difference in time between the current observation and a *previous*
-  observation.
-- **Lead** — the difference in time between the current observation and a *future*
-  observation.
+-   **Lag** — the difference in time between the current observation and a *previous* observation.
+-   **Lead** — the difference in time between the current observation and a *future* observation.
 
 The variable $y_{t-k}$ is called "$y_t$ lag $k$". For example:
 
-- $y_{t-1}$ is "$y_t$ lag 1"
-- $y_{t-2}$ is "$y_t$ lag 2"
+-   $y_{t-1}$ is "$y_t$ lag 1"
+-   $y_{t-2}$ is "$y_t$ lag 2"
 
 The variable $y_{t+k}$ is called "$y_t$ lead $k$". For example:
 
-- $y_{t+1}$ is "$y_t$ lead 1"
-- $y_{t+2}$ is "$y_t$ lead 2"
+-   $y_{t+1}$ is "$y_t$ lead 1"
+-   $y_{t+2}$ is "$y_t$ lead 2"
 
 ## Lag Variables Table
 
-| Time ($t$) | $y_t$ | $y_{t-1}$ | $y_{t-2}$ | $y_{t-3}$ |
-|:----------:|:-----:|:---------:|:---------:|:---------:|
-| 1 | $y_1$ | — | — | — |
-| 2 | $y_2$ | $y_1$ | — | — |
-| 3 | $y_3$ | $y_2$ | $y_1$ | — |
-| 4 | $y_4$ | $y_3$ | $y_2$ | $y_1$ |
-| $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ |
-| $t-1$ | $y_{t-1}$ | $y_{t-2}$ | $y_{t-3}$ | $y_{t-4}$ |
-| $t$ | $y_t$ | $y_{t-1}$ | $y_{t-2}$ | $y_{t-3}$ |
+| Time ($t$) |   $y_t$   | $y_{t-1}$ | $y_{t-2}$ | $y_{t-3}$ |
+|:----------:|:---------:|:---------:|:---------:|:---------:|
+|     1      |   $y_1$   |     —     |     —     |     —     |
+|     2      |   $y_2$   |   $y_1$   |     —     |     —     |
+|     3      |   $y_3$   |   $y_2$   |   $y_1$   |     —     |
+|     4      |   $y_4$   |   $y_3$   |   $y_2$   |   $y_1$   |
+|  $\vdots$  | $\vdots$  | $\vdots$  | $\vdots$  | $\vdots$  |
+|   $t-1$    | $y_{t-1}$ | $y_{t-2}$ | $y_{t-3}$ | $y_{t-4}$ |
+|    $t$     |   $y_t$   | $y_{t-1}$ | $y_{t-2}$ | $y_{t-3}$ |
 
 ## Lead Variables Table
 
-| Time ($t$) | $y_t$ | $y_{t+1}$ | $y_{t+2}$ | $y_{t+3}$ |
-|:----------:|:-----:|:---------:|:---------:|:---------:|
-| 1 | $y_1$ | $y_2$ | $y_3$ | $y_4$ |
-| 2 | $y_2$ | $y_3$ | $y_4$ | $y_5$ |
-| 3 | $y_3$ | $y_4$ | $y_5$ | $y_6$ |
-| 4 | $y_4$ | $y_5$ | $y_6$ | $y_7$ |
-| $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ |
-| $t-1$ | $y_{t-1}$ | $y_t$ | $y_{t+1}$ | $y_{t+2}$ |
-| $t$ | $y_t$ | $y_{t+1}$ | $y_{t+2}$ | $y_{t+3}$ |
+| Time ($t$) |   $y_t$   | $y_{t+1}$ | $y_{t+2}$ | $y_{t+3}$ |
+|:----------:|:---------:|:---------:|:---------:|:---------:|
+|     1      |   $y_1$   |   $y_2$   |   $y_3$   |   $y_4$   |
+|     2      |   $y_2$   |   $y_3$   |   $y_4$   |   $y_5$   |
+|     3      |   $y_3$   |   $y_4$   |   $y_5$   |   $y_6$   |
+|     4      |   $y_4$   |   $y_5$   |   $y_6$   |   $y_7$   |
+|  $\vdots$  | $\vdots$  | $\vdots$  | $\vdots$  | $\vdots$  |
+|   $t-1$    | $y_{t-1}$ |   $y_t$   | $y_{t+1}$ | $y_{t+2}$ |
+|    $t$     |   $y_t$   | $y_{t+1}$ | $y_{t+2}$ | $y_{t+3}$ |
 
----
+------------------------------------------------------------------------
 
 # Stationary
 
-Stationarity is a fundamental concept in time series analysis. A time series is called
-**stationary** if it fluctuates randomly around some fixed value — typically the mean
-of the series.
+Stationarity is a fundamental concept in time series analysis. A time series is called **stationary** if it fluctuates randomly around some fixed value — typically the mean of the series.
 
-Let $y_t$ (for all values of $t$) be a process generated by random inputs such that for
-each value of $t$ with $p$ denoting the number of lags:
+Let $y_t$ (for all values of $t$) be a process generated by random inputs such that for each value of $t$ with $p$ denoting the number of lags:
 
 $$
 y_t = f(y_{t-1},\, y_{t-2},\, \ldots,\, y_{t-p})
@@ -124,37 +108,28 @@ $$
 
 ## Strongly Stationary
 
-**Strong stationarity** requires that the joint distribution of any collection of
-observations is invariant to shifts in time. Formally, for any
-$t_1, t_2, \ldots, t_n \in \mathbb{Z}$ and $n = 1, 2, 3, \ldots$:
+**Strong stationarity** requires that the joint distribution of any collection of observations is invariant to shifts in time. Formally, for any $t_1, t_2, \ldots, t_n \in \mathbb{Z}$ and $n = 1, 2, 3, \ldots$:
 
 $$
 F_{y_{t_1}, y_{t_2}, \ldots, y_{t_n}}(y_1, y_2, \ldots, y_n)
 = F_{y_{t_1+k}, y_{t_2+k}, \ldots, y_{t_n+k}}(y_1, y_2, \ldots, y_n)
 $$
 
-where $F$ is the joint distribution function. For any value of $k$ (positive or
-negative), the distribution is independent of the time period $t$.
+where $F$ is the joint distribution function. For any value of $k$ (positive or negative), the distribution is independent of the time period $t$.
 
-Strong stationarity is not common in economic or financial time series data. Hence,
-the assumption of **weak stationarity** is more practical.
+Strong stationarity is not common in economic or financial time series data. Hence, the assumption of **weak stationarity** is more practical.
 
 ## Weakly Stationary
 
-**Weak stationarity** (also called covariance stationarity) requires only that the
-first two moments are time-invariant. A variable $Y_t$ is weakly stationary if:
+**Weak stationarity** (also called covariance stationarity) requires only that the first two moments are time-invariant. A variable $Y_t$ is weakly stationary if:
 
-1. **Constant mean:**
-$$E(y_t) = E(y_{t-1}) = \cdots = E(y_{t-n}) = \mu$$
+1.  **Constant mean:** $$E(y_t) = E(y_{t-1}) = \cdots = E(y_{t-n}) = \mu$$
 
-2. **Finite, constant variance:**
-$$\text{Var}(y_t) = E\!\left[(y_t - \mu)^2\right] = \sigma^2 < \infty$$
+2.  **Finite, constant variance:** $$\text{Var}(y_t) = E\!\left[(y_t - \mu)^2\right] = \sigma^2 < \infty$$
 
-3. **Autocovariance depends only on lag $k$, not on $t$:**
-$$\gamma_{t,k} = \text{Cov}(y_t,\, y_{t-k}) = E\!\left[(y_t - \mu)(y_{t-k} - \mu)\right]$$
+3.  **Autocovariance depends only on lag** $k$, not on $t$: $$\gamma_{t,k} = \text{Cov}(y_t,\, y_{t-k}) = E\!\left[(y_t - \mu)(y_{t-k} - \mu)\right]$$
 
-For $k = 0$, the autocovariance equals the variance:
-$$\gamma_0 = \text{Var}(y_t) = \sigma^2$$
+For $k = 0$, the autocovariance equals the variance: $$\gamma_0 = \text{Var}(y_t) = \sigma^2$$
 
 The $k$th order **autocorrelation coefficient** is:
 
@@ -165,12 +140,11 @@ $$
 
 since under weak stationarity $\text{Var}(y_t) = \text{Var}(y_{t-k}) = \sigma^2$.
 
----
+------------------------------------------------------------------------
 
 ## Random Process (White Noise)
 
-The simplest example of a stationary series is the **random process** (white noise
-model):
+The simplest example of a stationary series is the **random process** (white noise model):
 
 $$
 y_t = \phi_0 + \varepsilon_t \tag{1}
@@ -200,9 +174,7 @@ $$
 E\!\left[(y_t - \mu)(y_{t+p} - \mu)\right] = E(\varepsilon_t\, \varepsilon_{t+p}) = 0
 $$
 
-The mean is constant, the variance is finite and constant, and there is no
-autocorrelation between $y_t$ and $y_{t+p}$ — all three conditions for weak
-stationarity are satisfied.
+The mean is constant, the variance is finite and constant, and there is no autocorrelation between $y_t$ and $y_{t+p}$ — all three conditions for weak stationarity are satisfied.
 
 ### Forecasting Under Stationary Conditions
 
@@ -254,12 +226,11 @@ ggplot(df_rp, aes(x = t, y = value, colour = Series)) +
   theme_ts()
 ```
 
----
+------------------------------------------------------------------------
 
 ## AR(1) Process
 
-An **autoregressive process of order one** [AR(1)] is stationary when $|\phi_1| < 1$.
-The model is:
+An **autoregressive process of order one** \[AR(1)\] is stationary when $|\phi_1| < 1$. The model is:
 
 $$
 y_t = \phi_0 + \phi_1\, y_{t-1} + \varepsilon_t \tag{3}
@@ -267,9 +238,9 @@ $$
 
 where:
 
-- $\phi_0$ is a constant (related to the mean of $y_t$)
-- $\phi_1$ is the autoregressive parameter ($|\phi_1| < 1$ for stationarity)
-- $\varepsilon_t$ satisfies:
+-   $\phi_0$ is a constant (related to the mean of $y_t$)
+-   $\phi_1$ is the autoregressive parameter ($|\phi_1| < 1$ for stationarity)
+-   $\varepsilon_t$ satisfies:
 
 $$
 E(\varepsilon_t) = 0, \qquad
@@ -297,12 +268,10 @@ $$
 \text{Var}(y_t) = \sigma^2_\varepsilon\!\left(1 + \phi_1^2 + \phi_1^4 + \phi_1^6 + \cdots\right) \tag{5}
 $$
 
-For this series to converge, we require $|\phi_1| < 1$. If $|\phi_1| \geq 1$, the
-variance explodes and stationarity breaks down.
+For this series to converge, we require $|\phi_1| < 1$. If $|\phi_1| \geq 1$, the variance explodes and stationarity breaks down.
 
-::: {.callout-important}
-**Stationarity condition for AR(1):** The process is weakly stationary if and only if
-$|\phi_1| < 1$.
+::: callout-important
+**Stationarity condition for AR(1):** The process is weakly stationary if and only if $|\phi_1| < 1$.
 :::
 
 ### Illustration: Stationary AR(1) Series
@@ -341,15 +310,14 @@ ggplot(df_ar, aes(x = t, y = value, colour = phi)) +
   theme_ts()
 ```
 
----
+------------------------------------------------------------------------
 
 ## Non-Stationary Series and the Random Walk
 
-A series that does **not** satisfy stationarity conditions is called **non-stationary**.
-Non-stationarity arises in two main forms:
+A series that does **not** satisfy stationarity conditions is called **non-stationary**. Non-stationarity arises in two main forms:
 
-1. The mean is not constant over time (e.g., an upward or downward trend).
-2. The variance increases over time.
+1.  The mean is not constant over time (e.g., an upward or downward trend).
+2.  The variance increases over time.
 
 ### Random Walk Process
 
@@ -361,8 +329,7 @@ $$
 
 where $\varepsilon_t \sim \text{i.i.d. } N(0, \sigma^2_\varepsilon)$.
 
-This is an AR(1) process with $\phi_1 = 1$ — the stationarity condition $|\phi_1| < 1$
-is violated.
+This is an AR(1) process with $\phi_1 = 1$ — the stationarity condition $|\phi_1| < 1$ is violated.
 
 When a drift term $\phi_0$ is added, the model becomes a **random walk with drift**:
 
@@ -372,8 +339,7 @@ $$
 
 ### Derivation: $k$-Step-Ahead Forecast
 
-For the random walk with drift (Equation 7), the one-, two-, and three-step-ahead
-forecasts at origin $T$ are:
+For the random walk with drift (Equation 7), the one-, two-, and three-step-ahead forecasts at origin $T$ are:
 
 $$
 y_{T+1} = \phi_0 + y_T + \varepsilon_{T+1} \tag{8}
@@ -399,7 +365,7 @@ $$
 y_{T+3} = 3\phi_0 + y_T + \sum_{k=1}^{3} \varepsilon_{T+k} \tag{12}
 $$
 
-Hence, the general **$k$-step-ahead forecast** is:
+Hence, the general $k$-step-ahead forecast is:
 
 $$
 y_{T+k} = k\phi_0 + y_T + \sum_{j=1}^{k} \varepsilon_{T+j} \tag{13}
@@ -419,10 +385,10 @@ $$
 
 Key implications of non-stationarity:
 
-- The variance grows linearly with forecast horizon $k$.
-- Long-run forecasts are unreliable — confidence intervals widen indefinitely.
-- Sample autocorrelations remain large (close to 1) for many lags.
-- Forecasting under non-stationarity produces values linearly related to $k$.
+-   The variance grows linearly with forecast horizon $k$.
+-   Long-run forecasts are unreliable — confidence intervals widen indefinitely.
+-   Sample autocorrelations remain large (close to 1) for many lags.
+-   Forecasting under non-stationarity produces values linearly related to $k$.
 
 ### Illustration: Random Walk vs Stationary Series
 
@@ -449,27 +415,25 @@ ggplot(df_rw, aes(x = t, y = value)) +
   theme_ts()
 ```
 
----
+------------------------------------------------------------------------
 
 # Checking for Non-Stationarity
 
 Non-stationarity can be detected using three complementary methods:
 
-1. Time series plot
-2. Autocorrelation Function (ACF)
-3. Augmented Dickey-Fuller (ADF) test
+1.  Time series plot
+2.  Autocorrelation Function (ACF)
+3.  Augmented Dickey-Fuller (ADF) test
 
 ## Time Series Plot
 
-A visual inspection of the time series plot is the first step. Characteristics of a
-**non-stationary** series include:
+A visual inspection of the time series plot is the first step. Characteristics of a **non-stationary** series include:
 
-- A clear upward or downward trend over time.
-- Variance that appears to increase or decrease over time.
-- No stable mean level around which the series fluctuates.
+-   A clear upward or downward trend over time.
+-   Variance that appears to increase or decrease over time.
+-   No stable mean level around which the series fluctuates.
 
-A **stationary** series, by contrast, fluctuates around a roughly constant mean with
-roughly constant spread.
+A **stationary** series, by contrast, fluctuates around a roughly constant mean with roughly constant spread.
 
 ```{r}
 #| label: fig-cpi-ts-plot
@@ -483,18 +447,16 @@ autoplot(cpi_ts) +
   theme_ts()
 ```
 
-The CPI series shows a persistent upward trend with no fixed mean, indicating
-non-stationarity.
+The CPI series shows a persistent upward trend with no fixed mean, indicating non-stationarity.
 
----
+------------------------------------------------------------------------
 
 ## Autocorrelation Function (ACF)
 
 The ACF measures the correlation between a time series and its own lagged values.
 
-- **Stationary series:** ACF decays *rapidly* to zero after a few lags.
-- **Non-stationary series:** ACF decays *slowly* (remains significantly positive for
-  many lags), indicating persistent dependency between observations.
+-   **Stationary series:** ACF decays *rapidly* to zero after a few lags.
+-   **Non-stationary series:** ACF decays *slowly* (remains significantly positive for many lags), indicating persistent dependency between observations.
 
 ```{r}
 #| label: fig-acf-comparison
@@ -512,22 +474,19 @@ p_acf_diff <- ggAcf(diff(cpi_ts),   lag.max = 20) +
 grid.arrange(p_acf_raw, p_acf_diff, ncol = 2)
 ```
 
-::: {.callout-note}
-The computation of the ACF and partial ACF plots are discussed in detail in
-**Chapter 5**.
+::: callout-note
+The computation of the ACF and partial ACF plots are discussed in detail in **Chapter 5**.
 :::
 
----
+------------------------------------------------------------------------
 
 ## Augmented Dickey-Fuller (ADF) Test
 
-The **Augmented Dickey-Fuller (ADF) test** is a formal statistical test for a unit
-root. If a unit root is present, the series is non-stationary.
+The **Augmented Dickey-Fuller (ADF) test** is a formal statistical test for a unit root. If a unit root is present, the series is non-stationary.
 
 ### Hypotheses
 
-$$H_0\colon \text{There exists a unit root — the series is non-stationary.}$$
-$$H_1\colon \text{There is no unit root — the series is stationary (or trend-stationary).}$$
+$$H_0\colon \text{There exists a unit root — the series is non-stationary.}$$ $$H_1\colon \text{There is no unit root — the series is stationary (or trend-stationary).}$$
 
 ### Derivation
 
@@ -537,8 +496,7 @@ $$
 y_t = \phi_0 + \phi_1\,y_{t-1} + \varepsilon_t \tag{14}
 $$
 
-If $\phi_1 = 1$, the series is non-stationary (unit root). Subtracting $y_{t-1}$ from
-both sides:
+If $\phi_1 = 1$, the series is non-stationary (unit root). Subtracting $y_{t-1}$ from both sides:
 
 $$
 y_t - y_{t-1} = \phi_0 + (\phi_1 - 1)\,y_{t-1} + \varepsilon_t \tag{15}
@@ -548,8 +506,7 @@ $$
 \Delta y_t = \phi_0 + \delta\,y_{t-1} + \varepsilon_t \tag{16}
 $$
 
-where $\delta = \phi_1 - 1$. The null hypothesis is therefore $\delta = 0$ (unit root
-present) against $\delta < 0$ (no unit root):
+where $\delta = \phi_1 - 1$. The null hypothesis is therefore $\delta = 0$ (unit root present) against $\delta < 0$ (no unit root):
 
 $$H_0: \delta = 0 \qquad H_1: \delta < 0$$
 
@@ -559,14 +516,11 @@ $$
 \hat{\tau} = \frac{\hat{\delta}}{SE(\hat{\delta})}
 $$
 
-**Decision rule:**
-If $p\text{-value} > 0.05$ — fail to reject $H_0$ — the series is **non-stationary**.
-If $p\text{-value} \leq 0.05$ — reject $H_0$ — the series is **stationary**.
+**Decision rule:** If $p\text{-value} > 0.05$ — fail to reject $H_0$ — the series is **non-stationary**. If $p\text{-value} \leq 0.05$ — reject $H_0$ — the series is **stationary**.
 
 ### Augmented Version
 
-When additional lag terms are needed to ensure white-noise residuals, the test uses
-the augmented model:
+When additional lag terms are needed to ensure white-noise residuals, the test uses the augmented model:
 
 $$
 \Delta y_t = \phi_0 + \delta\,y_{t-1} + \sum_{j=1}^{J} \delta_j\,\Delta y_{t-j} + \varepsilon_t \tag{17}
@@ -578,8 +532,7 @@ $$
 \Delta y_t = \phi_0 + \beta t + \delta\,y_{t-1} + \sum_{j=1}^{J} \delta_j\,\Delta y_{t-j} + \varepsilon_t \tag{18}
 $$
 
-where $J$ is chosen to be small enough to preserve degrees of freedom but large enough
-that $\varepsilon_t$ is white noise.
+where $J$ is chosen to be small enough to preserve degrees of freedom but large enough that $\varepsilon_t$ is white noise.
 
 ### ADF Test: CPI Malaysia
 
@@ -591,8 +544,7 @@ library(tseries)
 adf.test(cpi_ts)
 ```
 
-Since the $p$-value is greater than 0.05, we **fail to reject** $H_0$. The Malaysia CPI
-series has a unit root and is **non-stationary**.
+Since the $p$-value is greater than 0.05, we **fail to reject** $H_0$. The Malaysia CPI series has a unit root and is **non-stationary**.
 
 ### ADF Test After First Differencing
 
@@ -603,16 +555,13 @@ series has a unit root and is **non-stationary**.
 adf.test(diff(cpi_ts))
 ```
 
-After first differencing, the $p$-value is less than 0.05 — we **reject** $H_0$ and
-conclude that the first-differenced CPI series is **stationary**.
+After first differencing, the $p$-value is less than 0.05 — we **reject** $H_0$ and conclude that the first-differenced CPI series is **stationary**.
 
----
+------------------------------------------------------------------------
 
 # Differencing
 
-**Differencing** is the most common technique to transform a non-stationary series
-into a stationary one. It involves computing the differences between consecutive
-observations.
+**Differencing** is the most common technique to transform a non-stationary series into a stationary one. It involves computing the differences between consecutive observations.
 
 ## Order of Differencing
 
@@ -632,7 +581,7 @@ $$
 = y_t - 2y_{t-1} + y_{t-2} \tag{20}
 $$
 
-::: {.callout-warning}
+::: callout-warning
 **Important:** Second-order differencing is **not** the same as second-lag differencing.
 
 $$\Delta^2 y_t = y_t - 2y_{t-1} + y_{t-2} \neq y_t - y_{t-2}$$
@@ -651,34 +600,31 @@ $$\Delta_{4} y_t = y_t - y_{t-4}$$
 ### Rules for the Order of Differencing
 
 | Trend type | Differencing required |
-|:-----------|-----------------------:|
+|:---|---:|
 | Linear trend: $T_t = \alpha + \beta t$ | First order |
 | Quadratic trend: $T_t = \alpha + \beta_1 t + \beta_2 t^2$ | Second order |
 
-::: {.callout-tip}
-**Exercise:** Show that first-order differencing of $T_t = \alpha + \beta t$ yields a
-constant (stationary) series. Show that second-order differencing of
-$T_t = \alpha + \beta_1 t + \beta_2 t^2$ yields a constant.
+::: callout-tip
+**Exercise:** Show that first-order differencing of $T_t = \alpha + \beta t$ yields a constant (stationary) series. Show that second-order differencing of $T_t = \alpha + \beta_1 t + \beta_2 t^2$ yields a constant.
 :::
 
 ## Differencing Example
 
-The table below illustrates first- and second-order differencing using a hypothetical
-CPI series.
+The table below illustrates first- and second-order differencing using a hypothetical CPI series.
 
 | Year | $y_t$ | $y_{t-1}$ | $\Delta y_t$ | $\Delta y_{t-1}$ | $\Delta^2 y_t$ |
 |-----:|------:|----------:|-------------:|-----------------:|---------------:|
-| 2010 | 100.0 | — | — | — | — |
-| 2011 | 103.2 | 100.0 | 3.2 | — | — |
-| 2012 | 104.9 | 103.2 | 1.7 | 3.2 | −1.5 |
-| 2013 | 107.1 | 104.9 | 2.2 | 1.7 | 0.5 |
-| 2014 | 110.5 | 107.1 | 3.4 | 2.2 | 1.2 |
-| 2015 | 112.8 | 110.5 | 2.3 | 3.4 | −1.0 |
-| 2016 | 115.1 | 112.8 | 2.4 | 2.3 | 0.0 |
-| 2017 | 119.6 | 115.1 | 4.5 | 2.4 | 2.1 |
-| 2018 | 120.7 | 119.6 | 1.1 | 4.5 | −3.4 |
-| 2019 | 121.5 | 120.7 | 0.8 | 1.1 | −0.3 |
-| 2020 | 120.1 | 121.5 | −1.4 | 0.8 | −2.2 |
+| 2010 | 100.0 |         — |            — |                — |              — |
+| 2011 | 103.2 |     100.0 |          3.2 |                — |              — |
+| 2012 | 104.9 |     103.2 |          1.7 |              3.2 |           −1.5 |
+| 2013 | 107.1 |     104.9 |          2.2 |              1.7 |            0.5 |
+| 2014 | 110.5 |     107.1 |          3.4 |              2.2 |            1.2 |
+| 2015 | 112.8 |     110.5 |          2.3 |              3.4 |           −1.0 |
+| 2016 | 115.1 |     112.8 |          2.4 |              2.3 |            0.0 |
+| 2017 | 119.6 |     115.1 |          4.5 |              2.4 |            2.1 |
+| 2018 | 120.7 |     119.6 |          1.1 |              4.5 |           −3.4 |
+| 2019 | 121.5 |     120.7 |          0.8 |              1.1 |           −0.3 |
+| 2020 | 120.1 |     121.5 |         −1.4 |              0.8 |           −2.2 |
 
 ## Differencing in R: CPI Malaysia
 
@@ -702,12 +648,11 @@ p_diff2  <- autoplot(diff(cpi_ts, differences = 2)) +
 grid.arrange(p_level, p_diff1, p_diff2, nrow = 3)
 ```
 
----
+------------------------------------------------------------------------
 
 # Backward Shift Operator
 
-The **backward shift operator** $B$ provides compact algebraic notation for lag
-operations in time series models.
+The **backward shift operator** $B$ provides compact algebraic notation for lag operations in time series models.
 
 ## Definition
 
@@ -749,66 +694,51 @@ $$
 = (1 - B)^2\,y_t \tag{22}
 $$
 
-::: {.callout-tip}
+::: callout-tip
 **Exercise:** Verify that $(1-B)^2 y_t \neq (1 - B^2) y_t$ by expanding both sides.
 :::
 
 ## Summary of Backward Shift Notation
 
-| Operation | Expression |
-|:----------|:----------:|
-| Lag 1 | $B y_t = y_{t-1}$ |
-| Lag $k$ | $B^k y_t = y_{t-k}$ |
-| First difference | $(1-B)y_t = \Delta y_t$ |
-| Second difference | $(1-B)^2 y_t = \Delta^2 y_t$ |
-| Seasonal difference (monthly) | $(1-B^{12})y_t = y_t - y_{t-12}$ |
-| Seasonal difference (quarterly) | $(1-B^4)y_t = y_t - y_{t-4}$ |
+| Operation                       |            Expression            |
+|:--------------------------------|:--------------------------------:|
+| Lag 1                           |        $B y_t = y_{t-1}$         |
+| Lag $k$                         |       $B^k y_t = y_{t-k}$        |
+| First difference                |     $(1-B)y_t = \Delta y_t$      |
+| Second difference               |   $(1-B)^2 y_t = \Delta^2 y_t$   |
+| Seasonal difference (monthly)   | $(1-B^{12})y_t = y_t - y_{t-12}$ |
+| Seasonal difference (quarterly) |   $(1-B^4)y_t = y_t - y_{t-4}$   |
 
----
+------------------------------------------------------------------------
 
 # Distinguishing Non-Stationary from Stationary Series
 
-In practice, it is essential to correctly identify whether a time series is stationary
-or non-stationary **before** proceeding with model identification and estimation. Using
-an incorrect model on a non-stationary series can lead to **spurious regression** —
-falsely indicating a relationship between two unrelated trending series.
+In practice, it is essential to correctly identify whether a time series is stationary or non-stationary **before** proceeding with model identification and estimation. Using an incorrect model on a non-stationary series can lead to **spurious regression** — falsely indicating a relationship between two unrelated trending series.
 
 The table below summarises the key distinguishing characteristics.
 
 | Feature | Stationary | Non-Stationary |
-|:--------|:----------:|:--------------:|
+|:---|:--:|:--:|
 | **Mean** | Constant over time | Changes over time (trend or drift) |
 | **Variance** | Finite and constant | May increase over time |
 | **Time series plot** | Fluctuates around a fixed level | Trends upward/downward or wanders |
 | **ACF pattern** | Decays rapidly to zero | Decays slowly; large over many lags |
-| **ADF test $p$-value** | $\leq 0.05$ (reject $H_0$) | $> 0.05$ (fail to reject $H_0$) |
+| **ADF test** $p$-value | $\leq 0.05$ (reject $H_0$) | $> 0.05$ (fail to reject $H_0$) |
 | **Example process** | White noise; AR(1) with $|\phi_1|<1$ | Random walk; AR(1) with $\phi_1 = 1$ |
 
 ## Practical Decision Procedure
 
-To determine whether a series requires differencing before modelling, follow these
-steps:
+To determine whether a series requires differencing before modelling, follow these steps:
 
-**Step 1 — Plot the series.**
-If the series shows a clear trend or wandering behaviour with no stable mean, it is
-likely non-stationary.
+**Step 1 — Plot the series.** If the series shows a clear trend or wandering behaviour with no stable mean, it is likely non-stationary.
 
-**Step 2 — Inspect the ACF.**
-Compute the sample ACF up to at least 20 lags. If the autocorrelations decay very
-slowly (remain above the significance bands for many lags), the series is
-non-stationary.
+**Step 2 — Inspect the ACF.** Compute the sample ACF up to at least 20 lags. If the autocorrelations decay very slowly (remain above the significance bands for many lags), the series is non-stationary.
 
-**Step 3 — Conduct the ADF test.**
-A $p$-value $> 0.05$ confirms non-stationarity (fail to reject $H_0$).
+**Step 3 — Conduct the ADF test.** A $p$-value $> 0.05$ confirms non-stationarity (fail to reject $H_0$).
 
-**Step 4 — Apply differencing.**
-Take the first difference and repeat Steps 1–3 on $\Delta y_t$. Continue differencing
-until all three diagnostics indicate stationarity. For most economic time series, one
-round of first differencing is sufficient.
+**Step 4 — Apply differencing.** Take the first difference and repeat Steps 1–3 on $\Delta y_t$. Continue differencing until all three diagnostics indicate stationarity. For most economic time series, one round of first differencing is sufficient.
 
-**Step 5 — Check variance stability.**
-If the variance increases over time, apply a log transformation ($\ln y_t$) *before*
-differencing to stabilise the variance.
+**Step 5 — Check variance stability.** If the variance increases over time, apply a log transformation ($\ln y_t$) *before* differencing to stabilise the variance.
 
 ### Illustration: Full Diagnostic Workflow on CPI Malaysia
 
@@ -839,43 +769,46 @@ grid.arrange(p1, p2, p3, p4, nrow = 2)
 
 The four-panel diagnostic confirms:
 
-- **Level series (top row):** Trending upward with slowly decaying ACF — **non-stationary**.
-- **First-differenced series (bottom row):** Fluctuates around zero with rapidly decaying
-  ACF — **stationary**.
+-   **Level series (top row):** Trending upward with slowly decaying ACF — **non-stationary**.
+-   **First-differenced series (bottom row):** Fluctuates around zero with rapidly decaying ACF — **stationary**.
 
-::: {.callout-note}
-Once stationarity is confirmed, the series is ready for model identification using the
-ACF and Partial ACF (PACF) within the Box-Jenkins framework, covered in **Chapter 5**.
+::: callout-note
+Once stationarity is confirmed, the series is ready for model identification using the ACF and Partial ACF (PACF) within the Box-Jenkins framework, covered in **Chapter 5**.
 :::
+
+------------------------------------------------------------------------
+
+# Summary: Comparison of Stochastic Processes
+
+The table below provides a side-by-side comparison of the three stochastic processes
+covered in this chapter.
+
+| Feature | Random Process | AR(1) | Random Walk |
+|:--------|:--------------:|:-----:|:-----------:|
+| **Model Form** | $Y_t = \phi_0 + \varepsilon_t$ | $Y_t = \phi_0 + \phi_1 Y_{t-1} + \varepsilon_t$ | $Y_t = Y_{t-1} + \varepsilon_t$ |
+| **Error Term** | $\varepsilon_t \sim N(0, \sigma_{\varepsilon_t})$ | $\varepsilon_t \sim N(0, \sigma_{\varepsilon_t})$ | $\varepsilon_t \sim N(0, \sigma_{\varepsilon_t})$ |
+| **Mean** | $E(Y_t) = \phi_0$ | $E(Y_t) = \dfrac{\phi_0}{1 - \phi_1}$ | $k\phi_0 + Y_t$ |
+| **Variance** | Constant $(\sigma^2)$ | Constant if $|\phi_1| < 1$, $\;\dfrac{\sigma^2}{1 - \phi_1^2}$ | Not constant, $\;k\sigma^2_{\varepsilon_t}$ |
+| **Stationary** | Stationary | Stationary if $|\phi_1| < 1$ | Not stationary |
 
 ---
 
 # Conclusion
 
-In this chapter, we introduced the concept of **stochastic time series** and the
-fundamental property of **stationarity**. The key takeaways are:
+In this chapter, we introduced the concept of **stochastic time series** and the fundamental property of **stationarity**. The key takeaways are:
 
-- A **stationary series** has a constant mean, constant variance, and autocovariance
-  that depends only on the lag $k$ — not on absolute time $t$.
-- The **random process** (white noise) is the simplest stationary model; the **AR(1)**
-  process is stationary when $|\phi_1| < 1$.
-- A **non-stationary series** (e.g., random walk) has a mean and/or variance that
-  changes over time, making inference and forecasting unreliable without transformation.
-- Non-stationarity is detected via the **time series plot**, **ACF**, and the
-  **Augmented Dickey-Fuller test**.
-- **Differencing** is the standard remedy: first-order differencing removes a linear
-  trend; second-order differencing removes a quadratic trend.
-- The **backward shift operator** $B$ provides a concise algebraic language for
-  expressing lag structures and differencing operations.
+-   A **stationary series** has a constant mean, constant variance, and autocovariance that depends only on the lag $k$ — not on absolute time $t$.
+-   The **random process** (white noise) is the simplest stationary model; the **AR(1)** process is stationary when $|\phi_1| < 1$.
+-   A **non-stationary series** (e.g., random walk) has a mean and/or variance that changes over time, making inference and forecasting unreliable without transformation.
+-   Non-stationarity is detected via the **time series plot**, **ACF**, and the **Augmented Dickey-Fuller test**.
+-   **Differencing** is the standard remedy: first-order differencing removes a linear trend; second-order differencing removes a quadratic trend.
+-   The **backward shift operator** $B$ provides a concise algebraic language for expressing lag structures and differencing operations.
 
-These concepts form the foundation for **ARIMA modelling** and the Box-Jenkins
-methodology presented in Chapter 5.
+These concepts form the foundation for **ARIMA modelling** and the Box-Jenkins methodology presented in Chapter 5.
 
----
+------------------------------------------------------------------------
 
 # References
 
-- Mohd Alias Lazim (2013). *Introductory Business Forecasting: A Practical Approach*
-  (3rd ed.). UPENA, UiTM. ISBN: 978-983-3643.
-- Department of Statistics Malaysia. Consumer Price Index data retrieved from
-  <https://open.dosm.gov.my/data-catalogue>.
+-   Mohd Alias Lazim (2013). *Introductory Business Forecasting: A Practical Approach* (3rd ed.). UPENA, UiTM. ISBN: 978-983-3643.
+-   Department of Statistics Malaysia. Consumer Price Index data retrieved from <https://open.dosm.gov.my/data-catalogue>.

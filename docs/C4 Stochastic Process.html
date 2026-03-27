@@ -271,8 +271,9 @@ window.Quarto = {
   <li><a href="#illustration-full-diagnostic-workflow-on-cpi-malaysia" id="toc-illustration-full-diagnostic-workflow-on-cpi-malaysia" class="nav-link" data-scroll-target="#illustration-full-diagnostic-workflow-on-cpi-malaysia"><span class="header-section-number">7.1.1</span> Illustration: Full Diagnostic Workflow on CPI Malaysia</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">8</span> Conclusion</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">9</span> References</a></li>
+  <li><a href="#summary-comparison-of-stochastic-processes" id="toc-summary-comparison-of-stochastic-processes" class="nav-link" data-scroll-target="#summary-comparison-of-stochastic-processes"><span class="header-section-number">8</span> Summary: Comparison of Stochastic Processes</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">9</span> Conclusion</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">10</span> References</a></li>
   </ul>
 </nav>
     </div>
@@ -493,7 +494,7 @@ F_{y_{t_1}, y_{t_2}, \ldots, y_{t_n}}(y_1, y_2, \ldots, y_n)
 <ol type="1">
 <li><p><strong>Constant mean:</strong> <span class="math display">\[E(y_t) = E(y_{t-1}) = \cdots = E(y_{t-n}) = \mu\]</span></p></li>
 <li><p><strong>Finite, constant variance:</strong> <span class="math display">\[\text{Var}(y_t) = E\!\left[(y_t - \mu)^2\right] = \sigma^2 &lt; \infty\]</span></p></li>
-<li><p><strong>Autocovariance depends only on lag <span class="math inline">\(k\)</span>, not on <span class="math inline">\(t\)</span>:</strong> <span class="math display">\[\gamma_{t,k} = \text{Cov}(y_t,\, y_{t-k}) = E\!\left[(y_t - \mu)(y_{t-k} - \mu)\right]\]</span></p></li>
+<li><p><strong>Autocovariance depends only on lag</strong> <span class="math inline">\(k\)</span>, not on <span class="math inline">\(t\)</span>: <span class="math display">\[\gamma_{t,k} = \text{Cov}(y_t,\, y_{t-k}) = E\!\left[(y_t - \mu)(y_{t-k} - \mu)\right]\]</span></p></li>
 </ol>
 <p>For <span class="math inline">\(k = 0\)</span>, the autocovariance equals the variance: <span class="math display">\[\gamma_0 = \text{Var}(y_t) = \sigma^2\]</span></p>
 <p>The <span class="math inline">\(k\)</span>th order <strong>autocorrelation coefficient</strong> is:</p>
@@ -715,7 +716,7 @@ y_{T+2} = 2\phi_0 + y_T + \sum_{k=1}^{2} \varepsilon_{T+k} \tag{11}
 <p><span class="math display">\[
 y_{T+3} = 3\phi_0 + y_T + \sum_{k=1}^{3} \varepsilon_{T+k} \tag{12}
 \]</span></p>
-<p>Hence, the general <strong><span class="math inline">\(k\)</span>-step-ahead forecast</strong> is:</p>
+<p>Hence, the general <span class="math inline">\(k\)</span>-step-ahead forecast is:</p>
 <p><span class="math display">\[
 y_{T+k} = k\phi_0 + y_T + \sum_{j=1}^{k} \varepsilon_{T+j} \tag{13}
 \]</span></p>
@@ -989,8 +990,8 @@ Warning
 <h3 data-number="5.1.4" class="anchored" data-anchor-id="rules-for-the-order-of-differencing"><span class="header-section-number">5.1.4</span> Rules for the Order of Differencing</h3>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 33%">
-<col style="width: 66%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1266,9 +1267,9 @@ Tip
 <p>The table below summarises the key distinguishing characteristics.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 24%">
-<col style="width: 32%">
-<col style="width: 43%">
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1299,7 +1300,7 @@ Tip
 <td style="text-align: center;">Decays slowly; large over many lags</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>ADF test <span class="math inline">\(p\)</span>-value</strong></td>
+<td style="text-align: left;"><strong>ADF test</strong> <span class="math inline">\(p\)</span>-value</td>
 <td style="text-align: center;"><span class="math inline">\(\leq 0.05\)</span> (reject <span class="math inline">\(H_0\)</span>)</td>
 <td style="text-align: center;"><span class="math inline">\(&gt; 0.05\)</span> (fail to reject <span class="math inline">\(H_0\)</span>)</td>
 </tr>
@@ -1377,8 +1378,61 @@ Note
 </section>
 </section>
 </section>
-<section id="conclusion" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Conclusion</h1>
+<section id="summary-comparison-of-stochastic-processes" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Summary: Comparison of Stochastic Processes</h1>
+<p>The table below provides a side-by-side comparison of the three stochastic processes covered in this chapter.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 35%">
+<col style="width: 15%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Feature</th>
+<th style="text-align: center;">Random Process</th>
+<th style="text-align: center;">AR(1)</th>
+<th style="text-align: center;">Random Walk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Model Form</strong></td>
+<td style="text-align: center;"><span class="math inline">\(Y_t = \phi_0 + \varepsilon_t\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(Y_t = \phi_0 + \phi_1 Y_{t-1} + \varepsilon_t\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(Y_t = Y_{t-1} + \varepsilon_t\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Error Term</strong></td>
+<td style="text-align: center;"><span class="math inline">\(\varepsilon_t \sim N(0, \sigma_{\varepsilon_t})\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\varepsilon_t \sim N(0, \sigma_{\varepsilon_t})\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\varepsilon_t \sim N(0, \sigma_{\varepsilon_t})\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Mean</strong></td>
+<td style="text-align: center;"><span class="math inline">\(E(Y_t) = \phi_0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(E(Y_t) = \dfrac{\phi_0}{1 - \phi_1}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(k\phi_0 + Y_t\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Variance</strong></td>
+<td style="text-align: center;">Constant <span class="math inline">\((\sigma^2)\)</span></td>
+<td style="text-align: center;">Constant if <span class="math inline">\(|\phi_1| &lt; 1\)</span>, <span class="math inline">\(\;\dfrac{\sigma^2}{1 - \phi_1^2}\)</span></td>
+<td style="text-align: center;">Not constant, <span class="math inline">\(\;k\sigma^2_{\varepsilon_t}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Stationary</strong></td>
+<td style="text-align: center;">Stationary</td>
+<td style="text-align: center;">Stationary if <span class="math inline">\(|\phi_1| &lt; 1\)</span></td>
+<td style="text-align: center;">Not stationary</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="conclusion" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Conclusion</h1>
 <p>In this chapter, we introduced the concept of <strong>stochastic time series</strong> and the fundamental property of <strong>stationarity</strong>. The key takeaways are:</p>
 <ul>
 <li>A <strong>stationary series</strong> has a constant mean, constant variance, and autocovariance that depends only on the lag <span class="math inline">\(k\)</span> — not on absolute time <span class="math inline">\(t\)</span>.</li>
@@ -1391,8 +1445,8 @@ Note
 <p>These concepts form the foundation for <strong>ARIMA modelling</strong> and the Box-Jenkins methodology presented in Chapter 5.</p>
 <hr>
 </section>
-<section id="references" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> References</h1>
+<section id="references" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> References</h1>
 <ul>
 <li>Mohd Alias Lazim (2013). <em>Introductory Business Forecasting: A Practical Approach</em> (3rd ed.). UPENA, UiTM. ISBN: 978-983-3643.</li>
 <li>Department of Statistics Malaysia. Consumer Price Index data retrieved from <a href="https://open.dosm.gov.my/data-catalogue" class="uri">https://open.dosm.gov.my/data-catalogue</a>.</li>
