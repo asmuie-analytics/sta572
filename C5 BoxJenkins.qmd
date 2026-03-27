@@ -487,11 +487,11 @@ with the recursion $\phi_j^{(k)} = \phi_j^{(k-1)} - \alpha_k\,\phi_{k-j}^{(k-1)}
 
 ## ACF and PACF Patterns — Model Identification Guide
 
-| Model | ACF pattern | PACF pattern |
-|:------|:-----------:|:------------:|
-| **AR($p$)** | Decays exponentially (tails off) | Cuts off after lag $p$ |
-| **MA($q$)** | Cuts off after lag $q$ | Decays exponentially (tails off) |
-| **ARMA($p$,$q$)** | Tails off | Tails off |
+| Model | ACF | PACF | Example |
+|:------|:----|:-----|:--------|
+| **AR($p$)** | The coefficients show a decay pattern | There are $k$ significant spike(s) | If the PACF shows that there is one significant spike observed at lag 1 and ACF exhibits a decay pattern, the suggested model is AR(1). |
+| **MA($q$)** | There are $k$ significant spike(s) | The coefficients show a decay pattern | If the ACF shows that there is one significant spike observed at lag 1 and PACF exhibits a decay pattern, the suggested model is MA(1). |
+| **ARMA($p$,$q$)** | There are $k$ significant spike(s) | There are $k$ significant spike(s) | If the ACF shows that there is one significant spike observed at lag 1 and PACF shows that there is one significant spike observed at lag 1, the suggested model is ARMA(1,1). |
 
 ```{r}
 #| label: fig-acf-pacf-patterns

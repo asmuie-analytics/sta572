@@ -828,32 +828,37 @@ r_2 = \frac{\theta_2}{1 + \theta_1^2 + \theta_2^2}\]</span></p>
 <h2 data-number="5.2" class="anchored" data-anchor-id="acf-and-pacf-patterns-model-identification-guide"><span class="header-section-number">5.2</span> ACF and PACF Patterns — Model Identification Guide</h2>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 20%">
-<col style="width: 38%">
-<col style="width: 41%">
+<col style="width: 25%">
+<col style="width: 18%">
+<col style="width: 22%">
+<col style="width: 33%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Model</th>
-<th style="text-align: center;">ACF pattern</th>
-<th style="text-align: center;">PACF pattern</th>
+<th style="text-align: left;">ACF</th>
+<th style="text-align: left;">PACF</th>
+<th style="text-align: left;">Example</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><strong>AR(<span class="math inline">\(p\)</span>)</strong></td>
-<td style="text-align: center;">Decays exponentially (tails off)</td>
-<td style="text-align: center;">Cuts off after lag <span class="math inline">\(p\)</span></td>
+<td style="text-align: left;">The coefficients show a decay pattern</td>
+<td style="text-align: left;">There are <span class="math inline">\(k\)</span> significant spike(s)</td>
+<td style="text-align: left;">If the PACF shows that there is one significant spike observed at lag 1 and ACF exhibits a decay pattern, the suggested model is AR(1).</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>MA(<span class="math inline">\(q\)</span>)</strong></td>
-<td style="text-align: center;">Cuts off after lag <span class="math inline">\(q\)</span></td>
-<td style="text-align: center;">Decays exponentially (tails off)</td>
+<td style="text-align: left;">There are <span class="math inline">\(k\)</span> significant spike(s)</td>
+<td style="text-align: left;">The coefficients show a decay pattern</td>
+<td style="text-align: left;">If the ACF shows that there is one significant spike observed at lag 1 and PACF exhibits a decay pattern, the suggested model is MA(1).</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>ARMA(<span class="math inline">\(p\)</span>,<span class="math inline">\(q\)</span>)</strong></td>
-<td style="text-align: center;">Tails off</td>
-<td style="text-align: center;">Tails off</td>
+<td style="text-align: left;">There are <span class="math inline">\(k\)</span> significant spike(s)</td>
+<td style="text-align: left;">There are <span class="math inline">\(k\)</span> significant spike(s)</td>
+<td style="text-align: left;">If the ACF shows that there is one significant spike observed at lag 1 and PACF shows that there is one significant spike observed at lag 1, the suggested model is ARMA(1,1).</td>
 </tr>
 </tbody>
 </table>
