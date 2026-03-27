@@ -241,9 +241,97 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="software" class="level2">
 <h2 class="anchored" data-anchor-id="software">Software</h2>
-<p>All analysis in this course is performed in <strong>R</strong>. The following packages are used:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"forecast"</span>, <span class="st">"TSA"</span>, <span class="st">"ggplot2"</span>, <span class="st">"ggpubr"</span>,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"lubridate"</span>, <span class="st">"gridExtra"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>All analysis in this course is performed in <strong>R</strong>. Install all required packages with:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Core time series</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"forecast"</span>, <span class="st">"fpp2"</span>, <span class="st">"TSA"</span>, <span class="st">"tseries"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Tidyverse-style time series (Chapter 5)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"fable"</span>, <span class="st">"feasts"</span>, <span class="st">"tsibble"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Data manipulation</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"dplyr"</span>, <span class="st">"lubridate"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Visualisation</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ggplot2"</span>, <span class="st">"ggpubr"</span>, <span class="st">"gridExtra"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Regression diagnostics (Chapter 3)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"lmtest"</span>, <span class="st">"car"</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Table formatting (Chapter 1)</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"kableExtra"</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Live market data (Chapter 5)</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"quantmod"</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Package</th>
+<th style="text-align: center;">Used in</th>
+<th style="text-align: left;">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>forecast</code>, <code>fpp2</code></td>
+<td style="text-align: center;">C1–C5</td>
+<td style="text-align: left;">Forecasting models and plots</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>TSA</code></td>
+<td style="text-align: center;">C1</td>
+<td style="text-align: left;">Intervention analysis</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>tseries</code></td>
+<td style="text-align: center;">C4, C5</td>
+<td style="text-align: left;">ADF unit-root test</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>fable</code>, <code>feasts</code>, <code>tsibble</code></td>
+<td style="text-align: center;">C5</td>
+<td style="text-align: left;">Tidyverse time series modelling</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>dplyr</code></td>
+<td style="text-align: center;">C5</td>
+<td style="text-align: left;">Data wrangling</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>lubridate</code></td>
+<td style="text-align: center;">C1</td>
+<td style="text-align: left;">Date/time handling</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>ggplot2</code>, <code>ggpubr</code>, <code>gridExtra</code></td>
+<td style="text-align: center;">C1–C5</td>
+<td style="text-align: left;">Graphics</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>lmtest</code>, <code>car</code></td>
+<td style="text-align: center;">C3</td>
+<td style="text-align: left;">Regression diagnostics</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>kableExtra</code></td>
+<td style="text-align: center;">C1</td>
+<td style="text-align: left;">Formatted tables</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>quantmod</code></td>
+<td style="text-align: center;">C5</td>
+<td style="text-align: left;">Download S&amp;P 500 data from Yahoo Finance</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Source code</strong> for all chapters is available on GitHub: <a href="https://github.com/asmuie-analytics">github.com/asmuie-analytics</a></p>
+</div>
+</div>
 
 
 </section>

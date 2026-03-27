@@ -39,9 +39,41 @@ All datasets used in this course are available at:
 
 ## Software
 
-All analysis in this course is performed in **R**. The following packages are used:
+All analysis in this course is performed in **R**. Install all required packages with:
 
 ```r
-install.packages(c("forecast", "TSA", "ggplot2", "ggpubr",
-                   "lubridate", "gridExtra"))
+install.packages(c(
+  # Core time series
+  "forecast", "fpp2", "TSA", "tseries",
+  # Tidyverse-style time series (Chapter 5)
+  "fable", "feasts", "tsibble",
+  # Data manipulation
+  "dplyr", "lubridate",
+  # Visualisation
+  "ggplot2", "ggpubr", "gridExtra",
+  # Regression diagnostics (Chapter 3)
+  "lmtest", "car",
+  # Table formatting (Chapter 1)
+  "kableExtra",
+  # Live market data (Chapter 5)
+  "quantmod"
+))
 ```
+
+| Package | Used in | Purpose |
+|:--------|:-------:|:--------|
+| `forecast`, `fpp2` | C1–C5 | Forecasting models and plots |
+| `TSA` | C1 | Intervention analysis |
+| `tseries` | C4, C5 | ADF unit-root test |
+| `fable`, `feasts`, `tsibble` | C5 | Tidyverse time series modelling |
+| `dplyr` | C5 | Data wrangling |
+| `lubridate` | C1 | Date/time handling |
+| `ggplot2`, `ggpubr`, `gridExtra` | C1–C5 | Graphics |
+| `lmtest`, `car` | C3 | Regression diagnostics |
+| `kableExtra` | C1 | Formatted tables |
+| `quantmod` | C5 | Download S&P 500 data from Yahoo Finance |
+
+::: {.callout-note}
+**Source code** for all chapters is available on GitHub:
+[github.com/asmuie-analytics](https://github.com/asmuie-analytics)
+:::
