@@ -231,7 +231,7 @@ ggplot(data = electric, aes(x = t, y = index)) +
   labs(title = "Output of Electricity Index with Linear Trend",
        x = "Time (months, Jan 2015 = 1)",
        y = "Output of Electricity (Index)") +
-  theme_ts()
+  theme_minimal()
 ```
 
 ```{r}
@@ -307,7 +307,7 @@ electric$date <- seq(from = as.Date("2015-01-01"),
 ggplot(data = electric, aes(x = date, y = index)) +
   geom_line(colour = "steelblue", linewidth = 0.8) +
   scale_x_date(date_labels = "%b %Y", date_breaks = "6 months") +
-  labs(title = "Monthly Electricity Output Index (Jan 2015 – Dec 2023)",
+  labs(title = "Monthly Electricity Output Index (Jan 2015 to Dec 2023)",
        x = "Year", y = "Electric Consumption (Index)") +
   theme_minimal(base_size = 11) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
