@@ -2,8 +2,11 @@
 title: "Chapter 2: Univariate Modelling Techniques"
 ---
 
+Set up the R programming environment for Chapter 2.
+
 ```{r}
 #| label: setup
+#| tbl-cap: "R programming environment setup"
 
 library(fpp2)
 library(forecast)

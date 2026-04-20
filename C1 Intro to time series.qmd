@@ -2,9 +2,11 @@
 title: "Chapter 1: Introduction to Time Series"
 ---
 
+Set up the R programming environment for Chapter 1.
+
 ```{r}
 #| label: setup
-#| tbl-cap: "Library and theme setup"
+#| tbl-cap: "R programming environment setup"
 library(forecast)
 library(ggplot2)
 library(ggpubr)

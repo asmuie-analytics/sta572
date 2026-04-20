@@ -2,9 +2,11 @@
 title: "Chapter 4: Stochastic Time Series"
 ---
 
+Set up the R programming environment for Chapter 4.
+
 ```{r}
 #| label: setup
-#| include: false
+#| tbl-cap: "R programming environment setup"
 
 library(fpp2)
 library(forecast)
@@ -780,18 +782,17 @@ Once stationarity is confirmed, the series is ready for model identification usi
 
 # Summary: Comparison of Stochastic Processes
 
-The table below provides a side-by-side comparison of the three stochastic processes
-covered in this chapter.
+The table below provides a side-by-side comparison of the three stochastic processes covered in this chapter.
 
 | Feature | Random Process | AR(1) | Random Walk |
-|:--------|:--------------:|:-----:|:-----------:|
+|:---|:--:|:--:|:--:|
 | **Model Form** | $Y_t = \phi_0 + \varepsilon_t$ | $Y_t = \phi_0 + \phi_1 Y_{t-1} + \varepsilon_t$ | $Y_t = Y_{t-1} + \varepsilon_t$ |
 | **Error Term** | $\varepsilon_t \sim N(0, \sigma_{\varepsilon_t})$ | $\varepsilon_t \sim N(0, \sigma_{\varepsilon_t})$ | $\varepsilon_t \sim N(0, \sigma_{\varepsilon_t})$ |
 | **Mean** | $E(Y_t) = \phi_0$ | $E(Y_t) = \dfrac{\phi_0}{1 - \phi_1}$ | $k\phi_0 + Y_t$ |
 | **Variance** | Constant $(\sigma^2)$ | Constant if $|\phi_1| < 1$, $\;\dfrac{\sigma^2}{1 - \phi_1^2}$ | Not constant, $\;k\sigma^2_{\varepsilon_t}$ |
 | **Stationary** | Stationary | Stationary if $|\phi_1| < 1$ | Not stationary |
 
----
+------------------------------------------------------------------------
 
 # Conclusion
 

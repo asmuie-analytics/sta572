@@ -2,9 +2,11 @@
 title: "Chapter 5: The Box-Jenkins Methodology"
 ---
 
+Set up the R programming environment for Chapter 5.
+
 ```{r}
 #| label: setup
-#| include: false
+#| tbl-cap: "R programming environment setup"
 
 library(fpp2)
 library(forecast)

@@ -2,6 +2,8 @@
 title: "Chapter 3: Econometric Modelling"
 ---
 
+Set up the R programming environment for Chapter 3.
+
 ```{r}
 #| label: setup
 
