@@ -4,7 +4,7 @@ title: "Chapter 3: Econometric Modelling"
 
 ```{r}
 #| label: setup
-#| include: false
+
 
 library(fpp2)
 library(forecast)
