@@ -4,7 +4,7 @@ title: "Chapter 1: Introduction to Time Series"
 
 ```{r}
 #| label: setup
-#| include: false
+#| tbl-cap: "Library and theme setup"
 library(forecast)
 library(ggplot2)
 library(ggpubr)
@@ -231,7 +231,7 @@ ggplot(data = electric, aes(x = t, y = index)) +
   labs(title = "Output of Electricity Index with Linear Trend",
        x = "Time (months, Jan 2015 = 1)",
        y = "Output of Electricity (Index)") +
-  theme_minimal()
+  theme_ts()
 ```
 
 ```{r}
