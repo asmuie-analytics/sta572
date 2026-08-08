@@ -460,11 +460,11 @@ The ACF measures the correlation between a time series and its own lagged values
 #| fig-height: 4
 
 p_acf_raw  <- ggAcf(cpi_ts,         lag.max = 20) +
-  labs(title = "ACF — CPI (Level)", subtitle = "Slowly decaying: non-stationary") +
+  labs(title = "ACF - CPI (Level)", subtitle = "Slowly decaying: non-stationary") +
   theme_minimal(base_size = 12)
 
 p_acf_diff <- ggAcf(diff(cpi_ts),   lag.max = 20) +
-  labs(title = "ACF — First-Differenced CPI", subtitle = "Rapidly decaying: stationary") +
+  labs(title = "ACF - First-Differenced CPI", subtitle = "Rapidly decaying: stationary") +
   theme_minimal(base_size = 12)
 
 grid.arrange(p_acf_raw, p_acf_diff, ncol = 2)
@@ -630,15 +630,15 @@ The table below illustrates first- and second-order differencing using a hypothe
 #| fig-height: 6
 
 p_level  <- autoplot(cpi_ts) +
-  labs(title = "CPI — Level", x = "Year", y = "CPI") +
+  labs(title = "CPI - Level", x = "Year", y = "CPI") +
   theme_minimal(base_size = 12)
 
 p_diff1  <- autoplot(diff(cpi_ts, differences = 1)) +
-  labs(title = "CPI — First Difference", x = "Year", y = expression(Delta~CPI)) +
+  labs(title = "CPI - First Difference", x = "Year", y = expression(Delta~CPI)) +
   theme_minimal(base_size = 12)
 
 p_diff2  <- autoplot(diff(cpi_ts, differences = 2)) +
-  labs(title = "CPI — Second Difference", x = "Year", y = expression(Delta^2~CPI)) +
+  labs(title = "CPI - Second Difference", x = "Year", y = expression(Delta^2~CPI)) +
   theme_minimal(base_size = 12)
 
 grid.arrange(p_level, p_diff1, p_diff2, nrow = 3)
@@ -744,20 +744,20 @@ To determine whether a series requires differencing before modelling, follow the
 #| fig-height: 7
 
 p1 <- autoplot(cpi_ts) +
-  labs(title = "CPI — Level", x = "Year", y = "CPI") +
+  labs(title = "CPI - Level", x = "Year", y = "CPI") +
   theme_minimal(base_size = 12)
 
 p2 <- ggAcf(cpi_ts, lag.max = 20) +
-  labs(title = "ACF — CPI Level") +
+  labs(title = "ACF - CPI Level") +
   theme_minimal(base_size = 12)
 
 p3 <- autoplot(diff(cpi_ts)) +
-  labs(title = "CPI — First Difference", x = "Year",
+  labs(title = "CPI - First Difference", x = "Year",
        y = expression(Delta~CPI)) +
   theme_minimal(base_size = 12)
 
 p4 <- ggAcf(diff(cpi_ts), lag.max = 20) +
-  labs(title = "ACF — First-Differenced CPI") +
+  labs(title = "ACF - First-Differenced CPI") +
   theme_minimal(base_size = 12)
 
 grid.arrange(p1, p2, p3, p4, nrow = 2)
