@@ -20,7 +20,7 @@ Universiti Teknologi MARA
 ::: {.g-col-12 .g-col-md-6}
 ### Course Data
 All datasets used in this course are available at:
-[GitHub — Course Data](https://github.com/asmuie-analytics/sta572/tree/main/data)
+[GitHub — Course Data](https://github.com/asmui-notes/sta572/tree/main/data)
 :::
 
 :::
@@ -75,5 +75,5 @@ install.packages(c(
 
 ::: {.callout-note}
 **Source code** for all chapters is available on GitHub:
-[github.com/asmuie-analytics](https://github.com/asmuie-analytics)
+[github.com/asmui-notes](https://github.com/asmui-notes)
 :::

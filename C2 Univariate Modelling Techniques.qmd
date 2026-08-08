@@ -12,14 +12,6 @@ library(fpp2)
 library(forecast)
 library(ggplot2)
 
-theme_ts <- function() {
-  theme_bw(base_size = 12) +
-    theme(plot.title    = element_text(face = "bold", hjust = 0.5),
-          plot.subtitle = element_text(hjust = 0.5, colour = "grey40"),
-          axis.title    = element_text(size = 11),
-          legend.position = "bottom")
-}
-
 # ── shared data ───────────────────────────────────────────────────────────────
 cpi    <- read.csv("data/CPI Malaysia.csv", check.names = FALSE)
 cpits  <- ts(cpi$`Consumer price index (2010 = 100)`, start = 1960, frequency = 1)
@@ -125,7 +117,7 @@ ggplot(data.frame(Year = year, Actual = price, Forecast = F_naive),
   scale_colour_manual(values = c("Actual" = "steelblue",
                                  "Naive Forecast" = "#d73027")) +
   labs(title = "Naive Forecast", x = "Year", y = "Price (RM)", colour = NULL) +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 > **Excel Tutorial:** Naive Forecast in Excel
@@ -423,7 +415,7 @@ autoplot(cpits) + ylab("CPI (2010 = 100)") + xlab("Year") +
   autolayer(forecast(ses(cpits, alpha = 0.999), h = 5),
             series = "SES Forecast", PI = TRUE) +
   labs(title = "Malaysia CPI: Single Exponential Smoothing Forecast") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 ------------------------------------------------------------------------
@@ -543,7 +535,7 @@ autoplot(cpits) + ylab("CPI (2010 = 100)") + xlab("Year") +
   autolayer(forecast(holt(cpits, alpha = 0.9922, beta = 0.3708), h = 5),
             series = "Holt Forecast", PI = TRUE) +
   labs(title = "Malaysia CPI: Holt's Method Forecast") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 > **Excel Tutorial:** Holt's Method in Excel (α = 0.6, β = 0.2)
@@ -670,7 +662,7 @@ autoplot(electricts) + ylab("Output Index") + xlab("Year") +
                         beta = 0.0002, gamma = 0.0008), h = 12),
             series = "HW Forecast", PI = TRUE) +
   labs(title = "Electricity Output Index: Holt-Winters Forecast") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 > **Excel Tutorial:** Holt-Winters in Excel (α = 0.6, β = 0.2, γ = 0.1)
@@ -745,7 +737,7 @@ autoplot(electricts) +
   autolayer(F_future, series = "Decomposition Forecast") +
   labs(title = "Electricity Output: Decomposition-Based Forecast (2024)",
        y = "Output Index", x = "Year") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 ------------------------------------------------------------------------

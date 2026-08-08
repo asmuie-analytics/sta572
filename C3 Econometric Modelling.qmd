@@ -16,15 +16,6 @@ library(lmtest)
 library(car)
 library(gridExtra)
 
-# ── custom ggplot theme ────────────────────────────────────────────────────────
-theme_ts <- function() {
-  theme_bw(base_size = 12) +
-    theme(plot.title    = element_text(face = "bold", hjust = 0.5),
-          plot.subtitle = element_text(hjust = 0.5, colour = "grey40"),
-          axis.title    = element_text(size = 11),
-          legend.position = "bottom")
-}
-
 # ── load economic data ─────────────────────────────────────────────────────────
 econ <- read.csv("data/economic data.csv", check.names = FALSE)
 
@@ -451,7 +442,7 @@ ggplot(econ, aes(x = Year, y = `Number of Car Registration ('000)`)) +
   labs(title = "New Car Registrations in Malaysia",
        x = "Year",
        y = "Number ('000)") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 ### Variable Names
@@ -528,13 +519,13 @@ p1 <- ggplot(data.frame(Fitted = fitted(model1), Residuals = residuals(model1)),
   geom_point(colour = "steelblue", alpha = 0.7) +
   geom_hline(yintercept = 0, linetype = "dashed", colour = "red") +
   labs(title = "Residuals vs Fitted", x = "Fitted values", y = "Residuals") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 
 p2 <- ggplot(data.frame(Residuals = residuals(model1)), aes(sample = Residuals)) +
   stat_qq(colour = "steelblue") +
   stat_qq_line(colour = "red", linetype = "dashed") +
   labs(title = "Normal Q-Q Plot") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 
 grid.arrange(p1, p2, ncol = 2)
 ```
@@ -775,13 +766,13 @@ p3 <- ggplot(data.frame(Fitted = fitted(model7), Residuals = residuals(model7)),
   geom_point(colour = "steelblue", alpha = 0.7) +
   geom_hline(yintercept = 0, linetype = "dashed", colour = "red") +
   labs(title = "Residuals vs Fitted (Model 7)", x = "Fitted values", y = "Residuals") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 
 p4 <- ggplot(data.frame(Residuals = residuals(model7)), aes(sample = Residuals)) +
   stat_qq(colour = "steelblue") +
   stat_qq_line(colour = "red", linetype = "dashed") +
   labs(title = "Normal Q-Q Plot (Model 7)") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 
 grid.arrange(p3, p4, ncol = 2)
 ```
@@ -804,7 +795,7 @@ ggplot(fit_df, aes(x = Year)) +
   scale_colour_manual(values = c("Actual" = "steelblue", "Fitted" = "#d73027")) +
   labs(title = "New Car Registrations: Actual vs Fitted (Model 7)",
        x = "Year", y = "Number ('000)", colour = NULL) +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 ::: {.callout-note}

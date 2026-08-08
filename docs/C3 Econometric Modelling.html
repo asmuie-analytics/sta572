@@ -184,7 +184,7 @@ window.Quarto = {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/asmuie-analytics/sta572"> <i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/asmui-notes/sta572"> <i class="bi bi-github" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -326,20 +326,11 @@ window.Quarto = {
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ── custom ggplot theme ────────────────────────────────────────────────────────</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>theme_ts <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">plot.title    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">colour =</span> <span class="st">"grey40"</span>),</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title    =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># ── load economic data ─────────────────────────────────────────────────────────</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>econ <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/economic data.csv"</span>, <span class="at">check.names =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Show structure so students can see what we are working with</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(econ)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ── load economic data ─────────────────────────────────────────────────────────</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>econ <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/economic data.csv"</span>, <span class="at">check.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Show structure so students can see what we are working with</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(econ)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Year Number of Car Registration ('000) BLR (%) Unemployment Rate (%)
@@ -1072,7 +1063,7 @@ Table&nbsp;1: First six rows of the economic dataset
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"New Car Registrations in Malaysia"</span>,</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>,</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number ('000)"</span>) <span class="sc">+</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-car-ts" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1283,13 +1274,13 @@ BP = 7.8119, df = 7, p-value = 0.3495</code></pre>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">"steelblue"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Residuals vs Fitted"</span>, <span class="at">x =</span> <span class="st">"Fitted values"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>) <span class="sc">+</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span>
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">Residuals =</span> <span class="fu">residuals</span>(model1)), <span class="fu">aes</span>(<span class="at">sample =</span> Residuals)) <span class="sc">+</span></span>
 <span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">colour =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
 <span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">colour =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
 <span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Normal Q-Q Plot"</span>) <span class="sc">+</span></span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span>
 <span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p1, p2, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1409,7 +1400,7 @@ F-statistic: 269.6 on 8 and 44 DF,  p-value: &lt; 2.2e-16</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code> lag Autocorrelation D-W Statistic p-value
-   1    -0.002775646      1.853213   0.136
+   1    -0.002775646      1.853213    0.16
  Alternative hypothesis: rho != 0</code></pre>
 </div>
 <details class="code-fold">
@@ -1530,7 +1521,7 @@ F-statistic: 307.4 on 7 and 45 DF,  p-value: &lt; 2.2e-16</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code> lag Autocorrelation D-W Statistic p-value
-   1      0.03327008      1.751804   0.074
+   1      0.03327008      1.751804     0.1
  Alternative hypothesis: rho != 0</code></pre>
 </div>
 <details class="code-fold">
@@ -1648,7 +1639,7 @@ F-statistic: 365.1 on 6 and 46 DF,  p-value: &lt; 2.2e-16</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code> lag Autocorrelation D-W Statistic p-value
-   1      0.04457492      1.745045   0.088
+   1      0.04457492      1.745045   0.118
  Alternative hypothesis: rho != 0</code></pre>
 </div>
 <details class="code-fold">
@@ -1763,7 +1754,7 @@ F-statistic: 447.1 on 5 and 47 DF,  p-value: &lt; 2.2e-16</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code> lag Autocorrelation D-W Statistic p-value
-   1      0.05141295      1.734915   0.108
+   1      0.05141295      1.734915    0.16
  Alternative hypothesis: rho != 0</code></pre>
 </div>
 <details class="code-fold">
@@ -1877,7 +1868,7 @@ F-statistic: 570.8 on 4 and 48 DF,  p-value: &lt; 2.2e-16</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code> lag Autocorrelation D-W Statistic p-value
-   1      0.05149487      1.734734   0.134
+   1      0.05149487      1.734734   0.152
  Alternative hypothesis: rho != 0</code></pre>
 </div>
 <details class="code-fold">
@@ -1989,7 +1980,7 @@ F-statistic: 529.2 on 3 and 49 DF,  p-value: &lt; 2.2e-16</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code> lag Autocorrelation D-W Statistic p-value
-   1     -0.06392779      1.755684   0.234
+   1     -0.06392779      1.755684   0.166
  Alternative hypothesis: rho != 0</code></pre>
 </div>
 <details class="code-fold">
@@ -2020,13 +2011,13 @@ BP = 4.4204, df = 3, p-value = 0.2195</code></pre>
 <span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">"steelblue"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
 <span id="cb109-4"><a href="#cb109-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
 <span id="cb109-5"><a href="#cb109-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Residuals vs Fitted (Model 7)"</span>, <span class="at">x =</span> <span class="st">"Fitted values"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>) <span class="sc">+</span></span>
-<span id="cb109-6"><a href="#cb109-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span>
+<span id="cb109-6"><a href="#cb109-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span>
 <span id="cb109-7"><a href="#cb109-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb109-8"><a href="#cb109-8" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">Residuals =</span> <span class="fu">residuals</span>(model7)), <span class="fu">aes</span>(<span class="at">sample =</span> Residuals)) <span class="sc">+</span></span>
 <span id="cb109-9"><a href="#cb109-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">colour =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
 <span id="cb109-10"><a href="#cb109-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">colour =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
 <span id="cb109-11"><a href="#cb109-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Normal Q-Q Plot (Model 7)"</span>) <span class="sc">+</span></span>
-<span id="cb109-12"><a href="#cb109-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span>
+<span id="cb109-12"><a href="#cb109-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span>
 <span id="cb109-13"><a href="#cb109-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb109-14"><a href="#cb109-14" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p3, p4, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -2059,7 +2050,7 @@ Figure&nbsp;3: Residual diagnostics for the final model (Model 7)
 <span id="cb110-11"><a href="#cb110-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Actual"</span> <span class="ot">=</span> <span class="st">"steelblue"</span>, <span class="st">"Fitted"</span> <span class="ot">=</span> <span class="st">"#d73027"</span>)) <span class="sc">+</span></span>
 <span id="cb110-12"><a href="#cb110-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"New Car Registrations: Actual vs Fitted (Model 7)"</span>,</span>
 <span id="cb110-13"><a href="#cb110-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Number ('000)"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb110-14"><a href="#cb110-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb110-14"><a href="#cb110-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-model7-fit" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -2308,21 +2299,21 @@ Table&nbsp;2: Summary of all models in the General-to-Specific procedure
 <td style="text-align: left;">Model 2</td>
 <td style="text-align: left;">&lt;U+2014&gt; (add lag1)</td>
 <td style="text-align: left;">0.9764</td>
-<td style="text-align: left;">0.152</td>
+<td style="text-align: left;">0.140</td>
 <td style="text-align: left;">0.020</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Model 3</td>
 <td style="text-align: left;">GDP removed</td>
 <td style="text-align: left;">0.9763</td>
-<td style="text-align: left;">0.078</td>
+<td style="text-align: left;">0.058</td>
 <td style="text-align: left;">0.044</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Model 4</td>
 <td style="text-align: left;">Income removed</td>
 <td style="text-align: left;">0.9768</td>
-<td style="text-align: left;">0.098</td>
+<td style="text-align: left;">0.110</td>
 <td style="text-align: left;">0.039</td>
 </tr>
 <tr class="odd">
@@ -2336,14 +2327,14 @@ Table&nbsp;2: Summary of all models in the General-to-Specific procedure
 <td style="text-align: left;">Model 6</td>
 <td style="text-align: left;">CPI removed</td>
 <td style="text-align: left;">0.9777</td>
-<td style="text-align: left;">0.112</td>
+<td style="text-align: left;">0.144</td>
 <td style="text-align: left;">0.018</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Model 7</td>
 <td style="text-align: left;">Total Export removed</td>
 <td style="text-align: left;">0.9682</td>
-<td style="text-align: left;">0.212</td>
+<td style="text-align: left;">0.196</td>
 <td style="text-align: left;">0.220</td>
 </tr>
 </tbody>

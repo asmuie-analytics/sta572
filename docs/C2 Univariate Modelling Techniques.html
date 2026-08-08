@@ -184,7 +184,7 @@ window.Quarto = {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/asmuie-analytics/sta572"> <i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/asmui-notes/sta572"> <i class="bi bi-github" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -300,33 +300,25 @@ window.Quarto = {
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>theme_ts <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">plot.title    =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">colour =</span> <span class="st">"grey40"</span>),</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title    =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># ── shared data ───────────────────────────────────────────────────────────────</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>cpi    <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/CPI Malaysia.csv"</span>, <span class="at">check.names =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>cpits  <span class="ot">&lt;-</span> <span class="fu">ts</span>(cpi<span class="sc">$</span><span class="st">`</span><span class="at">Consumer price index (2010 = 100)</span><span class="st">`</span>, <span class="at">start =</span> <span class="dv">1960</span>, <span class="at">frequency =</span> <span class="dv">1</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>n      <span class="ot">&lt;-</span> <span class="fu">length</span>(cpits)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>n_train <span class="ot">&lt;-</span> <span class="dv">50</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>est_part <span class="ot">&lt;-</span> <span class="fu">head</span>(cpits, n_train)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>eva_part <span class="ot">&lt;-</span> <span class="fu">tail</span>(cpits, n <span class="sc">-</span> n_train)</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>prod       <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/electric.csv"</span>)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>electric   <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">t =</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">108</span>), <span class="at">electric =</span> prod[<span class="dv">1</span><span class="sc">:</span><span class="dv">108</span>, <span class="dv">3</span>])</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>electricts <span class="ot">&lt;-</span> <span class="fu">ts</span>(electric<span class="sc">$</span>electric, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2015</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>est_elec   <span class="ot">&lt;-</span> <span class="fu">head</span>(electricts, <span class="fl">0.8</span> <span class="sc">*</span> <span class="fu">length</span>(electricts))</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>eva_elec   <span class="ot">&lt;-</span> <span class="fu">tail</span>(electricts, <span class="fl">0.2</span> <span class="sc">*</span> <span class="fu">length</span>(electricts))</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co"># ── worked example data ───────────────────────────────────────────────────────</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>price <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">16</span>)</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>year  <span class="ot">&lt;-</span> <span class="dv">2018</span><span class="sc">:</span><span class="dv">2023</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>n_p   <span class="ot">&lt;-</span> <span class="fu">length</span>(price)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ── shared data ───────────────────────────────────────────────────────────────</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>cpi    <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/CPI Malaysia.csv"</span>, <span class="at">check.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>cpits  <span class="ot">&lt;-</span> <span class="fu">ts</span>(cpi<span class="sc">$</span><span class="st">`</span><span class="at">Consumer price index (2010 = 100)</span><span class="st">`</span>, <span class="at">start =</span> <span class="dv">1960</span>, <span class="at">frequency =</span> <span class="dv">1</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>n      <span class="ot">&lt;-</span> <span class="fu">length</span>(cpits)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>n_train <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>est_part <span class="ot">&lt;-</span> <span class="fu">head</span>(cpits, n_train)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>eva_part <span class="ot">&lt;-</span> <span class="fu">tail</span>(cpits, n <span class="sc">-</span> n_train)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>prod       <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/electric.csv"</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>electric   <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">t =</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">108</span>), <span class="at">electric =</span> prod[<span class="dv">1</span><span class="sc">:</span><span class="dv">108</span>, <span class="dv">3</span>])</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>electricts <span class="ot">&lt;-</span> <span class="fu">ts</span>(electric<span class="sc">$</span>electric, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2015</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>est_elec   <span class="ot">&lt;-</span> <span class="fu">head</span>(electricts, <span class="fl">0.8</span> <span class="sc">*</span> <span class="fu">length</span>(electricts))</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>eva_elec   <span class="ot">&lt;-</span> <span class="fu">tail</span>(electricts, <span class="fl">0.2</span> <span class="sc">*</span> <span class="fu">length</span>(electricts))</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># ── worked example data ───────────────────────────────────────────────────────</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>price <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">16</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>year  <span class="ot">&lt;-</span> <span class="dv">2018</span><span class="sc">:</span><span class="dv">2023</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>n_p   <span class="ot">&lt;-</span> <span class="fu">length</span>(price)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <section id="introduction" class="level1" data-number="1">
@@ -519,7 +511,7 @@ Table&nbsp;1: Naive forecast &lt;U+2014&gt; worked example
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Actual"</span> <span class="ot">=</span> <span class="st">"steelblue"</span>,</span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Naive Forecast"</span> <span class="ot">=</span> <span class="st">"#d73027"</span>)) <span class="sc">+</span></span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Naive Forecast"</span>, <span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Price (RM)"</span>, <span class="at">colour =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-naive" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1261,7 +1253,7 @@ Forecasts:
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">forecast</span>(<span class="fu">ses</span>(cpits, <span class="at">alpha =</span> <span class="fl">0.999</span>), <span class="at">h =</span> <span class="dv">5</span>),</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">series =</span> <span class="st">"SES Forecast"</span>, <span class="at">PI =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Malaysia CPI: Single Exponential Smoothing Forecast"</span>) <span class="sc">+</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-ses" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1660,7 +1652,7 @@ Forecasts:
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">forecast</span>(<span class="fu">holt</span>(cpits, <span class="at">alpha =</span> <span class="fl">0.9922</span>, <span class="at">beta =</span> <span class="fl">0.3708</span>), <span class="at">h =</span> <span class="dv">5</span>),</span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">series =</span> <span class="st">"Holt Forecast"</span>, <span class="at">PI =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
 <span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Malaysia CPI: Holt's Method Forecast"</span>) <span class="sc">+</span></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-holt" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -2112,7 +2104,7 @@ Dec 2025       132.2781 114.5331 150.0230 105.13949 159.4166</code></pre>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">beta =</span> <span class="fl">0.0002</span>, <span class="at">gamma =</span> <span class="fl">0.0008</span>), <span class="at">h =</span> <span class="dv">12</span>),</span>
 <span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">series =</span> <span class="st">"HW Forecast"</span>, <span class="at">PI =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
 <span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Electricity Output Index: Holt-Winters Forecast"</span>) <span class="sc">+</span></span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-hw-elec" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -2284,7 +2276,7 @@ Table&nbsp;10: Decomposition forecast for Q1 and Q4 of 2024
 <span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(F_future, <span class="at">series =</span> <span class="st">"Decomposition Forecast"</span>) <span class="sc">+</span></span>
 <span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Electricity Output: Decomposition-Based Forecast (2024)"</span>,</span>
 <span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Output Index"</span>, <span class="at">x =</span> <span class="st">"Year"</span>) <span class="sc">+</span></span>
-<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-decomp-r" class="quarto-float quarto-figure quarto-figure-center anchored">

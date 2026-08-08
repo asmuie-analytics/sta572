@@ -15,15 +15,6 @@ library(ggpubr)
 library(gridExtra)
 library(tseries)
 
-# ── custom ggplot theme ────────────────────────────────────────────────────────
-theme_ts <- function() {
-  theme_bw(base_size = 12) +
-    theme(plot.title    = element_text(face = "bold", hjust = 0.5),
-          plot.subtitle = element_text(hjust = 0.5, colour = "grey40"),
-          axis.title    = element_text(size = 11),
-          legend.position = "bottom")
-}
-
 # ── load CPI Malaysia data ─────────────────────────────────────────────────────
 cpi_raw <- read.csv("data/CPI Malaysia.csv", check.names = FALSE)
 colnames(cpi_raw) <- c("Year", "CPI")
@@ -225,7 +216,7 @@ ggplot(df_rp, aes(x = t, y = value, colour = Series)) +
   geom_hline(yintercept = 2, linetype = "dashed", colour = "#2ca02c", alpha = 0.5) +
   scale_colour_manual(values = c("mean = 2" = "#2ca02c", "mean = 8" = "#1f77b4")) +
   labs(x = "Time", y = "Value", colour = NULL) +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 ------------------------------------------------------------------------
@@ -309,7 +300,7 @@ ggplot(df_ar, aes(x = t, y = value, colour = phi)) +
                                  "phi1 = 0.5" = "#2ca02c",
                                  "phi1 = 0.8" = "#d62728")) +
   labs(x = "Time", y = "Value", colour = NULL) +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 ------------------------------------------------------------------------
@@ -414,7 +405,7 @@ ggplot(df_rw, aes(x = t, y = value)) +
   geom_line(colour = "#1f77b4", linewidth = 0.7) +
   facet_wrap(~type, scales = "free_y", ncol = 2) +
   labs(x = "Time", y = "Value") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 ------------------------------------------------------------------------
@@ -446,7 +437,7 @@ autoplot(cpi_ts) +
   labs(title = "Malaysia Consumer Price Index (CPI)",
        subtitle = "Annual data, base year 2010 = 100",
        x = "Year", y = "CPI") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 The CPI series shows a persistent upward trend with no fixed mean, indicating non-stationarity.
@@ -467,11 +458,11 @@ The ACF measures the correlation between a time series and its own lagged values
 
 p_acf_raw  <- ggAcf(cpi_ts,         lag.max = 20) +
   labs(title = "ACF — CPI (Level)", subtitle = "Slowly decaying: non-stationary") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 
 p_acf_diff <- ggAcf(diff(cpi_ts),   lag.max = 20) +
   labs(title = "ACF — First-Differenced CPI", subtitle = "Rapidly decaying: stationary") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 
 grid.arrange(p_acf_raw, p_acf_diff, ncol = 2)
 ```
@@ -637,15 +628,15 @@ The table below illustrates first- and second-order differencing using a hypothe
 
 p_level  <- autoplot(cpi_ts) +
   labs(title = "CPI — Level", x = "Year", y = "CPI") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 
 p_diff1  <- autoplot(diff(cpi_ts, differences = 1)) +
   labs(title = "CPI — First Difference", x = "Year", y = expression(Delta~CPI)) +
-  theme_ts()
+  theme_minimal(base_size = 12)
 
 p_diff2  <- autoplot(diff(cpi_ts, differences = 2)) +
   labs(title = "CPI — Second Difference", x = "Year", y = expression(Delta^2~CPI)) +
-  theme_ts()
+  theme_minimal(base_size = 12)
 
 grid.arrange(p_level, p_diff1, p_diff2, nrow = 3)
 ```
@@ -751,20 +742,20 @@ To determine whether a series requires differencing before modelling, follow the
 
 p1 <- autoplot(cpi_ts) +
   labs(title = "CPI — Level", x = "Year", y = "CPI") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 
 p2 <- ggAcf(cpi_ts, lag.max = 20) +
   labs(title = "ACF — CPI Level") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 
 p3 <- autoplot(diff(cpi_ts)) +
   labs(title = "CPI — First Difference", x = "Year",
        y = expression(Delta~CPI)) +
-  theme_ts()
+  theme_minimal(base_size = 12)
 
 p4 <- ggAcf(diff(cpi_ts), lag.max = 20) +
   labs(title = "ACF — First-Differenced CPI") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 
 grid.arrange(p1, p2, p3, p4, nrow = 2)
 ```

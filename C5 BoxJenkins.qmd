@@ -20,15 +20,6 @@ library(feasts)
 library(dplyr)
 library(quantmod)
 
-# ── custom ggplot theme ────────────────────────────────────────────────────────
-theme_ts <- function() {
-  theme_bw(base_size = 12) +
-    theme(plot.title    = element_text(face = "bold", hjust = 0.5),
-          plot.subtitle = element_text(hjust = 0.5, colour = "grey40"),
-          axis.title    = element_text(size = 11),
-          legend.position = "bottom")
-}
-
 # ── load IPI Malaysia data (Manufacturing, section C, absolute index) ──────────
 ipi_raw  <- read.csv("data/ipi_1d.csv", check.names = FALSE)
 ipi_raw$date <- as.Date(ipi_raw$date)
@@ -40,10 +31,12 @@ ipi_ts <- ts(ipi_data$index,
                            as.integer(format(min(ipi_data$date), "%m"))),
              frequency = 12)
 
-# ── load S&P 500 E-mini Futures (ES=F) from Yahoo Finance ─────────────────────
-getSymbols("ES=F", src = "yahoo", from = "2025-04-01", to = "2025-12-31",
-           auto.assign = TRUE)
-snp     <- get("ES=F")[, "ES=F.Adjusted"]
+# ── load S&P 500 E-mini Futures (ES=F) from CSV ───────────────────────────────
+# Data previously downloaded from Yahoo Finance (ES=F, adjusted close,
+# 2025-04-01 to 2025-12-31) and saved to data/es_futures.csv for reproducibility.
+snp_raw <- read.csv("data/es_futures.csv")
+snp     <- xts(snp_raw$adjusted, order.by = as.Date(snp_raw$date))
+colnames(snp) <- "ES=F.Adjusted"
 snp     <- na.omit(snp)
 
 # Partition: 80% estimation, 20% evaluation
@@ -350,7 +343,7 @@ set.seed(123)
 e <- rnorm(100, mean = 0, sd = 1)
 ggAcf(e, lag.max = 20) +
   labs(title = "ACF — White Noise") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 ------------------------------------------------------------------------
@@ -386,9 +379,9 @@ ar1_pos <- arima.sim(model = list(order = c(1,0,0), ar =  0.7), n = 100)
 ar1_neg <- arima.sim(model = list(order = c(1,0,0), ar = -0.7), n = 100)
 
 p_pos <- ggAcf(ar1_pos, lag.max = 20) +
-  labs(title = expression(phi[1] == 0.7 ~ " (positive)")) + theme_ts()
+  labs(title = expression(phi[1] == 0.7 ~ " (positive)")) + theme_minimal(base_size = 12)
 p_neg <- ggAcf(ar1_neg, lag.max = 20) +
-  labs(title = expression(phi[1] == -0.7 ~ " (negative)")) + theme_ts()
+  labs(title = expression(phi[1] == -0.7 ~ " (negative)")) + theme_minimal(base_size = 12)
 
 grid.arrange(p_pos, p_neg, ncol = 2)
 ```
@@ -443,7 +436,7 @@ set.seed(111)
 ma1 <- arima.sim(model = list(order = c(0,0,1), ma = 0.7), n = 100)
 ggAcf(ma1, lag.max = 20) +
   labs(title = expression("ACF — MA(1), " ~ theta[1] == 0.7)) +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 ::: callout-tip
@@ -520,7 +513,7 @@ p_acf_ex <- ggplot(df_acf, aes(x = lag, y = value, fill = sig)) +
                     guide = "none") +
   scale_x_continuous(breaks = lag_vals) +
   labs(title = "ACF", x = "Lag", y = "ACF") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 
 p_pacf_ex <- ggplot(df_pacf, aes(x = lag, y = value, fill = sig)) +
   geom_bar(stat = "identity", width = 0.4, colour = "black", linewidth = 0.3) +
@@ -531,7 +524,7 @@ p_pacf_ex <- ggplot(df_pacf, aes(x = lag, y = value, fill = sig)) +
                     guide = "none") +
   scale_x_continuous(breaks = lag_vals) +
   labs(title = "PACF", x = "Lag", y = "PACF") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 
 grid.arrange(p_acf_ex, p_pacf_ex, ncol = 2)
 ```
@@ -558,12 +551,12 @@ sim_ar1   <- arima.sim(model = list(order=c(1,0,0), ar=0.7),           n=200)
 sim_ma1   <- arima.sim(model = list(order=c(0,0,1), ma=0.7),           n=200)
 sim_arma  <- arima.sim(model = list(order=c(1,0,1), ar=0.7, ma=0.5),   n=200)
 
-p1 <- ggAcf(sim_ar1,  lag.max=20) + labs(title="AR(1) — ACF")  + theme_ts()
-p2 <- ggPacf(sim_ar1, lag.max=20) + labs(title="AR(1) — PACF") + theme_ts()
-p3 <- ggAcf(sim_ma1,  lag.max=20) + labs(title="MA(1) — ACF")  + theme_ts()
-p4 <- ggPacf(sim_ma1, lag.max=20) + labs(title="MA(1) — PACF") + theme_ts()
-p5 <- ggAcf(sim_arma,  lag.max=20) + labs(title="ARMA(1,1) — ACF")  + theme_ts()
-p6 <- ggPacf(sim_arma, lag.max=20) + labs(title="ARMA(1,1) — PACF") + theme_ts()
+p1 <- ggAcf(sim_ar1,  lag.max=20) + labs(title="AR(1) — ACF")  + theme_minimal(base_size = 12)
+p2 <- ggPacf(sim_ar1, lag.max=20) + labs(title="AR(1) — PACF") + theme_minimal(base_size = 12)
+p3 <- ggAcf(sim_ma1,  lag.max=20) + labs(title="MA(1) — ACF")  + theme_minimal(base_size = 12)
+p4 <- ggPacf(sim_ma1, lag.max=20) + labs(title="MA(1) — PACF") + theme_minimal(base_size = 12)
+p5 <- ggAcf(sim_arma,  lag.max=20) + labs(title="ARMA(1,1) — ACF")  + theme_minimal(base_size = 12)
+p6 <- ggPacf(sim_arma, lag.max=20) + labs(title="ARMA(1,1) — PACF") + theme_minimal(base_size = 12)
 
 grid.arrange(p1, p2, p3, p4, p5, p6, nrow=3)
 ```
@@ -572,7 +565,7 @@ grid.arrange(p1, p2, p3, p4, p5, p6, nrow=3)
 
 # Box-Jenkins: Non-Seasonal ARIMA
 
-We demonstrate the full four-stage Box-Jenkins procedure using **S&P 500 E-mini Futures (ES=F)** daily adjusted close prices, April–December 2025, downloaded directly from Yahoo Finance via the `quantmod` package.
+We demonstrate the full four-stage Box-Jenkins procedure using **S&P 500 E-mini Futures (ES=F)** daily adjusted close prices, April–December 2025. The series was originally sourced from Yahoo Finance and is loaded here from a saved CSV file (`data/es_futures.csv`) for reproducibility.
 
 ## Stage 1 — Model Identification
 
@@ -587,7 +580,7 @@ autoplot(as.ts(est_snp)) +
   labs(title = "S&P 500 Futures (ES=F) — Estimation Set",
        subtitle = "Daily adjusted close price, Apr–Oct 2025",
        x = "Observation", y = "Price (USD)") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 ### Step 1b: ACF and PACF of the Raw Series
@@ -598,9 +591,9 @@ autoplot(as.ts(est_snp)) +
 #| fig-height: 4
 
 p_acf_snp  <- ggAcf(est_snp,  lag.max = 30) +
-  labs(title = "ACF — SNP Level") + theme_ts()
+  labs(title = "ACF — SNP Level") + theme_minimal(base_size = 12)
 p_pacf_snp <- ggPacf(est_snp, lag.max = 30) +
-  labs(title = "PACF — SNP Level") + theme_ts()
+  labs(title = "PACF — SNP Level") + theme_minimal(base_size = 12)
 grid.arrange(p_acf_snp, p_pacf_snp, ncol = 2)
 ```
 
@@ -628,7 +621,7 @@ autoplot(as.ts(diff_snp)) +
   labs(title = "S&P 500 Futures — First Difference",
        subtitle = "Daily price changes",
        x = "Observation", y = expression(Delta ~ "Price")) +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 ```{r}
@@ -648,9 +641,9 @@ Since $p$-value $\leq 0.05$, we **reject** $H_0$ — the differenced series is *
 #| fig-height: 4
 
 p_acf_d  <- ggAcf(diff_snp,  lag.max = 30, na.action = na.omit) +
-  labs(title = "ACF — First Difference") + theme_ts()
+  labs(title = "ACF — First Difference") + theme_minimal(base_size = 12)
 p_pacf_d <- ggPacf(diff_snp, lag.max = 30, na.action = na.omit) +
-  labs(title = "PACF — First Difference") + theme_ts()
+  labs(title = "PACF — First Difference") + theme_minimal(base_size = 12)
 grid.arrange(p_acf_d, p_pacf_d, ncol = 2)
 ```
 
@@ -719,9 +712,9 @@ Box.test(resid211$.resid, lag = 20, type = "Ljung-Box", fitdf = 4)
 #| fig-height: 4
 
 p_ra  <- ggAcf(resid211$.resid,  lag.max = 20, na.action = na.omit) +
-  labs(title = "Residual ACF")  + theme_ts()
+  labs(title = "Residual ACF")  + theme_minimal(base_size = 12)
 p_rpa <- ggPacf(resid211$.resid, lag.max = 20, na.action = na.omit) +
-  labs(title = "Residual PACF") + theme_ts()
+  labs(title = "Residual PACF") + theme_minimal(base_size = 12)
 grid.arrange(p_ra, p_rpa, ncol = 2)
 ```
 
@@ -922,7 +915,7 @@ m211_full |>
   autoplot(snp_tbl, level = c(80, 95)) +
   labs(title = "S&P 500 Futures — ARIMA(2,1,1) 10-Step Forecast",
        x = "Observation", y = "Price (USD)") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 ------------------------------------------------------------------------
@@ -966,7 +959,7 @@ cat("Evaluation set:", length(seva), "observations\n")
 
 autoplot(decompose(sest)) +
   labs(title = "Decomposition of IPI Manufacturing") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 ### Step 2: ACF and ADF of Raw Series
@@ -978,7 +971,7 @@ autoplot(decompose(sest)) +
 
 ggAcf(sest, lag.max = 48) +
   labs(title = "ACF — IPI Estimation Set") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 ```{r}
@@ -1002,10 +995,10 @@ zt <- diff(sest, 12)
 p_zt    <- autoplot(zt) +
   labs(title = expression("Seasonally Differenced IPI " ~ (z[t])),
        x = "Year", y = "") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 p_acfzt <- ggAcf(zt, lag.max = 48) +
   labs(title = "ACF — After Seasonal Differencing") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 
 grid.arrange(p_zt, p_acfzt, nrow = 2)
 ```
@@ -1031,10 +1024,10 @@ wt <- diff(zt, 1)
 p_wt    <- autoplot(wt) +
   labs(title = expression("After Seasonal + Regular Differencing " ~ (w[t])),
        x = "Year", y = "") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 p_acfwt <- ggAcf(wt, lag.max = 48) +
   labs(title = "ACF — After Both Differences") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 
 grid.arrange(p_wt, p_acfwt, nrow = 2)
 ```
@@ -1054,9 +1047,9 @@ adf.test(wt)
 #| fig-height: 4
 
 p_acf_w  <- ggAcf(wt,  lag.max = 48) +
-  labs(title = "ACF — Stationary Series") + theme_ts()
+  labs(title = "ACF — Stationary Series") + theme_minimal(base_size = 12)
 p_pacf_w <- ggPacf(wt, lag.max = 48) +
-  labs(title = "PACF — Stationary Series") + theme_ts()
+  labs(title = "PACF — Stationary Series") + theme_minimal(base_size = 12)
 
 grid.arrange(p_acf_w, p_pacf_w, ncol = 2)
 ```
@@ -1121,9 +1114,9 @@ $$
 se1 <- residuals(smodel1)
 
 p_ra  <- ggAcf(se1$.resid,  lag.max = 48) +
-  labs(title = "Residual ACF")  + theme_ts()
+  labs(title = "Residual ACF")  + theme_minimal(base_size = 12)
 p_rpa <- ggPacf(se1$.resid, lag.max = 48) +
-  labs(title = "Residual PACF") + theme_ts()
+  labs(title = "Residual PACF") + theme_minimal(base_size = 12)
 grid.arrange(p_ra, p_rpa, ncol = 2)
 ```
 
@@ -1217,7 +1210,7 @@ best_sarima |>
   labs(title = "Malaysia IPI Manufacturing — 12-Month Ahead Forecast",
        subtitle = "SARIMA(2,1,2)(1,1,1)[12]",
        x = "Year", y = "Index") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 ------------------------------------------------------------------------

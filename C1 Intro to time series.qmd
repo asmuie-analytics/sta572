@@ -13,16 +13,6 @@ library(ggpubr)
 library(lubridate)
 library(TSA)
 library(gridExtra)
-
-theme_ts <- function() {
-  theme_bw(base_size = 12) +
-    theme(
-      plot.title    = element_text(face = "bold", hjust = 0.5),
-      plot.subtitle = element_text(hjust = 0.5, colour = "grey40"),
-      axis.title    = element_text(size = 11),
-      legend.position = "bottom"
-    )
-}
 ```
 
 # Introduction
@@ -184,19 +174,19 @@ The **trend component** describes the general upward or downward movements that 
 t  <- 1:60
 p1 <- ggplot(data.frame(t, y = 10 + 0.5*t + rnorm(60, 0, 1.5)),
              aes(t, y)) + geom_line(colour="#d73027", linewidth=0.8) +
-      labs(title="Upward Trend", x="Time", y="Value") + theme_ts()
+      labs(title="Upward Trend", x="Time", y="Value") + theme_minimal(base_size = 12)
 
 p2 <- ggplot(data.frame(t, y = 40 - 0.5*t + rnorm(60, 0, 1.5)),
              aes(t, y)) + geom_line(colour="#4575b4", linewidth=0.8) +
-      labs(title="Downward Trend", x="Time", y="Value") + theme_ts()
+      labs(title="Downward Trend", x="Time", y="Value") + theme_minimal(base_size = 12)
 
 p3 <- ggplot(data.frame(t, y = 25 + rnorm(60, 0, 1.5)),
              aes(t, y)) + geom_line(colour="#1a9641", linewidth=0.8) +
-      labs(title="No Trend / Flat Trend", x="Time", y="Value") + theme_ts()
+      labs(title="No Trend / Flat Trend", x="Time", y="Value") + theme_minimal(base_size = 12)
 
 p4 <- ggplot(data.frame(t, y = 10 * exp(0.04*t) + rnorm(60, 0, 3)),
              aes(t, y)) + geom_line(colour="#fc8d59", linewidth=0.8) +
-      labs(title="Non-linear (Exponential) Trend", x="Time", y="Value") + theme_ts()
+      labs(title="Non-linear (Exponential) Trend", x="Time", y="Value") + theme_minimal(base_size = 12)
 
 grid.arrange(p1, p2, p3, p4, nrow = 2)
 ```
@@ -233,7 +223,7 @@ ggplot(data = electric, aes(x = t, y = index)) +
   labs(title = "Output of Electricity Index with Linear Trend",
        x = "Time (months, Jan 2015 = 1)",
        y = "Output of Electricity (Index)") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 ```{r}
@@ -424,7 +414,7 @@ ggplot(df_u, aes(x = Year, y = u_rate)) +
   labs(title = "Turning Points in Malaysia's Unemployment Rate (1982–2020)",
        subtitle = "▲ Peak = trend reverses downward  |  ▽ Trough = trend reverses upward",
        x = "Year", y = "Unemployment Rate (%)") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 
@@ -462,7 +452,7 @@ ggplot(df_tp, aes(x = t, y = y)) +
   labs(title = "Turning Point in a Time Series",
        subtitle = "Before t = 45: upward trend  |  After t = 45: downward trend",
        x = "Time", y = "Value") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 ::: callout-note
@@ -510,7 +500,7 @@ ggplot(oil_df, aes(x = Date, y = Price)) +
   labs(title = "Random Shocks in Monthly Oil Prices (Jan 1986 – Jan 2006)",
        subtitle = "Each shaded region marks an unexpected external event",
        x = "Year", y = "Price per Barrel (USD)") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 ```{r}
@@ -534,7 +524,7 @@ ggplot(oil_sub, aes(x = Date)) +
                                  "Pre-shock trend" = "#d73027")) +
   labs(title = "Gulf War Shock: Price Recovers to Pre-shock Level",
        x = "Year", y = "Price per Barrel (USD)", colour = NULL) +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 ```{r}
@@ -568,7 +558,7 @@ ggplot(df_sh, aes(x = t, y = y)) +
   labs(title = "Random Shock in a Time Series",
        subtitle = "Sharp temporary drop followed by recovery to original trend",
        x = "Time", y = "Value") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 ```{r}
@@ -597,7 +587,7 @@ ggplot(df_cmp, aes(x = t, y = y)) +
   facet_wrap(~type, scales = "free_y") +
   labs(title = "Types of Random Shock",
        x = "Time", y = "Value") +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 ------------------------------------------------------------------------
 
@@ -639,7 +629,7 @@ ggplot(df_out, aes(x = t, y = y)) +
   labs(title = "Outliers in a Time Series",
        subtitle = "Flagged using Z-score threshold > 2.5",
        x = "Time", y = "Value", colour = NULL, size = NULL) +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 **How to detect outliers:**
@@ -688,7 +678,7 @@ p1 <- ggplot(resid_df, aes(x = Date, y = Residual)) +
   annotate("text", x = 2023.5, y = -2 * sd(decomp$random, na.rm = TRUE) - 0.3,
            label = "−2σ", colour = "#4575b4", size = 3.2, hjust = 1) +
   labs(title = "Irregular Component (Random Noise)", x = "Year",
-       y = expression(I[t])) + theme_ts()
+       y = expression(I[t])) + theme_minimal(base_size = 12)
 
 p2 <- ggplot(na.omit(resid_df), aes(x = Residual)) +
   geom_histogram(aes(y = after_stat(density)), bins = 12,
@@ -699,7 +689,7 @@ p2 <- ggplot(na.omit(resid_df), aes(x = Residual)) +
                 colour = "#d73027", linewidth = 1) +
   labs(title = "Distribution of Residuals",
        subtitle = expression("Should approximate " * N(0, sigma^2)),
-       x = expression(I[t]), y = "Density") + theme_ts()
+       x = expression(I[t]), y = "Density") + theme_minimal(base_size = 12)
 
 grid.arrange(p1, p2, ncol = 2)
 ```
@@ -743,7 +733,7 @@ make_plot <- function(t, y, title, subtitle, highlight = NULL,
   g  <- ggplot(df, aes(x = t, y = y)) +
     geom_line(colour = "#4575b4", linewidth = 0.8) +
     labs(title = title, subtitle = subtitle, x = "Time", y = "Value") +
-    theme_ts() +
+    theme_minimal(base_size = 12) +
     theme(plot.subtitle = element_text(size = 9))
   if (!is.null(highlight)) {
     g <- g +
@@ -895,7 +885,7 @@ ggplot(df_cpi, aes(x = Year, y = Value, colour = Part)) +
                                  "Evaluation (20%)" = "#d73027")) +
   labs(title = "Malaysia CPI: Data Partition for Forecasting Evaluation",
        x = "Year", y = "CPI (2010 = 100)", colour = NULL) +
-  theme_ts()
+  theme_minimal(base_size = 12)
 ```
 
 
@@ -1002,16 +992,23 @@ cat("MAPE :", round(mape2, 4), "%\n")
 
 library(kableExtra)
 
-knitr::kable(
+tbl <- knitr::kable(
   data.frame(Model = c("Linear", "Quadratic"),
              MSE   = round(c(mse1, mse2),  4),
              MAE   = round(c(mae1, mae2),  4),
              MAPE  = round(c(mape1, mape2), 4)),
   col.names = c("Model", "MSE", "MAE", "MAPE (%)"),
   align = "c"
-) %>%
-  kable_styling() %>%
-  row_spec(2, bold = TRUE, background = "#FFFFCC")
+)
+
+# kableExtra styling (row highlight) only supports HTML/LaTeX, not Word.
+# Keep the styled table for HTML and PDF; plain editable table for docx.
+if (knitr::is_html_output() || knitr::is_latex_output()) {
+  tbl <- tbl %>%
+    kable_styling() %>%
+    row_spec(2, bold = TRUE, background = "#FFFFCC")
+}
+tbl
 ```
 
 ### 4-Year Forecast

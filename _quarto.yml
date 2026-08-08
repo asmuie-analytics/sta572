@@ -23,7 +23,7 @@ website:
             href: "C5 BoxJenkins.qmd"
     right:
       - icon: github
-        href: https://github.com/asmuie-analytics/sta572
+        href: https://github.com/asmui-notes/sta572
 
   sidebar: false
 
