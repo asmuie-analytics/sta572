@@ -488,7 +488,7 @@ ggplot(oil_df, aes(x = Date, y = Price)) +
   annotate("rect", xmin = 1990, xmax = 1991.5,
            ymin = -Inf, ymax = Inf, alpha = 0.15, fill = "#d73027") +
   annotate("label", x = 1990.75, y = 40,
-           label = "Gulf War\nshock (1990–91)",
+           label = "Gulf War\nshock (1990-91)",
            colour = "#d73027", fill = "white", size = 3, label.size = 0.3) +
   annotate("rect", xmin = 1997.5, xmax = 1999.5,
            ymin = -Inf, ymax = Inf, alpha = 0.15, fill = "#4575b4") +
@@ -677,9 +677,9 @@ p1 <- ggplot(resid_df, aes(x = Date, y = Residual)) +
   geom_hline(yintercept = -2 * sd(decomp$random, na.rm = TRUE),
              linetype = "dotted", colour = "#4575b4") +
   annotate("text", x = 2023.5, y =  2 * sd(decomp$random, na.rm = TRUE) + 0.2,
-           label = "+2σ", colour = "#4575b4", size = 3.2, hjust = 1) +
+           label = "+2 SD", colour = "#4575b4", size = 3.2, hjust = 1) +
   annotate("text", x = 2023.5, y = -2 * sd(decomp$random, na.rm = TRUE) - 0.3,
-           label = "−2σ", colour = "#4575b4", size = 3.2, hjust = 1) +
+           label = "-2 SD", colour = "#4575b4", size = 3.2, hjust = 1) +
   labs(title = "Irregular Component (Random Noise)", x = "Year",
        y = expression(I[t])) + theme_minimal(base_size = 12)
 
