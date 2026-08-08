@@ -1,6 +1,9 @@
 ---
-title: "Chapter 2: Univariate Modelling Techniques"
+number-offset: 1
 ---
+
+# Univariate Modelling Techniques
+
 
 Set up the R programming environment for Chapter 2.
 
@@ -33,7 +36,7 @@ year  <- 2018:2023
 n_p   <- length(price)
 ```
 
-# Introduction
+## Introduction
 
 **Univariate models** belong to a class of models that require only **one variable** to be formulated. They use information from the past values of a variable to forecast its future values.
 
@@ -58,9 +61,9 @@ The methods covered in this chapter are:
 
 ------------------------------------------------------------------------
 
-# Naive Methods
+## Naive Methods
 
-## Naive Forecast
+### Naive Forecast
 
 The naive forecast strongly believes that **what happens today will happen again tomorrow** (or any other time in the future).
 
@@ -75,7 +78,7 @@ where $m$ is the number of steps ahead.
 -   Sudden changes in the current data would severely affect forecast accuracy.
 -   Serves as a **benchmark** — other methods should outperform it.
 
-### Example
+#### Example
 
 Compute the estimated values and forecast for 2024 using naive forecast. Then compute the MSE.
 
@@ -124,7 +127,7 @@ ggplot(data.frame(Year = year, Actual = price, Forecast = F_naive),
 
 ------------------------------------------------------------------------
 
-## Naive with Trend
+### Naive with Trend
 
 The naive method is modified to account for the **trend component**.
 
@@ -139,7 +142,7 @@ $$F_{t+1} = y_t \times \frac{y_t}{y_{t-1}}$$
 This method is **highly sensitive** to changes in actual values.
 :::
 
-### Example
+#### Example
 
 ```{r}
 #| label: tbl-naive-trend
@@ -173,9 +176,9 @@ cat("MSE:", round(mse_trend, 4), "\n")
 
 ------------------------------------------------------------------------
 
-# Methods of Averages
+## Methods of Averages
 
-## Average Change
+### Average Change
 
 The forecast equals the actual value in the current period **plus the average of the absolute changes**.
 
@@ -187,7 +190,7 @@ $$F_{t+m} = y_t + \frac{(y_t - y_{t-1}) + (y_{t-1} - y_{t-2})}{2}$$
 -   Most useful when historical changes are of **similar size**.
 -   Suitable for **short and intermediate** data series with consistent changes.
 
-### Example
+#### Example
 
 ```{r}
 #| label: tbl-avg-change
@@ -222,7 +225,7 @@ cat("MSE:", round(mse_ac, 4), "\n")
 
 ------------------------------------------------------------------------
 
-## Average Percent Change
+### Average Percent Change
 
 $$F_{t+m} = y_t + \frac{\left(\frac{y_t - y_{t-1}}{y_{t-1}}\right) + \left(\frac{y_{t-1} - y_{t-2}}{y_{t-2}}\right)}{2} \times y_t$$
 
@@ -230,7 +233,7 @@ $$F_{t+m} = y_t + \frac{\left(\frac{y_t - y_{t-1}}{y_{t-1}}\right) + \left(\frac
 May be unsuitable for forecasting **beyond one or two periods** due to compounding effects.
 :::
 
-### Example
+#### Example
 
 ```{r}
 #| label: tbl-avg-pct
@@ -265,9 +268,9 @@ cat("MSE:", round(mse_apc, 4), "\n")
 
 ------------------------------------------------------------------------
 
-# Exponential Smoothing Techniques
+## Exponential Smoothing Techniques
 
-## Single Exponential Smoothing
+### Single Exponential Smoothing
 
 Also known as **simple exponential smoothing (SES)**. Requires only one parameter $\alpha$.
 
@@ -282,7 +285,7 @@ $$F_{t+1} = \alpha y_t + (1-\alpha)F_t, \quad 0 \leq \alpha \leq 1$$
 **Disadvantage:** Cannot forecast more than **one-step ahead**.
 :::
 
-### Weighted Average Interpretation — Recursive Derivation
+#### Weighted Average Interpretation — Recursive Derivation
 
 Consider the one-step-ahead forecast:
 
@@ -349,21 +352,21 @@ $$\hat{y}_2 = \frac{y_1 + y_2 + y_3}{3} = \frac{1}{3}y_1 + \frac{1}{3}y_2 + \fra
 
 The MA uses **constant equal weights** of $\frac{1}{3}$ — it does **not** distinguish between the most recent and older observations, unlike SES.
 
-### Choosing $\alpha$
+#### Choosing $\alpha$
 
 | Method         | Description                                               |
 |----------------|-----------------------------------------------------------|
 | **Subjective** | Near 1 for rapidly changing data; small for stable series |
 | **Objective**  | Minimise MSE/MAPE/MAE over the estimation set             |
 
-### Steps
+#### Steps
 
 1.  Set initial value: $F_1 = y_1$ (or average of first five observations).
 2.  Find the best $\alpha$ that minimises MSE.
 3.  Calculate fitted values.
 4.  Compute squared errors and MSE.
 
-### Example
+#### Example
 
 ```{r}
 #| label: tbl-ses
@@ -392,7 +395,7 @@ cat("Forecast for 2024 (SES, α = 0.8):", round(f2024_ses, 4), "\n")
 cat("MSE:", round(mse_ses, 4), "\n")
 ```
 
-### SES using R — Malaysia CPI Data
+#### SES using R — Malaysia CPI Data
 
 ```{r}
 #| label: ses-r-est
@@ -420,13 +423,13 @@ autoplot(cpits) + ylab("CPI (2010 = 100)") + xlab("Year") +
 
 ------------------------------------------------------------------------
 
-## Double Exponential Smoothing
+### Double Exponential Smoothing
 
 Useful for series exhibiting a **linear trend**. Generates **multiple-step-ahead forecasts**.
 
 $$S_t = \alpha y_t + (1-\alpha)S_{t-1}$$ $$S'_t = \alpha S_t + (1-\alpha)S'_{t-1}$$ $$a_t = 2S_t - S'_t$$ $$b_t = \frac{\alpha}{1-\alpha}(S_t - S'_t)$$ $$F_{t+m} = a_t + b_t \times m$$
 
-### Example
+#### Example
 
 ```{r}
 #| label: tbl-des
@@ -467,7 +470,7 @@ cat("MSE:", round(mse_des, 4), "\n")
 
 ------------------------------------------------------------------------
 
-## Holt's Method
+### Holt's Method
 
 Suitable for **linear trend** with more flexibility than DES — it uses **two separate smoothing constants** for level ($\alpha$) and slope ($\beta$).
 
@@ -479,7 +482,7 @@ Suitable for **linear trend** with more flexibility than DES — it uses **two s
 
 where $0 \leq \alpha \leq 1$, $0 \leq \beta \leq 1$.
 
-### Example
+#### Example
 
 ```{r}
 #| label: tbl-holt
@@ -512,7 +515,7 @@ cat("Forecast for 2024 (Holt, α = 0.6, β = 0.2):", round(f2024_holt, 4), "\n")
 cat("MSE:", round(mse_h, 4), "\n")
 ```
 
-### Holt's Method using R — Malaysia CPI Data
+#### Holt's Method using R — Malaysia CPI Data
 
 ```{r}
 #| label: holt-r-est
@@ -542,7 +545,7 @@ autoplot(cpits) + ylab("CPI (2010 = 100)") + xlab("Year") +
 
 ------------------------------------------------------------------------
 
-## Adaptive Response Rate Exponential Smoothing (ARRES)
+### Adaptive Response Rate Exponential Smoothing (ARRES)
 
 In SES, $\alpha$ is constant. But structural changes in the data may make a fixed $\alpha$ unrealistic. **ARRES** adapts $\alpha$ at each period based on the ratio of smoothed error to smoothed absolute error.
 
@@ -556,7 +559,7 @@ $$AE_t = \beta|e_t| + (1-\beta)AE_{t-1} \qquad \text{(smoothed absolute error)}$
 
 where $0 < \beta < 1$.
 
-### Example
+#### Example
 
 ```{r}
 #| label: tbl-arres
@@ -601,21 +604,21 @@ cat("MSE (ARRES, β = 0.2):", round(mse_ar, 4), "\n")
 
 ------------------------------------------------------------------------
 
-## Holt-Winters Trend and Seasonality
+### Holt-Winters Trend and Seasonality
 
 When a **seasonal component exists**, Holt-Winters is the most suitable method. Two model variants:
 
-### Multiplicative Model
+#### Multiplicative Model
 
 $$L_t = \alpha\frac{y_t}{S_{t-s}} + (1-\alpha)(L_{t-1}+T_{t-1})$$ $$T_t = \beta(L_t-L_{t-1}) + (1-\beta)T_{t-1}$$ $$S_t = \gamma\frac{y_t}{L_t} + (1-\gamma)S_{t-s}$$ $$F_{t+m} = (L_t + T_t \times m)\cdot S_{t-s+m}$$
 
-### Additive Model
+#### Additive Model
 
 $$L_t = \alpha(y_t - S_{t-s}) + (1-\alpha)(L_{t-1}+T_{t-1})$$ $$T_t = \beta(L_t-L_{t-1}) + (1-\beta)T_{t-1}$$ $$S_t = \gamma(y_t - L_t) + (1-\gamma)S_{t-s}$$ $$F_{t+m} = L_t + T_t \times m + S_{t-s+m}$$
 
 where $0\leq\alpha,\beta,\gamma\leq 1$; $s$ = season length ($s=4$ quarterly, $s=12$ monthly).
 
-### Example — Quarterly Data (α = 0.6, β = 0.2, γ = 0.4)
+#### Example — Quarterly Data (α = 0.6, β = 0.2, γ = 0.4)
 
 ```{r}
 #| label: tbl-hw-data
@@ -638,7 +641,7 @@ hw_fit <- hw(hw_ts, seasonal = "additive",
 summary(hw_fit)
 ```
 
-### Holt-Winters using R — Monthly Electricity Data
+#### Holt-Winters using R — Monthly Electricity Data
 
 ```{r}
 #| label: hw-elec-est
@@ -669,7 +672,7 @@ autoplot(electricts) + ylab("Output Index") + xlab("Year") +
 
 ------------------------------------------------------------------------
 
-# Forecasting Using Decomposition Method
+## Forecasting Using Decomposition Method
 
 Assumes **past patterns repeat in the future**. Suitable for data with both **trend and seasonal** components. Cyclical and irregular components are excluded.
 
@@ -678,7 +681,7 @@ Assumes **past patterns repeat in the future**. Suitable for data with both **tr
 | Multiplicative | $F_t = \hat{T}_t \times S_t$ |
 | Additive       | $F_t = \hat{T}_t + S_t$      |
 
-### Steps
+#### Steps
 
 | Step | Action |
 |----|----|
@@ -686,7 +689,7 @@ Assumes **past patterns repeat in the future**. Suitable for data with both **tr
 | **2** | Compute seasonal indices ($S_t$) |
 | **3** | Combine trend and seasonal index to obtain forecasts |
 
-### Example
+#### Example
 
 Seasonal indices for motorcycle production ('000), 2021–2023:
 
@@ -716,7 +719,7 @@ knitr::kable(
 )
 ```
 
-### Decomposition using R — Electricity Data
+#### Decomposition using R — Electricity Data
 
 ```{r}
 #| label: fig-decomp-r
@@ -742,7 +745,7 @@ autoplot(electricts) +
 
 ------------------------------------------------------------------------
 
-# Method Comparison
+## Method Comparison
 
 ```{r}
 #| label: tbl-comparison
@@ -789,7 +792,7 @@ data.frame(
 
 ------------------------------------------------------------------------
 
-# Summary
+## Summary
 
 -   **Univariate models** use only past values — no explanatory variables.
 -   **Naive** ($F_{t+m} = y_t$) is the benchmark; all other methods should outperform it.
@@ -803,7 +806,7 @@ data.frame(
 
 ------------------------------------------------------------------------
 
-# References
+## References
 
 -   Mohd Alias Lazim, *Introductory Business Forecasting: A Practical Approach*, 3rd ed., UPENA, UiTM, 2013.
 -   <https://open.dosm.gov.my/data-catalogue>

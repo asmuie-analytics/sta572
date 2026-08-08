@@ -1,6 +1,9 @@
 ---
-title: "Chapter 1: Introduction to Time Series"
+number-offset: 0
 ---
+
+# Introduction to Time Series
+
 
 Set up the R programming environment for Chapter 1.
 
@@ -15,9 +18,9 @@ library(TSA)
 library(gridExtra)
 ```
 
-# Introduction
+## Introduction
 
-## Learning Objectives
+### Learning Objectives
 
 By the end of this chapter, students should be able to:
 
@@ -27,7 +30,7 @@ By the end of this chapter, students should be able to:
 4.  Measure Forecast Performance.
 5.  Apply these concepts using R.
 
-## Definition
+### Definition
 
 A time series is fundamentally defined as a **time-oriented or chronological sequence of observations measured on a variable of interest**. These observations are typically collected sequentially over time at fixed, equally spaced intervals, referred to as the **sampling interval**.
 
@@ -37,7 +40,7 @@ Depending on the context, time series data can take several forms:
 -   **Cumulative quantities:** An accumulated total over the interval, such as the total product demand or sales during a month.
 -   **Summary statistics:** A metric that reflects activity of the variable during the time period, such as the daily closing price of a stock.
 
-### Statistical and Mathematical Definition
+#### Statistical and Mathematical Definition
 
 A time series is modelled as a **discrete-time stochastic process** — a collection of random variables indexed according to the discrete time order in which they are obtained.
 
@@ -54,7 +57,7 @@ An important distinction:
 | **The Time Series Model** | The theoretical sequence of underlying random variables — the ensemble of possibilities |
 | **The Realization** | The actual historical sequence of data observed; a single realization of the stochastic process |
 
-### Arrangement of Time Series Data
+#### Arrangement of Time Series Data
 
 ```{r}
 #| label: tbl-arrangement
@@ -69,17 +72,17 @@ knitr::kable(df_example, col.names = c("$t$", "Year", "$y_t$ (Unemployment Rate,
              align = "c")
 ```
 
-## Categorization of Forecasting Models
+### Categorization of Forecasting Models
 
 ![](images/clipboard-540299255.png){fig-align="center" width="85%"}
 
 *Source: Wang, Shouyi & Chaovalitwongse, Wanpracha (2011). Evaluating and Comparing Forecasting Models.*
 
-## Visualization of Time Series
+### Visualization of Time Series
 
 A time series can be visualized via a **time series plot**.
 
-### Example 1: Malaysia Unemployment Rate (1982–2020)
+#### Example 1: Malaysia Unemployment Rate (1982–2020)
 
 ```{r}
 #| label: fig-unemployment
@@ -98,7 +101,7 @@ title(sub = "Figure 1: Malaysia Unemployment Rate from 1982 to 2020",
       col.sub = "grey40")
 ```
 
-### Example 2: Monthly Oil Price (Jan 1986 – Jan 2006)
+#### Example 2: Monthly Oil Price (Jan 1986 – Jan 2006)
 
 ```{r}
 #| label: fig-oilprice
@@ -112,7 +115,7 @@ title(sub = "Figure 2: Monthly Price of Oil: Jan 1986 – Jan 2006",
       col.sub = "grey40")
 ```
 
-### Example 3: Monthly Sales of Specialty Oil Filters (1983–1987)
+#### Example 3: Monthly Sales of Specialty Oil Filters (1983–1987)
 
 ```{r}
 #| label: fig-oilfilters
@@ -127,7 +130,7 @@ title(sub = "Figure 3: Monthly Sales of Specialty Oil Filters, Jul 1983 – Jun 
       col.sub = "grey40")
 ```
 
-## Interpretation of Time Series Plot
+### Interpretation of Time Series Plot
 
 When interpreting a time series plot, always include the following:
 
@@ -142,7 +145,7 @@ When interpreting a time series plot, always include the following:
 
 ------------------------------------------------------------------------
 
-# Components of Time Series
+## Components of Time Series
 
 A time series is typically composed of four components:
 
@@ -153,11 +156,11 @@ A time series is typically composed of four components:
 | Cyclical | $C_t$ | Long-wave rises and falls around the trend |
 | Irregular/Random | $I_t$ | Unpredictable, residual variation |
 
-## Trend
+### Trend
 
 The **trend component** describes the general upward or downward movements that characterise all economic and business activities.
 
-### Types of Trends
+#### Types of Trends
 
 | Type | Description |
 |-----------------------|-------------------------------------------------|
@@ -191,18 +194,18 @@ p4 <- ggplot(data.frame(t, y = 10 * exp(0.04*t) + rnorm(60, 0, 3)),
 grid.arrange(p1, p2, p3, p4, nrow = 2)
 ```
 
-### Importance of Studying Trends
+#### Importance of Studying Trends
 
 -   Helps in making **forecasts and predictions** about future values.
 -   Provides **insights into underlying patterns and relationships** which useful for decision-making.
 -   Helps **identify potential anomalies or changes** in data behaviour over time.
 
-### Identifying Trends
+#### Identifying Trends
 
 -   **Visual Inspection:** Plotting the time series and observing the overall direction.
 -   **Statistical Techniques:** Linear regression or moving averages.
 
-### Trend Using Simple Linear Regression
+#### Trend Using Simple Linear Regression
 
 In simple linear regression for trend, the independent variable is time $t$ where $t = 1, 2, \ldots, n$:
 
@@ -236,7 +239,7 @@ summary(lm_fit)
 
 > **Excel Tutorial:** <https://youtu.be/n6e71G9PImc>
 
-### Trend Using Moving Average
+#### Trend Using Moving Average
 
 $$M_t^{(k)} = \frac{1}{k}\sum_{i=0}^{k-1} y_{t-i}$$
 
@@ -269,11 +272,11 @@ legend("bottom", legend = c("Actual", "3-period MA", "5-period MA"),
 
 ------------------------------------------------------------------------
 
-## Seasonal
+### Seasonal
 
 The **seasonal component** refers to a recurring pattern that repeats at **regular, fixed** intervals (daily, weekly, monthly, or yearly).
 
-### Causes of Seasonal Patterns
+#### Causes of Seasonal Patterns
 
 | Factor | Example |
 |----------------------------------|--------------------------------------|
@@ -281,7 +284,7 @@ The **seasonal component** refers to a recurring pattern that repeats at **regul
 | **Holidays** | Tourist numbers peak during school holidays |
 | **Cultural Events** | Zakat collection highest during Hari Raya Eidulfitri |
 
-### Identifying Seasonal Components
+#### Identifying Seasonal Components
 
 -   **Visual Inspection:** Plotting the time series and observing recurring patterns.
 -   **Seasonal Decomposition:** STL or classical decomposition methods.
@@ -321,7 +324,7 @@ autoplot(decomp) +
 
 ------------------------------------------------------------------------
 
-## Cyclical
+### Cyclical
 
 **Cyclical variation** refers to rises and falls of the series over an **unspecified** period, usually around the long-run trend line.
 
@@ -336,9 +339,9 @@ autoplot(decomp) +
 
 *Source: <https://www.mathworks.com/help/econ/choose-time-series-filter-for-business-cycle-analysis.html>*
 
-### Methods to Identify Cyclical Variation
+#### Methods to Identify Cyclical Variation
 
-#### Residual Method
+##### Residual Method
 
 $$\text{Percent of Trend} = \frac{y_t}{\hat{T}_t} \times 100$$
 
@@ -347,7 +350,7 @@ $$\text{Percent of Trend} = \frac{y_t}{\hat{T}_t} \times 100$$
 | $< 100$ | Economy contracting (recession) |
 | $> 100$ | Economy expanding               |
 
-#### Relative Cyclical Residual Method
+##### Relative Cyclical Residual Method
 
 $$\text{Relative Cyclical Residual} = \frac{y_t - \hat{T}_t}{\hat{T}_t} \times 100$$
 
@@ -358,7 +361,7 @@ $$\text{Relative Cyclical Residual} = \frac{y_t - \hat{T}_t}{\hat{T}_t} \times 1
 
 ------------------------------------------------------------------------
 
-## Irregular / Random
+### Irregular / Random
 
 The **irregular or random component** is the portion that **cannot be explained** by trend, seasonal, or cyclical components. It has four distinct sub-types:
 
@@ -369,7 +372,7 @@ The **irregular or random component** is the portion that **cannot be explained*
 | **Outlier** | One extreme isolated value | Single point far from neighbours |
 | **Pure Noise** | Small unpredictable fluctuations | Irregular scatter around zero |
 
-### Turning Point
+#### Turning Point
 
 A **turning point** is where the long-run direction **permanently reverses** — from upward to downward or vice versa. Unlike a shock, the series does **not recover** to its prior direction.
 
@@ -461,7 +464,7 @@ ggplot(df_tp, aes(x = t, y = y)) +
 
 ------------------------------------------------------------------------
 
-### Random Shock
+#### Random Shock
 
 A **random shock** is an abrupt, **temporary** spike or drop caused by an unexpected external event. The series typically recovers toward its prior level once the event passes.
 
@@ -591,7 +594,7 @@ ggplot(df_cmp, aes(x = t, y = y)) +
 ```
 ------------------------------------------------------------------------
 
-### Outliers
+#### Outliers
 
 An **outlier** is an isolated data point that **significantly deviates** from the overall pattern. Unlike a random shock (which spans several periods), an outlier is typically a **single observation**.
 
@@ -650,7 +653,7 @@ ggplot(df_out, aes(x = t, y = y)) +
 
 ------------------------------------------------------------------------
 
-### Random (Pure Noise)
+#### Random (Pure Noise)
 
 The **random** sub-component refers to small, unpredictable fluctuations that remain after all systematic effects are removed. Also called the **residual** or **error** term.
 
@@ -694,7 +697,7 @@ p2 <- ggplot(na.omit(resid_df), aes(x = Residual)) +
 grid.arrange(p1, p2, ncol = 2)
 ```
 
-### Summary: Distinguishing Irregular Sub-types
+#### Summary: Distinguishing Irregular Sub-types
 
 | Sub-type | Duration | Reversible? | Real Example |
 |-----------------|-----------------|-------------------|--------------------|
@@ -780,21 +783,21 @@ grid.arrange(pa, pb, pc, pd, nrow = 2)
 
 ------------------------------------------------------------------------
 
-# Relationship Among Components
+## Relationship Among Components
 
-## Additive Effect
+### Additive Effect
 
 In the **additive model**, seasonal variation is constant — its magnitude is independent of the level of the series.
 
 $$\hat{Y}_t = T_t + S_t + C_t + I_t$$
 
-## Multiplicative Effect
+### Multiplicative Effect
 
 In the **multiplicative model**, seasonal variation grows proportionally with the level of the data series.
 
 $$\hat{Y}_t = T_t \times S_t \times C_t \times I_t$$
 
-## Additive vs. Multiplicative
+### Additive vs. Multiplicative
 
 ```{r}
 #| label: fig-additive-multiplicative
@@ -820,7 +823,7 @@ grid.arrange(p_add, p_mul, ncol = 2)
 If seasonal fluctuations **grow proportionally** with the level of the series → use multiplicative. If they remain **roughly constant** → use additive.
 :::
 
-### Examples
+#### Examples
 
 ::: {#fig-addmult-examples layout-ncol=1}
 
@@ -835,9 +838,9 @@ Real-world examples illustrating additive and multiplicative seasonal patterns.
 
 ------------------------------------------------------------------------
 
-# Measuring Performance
+## Measuring Performance
 
-## Data Partition
+### Data Partition
 
 | Part                      | Purpose                   | Rule of Thumb |
 |---------------------------|---------------------------|---------------|
@@ -889,11 +892,11 @@ ggplot(df_cpi, aes(x = Year, y = Value, colour = Part)) +
 ```
 
 
-## Error Measures
+### Error Measures
 
 The criterion used to differentiate between a poor and a good forecast model is called an **error measure**.
 
-### Mean Square Error (MSE)
+#### Mean Square Error (MSE)
 
 $$\text{MSE} = \frac{1}{n} \sum_{t=1}^{n} (y_t - \hat{y}_t)^2$$
 
@@ -902,7 +905,7 @@ $$\text{MSE} = \frac{1}{n} \sum_{t=1}^{n} (y_t - \hat{y}_t)^2$$
 | **Advantage** | Easy to compute; penalises large errors more heavily |
 | **Disadvantage** | Highly sensitive to large forecast errors; not in original units |
 
-### Mean Absolute Percentage Error (MAPE)
+#### Mean Absolute Percentage Error (MAPE)
 
 $$\text{MAPE} = \frac{1}{n} \sum_{t=1}^{n} \left| \frac{y_t - \hat{y}_t}{y_t} \right| \times 100$$
 
@@ -911,7 +914,7 @@ $$\text{MAPE} = \frac{1}{n} \sum_{t=1}^{n} \left| \frac{y_t - \hat{y}_t}{y_t} \r
 | **Advantage** | Easy to interpret (%); scale-independent — allows comparison across datasets |
 | **Disadvantage** | Undefined when $y_t = 0$; not suitable for negative values |
 
-### Mean Absolute Error (MAE)
+#### Mean Absolute Error (MAE)
 
 $$\text{MAE} = \frac{1}{n} \sum_{t=1}^{n} |y_t - \hat{y}_t|$$
 
@@ -925,9 +928,9 @@ $$\text{MAE} = \frac{1}{n} \sum_{t=1}^{n} |y_t - \hat{y}_t|$$
 - A truly good model gives consistently low values **across multiple error measures**.
 :::
 
-## Example: Malaysia CPI Data
+### Example: Malaysia CPI Data
 
-### Model 1 — Linear Trend
+#### Model 1 — Linear Trend
 
 ```{r}
 #| label: model1
@@ -959,7 +962,7 @@ cat("MAE  :", round(mae1,  4), "\n")
 cat("MAPE :", round(mape1, 4), "%\n")
 ```
 
-### Model 2 — Quadratic Trend
+#### Model 2 — Quadratic Trend
 
 ```{r}
 #| label: model2
@@ -984,7 +987,7 @@ cat("MAE  :", round(mae2,  4), "\n")
 cat("MAPE :", round(mape2, 4), "%\n")
 ```
 
-### Model Comparison
+#### Model Comparison
 
 ```{r}
 #| label: tbl-model-comparison
@@ -1011,7 +1014,7 @@ if (knitr::is_html_output() || knitr::is_latex_output()) {
 tbl
 ```
 
-### 4-Year Forecast
+#### 4-Year Forecast
 
 ```{r}
 #| label: forecast
@@ -1069,7 +1072,7 @@ ggplot() +
 
 ------------------------------------------------------------------------
 
-# Summary
+## Summary
 
 -   A **time series** is defined as $\{y_t : t = 1, 2, \ldots, n\}$ — data indexed in ascending time order.
 -   A time series plot interpretation should include minimum, maximum, outliers, and overall trends.
@@ -1080,7 +1083,7 @@ ggplot() +
 
 ------------------------------------------------------------------------
 
-# References
+## References
 
 -   Mohd Alias Lazim, *Introductory Business Forecasting: A Practical Approach*, 3rd ed., UPENA, UiTM, 2013.
 -   <https://open.dosm.gov.my/data-catalogue>

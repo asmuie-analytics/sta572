@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Chapter 5: The Box-Jenkins Methodology – STA572: Time Series Analysis and Forecasting</title>
+<title>c5-boxjenkins – STA572: Time Series Analysis and Forecasting</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -204,122 +204,111 @@ window.Quarto = {
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
-  <li><a href="#arima-models" id="toc-arima-models" class="nav-link" data-scroll-target="#arima-models"><span class="header-section-number">2</span> ARIMA Models</a>
+  <li><a href="#the-box-jenkins-methodology" id="toc-the-box-jenkins-methodology" class="nav-link active" data-scroll-target="#the-box-jenkins-methodology"><span class="header-section-number">5</span> The Box-Jenkins Methodology</a>
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">5.1</span> Introduction</a></li>
+  <li><a href="#arima-models" id="toc-arima-models" class="nav-link" data-scroll-target="#arima-models"><span class="header-section-number">5.2</span> ARIMA Models</a>
   <ul class="collapse">
-  <li><a href="#autoregressive-ar-model" id="toc-autoregressive-ar-model" class="nav-link" data-scroll-target="#autoregressive-ar-model"><span class="header-section-number">2.1</span> Autoregressive (AR) Model</a>
+  <li><a href="#autoregressive-ar-model" id="toc-autoregressive-ar-model" class="nav-link" data-scroll-target="#autoregressive-ar-model"><span class="header-section-number">5.2.1</span> Autoregressive (AR) Model</a>
   <ul class="collapse">
-  <li><a href="#ar1-the-simplest-form" id="toc-ar1-the-simplest-form" class="nav-link" data-scroll-target="#ar1-the-simplest-form"><span class="header-section-number">2.1.1</span> AR(1) — the simplest form</a></li>
+  <li><a href="#ar1-the-simplest-form" id="toc-ar1-the-simplest-form" class="nav-link" data-scroll-target="#ar1-the-simplest-form"><span class="header-section-number">5.2.1.1</span> AR(1) — the simplest form</a></li>
   </ul></li>
-  <li><a href="#moving-average-ma-model" id="toc-moving-average-ma-model" class="nav-link" data-scroll-target="#moving-average-ma-model"><span class="header-section-number">2.2</span> Moving Average (MA) Model</a>
+  <li><a href="#moving-average-ma-model" id="toc-moving-average-ma-model" class="nav-link" data-scroll-target="#moving-average-ma-model"><span class="header-section-number">5.2.2</span> Moving Average (MA) Model</a>
   <ul class="collapse">
-  <li><a href="#ma1-the-simplest-form" id="toc-ma1-the-simplest-form" class="nav-link" data-scroll-target="#ma1-the-simplest-form"><span class="header-section-number">2.2.1</span> MA(1) — the simplest form</a></li>
+  <li><a href="#ma1-the-simplest-form" id="toc-ma1-the-simplest-form" class="nav-link" data-scroll-target="#ma1-the-simplest-form"><span class="header-section-number">5.2.2.1</span> MA(1) — the simplest form</a></li>
   </ul></li>
-  <li><a href="#mixed-autoregressive-moving-average-armapq" id="toc-mixed-autoregressive-moving-average-armapq" class="nav-link" data-scroll-target="#mixed-autoregressive-moving-average-armapq"><span class="header-section-number">2.3</span> Mixed Autoregressive Moving Average — ARMA(<span class="math inline">\(p\)</span>,<span class="math inline">\(q\)</span>)</a>
+  <li><a href="#mixed-autoregressive-moving-average-armapq" id="toc-mixed-autoregressive-moving-average-armapq" class="nav-link" data-scroll-target="#mixed-autoregressive-moving-average-armapq"><span class="header-section-number">5.2.3</span> Mixed Autoregressive Moving Average — ARMA(<span class="math inline">\(p\)</span>,<span class="math inline">\(q\)</span>)</a>
   <ul class="collapse">
-  <li><a href="#arma11-the-simplest-form" id="toc-arma11-the-simplest-form" class="nav-link" data-scroll-target="#arma11-the-simplest-form"><span class="header-section-number">2.3.1</span> ARMA(1,1) — the simplest form</a></li>
+  <li><a href="#arma11-the-simplest-form" id="toc-arma11-the-simplest-form" class="nav-link" data-scroll-target="#arma11-the-simplest-form"><span class="header-section-number">5.2.3.1</span> ARMA(1,1) — the simplest form</a></li>
   </ul></li>
-  <li><a href="#autoregressive-integrated-moving-average-arimapdq" id="toc-autoregressive-integrated-moving-average-arimapdq" class="nav-link" data-scroll-target="#autoregressive-integrated-moving-average-arimapdq"><span class="header-section-number">2.4</span> Autoregressive Integrated Moving Average — ARIMA(<span class="math inline">\(p\)</span>,<span class="math inline">\(d\)</span>,<span class="math inline">\(q\)</span>)</a>
+  <li><a href="#autoregressive-integrated-moving-average-arimapdq" id="toc-autoregressive-integrated-moving-average-arimapdq" class="nav-link" data-scroll-target="#autoregressive-integrated-moving-average-arimapdq"><span class="header-section-number">5.2.4</span> Autoregressive Integrated Moving Average — ARIMA(<span class="math inline">\(p\)</span>,<span class="math inline">\(d\)</span>,<span class="math inline">\(q\)</span>)</a>
   <ul class="collapse">
-  <li><a href="#arima111-a-simple-case" id="toc-arima111-a-simple-case" class="nav-link" data-scroll-target="#arima111-a-simple-case"><span class="header-section-number">2.4.1</span> ARIMA(1,1,1) — a simple case</a></li>
+  <li><a href="#arima111-a-simple-case" id="toc-arima111-a-simple-case" class="nav-link" data-scroll-target="#arima111-a-simple-case"><span class="header-section-number">5.2.4.1</span> ARIMA(1,1,1) — a simple case</a></li>
   </ul></li>
-  <li><a href="#seasonal-arima-sarimapdqpdq_s" id="toc-seasonal-arima-sarimapdqpdq_s" class="nav-link" data-scroll-target="#seasonal-arima-sarimapdqpdq_s"><span class="header-section-number">2.5</span> Seasonal ARIMA — SARIMA(<span class="math inline">\(p\)</span>,<span class="math inline">\(d\)</span>,<span class="math inline">\(q\)</span>)(<span class="math inline">\(P\)</span>,<span class="math inline">\(D\)</span>,<span class="math inline">\(Q\)</span>)<span class="math inline">\(_s\)</span></a>
+  <li><a href="#seasonal-arima-sarimapdqpdq_s" id="toc-seasonal-arima-sarimapdqpdq_s" class="nav-link" data-scroll-target="#seasonal-arima-sarimapdqpdq_s"><span class="header-section-number">5.2.5</span> Seasonal ARIMA — SARIMA(<span class="math inline">\(p\)</span>,<span class="math inline">\(d\)</span>,<span class="math inline">\(q\)</span>)(<span class="math inline">\(P\)</span>,<span class="math inline">\(D\)</span>,<span class="math inline">\(Q\)</span>)<span class="math inline">\(_s\)</span></a>
   <ul class="collapse">
-  <li><a href="#formulating-sarima112111_4" id="toc-formulating-sarima112111_4" class="nav-link" data-scroll-target="#formulating-sarima112111_4"><span class="header-section-number">2.5.1</span> Formulating SARIMA<span class="math inline">\((1,1,2)(1,1,1)_4\)</span></a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#box-jenkins-methodology-overview" id="toc-box-jenkins-methodology-overview" class="nav-link" data-scroll-target="#box-jenkins-methodology-overview"><span class="header-section-number">3</span> Box-Jenkins Methodology: Overview</a></li>
-  <li><a href="#autocorrelation-function-acf" id="toc-autocorrelation-function-acf" class="nav-link" data-scroll-target="#autocorrelation-function-acf"><span class="header-section-number">4</span> Autocorrelation Function (ACF)</a>
-  <ul class="collapse">
-  <li><a href="#definition" id="toc-definition" class="nav-link" data-scroll-target="#definition"><span class="header-section-number">4.1</span> Definition</a></li>
-  <li><a href="#acf-of-a-random-process-white-noise" id="toc-acf-of-a-random-process-white-noise" class="nav-link" data-scroll-target="#acf-of-a-random-process-white-noise"><span class="header-section-number">4.2</span> ACF of a Random Process (White Noise)</a></li>
-  <li><a href="#acf-of-an-ar1-process" id="toc-acf-of-an-ar1-process" class="nav-link" data-scroll-target="#acf-of-an-ar1-process"><span class="header-section-number">4.3</span> ACF of an AR(1) Process</a></li>
-  <li><a href="#acf-of-an-ma1-process" id="toc-acf-of-an-ma1-process" class="nav-link" data-scroll-target="#acf-of-an-ma1-process"><span class="header-section-number">4.4</span> ACF of an MA(1) Process</a></li>
-  </ul></li>
-  <li><a href="#partial-autocorrelation-function-pacf" id="toc-partial-autocorrelation-function-pacf" class="nav-link" data-scroll-target="#partial-autocorrelation-function-pacf"><span class="header-section-number">5</span> Partial Autocorrelation Function (PACF)</a>
-  <ul class="collapse">
-  <li><a href="#definition-1" id="toc-definition-1" class="nav-link" data-scroll-target="#definition-1"><span class="header-section-number">5.1</span> Definition</a></li>
-  <li><a href="#acf-and-pacf-patterns-model-identification-guide" id="toc-acf-and-pacf-patterns-model-identification-guide" class="nav-link" data-scroll-target="#acf-and-pacf-patterns-model-identification-guide"><span class="header-section-number">5.2</span> ACF and PACF Patterns — Model Identification Guide</a>
-  <ul class="collapse">
-  <li><a href="#example-constructing-acf-and-pacf-plots-from-a-table" id="toc-example-constructing-acf-and-pacf-plots-from-a-table" class="nav-link" data-scroll-target="#example-constructing-acf-and-pacf-plots-from-a-table"><span class="header-section-number">5.2.1</span> Example: Constructing ACF and PACF Plots from a Table</a></li>
+  <li><a href="#formulating-sarima112111_4" id="toc-formulating-sarima112111_4" class="nav-link" data-scroll-target="#formulating-sarima112111_4"><span class="header-section-number">5.2.5.1</span> Formulating SARIMA<span class="math inline">\((1,1,2)(1,1,1)_4\)</span></a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#box-jenkins-non-seasonal-arima" id="toc-box-jenkins-non-seasonal-arima" class="nav-link" data-scroll-target="#box-jenkins-non-seasonal-arima"><span class="header-section-number">6</span> Box-Jenkins: Non-Seasonal ARIMA</a>
+  <li><a href="#box-jenkins-methodology-overview" id="toc-box-jenkins-methodology-overview" class="nav-link" data-scroll-target="#box-jenkins-methodology-overview"><span class="header-section-number">5.3</span> Box-Jenkins Methodology: Overview</a></li>
+  <li><a href="#autocorrelation-function-acf" id="toc-autocorrelation-function-acf" class="nav-link" data-scroll-target="#autocorrelation-function-acf"><span class="header-section-number">5.4</span> Autocorrelation Function (ACF)</a>
   <ul class="collapse">
-  <li><a href="#stage-1-model-identification" id="toc-stage-1-model-identification" class="nav-link" data-scroll-target="#stage-1-model-identification"><span class="header-section-number">6.1</span> Stage 1 — Model Identification</a>
-  <ul class="collapse">
-  <li><a href="#step-1a-time-series-plot" id="toc-step-1a-time-series-plot" class="nav-link" data-scroll-target="#step-1a-time-series-plot"><span class="header-section-number">6.1.1</span> Step 1a: Time Series Plot</a></li>
-  <li><a href="#step-1b-acf-and-pacf-of-the-raw-series" id="toc-step-1b-acf-and-pacf-of-the-raw-series" class="nav-link" data-scroll-target="#step-1b-acf-and-pacf-of-the-raw-series"><span class="header-section-number">6.1.2</span> Step 1b: ACF and PACF of the Raw Series</a></li>
-  <li><a href="#step-1c-adf-test-on-raw-series" id="toc-step-1c-adf-test-on-raw-series" class="nav-link" data-scroll-target="#step-1c-adf-test-on-raw-series"><span class="header-section-number">6.1.3</span> Step 1c: ADF Test on Raw Series</a></li>
-  <li><a href="#step-1d-first-order-differencing" id="toc-step-1d-first-order-differencing" class="nav-link" data-scroll-target="#step-1d-first-order-differencing"><span class="header-section-number">6.1.4</span> Step 1d: First-Order Differencing</a></li>
-  <li><a href="#step-1e-acf-and-pacf-of-differenced-series" id="toc-step-1e-acf-and-pacf-of-differenced-series" class="nav-link" data-scroll-target="#step-1e-acf-and-pacf-of-differenced-series"><span class="header-section-number">6.1.5</span> Step 1e: ACF and PACF of Differenced Series</a></li>
+  <li><a href="#definition" id="toc-definition" class="nav-link" data-scroll-target="#definition"><span class="header-section-number">5.4.1</span> Definition</a></li>
+  <li><a href="#acf-of-a-random-process-white-noise" id="toc-acf-of-a-random-process-white-noise" class="nav-link" data-scroll-target="#acf-of-a-random-process-white-noise"><span class="header-section-number">5.4.2</span> ACF of a Random Process (White Noise)</a></li>
+  <li><a href="#acf-of-an-ar1-process" id="toc-acf-of-an-ar1-process" class="nav-link" data-scroll-target="#acf-of-an-ar1-process"><span class="header-section-number">5.4.3</span> ACF of an AR(1) Process</a></li>
+  <li><a href="#acf-of-an-ma1-process" id="toc-acf-of-an-ma1-process" class="nav-link" data-scroll-target="#acf-of-an-ma1-process"><span class="header-section-number">5.4.4</span> ACF of an MA(1) Process</a></li>
   </ul></li>
-  <li><a href="#stage-2-model-estimation-non-seasonal" id="toc-stage-2-model-estimation-non-seasonal" class="nav-link" data-scroll-target="#stage-2-model-estimation-non-seasonal"><span class="header-section-number">6.2</span> Stage 2 — Model Estimation (Non-Seasonal)</a></li>
-  <li><a href="#stage-3-model-validation-non-seasonal" id="toc-stage-3-model-validation-non-seasonal" class="nav-link" data-scroll-target="#stage-3-model-validation-non-seasonal"><span class="header-section-number">6.3</span> Stage 3 — Model Validation (Non-Seasonal)</a>
+  <li><a href="#partial-autocorrelation-function-pacf" id="toc-partial-autocorrelation-function-pacf" class="nav-link" data-scroll-target="#partial-autocorrelation-function-pacf"><span class="header-section-number">5.5</span> Partial Autocorrelation Function (PACF)</a>
   <ul class="collapse">
-  <li><a href="#ljung-box-test" id="toc-ljung-box-test" class="nav-link" data-scroll-target="#ljung-box-test"><span class="header-section-number">6.3.1</span> Ljung-Box Test</a></li>
-  <li><a href="#information-criteria" id="toc-information-criteria" class="nav-link" data-scroll-target="#information-criteria"><span class="header-section-number">6.3.2</span> Information Criteria</a></li>
-  <li><a href="#parameter-redundancy" id="toc-parameter-redundancy" class="nav-link" data-scroll-target="#parameter-redundancy"><span class="header-section-number">6.3.3</span> Parameter Redundancy</a></li>
-  </ul></li>
-  <li><a href="#stage-4-model-application-forecasting-non-seasonal" id="toc-stage-4-model-application-forecasting-non-seasonal" class="nav-link" data-scroll-target="#stage-4-model-application-forecasting-non-seasonal"><span class="header-section-number">6.4</span> Stage 4 — Model Application: Forecasting (Non-Seasonal)</a>
+  <li><a href="#definition-1" id="toc-definition-1" class="nav-link" data-scroll-target="#definition-1"><span class="header-section-number">5.5.1</span> Definition</a></li>
+  <li><a href="#acf-and-pacf-patterns-model-identification-guide" id="toc-acf-and-pacf-patterns-model-identification-guide" class="nav-link" data-scroll-target="#acf-and-pacf-patterns-model-identification-guide"><span class="header-section-number">5.5.2</span> ACF and PACF Patterns — Model Identification Guide</a>
   <ul class="collapse">
-  <li><a href="#three-steps-for-point-forecasts" id="toc-three-steps-for-point-forecasts" class="nav-link" data-scroll-target="#three-steps-for-point-forecasts"><span class="header-section-number">6.4.1</span> Three Steps for Point Forecasts</a></li>
-  <li><a href="#forecast-exercise" id="toc-forecast-exercise" class="nav-link" data-scroll-target="#forecast-exercise"><span class="header-section-number">6.4.2</span> Forecast Exercise</a></li>
-  <li><a href="#forecast-plot" id="toc-forecast-plot" class="nav-link" data-scroll-target="#forecast-plot"><span class="header-section-number">6.4.3</span> Forecast Plot</a></li>
+  <li><a href="#example-constructing-acf-and-pacf-plots-from-a-table" id="toc-example-constructing-acf-and-pacf-plots-from-a-table" class="nav-link" data-scroll-target="#example-constructing-acf-and-pacf-plots-from-a-table"><span class="header-section-number">5.5.2.1</span> Example: Constructing ACF and PACF Plots from a Table</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#box-jenkins-seasonal-arima-sarima" id="toc-box-jenkins-seasonal-arima-sarima" class="nav-link" data-scroll-target="#box-jenkins-seasonal-arima-sarima"><span class="header-section-number">7</span> Box-Jenkins: Seasonal ARIMA (SARIMA)</a>
+  <li><a href="#box-jenkins-non-seasonal-arima" id="toc-box-jenkins-non-seasonal-arima" class="nav-link" data-scroll-target="#box-jenkins-non-seasonal-arima"><span class="header-section-number">5.6</span> Box-Jenkins: Non-Seasonal ARIMA</a>
   <ul class="collapse">
-  <li><a href="#stage-1-model-identification-sarima" id="toc-stage-1-model-identification-sarima" class="nav-link" data-scroll-target="#stage-1-model-identification-sarima"><span class="header-section-number">7.1</span> Stage 1 — Model Identification (SARIMA)</a>
+  <li><a href="#stage-1-model-identification" id="toc-stage-1-model-identification" class="nav-link" data-scroll-target="#stage-1-model-identification"><span class="header-section-number">5.6.1</span> Stage 1 — Model Identification</a>
   <ul class="collapse">
-  <li><a href="#data-and-partition" id="toc-data-and-partition" class="nav-link" data-scroll-target="#data-and-partition"><span class="header-section-number">7.1.1</span> Data and Partition</a></li>
-  <li><a href="#step-1-time-series-plot-and-decomposition" id="toc-step-1-time-series-plot-and-decomposition" class="nav-link" data-scroll-target="#step-1-time-series-plot-and-decomposition"><span class="header-section-number">7.1.2</span> Step 1: Time Series Plot and Decomposition</a></li>
-  <li><a href="#step-2-acf-and-adf-of-raw-series" id="toc-step-2-acf-and-adf-of-raw-series" class="nav-link" data-scroll-target="#step-2-acf-and-adf-of-raw-series"><span class="header-section-number">7.1.3</span> Step 2: ACF and ADF of Raw Series</a></li>
-  <li><a href="#step-3-seasonal-differencing" id="toc-step-3-seasonal-differencing" class="nav-link" data-scroll-target="#step-3-seasonal-differencing"><span class="header-section-number">7.1.4</span> Step 3: Seasonal Differencing</a></li>
-  <li><a href="#step-4-regular-differencing-if-needed" id="toc-step-4-regular-differencing-if-needed" class="nav-link" data-scroll-target="#step-4-regular-differencing-if-needed"><span class="header-section-number">7.1.5</span> Step 4: Regular Differencing (if needed)</a></li>
-  <li><a href="#step-5-acf-and-pacf-for-order-determination" id="toc-step-5-acf-and-pacf-for-order-determination" class="nav-link" data-scroll-target="#step-5-acf-and-pacf-for-order-determination"><span class="header-section-number">7.1.6</span> Step 5: ACF and PACF for Order Determination</a></li>
+  <li><a href="#step-1a-time-series-plot" id="toc-step-1a-time-series-plot" class="nav-link" data-scroll-target="#step-1a-time-series-plot"><span class="header-section-number">5.6.1.1</span> Step 1a: Time Series Plot</a></li>
+  <li><a href="#step-1b-acf-and-pacf-of-the-raw-series" id="toc-step-1b-acf-and-pacf-of-the-raw-series" class="nav-link" data-scroll-target="#step-1b-acf-and-pacf-of-the-raw-series"><span class="header-section-number">5.6.1.2</span> Step 1b: ACF and PACF of the Raw Series</a></li>
+  <li><a href="#step-1c-adf-test-on-raw-series" id="toc-step-1c-adf-test-on-raw-series" class="nav-link" data-scroll-target="#step-1c-adf-test-on-raw-series"><span class="header-section-number">5.6.1.3</span> Step 1c: ADF Test on Raw Series</a></li>
+  <li><a href="#step-1d-first-order-differencing" id="toc-step-1d-first-order-differencing" class="nav-link" data-scroll-target="#step-1d-first-order-differencing"><span class="header-section-number">5.6.1.4</span> Step 1d: First-Order Differencing</a></li>
+  <li><a href="#step-1e-acf-and-pacf-of-differenced-series" id="toc-step-1e-acf-and-pacf-of-differenced-series" class="nav-link" data-scroll-target="#step-1e-acf-and-pacf-of-differenced-series"><span class="header-section-number">5.6.1.5</span> Step 1e: ACF and PACF of Differenced Series</a></li>
   </ul></li>
-  <li><a href="#stage-2-model-estimation-sarima" id="toc-stage-2-model-estimation-sarima" class="nav-link" data-scroll-target="#stage-2-model-estimation-sarima"><span class="header-section-number">7.2</span> Stage 2 — Model Estimation (SARIMA)</a></li>
-  <li><a href="#stage-3-model-validation-sarima" id="toc-stage-3-model-validation-sarima" class="nav-link" data-scroll-target="#stage-3-model-validation-sarima"><span class="header-section-number">7.3</span> Stage 3 — Model Validation (SARIMA)</a>
+  <li><a href="#stage-2-model-estimation-non-seasonal" id="toc-stage-2-model-estimation-non-seasonal" class="nav-link" data-scroll-target="#stage-2-model-estimation-non-seasonal"><span class="header-section-number">5.6.2</span> Stage 2 — Model Estimation (Non-Seasonal)</a></li>
+  <li><a href="#stage-3-model-validation-non-seasonal" id="toc-stage-3-model-validation-non-seasonal" class="nav-link" data-scroll-target="#stage-3-model-validation-non-seasonal"><span class="header-section-number">5.6.3</span> Stage 3 — Model Validation (Non-Seasonal)</a>
   <ul class="collapse">
-  <li><a href="#acf-and-pacf-of-residuals" id="toc-acf-and-pacf-of-residuals" class="nav-link" data-scroll-target="#acf-and-pacf-of-residuals"><span class="header-section-number">7.3.1</span> ACF and PACF of Residuals</a></li>
-  <li><a href="#ljung-box-test-1" id="toc-ljung-box-test-1" class="nav-link" data-scroll-target="#ljung-box-test-1"><span class="header-section-number">7.3.2</span> Ljung-Box Test</a></li>
-  <li><a href="#model-comparison" id="toc-model-comparison" class="nav-link" data-scroll-target="#model-comparison"><span class="header-section-number">7.3.3</span> Model Comparison</a></li>
+  <li><a href="#ljung-box-test" id="toc-ljung-box-test" class="nav-link" data-scroll-target="#ljung-box-test"><span class="header-section-number">5.6.3.1</span> Ljung-Box Test</a></li>
+  <li><a href="#information-criteria" id="toc-information-criteria" class="nav-link" data-scroll-target="#information-criteria"><span class="header-section-number">5.6.3.2</span> Information Criteria</a></li>
+  <li><a href="#parameter-redundancy" id="toc-parameter-redundancy" class="nav-link" data-scroll-target="#parameter-redundancy"><span class="header-section-number">5.6.3.3</span> Parameter Redundancy</a></li>
   </ul></li>
-  <li><a href="#stage-4-model-application-forecasting-sarima" id="toc-stage-4-model-application-forecasting-sarima" class="nav-link" data-scroll-target="#stage-4-model-application-forecasting-sarima"><span class="header-section-number">7.4</span> Stage 4 — Model Application: Forecasting (SARIMA)</a></li>
-  </ul></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">8</span> Summary</a>
+  <li><a href="#stage-4-model-application-forecasting-non-seasonal" id="toc-stage-4-model-application-forecasting-non-seasonal" class="nav-link" data-scroll-target="#stage-4-model-application-forecasting-non-seasonal"><span class="header-section-number">5.6.4</span> Stage 4 — Model Application: Forecasting (Non-Seasonal)</a>
   <ul class="collapse">
-  <li><a href="#box-jenkins-methodology-four-stages" id="toc-box-jenkins-methodology-four-stages" class="nav-link" data-scroll-target="#box-jenkins-methodology-four-stages"><span class="header-section-number">8.1</span> Box-Jenkins Methodology — Four Stages</a></li>
-  <li><a href="#acf-and-pacf-quick-reference" id="toc-acf-and-pacf-quick-reference" class="nav-link" data-scroll-target="#acf-and-pacf-quick-reference"><span class="header-section-number">8.2</span> ACF and PACF — Quick Reference</a></li>
-  <li><a href="#information-criteria-summary" id="toc-information-criteria-summary" class="nav-link" data-scroll-target="#information-criteria-summary"><span class="header-section-number">8.3</span> Information Criteria Summary</a></li>
+  <li><a href="#three-steps-for-point-forecasts" id="toc-three-steps-for-point-forecasts" class="nav-link" data-scroll-target="#three-steps-for-point-forecasts"><span class="header-section-number">5.6.4.1</span> Three Steps for Point Forecasts</a></li>
+  <li><a href="#forecast-exercise" id="toc-forecast-exercise" class="nav-link" data-scroll-target="#forecast-exercise"><span class="header-section-number">5.6.4.2</span> Forecast Exercise</a></li>
+  <li><a href="#forecast-plot" id="toc-forecast-plot" class="nav-link" data-scroll-target="#forecast-plot"><span class="header-section-number">5.6.4.3</span> Forecast Plot</a></li>
   </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">9</span> References</a></li>
+  </ul></li>
+  <li><a href="#box-jenkins-seasonal-arima-sarima" id="toc-box-jenkins-seasonal-arima-sarima" class="nav-link" data-scroll-target="#box-jenkins-seasonal-arima-sarima"><span class="header-section-number">5.7</span> Box-Jenkins: Seasonal ARIMA (SARIMA)</a>
+  <ul class="collapse">
+  <li><a href="#stage-1-model-identification-sarima" id="toc-stage-1-model-identification-sarima" class="nav-link" data-scroll-target="#stage-1-model-identification-sarima"><span class="header-section-number">5.7.1</span> Stage 1 — Model Identification (SARIMA)</a>
+  <ul class="collapse">
+  <li><a href="#data-and-partition" id="toc-data-and-partition" class="nav-link" data-scroll-target="#data-and-partition"><span class="header-section-number">5.7.1.1</span> Data and Partition</a></li>
+  <li><a href="#step-1-time-series-plot-and-decomposition" id="toc-step-1-time-series-plot-and-decomposition" class="nav-link" data-scroll-target="#step-1-time-series-plot-and-decomposition"><span class="header-section-number">5.7.1.2</span> Step 1: Time Series Plot and Decomposition</a></li>
+  <li><a href="#step-2-acf-and-adf-of-raw-series" id="toc-step-2-acf-and-adf-of-raw-series" class="nav-link" data-scroll-target="#step-2-acf-and-adf-of-raw-series"><span class="header-section-number">5.7.1.3</span> Step 2: ACF and ADF of Raw Series</a></li>
+  <li><a href="#step-3-seasonal-differencing" id="toc-step-3-seasonal-differencing" class="nav-link" data-scroll-target="#step-3-seasonal-differencing"><span class="header-section-number">5.7.1.4</span> Step 3: Seasonal Differencing</a></li>
+  <li><a href="#step-4-regular-differencing-if-needed" id="toc-step-4-regular-differencing-if-needed" class="nav-link" data-scroll-target="#step-4-regular-differencing-if-needed"><span class="header-section-number">5.7.1.5</span> Step 4: Regular Differencing (if needed)</a></li>
+  <li><a href="#step-5-acf-and-pacf-for-order-determination" id="toc-step-5-acf-and-pacf-for-order-determination" class="nav-link" data-scroll-target="#step-5-acf-and-pacf-for-order-determination"><span class="header-section-number">5.7.1.6</span> Step 5: ACF and PACF for Order Determination</a></li>
+  </ul></li>
+  <li><a href="#stage-2-model-estimation-sarima" id="toc-stage-2-model-estimation-sarima" class="nav-link" data-scroll-target="#stage-2-model-estimation-sarima"><span class="header-section-number">5.7.2</span> Stage 2 — Model Estimation (SARIMA)</a></li>
+  <li><a href="#stage-3-model-validation-sarima" id="toc-stage-3-model-validation-sarima" class="nav-link" data-scroll-target="#stage-3-model-validation-sarima"><span class="header-section-number">5.7.3</span> Stage 3 — Model Validation (SARIMA)</a>
+  <ul class="collapse">
+  <li><a href="#acf-and-pacf-of-residuals" id="toc-acf-and-pacf-of-residuals" class="nav-link" data-scroll-target="#acf-and-pacf-of-residuals"><span class="header-section-number">5.7.3.1</span> ACF and PACF of Residuals</a></li>
+  <li><a href="#ljung-box-test-1" id="toc-ljung-box-test-1" class="nav-link" data-scroll-target="#ljung-box-test-1"><span class="header-section-number">5.7.3.2</span> Ljung-Box Test</a></li>
+  <li><a href="#model-comparison" id="toc-model-comparison" class="nav-link" data-scroll-target="#model-comparison"><span class="header-section-number">5.7.3.3</span> Model Comparison</a></li>
+  </ul></li>
+  <li><a href="#stage-4-model-application-forecasting-sarima" id="toc-stage-4-model-application-forecasting-sarima" class="nav-link" data-scroll-target="#stage-4-model-application-forecasting-sarima"><span class="header-section-number">5.7.4</span> Stage 4 — Model Application: Forecasting (SARIMA)</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">5.8</span> Summary</a>
+  <ul class="collapse">
+  <li><a href="#box-jenkins-methodology-four-stages" id="toc-box-jenkins-methodology-four-stages" class="nav-link" data-scroll-target="#box-jenkins-methodology-four-stages"><span class="header-section-number">5.8.1</span> Box-Jenkins Methodology — Four Stages</a></li>
+  <li><a href="#acf-and-pacf-quick-reference" id="toc-acf-and-pacf-quick-reference" class="nav-link" data-scroll-target="#acf-and-pacf-quick-reference"><span class="header-section-number">5.8.2</span> ACF and PACF — Quick Reference</a></li>
+  <li><a href="#information-criteria-summary" id="toc-information-criteria-summary" class="nav-link" data-scroll-target="#information-criteria-summary"><span class="header-section-number">5.8.3</span> Information Criteria Summary</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">5.9</span> References</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Chapter 5: The Box-Jenkins Methodology</h1>
-</div>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
+<section id="the-box-jenkins-methodology" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> The Box-Jenkins Methodology</h1>
 <p>Set up the R programming environment for Chapter 5.</p>
 <div class="cell" data-tbl-cap="R programming environment setup">
 <details class="code-fold">
@@ -362,8 +351,8 @@ window.Quarto = {
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>eva_snp <span class="ot">&lt;-</span> snp[(n_e <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>n_snp, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="introduction" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<section id="introduction" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">5.1</span> Introduction</h2>
 <p>The <strong>ARIMA</strong> (AutoRegressive Integrated Moving Average) model is one of the most widely used statistical methods for time series forecasting. The Box-Jenkins methodology — developed by George Box and Gwilym Jenkins — provides a systematic four-stage approach for identifying, estimating, validating, and applying ARIMA models.</p>
 <p>Four basic model types are involved:</p>
 <table class="caption-top table">
@@ -404,10 +393,10 @@ window.Quarto = {
 </table>
 <hr>
 </section>
-<section id="arima-models" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> ARIMA Models</h1>
-<section id="autoregressive-ar-model" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="autoregressive-ar-model"><span class="header-section-number">2.1</span> Autoregressive (AR) Model</h2>
+<section id="arima-models" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="arima-models"><span class="header-section-number">5.2</span> ARIMA Models</h2>
+<section id="autoregressive-ar-model" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="autoregressive-ar-model"><span class="header-section-number">5.2.1</span> Autoregressive (AR) Model</h3>
 <p>A <span class="math inline">\(p\)</span>th-order autoregressive model, <strong>AR(</strong><span class="math inline">\(p\)</span>), is:</p>
 <p><span class="math display">\[
 y_t = \phi_0 + \phi_1 y_{t-1} + \phi_2 y_{t-2} + \cdots + \phi_p y_{t-p} + \varepsilon_t \tag{1}
@@ -423,8 +412,8 @@ y_t = \phi_0 + \phi_1 y_{t-1} + \phi_2 y_{t-2} + \cdots + \phi_p y_{t-p} + \vare
 <p><span class="math display">\[
 (1 - \phi_1 B - \phi_2 B^2 - \cdots - \phi_p B^p)\,y_t = \phi_0 + \varepsilon_t
 \]</span></p>
-<section id="ar1-the-simplest-form" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="ar1-the-simplest-form"><span class="header-section-number">2.1.1</span> AR(1) — the simplest form</h3>
+<section id="ar1-the-simplest-form" class="level4" data-number="5.2.1.1">
+<h4 data-number="5.2.1.1" class="anchored" data-anchor-id="ar1-the-simplest-form"><span class="header-section-number">5.2.1.1</span> AR(1) — the simplest form</h4>
 <p><span class="math display">\[
 y_t = \phi_0 + \phi_1 y_{t-1} + \varepsilon_t \tag{2}
 \]</span></p>
@@ -435,8 +424,8 @@ y_t = \phi_0 + \phi_1 y_{t-1} + \varepsilon_t \tag{2}
 <hr>
 </section>
 </section>
-<section id="moving-average-ma-model" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="moving-average-ma-model"><span class="header-section-number">2.2</span> Moving Average (MA) Model</h2>
+<section id="moving-average-ma-model" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="moving-average-ma-model"><span class="header-section-number">5.2.2</span> Moving Average (MA) Model</h3>
 <p>A <span class="math inline">\(q\)</span>th-order moving average model, <strong>MA(</strong><span class="math inline">\(q\)</span>), is:</p>
 <p><span class="math display">\[
 y_t = \phi_0 + \varepsilon_t + \theta_1 \varepsilon_{t-1} + \theta_2 \varepsilon_{t-2}
@@ -452,8 +441,8 @@ y_t = \phi_0 + \varepsilon_t + \theta_1 \varepsilon_{t-1} + \theta_2 \varepsilon
 <p><span class="math display">\[
 y_t = \phi_0 + (1 + \theta_1 B + \theta_2 B^2 + \cdots + \theta_q B^q)\,\varepsilon_t
 \]</span></p>
-<section id="ma1-the-simplest-form" class="level3" data-number="2.2.1">
-<h3 data-number="2.2.1" class="anchored" data-anchor-id="ma1-the-simplest-form"><span class="header-section-number">2.2.1</span> MA(1) — the simplest form</h3>
+<section id="ma1-the-simplest-form" class="level4" data-number="5.2.2.1">
+<h4 data-number="5.2.2.1" class="anchored" data-anchor-id="ma1-the-simplest-form"><span class="header-section-number">5.2.2.1</span> MA(1) — the simplest form</h4>
 <p><span class="math display">\[
 y_t = \phi_0 + \theta_1 \varepsilon_{t-1} + \varepsilon_t \tag{5}
 \]</span></p>
@@ -463,8 +452,8 @@ y_t = \phi_0 + \theta_1 \varepsilon_{t-1} + \varepsilon_t \tag{5}
 <hr>
 </section>
 </section>
-<section id="mixed-autoregressive-moving-average-armapq" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="mixed-autoregressive-moving-average-armapq"><span class="header-section-number">2.3</span> Mixed Autoregressive Moving Average — ARMA(<span class="math inline">\(p\)</span>,<span class="math inline">\(q\)</span>)</h2>
+<section id="mixed-autoregressive-moving-average-armapq" class="level3" data-number="5.2.3">
+<h3 data-number="5.2.3" class="anchored" data-anchor-id="mixed-autoregressive-moving-average-armapq"><span class="header-section-number">5.2.3</span> Mixed Autoregressive Moving Average — ARMA(<span class="math inline">\(p\)</span>,<span class="math inline">\(q\)</span>)</h3>
 <p>ARMA(<span class="math inline">\(p,q\)</span>) combines AR order <span class="math inline">\(p\)</span> and MA order <span class="math inline">\(q\)</span>:</p>
 <p><span class="math display">\[
 y_t = \phi_0 + \phi_1 y_{t-1} + \cdots + \phi_p y_{t-p}
@@ -475,8 +464,8 @@ y_t = \phi_0 + \phi_1 y_{t-1} + \cdots + \phi_p y_{t-p}
 (1 - \phi_1 B - \cdots - \phi_p B^p)\,y_t
 = \phi_0 + (1 + \theta_1 B + \cdots + \theta_q B^q)\,\varepsilon_t \tag{7}
 \]</span></p>
-<section id="arma11-the-simplest-form" class="level3" data-number="2.3.1">
-<h3 data-number="2.3.1" class="anchored" data-anchor-id="arma11-the-simplest-form"><span class="header-section-number">2.3.1</span> ARMA(1,1) — the simplest form</h3>
+<section id="arma11-the-simplest-form" class="level4" data-number="5.2.3.1">
+<h4 data-number="5.2.3.1" class="anchored" data-anchor-id="arma11-the-simplest-form"><span class="header-section-number">5.2.3.1</span> ARMA(1,1) — the simplest form</h4>
 <p><span class="math display">\[
 y_t = \phi_0 + \phi_1 y_{t-1} + \theta_1 \varepsilon_{t-1} + \varepsilon_t
 \]</span></p>
@@ -486,11 +475,11 @@ y_t = \phi_0 + \phi_1 y_{t-1} + \theta_1 \varepsilon_{t-1} + \varepsilon_t
 <hr>
 </section>
 </section>
-<section id="autoregressive-integrated-moving-average-arimapdq" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="autoregressive-integrated-moving-average-arimapdq"><span class="header-section-number">2.4</span> Autoregressive Integrated Moving Average — ARIMA(<span class="math inline">\(p\)</span>,<span class="math inline">\(d\)</span>,<span class="math inline">\(q\)</span>)</h2>
+<section id="autoregressive-integrated-moving-average-arimapdq" class="level3" data-number="5.2.4">
+<h3 data-number="5.2.4" class="anchored" data-anchor-id="autoregressive-integrated-moving-average-arimapdq"><span class="header-section-number">5.2.4</span> Autoregressive Integrated Moving Average — ARIMA(<span class="math inline">\(p\)</span>,<span class="math inline">\(d\)</span>,<span class="math inline">\(q\)</span>)</h3>
 <p>When the stationarity assumption is not fulfilled, the series must be <strong>differenced</strong> <span class="math inline">\(d\)</span> times to achieve stationarity. The resulting model is <strong>ARIMA(</strong><span class="math inline">\(p,d,q\)</span>).</p>
-<section id="arima111-a-simple-case" class="level3" data-number="2.4.1">
-<h3 data-number="2.4.1" class="anchored" data-anchor-id="arima111-a-simple-case"><span class="header-section-number">2.4.1</span> ARIMA(1,1,1) — a simple case</h3>
+<section id="arima111-a-simple-case" class="level4" data-number="5.2.4.1">
+<h4 data-number="5.2.4.1" class="anchored" data-anchor-id="arima111-a-simple-case"><span class="header-section-number">5.2.4.1</span> ARIMA(1,1,1) — a simple case</h4>
 <p>Let <span class="math inline">\(w_t = y_t - y_{t-1}\)</span> (first difference, assumed stationary). Then:</p>
 <p><span class="math display">\[
 w_t = \phi_0 + \phi_1 w_{t-1} + \theta_1 \varepsilon_{t-1} + \varepsilon_t \tag{8}
@@ -544,8 +533,8 @@ Tip
 <hr>
 </section>
 </section>
-<section id="seasonal-arima-sarimapdqpdq_s" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="seasonal-arima-sarimapdqpdq_s"><span class="header-section-number">2.5</span> Seasonal ARIMA — SARIMA(<span class="math inline">\(p\)</span>,<span class="math inline">\(d\)</span>,<span class="math inline">\(q\)</span>)(<span class="math inline">\(P\)</span>,<span class="math inline">\(D\)</span>,<span class="math inline">\(Q\)</span>)<span class="math inline">\(_s\)</span></h2>
+<section id="seasonal-arima-sarimapdqpdq_s" class="level3" data-number="5.2.5">
+<h3 data-number="5.2.5" class="anchored" data-anchor-id="seasonal-arima-sarimapdqpdq_s"><span class="header-section-number">5.2.5</span> Seasonal ARIMA — SARIMA(<span class="math inline">\(p\)</span>,<span class="math inline">\(d\)</span>,<span class="math inline">\(q\)</span>)(<span class="math inline">\(P\)</span>,<span class="math inline">\(D\)</span>,<span class="math inline">\(Q\)</span>)<span class="math inline">\(_s\)</span></h3>
 <p>For series exhibiting a <strong>seasonal component</strong>, seasonal differencing is required to remove the seasonality effect.</p>
 <p>Let <span class="math inline">\(z_t\)</span> be the seasonally differenced series:</p>
 <p><span class="math display">\[
@@ -593,8 +582,8 @@ z_t = y_t - y_{t-4}  \quad \text{(quarterly)}
 </tbody>
 </table>
 <p><strong>Example:</strong> ARIMA<span class="math inline">\((1,1,1)(1,1,1)_{12}\)</span>: <span class="math inline">\(p=1\)</span>, <span class="math inline">\(d=1\)</span>, <span class="math inline">\(q=1\)</span> (non-seasonal); <span class="math inline">\(P=1\)</span>, <span class="math inline">\(D=1\)</span>, <span class="math inline">\(Q=1\)</span> (seasonal); <span class="math inline">\(s=12\)</span> (monthly data).</p>
-<section id="formulating-sarima112111_4" class="level3" data-number="2.5.1">
-<h3 data-number="2.5.1" class="anchored" data-anchor-id="formulating-sarima112111_4"><span class="header-section-number">2.5.1</span> Formulating SARIMA<span class="math inline">\((1,1,2)(1,1,1)_4\)</span></h3>
+<section id="formulating-sarima112111_4" class="level4" data-number="5.2.5.1">
+<h4 data-number="5.2.5.1" class="anchored" data-anchor-id="formulating-sarima112111_4"><span class="header-section-number">5.2.5.1</span> Formulating SARIMA<span class="math inline">\((1,1,2)(1,1,1)_4\)</span></h4>
 <p><strong>Step 1 — Non-seasonal part ARIMA(1,1,2):</strong></p>
 <p><span class="math display">\[
 (1 - \phi_1 B)(1 - B)(1 - B^4)\,y_t = (1 + \theta_1 B + \theta_2 B^2)\,\varepsilon_t
@@ -629,8 +618,8 @@ Tip
 </section>
 </section>
 </section>
-<section id="box-jenkins-methodology-overview" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Box-Jenkins Methodology: Overview</h1>
+<section id="box-jenkins-methodology-overview" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="box-jenkins-methodology-overview"><span class="header-section-number">5.3</span> Box-Jenkins Methodology: Overview</h2>
 <p>The Box-Jenkins methodology involves <strong>four iterative stages</strong>:</p>
 <table class="caption-top table">
 <colgroup>
@@ -677,10 +666,10 @@ Tip
 </ul>
 <hr>
 </section>
-<section id="autocorrelation-function-acf" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Autocorrelation Function (ACF)</h1>
-<section id="definition" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="definition"><span class="header-section-number">4.1</span> Definition</h2>
+<section id="autocorrelation-function-acf" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="autocorrelation-function-acf"><span class="header-section-number">5.4</span> Autocorrelation Function (ACF)</h2>
+<section id="definition" class="level3" data-number="5.4.1">
+<h3 data-number="5.4.1" class="anchored" data-anchor-id="definition"><span class="header-section-number">5.4.1</span> Definition</h3>
 <p>The ACF measures the linear correlation between observations separated by lag <span class="math inline">\(k\)</span>:</p>
 <p><span class="math display">\[
 r_k = \frac{\text{Cov}(y_t,\, y_{t+k})}{\sqrt{\text{Var}(y_t)\,\text{Var}(y_{t+k})}} \tag{12}
@@ -699,8 +688,8 @@ r_k \pm \frac{1.96}{\sqrt{T}} \tag{15}
 \]</span></p>
 <hr>
 </section>
-<section id="acf-of-a-random-process-white-noise" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="acf-of-a-random-process-white-noise"><span class="header-section-number">4.2</span> ACF of a Random Process (White Noise)</h2>
+<section id="acf-of-a-random-process-white-noise" class="level3" data-number="5.4.2">
+<h3 data-number="5.4.2" class="anchored" data-anchor-id="acf-of-a-random-process-white-noise"><span class="header-section-number">5.4.2</span> ACF of a Random Process (White Noise)</h3>
 <p>For <span class="math inline">\(y_t = \phi_0 + \varepsilon_t\)</span> with <span class="math inline">\(\varepsilon_t \overset{iid}{\sim} (0, \sigma_\varepsilon^2)\)</span>, setting <span class="math inline">\(\phi_0 = 0\)</span>:</p>
 <p>At lag 0:</p>
 <p><span class="math display">\[
@@ -736,8 +725,8 @@ Figure&nbsp;1: ACF of a white noise (random process) series. All spikes lie with
 </div>
 <hr>
 </section>
-<section id="acf-of-an-ar1-process" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="acf-of-an-ar1-process"><span class="header-section-number">4.3</span> ACF of an AR(1) Process</h2>
+<section id="acf-of-an-ar1-process" class="level3" data-number="5.4.3">
+<h3 data-number="5.4.3" class="anchored" data-anchor-id="acf-of-an-ar1-process"><span class="header-section-number">5.4.3</span> ACF of an AR(1) Process</h3>
 <p>From Chapter 4, for <span class="math inline">\(y_t = \phi_1 y_{t-1} + \varepsilon_t\)</span> (with <span class="math inline">\(\phi_0 = 0\)</span>):</p>
 <p>Multiplying both sides by <span class="math inline">\(y_{t-k}\)</span> and taking expectations:</p>
 <p><span class="math display">\[
@@ -798,8 +787,8 @@ r_2 = \frac{\phi_1^2 + \phi_2(1+\phi_2)}{1-\phi_2}\]</span></p>
 </div>
 <hr>
 </section>
-<section id="acf-of-an-ma1-process" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="acf-of-an-ma1-process"><span class="header-section-number">4.4</span> ACF of an MA(1) Process</h2>
+<section id="acf-of-an-ma1-process" class="level3" data-number="5.4.4">
+<h3 data-number="5.4.4" class="anchored" data-anchor-id="acf-of-an-ma1-process"><span class="header-section-number">5.4.4</span> ACF of an MA(1) Process</h3>
 <p>For <span class="math inline">\(y_t = \phi_0 + \theta_1 \varepsilon_{t-1} + \varepsilon_t\)</span>:</p>
 <p><span class="math display">\[
 \text{Var}(y_t) = \gamma_0 = (1 + \theta_1^2)\,\sigma_\varepsilon^2
@@ -857,10 +846,10 @@ r_2 = \frac{\theta_2}{1 + \theta_1^2 + \theta_2^2}\]</span></p>
 <hr>
 </section>
 </section>
-<section id="partial-autocorrelation-function-pacf" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Partial Autocorrelation Function (PACF)</h1>
-<section id="definition-1" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="definition-1"><span class="header-section-number">5.1</span> Definition</h2>
+<section id="partial-autocorrelation-function-pacf" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="partial-autocorrelation-function-pacf"><span class="header-section-number">5.5</span> Partial Autocorrelation Function (PACF)</h2>
+<section id="definition-1" class="level3" data-number="5.5.1">
+<h3 data-number="5.5.1" class="anchored" data-anchor-id="definition-1"><span class="header-section-number">5.5.1</span> Definition</h3>
 <p>The PACF measures the correlation between <span class="math inline">\(y_t\)</span> and <span class="math inline">\(y_{t-k}\)</span> <strong>after removing the linear effects of the intermediate lags</strong> <span class="math inline">\(y_{t-1}, y_{t-2}, \ldots, y_{t-k+1}\)</span>.</p>
 <p>The PACF is computed iteratively via the <strong>Yule-Walker equations</strong>. The PACF at lag <span class="math inline">\(k\)</span>, denoted <span class="math inline">\(\alpha_k\)</span>, is:</p>
 <p><span class="math display">\[
@@ -870,8 +859,8 @@ r_2 = \frac{\theta_2}{1 + \theta_1^2 + \theta_2^2}\]</span></p>
 \]</span></p>
 <p>with the recursion <span class="math inline">\(\phi_j^{(k)} = \phi_j^{(k-1)} - \alpha_k\,\phi_{k-j}^{(k-1)}\)</span>.</p>
 </section>
-<section id="acf-and-pacf-patterns-model-identification-guide" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="acf-and-pacf-patterns-model-identification-guide"><span class="header-section-number">5.2</span> ACF and PACF Patterns — Model Identification Guide</h2>
+<section id="acf-and-pacf-patterns-model-identification-guide" class="level3" data-number="5.5.2">
+<h3 data-number="5.5.2" class="anchored" data-anchor-id="acf-and-pacf-patterns-model-identification-guide"><span class="header-section-number">5.5.2</span> ACF and PACF Patterns — Model Identification Guide</h3>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
@@ -908,8 +897,8 @@ r_2 = \frac{\theta_2}{1 + \theta_1^2 + \theta_2^2}\]</span></p>
 </tr>
 </tbody>
 </table>
-<section id="example-constructing-acf-and-pacf-plots-from-a-table" class="level3" data-number="5.2.1">
-<h3 data-number="5.2.1" class="anchored" data-anchor-id="example-constructing-acf-and-pacf-plots-from-a-table"><span class="header-section-number">5.2.1</span> Example: Constructing ACF and PACF Plots from a Table</h3>
+<section id="example-constructing-acf-and-pacf-plots-from-a-table" class="level4" data-number="5.5.2.1">
+<h4 data-number="5.5.2.1" class="anchored" data-anchor-id="example-constructing-acf-and-pacf-plots-from-a-table"><span class="header-section-number">5.5.2.1</span> Example: Constructing ACF and PACF Plots from a Table</h4>
 <p>For a time series with <span class="math inline">\(T = 100\)</span> observations, the sample ACF and PACF values at lags 1 to 7 are given as:</p>
 <table class="caption-top table">
 <thead>
@@ -1056,13 +1045,13 @@ Figure&nbsp;5: ACF (left column) and PACF (right column) patterns for AR(1) (top
 </section>
 </section>
 </section>
-<section id="box-jenkins-non-seasonal-arima" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Box-Jenkins: Non-Seasonal ARIMA</h1>
+<section id="box-jenkins-non-seasonal-arima" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="box-jenkins-non-seasonal-arima"><span class="header-section-number">5.6</span> Box-Jenkins: Non-Seasonal ARIMA</h2>
 <p>We demonstrate the full four-stage Box-Jenkins procedure using <strong>S&amp;P 500 E-mini Futures (ES=F)</strong> daily adjusted close prices, April–December 2025. The series was originally sourced from Yahoo Finance and is loaded here from a saved CSV file (<code>data/es_futures.csv</code>) for reproducibility.</p>
-<section id="stage-1-model-identification" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="stage-1-model-identification"><span class="header-section-number">6.1</span> Stage 1 — Model Identification</h2>
-<section id="step-1a-time-series-plot" class="level3" data-number="6.1.1">
-<h3 data-number="6.1.1" class="anchored" data-anchor-id="step-1a-time-series-plot"><span class="header-section-number">6.1.1</span> Step 1a: Time Series Plot</h3>
+<section id="stage-1-model-identification" class="level3" data-number="5.6.1">
+<h3 data-number="5.6.1" class="anchored" data-anchor-id="stage-1-model-identification"><span class="header-section-number">5.6.1</span> Stage 1 — Model Identification</h3>
+<section id="step-1a-time-series-plot" class="level4" data-number="5.6.1.1">
+<h4 data-number="5.6.1.1" class="anchored" data-anchor-id="step-1a-time-series-plot"><span class="header-section-number">5.6.1.1</span> Step 1a: Time Series Plot</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
@@ -1086,8 +1075,8 @@ Figure&nbsp;6: S&amp;P 500 E-mini Futures (ES=F) daily adjusted close price, Apr
 </div>
 </div>
 </section>
-<section id="step-1b-acf-and-pacf-of-the-raw-series" class="level3" data-number="6.1.2">
-<h3 data-number="6.1.2" class="anchored" data-anchor-id="step-1b-acf-and-pacf-of-the-raw-series"><span class="header-section-number">6.1.2</span> Step 1b: ACF and PACF of the Raw Series</h3>
+<section id="step-1b-acf-and-pacf-of-the-raw-series" class="level4" data-number="5.6.1.2">
+<h4 data-number="5.6.1.2" class="anchored" data-anchor-id="step-1b-acf-and-pacf-of-the-raw-series"><span class="header-section-number">5.6.1.2</span> Step 1b: ACF and PACF of the Raw Series</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
@@ -1111,8 +1100,8 @@ Figure&nbsp;7: ACF (left) and PACF (right) of the raw S&amp;P 500 price series. 
 </div>
 </div>
 </section>
-<section id="step-1c-adf-test-on-raw-series" class="level3" data-number="6.1.3">
-<h3 data-number="6.1.3" class="anchored" data-anchor-id="step-1c-adf-test-on-raw-series"><span class="header-section-number">6.1.3</span> Step 1c: ADF Test on Raw Series</h3>
+<section id="step-1c-adf-test-on-raw-series" class="level4" data-number="5.6.1.3">
+<h4 data-number="5.6.1.3" class="anchored" data-anchor-id="step-1c-adf-test-on-raw-series"><span class="header-section-number">5.6.1.3</span> Step 1c: ADF Test on Raw Series</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
@@ -1129,8 +1118,8 @@ alternative hypothesis: stationary</code></pre>
 </div>
 <p>Since <span class="math inline">\(p\)</span>-value <span class="math inline">\(&gt; 0.05\)</span>, we <strong>fail to reject</strong> <span class="math inline">\(H_0\)</span> — the series is <strong>non-stationary</strong>.</p>
 </section>
-<section id="step-1d-first-order-differencing" class="level3" data-number="6.1.4">
-<h3 data-number="6.1.4" class="anchored" data-anchor-id="step-1d-first-order-differencing"><span class="header-section-number">6.1.4</span> Step 1d: First-Order Differencing</h3>
+<section id="step-1d-first-order-differencing" class="level4" data-number="5.6.1.4">
+<h4 data-number="5.6.1.4" class="anchored" data-anchor-id="step-1d-first-order-differencing"><span class="header-section-number">5.6.1.4</span> Step 1d: First-Order Differencing</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
@@ -1171,8 +1160,8 @@ alternative hypothesis: stationary</code></pre>
 </div>
 <p>Since <span class="math inline">\(p\)</span>-value <span class="math inline">\(\leq 0.05\)</span>, we <strong>reject</strong> <span class="math inline">\(H_0\)</span> — the differenced series is <strong>stationary</strong>. Order of differencing: <span class="math inline">\(d = 1\)</span>.</p>
 </section>
-<section id="step-1e-acf-and-pacf-of-differenced-series" class="level3" data-number="6.1.5">
-<h3 data-number="6.1.5" class="anchored" data-anchor-id="step-1e-acf-and-pacf-of-differenced-series"><span class="header-section-number">6.1.5</span> Step 1e: ACF and PACF of Differenced Series</h3>
+<section id="step-1e-acf-and-pacf-of-differenced-series" class="level4" data-number="5.6.1.5">
+<h4 data-number="5.6.1.5" class="anchored" data-anchor-id="step-1e-acf-and-pacf-of-differenced-series"><span class="header-section-number">5.6.1.5</span> Step 1e: ACF and PACF of Differenced Series</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
@@ -1200,8 +1189,8 @@ Figure&nbsp;9: ACF (left) and PACF (right) of the first-differenced S&amp;P 500 
 <hr>
 </section>
 </section>
-<section id="stage-2-model-estimation-non-seasonal" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="stage-2-model-estimation-non-seasonal"><span class="header-section-number">6.2</span> Stage 2 — Model Estimation (Non-Seasonal)</h2>
+<section id="stage-2-model-estimation-non-seasonal" class="level3" data-number="5.6.2">
+<h3 data-number="5.6.2" class="anchored" data-anchor-id="stage-2-model-estimation-non-seasonal"><span class="header-section-number">5.6.2</span> Stage 2 — Model Estimation (Non-Seasonal)</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
@@ -1246,10 +1235,10 @@ Tip
 </div>
 <hr>
 </section>
-<section id="stage-3-model-validation-non-seasonal" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="stage-3-model-validation-non-seasonal"><span class="header-section-number">6.3</span> Stage 3 — Model Validation (Non-Seasonal)</h2>
-<section id="ljung-box-test" class="level3" data-number="6.3.1">
-<h3 data-number="6.3.1" class="anchored" data-anchor-id="ljung-box-test"><span class="header-section-number">6.3.1</span> Ljung-Box Test</h3>
+<section id="stage-3-model-validation-non-seasonal" class="level3" data-number="5.6.3">
+<h3 data-number="5.6.3" class="anchored" data-anchor-id="stage-3-model-validation-non-seasonal"><span class="header-section-number">5.6.3</span> Stage 3 — Model Validation (Non-Seasonal)</h3>
+<section id="ljung-box-test" class="level4" data-number="5.6.3.1">
+<h4 data-number="5.6.3.1" class="anchored" data-anchor-id="ljung-box-test"><span class="header-section-number">5.6.3.1</span> Ljung-Box Test</h4>
 <p>The <strong>Ljung-Box statistic</strong> tests whether residuals are white noise:</p>
 <p><span class="math display">\[
 Q^*_{\text{calc}} = T(T+2)\sum_{k=1}^{h} \frac{r_k^2}{T-k} \tag{22}
@@ -1297,8 +1286,8 @@ Figure&nbsp;10: ACF and PACF of residuals from ARIMA(2,1,1) fitted to the S&amp;
 </div>
 </div>
 </section>
-<section id="information-criteria" class="level3" data-number="6.3.2">
-<h3 data-number="6.3.2" class="anchored" data-anchor-id="information-criteria"><span class="header-section-number">6.3.2</span> Information Criteria</h3>
+<section id="information-criteria" class="level4" data-number="5.6.3.2">
+<h4 data-number="5.6.3.2" class="anchored" data-anchor-id="information-criteria"><span class="header-section-number">5.6.3.2</span> Information Criteria</h4>
 <p><strong>Akaike’s Information Criterion (AIC):</strong></p>
 <p><span class="math display">\[
 \text{AIC} = -2\log(L) + 2(p + q + k + 1) \tag{23}
@@ -1335,8 +1324,8 @@ Figure&nbsp;10: ACF and PACF of residuals from ARIMA(2,1,1) fitted to the S&amp;
 </div>
 <p>The model with the lowest AIC/BIC is selected as the best model.</p>
 </section>
-<section id="parameter-redundancy" class="level3" data-number="6.3.3">
-<h3 data-number="6.3.3" class="anchored" data-anchor-id="parameter-redundancy"><span class="header-section-number">6.3.3</span> Parameter Redundancy</h3>
+<section id="parameter-redundancy" class="level4" data-number="5.6.3.3">
+<h4 data-number="5.6.3.3" class="anchored" data-anchor-id="parameter-redundancy"><span class="header-section-number">5.6.3.3</span> Parameter Redundancy</h4>
 <p>When two ARMA models produce the same series, they exhibit <strong>parameter redundancy</strong>. For example, a white noise process <span class="math inline">\(y_t = \varepsilon_t\)</span> can be rewritten as:</p>
 <p><span class="math display">\[
 y_t = -0.5\,y_{t-1} + \varepsilon_t + 0.5\,\varepsilon_{t-1} \tag{26}
@@ -1345,10 +1334,10 @@ y_t = -0.5\,y_{t-1} + \varepsilon_t + 0.5\,\varepsilon_{t-1} \tag{26}
 <hr>
 </section>
 </section>
-<section id="stage-4-model-application-forecasting-non-seasonal" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="stage-4-model-application-forecasting-non-seasonal"><span class="header-section-number">6.4</span> Stage 4 — Model Application: Forecasting (Non-Seasonal)</h2>
-<section id="three-steps-for-point-forecasts" class="level3" data-number="6.4.1">
-<h3 data-number="6.4.1" class="anchored" data-anchor-id="three-steps-for-point-forecasts"><span class="header-section-number">6.4.1</span> Three Steps for Point Forecasts</h3>
+<section id="stage-4-model-application-forecasting-non-seasonal" class="level3" data-number="5.6.4">
+<h3 data-number="5.6.4" class="anchored" data-anchor-id="stage-4-model-application-forecasting-non-seasonal"><span class="header-section-number">5.6.4</span> Stage 4 — Model Application: Forecasting (Non-Seasonal)</h3>
+<section id="three-steps-for-point-forecasts" class="level4" data-number="5.6.4.1">
+<h4 data-number="5.6.4.1" class="anchored" data-anchor-id="three-steps-for-point-forecasts"><span class="header-section-number">5.6.4.1</span> Three Steps for Point Forecasts</h4>
 <ol type="1">
 <li>Expand the ARIMA equation so that <span class="math inline">\(y_t\)</span> is on the left-hand side.</li>
 <li>Rewrite replacing <span class="math inline">\(t\)</span> with <span class="math inline">\(T + h\)</span>.</li>
@@ -1369,8 +1358,8 @@ y_t = (1 + \phi_1)\,y_{t-1} - \phi_1\,y_{t-2} + \varepsilon_t + \theta_1\,\varep
 \]</span></p>
 <p>The process continues for all future periods <span class="math inline">\(h = 3, 4, \ldots\)</span></p>
 </section>
-<section id="forecast-exercise" class="level3" data-number="6.4.2">
-<h3 data-number="6.4.2" class="anchored" data-anchor-id="forecast-exercise"><span class="header-section-number">6.4.2</span> Forecast Exercise</h3>
+<section id="forecast-exercise" class="level4" data-number="5.6.4.2">
+<h4 data-number="5.6.4.2" class="anchored" data-anchor-id="forecast-exercise"><span class="header-section-number">5.6.4.2</span> Forecast Exercise</h4>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1513,8 +1502,8 @@ y_t = 1.6848\,y_{t-1} - 0.6629\,y_{t-2} - 0.0219\,y_{t-3}
 </div>
 </div>
 </section>
-<section id="forecast-plot" class="level3" data-number="6.4.3">
-<h3 data-number="6.4.3" class="anchored" data-anchor-id="forecast-plot"><span class="header-section-number">6.4.3</span> Forecast Plot</h3>
+<section id="forecast-plot" class="level4" data-number="5.6.4.3">
+<h4 data-number="5.6.4.3" class="anchored" data-anchor-id="forecast-plot"><span class="header-section-number">5.6.4.3</span> Forecast Plot</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
@@ -1546,11 +1535,11 @@ Figure&nbsp;11: Ten-step-ahead forecast for the S&amp;P 500 series. The model is
 </section>
 </section>
 </section>
-<section id="box-jenkins-seasonal-arima-sarima" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Box-Jenkins: Seasonal ARIMA (SARIMA)</h1>
+<section id="box-jenkins-seasonal-arima-sarima" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="box-jenkins-seasonal-arima-sarima"><span class="header-section-number">5.7</span> Box-Jenkins: Seasonal ARIMA (SARIMA)</h2>
 <p>We now apply the full Box-Jenkins procedure to the <strong>Malaysia IPI Manufacturing Index</strong> (monthly, January 2015 to November 2025) — a series with both trend and seasonality.</p>
-<section id="stage-1-model-identification-sarima" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="stage-1-model-identification-sarima"><span class="header-section-number">7.1</span> Stage 1 — Model Identification (SARIMA)</h2>
+<section id="stage-1-model-identification-sarima" class="level3" data-number="5.7.1">
+<h3 data-number="5.7.1" class="anchored" data-anchor-id="stage-1-model-identification-sarima"><span class="header-section-number">5.7.1</span> Stage 1 — Model Identification (SARIMA)</h3>
 <p>The steps for SARIMA identification are:</p>
 <ol type="1">
 <li>Check for stationarity. If stationary → ARMA.</li>
@@ -1560,8 +1549,8 @@ Figure&nbsp;11: Ten-step-ahead forecast for the S&amp;P 500 series. The model is
 <li>Confirm stationarity with ADF test.</li>
 <li>Determine <span class="math inline">\(p\)</span>, <span class="math inline">\(q\)</span> (from ACF/PACF of <span class="math inline">\(w_t\)</span> at low lags) and <span class="math inline">\(P\)</span>, <span class="math inline">\(Q\)</span> (from ACF/PACF at seasonal lags).</li>
 </ol>
-<section id="data-and-partition" class="level3" data-number="7.1.1">
-<h3 data-number="7.1.1" class="anchored" data-anchor-id="data-and-partition"><span class="header-section-number">7.1.1</span> Data and Partition</h3>
+<section id="data-and-partition" class="level4" data-number="5.7.1.1">
+<h4 data-number="5.7.1.1" class="anchored" data-anchor-id="data-and-partition"><span class="header-section-number">5.7.1.1</span> Data and Partition</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
@@ -1584,8 +1573,8 @@ Figure&nbsp;11: Ten-step-ahead forecast for the S&amp;P 500 series. The model is
 </div>
 </div>
 </section>
-<section id="step-1-time-series-plot-and-decomposition" class="level3" data-number="7.1.2">
-<h3 data-number="7.1.2" class="anchored" data-anchor-id="step-1-time-series-plot-and-decomposition"><span class="header-section-number">7.1.2</span> Step 1: Time Series Plot and Decomposition</h3>
+<section id="step-1-time-series-plot-and-decomposition" class="level4" data-number="5.7.1.2">
+<h4 data-number="5.7.1.2" class="anchored" data-anchor-id="step-1-time-series-plot-and-decomposition"><span class="header-section-number">5.7.1.2</span> Step 1: Time Series Plot and Decomposition</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
@@ -1607,8 +1596,8 @@ Figure&nbsp;12: Classical decomposition of the IPI Manufacturing series. The sea
 </div>
 </div>
 </section>
-<section id="step-2-acf-and-adf-of-raw-series" class="level3" data-number="7.1.3">
-<h3 data-number="7.1.3" class="anchored" data-anchor-id="step-2-acf-and-adf-of-raw-series"><span class="header-section-number">7.1.3</span> Step 2: ACF and ADF of Raw Series</h3>
+<section id="step-2-acf-and-adf-of-raw-series" class="level4" data-number="5.7.1.3">
+<h4 data-number="5.7.1.3" class="anchored" data-anchor-id="step-2-acf-and-adf-of-raw-series"><span class="header-section-number">5.7.1.3</span> Step 2: ACF and ADF of Raw Series</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
@@ -1645,8 +1634,8 @@ alternative hypothesis: stationary</code></pre>
 </div>
 <p>Even if the ADF test indicates stationarity, the sinusoidal ACF pattern indicates a <strong>seasonal component</strong> — proceed with seasonal differencing.</p>
 </section>
-<section id="step-3-seasonal-differencing" class="level3" data-number="7.1.4">
-<h3 data-number="7.1.4" class="anchored" data-anchor-id="step-3-seasonal-differencing"><span class="header-section-number">7.1.4</span> Step 3: Seasonal Differencing</h3>
+<section id="step-3-seasonal-differencing" class="level4" data-number="5.7.1.4">
+<h4 data-number="5.7.1.4" class="anchored" data-anchor-id="step-3-seasonal-differencing"><span class="header-section-number">5.7.1.4</span> Step 3: Seasonal Differencing</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
@@ -1690,8 +1679,8 @@ alternative hypothesis: stationary</code></pre>
 </div>
 </div>
 </section>
-<section id="step-4-regular-differencing-if-needed" class="level3" data-number="7.1.5">
-<h3 data-number="7.1.5" class="anchored" data-anchor-id="step-4-regular-differencing-if-needed"><span class="header-section-number">7.1.5</span> Step 4: Regular Differencing (if needed)</h3>
+<section id="step-4-regular-differencing-if-needed" class="level4" data-number="5.7.1.5">
+<h4 data-number="5.7.1.5" class="anchored" data-anchor-id="step-4-regular-differencing-if-needed"><span class="header-section-number">5.7.1.5</span> Step 4: Regular Differencing (if needed)</h4>
 <p>If the ADF test on <span class="math inline">\(z_t\)</span> still fails to reject <span class="math inline">\(H_0\)</span> (<span class="math inline">\(p &gt; 0.05\)</span>), apply a further first-order difference:</p>
 <div class="cell">
 <details class="code-fold">
@@ -1736,8 +1725,8 @@ alternative hypothesis: stationary</code></pre>
 </div>
 </div>
 </section>
-<section id="step-5-acf-and-pacf-for-order-determination" class="level3" data-number="7.1.6">
-<h3 data-number="7.1.6" class="anchored" data-anchor-id="step-5-acf-and-pacf-for-order-determination"><span class="header-section-number">7.1.6</span> Step 5: ACF and PACF for Order Determination</h3>
+<section id="step-5-acf-and-pacf-for-order-determination" class="level4" data-number="5.7.1.6">
+<h4 data-number="5.7.1.6" class="anchored" data-anchor-id="step-5-acf-and-pacf-for-order-determination"><span class="header-section-number">5.7.1.6</span> Step 5: ACF and PACF for Order Determination</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
@@ -1798,8 +1787,8 @@ Figure&nbsp;16: ACF (left) and PACF (right) of the fully differenced IPI series 
 <hr>
 </section>
 </section>
-<section id="stage-2-model-estimation-sarima" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="stage-2-model-estimation-sarima"><span class="header-section-number">7.2</span> Stage 2 — Model Estimation (SARIMA)</h2>
+<section id="stage-2-model-estimation-sarima" class="level3" data-number="5.7.2">
+<h3 data-number="5.7.2" class="anchored" data-anchor-id="stage-2-model-estimation-sarima"><span class="header-section-number">5.7.2</span> Stage 2 — Model Estimation (SARIMA)</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
@@ -1850,10 +1839,10 @@ Tip
 </div>
 <hr>
 </section>
-<section id="stage-3-model-validation-sarima" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="stage-3-model-validation-sarima"><span class="header-section-number">7.3</span> Stage 3 — Model Validation (SARIMA)</h2>
-<section id="acf-and-pacf-of-residuals" class="level3" data-number="7.3.1">
-<h3 data-number="7.3.1" class="anchored" data-anchor-id="acf-and-pacf-of-residuals"><span class="header-section-number">7.3.1</span> ACF and PACF of Residuals</h3>
+<section id="stage-3-model-validation-sarima" class="level3" data-number="5.7.3">
+<h3 data-number="5.7.3" class="anchored" data-anchor-id="stage-3-model-validation-sarima"><span class="header-section-number">5.7.3</span> Stage 3 — Model Validation (SARIMA)</h3>
+<section id="acf-and-pacf-of-residuals" class="level4" data-number="5.7.3.1">
+<h4 data-number="5.7.3.1" class="anchored" data-anchor-id="acf-and-pacf-of-residuals"><span class="header-section-number">5.7.3.1</span> ACF and PACF of Residuals</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
@@ -1879,8 +1868,8 @@ Figure&nbsp;17: ACF (left) and PACF (right) of residuals from SARIMA<span class=
 </div>
 </div>
 </section>
-<section id="ljung-box-test-1" class="level3" data-number="7.3.2">
-<h3 data-number="7.3.2" class="anchored" data-anchor-id="ljung-box-test-1"><span class="header-section-number">7.3.2</span> Ljung-Box Test</h3>
+<section id="ljung-box-test-1" class="level4" data-number="5.7.3.2">
+<h4 data-number="5.7.3.2" class="anchored" data-anchor-id="ljung-box-test-1"><span class="header-section-number">5.7.3.2</span> Ljung-Box Test</h4>
 <p>The <strong>Box-Pierce</strong> statistic:</p>
 <p><span class="math display">\[
 Q_{\text{calc}} = (T - d)\sum_{k=1}^{h} r_k^2 \tag{31}
@@ -1909,8 +1898,8 @@ X-squared = 19.067, df = 20, p-value = 0.5174</code></pre>
 </div>
 </div>
 </section>
-<section id="model-comparison" class="level3" data-number="7.3.3">
-<h3 data-number="7.3.3" class="anchored" data-anchor-id="model-comparison"><span class="header-section-number">7.3.3</span> Model Comparison</h3>
+<section id="model-comparison" class="level4" data-number="5.7.3.3">
+<h4 data-number="5.7.3.3" class="anchored" data-anchor-id="model-comparison"><span class="header-section-number">5.7.3.3</span> Model Comparison</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
@@ -1963,8 +1952,8 @@ X-squared = 19.067, df = 20, p-value = 0.5174</code></pre>
 <hr>
 </section>
 </section>
-<section id="stage-4-model-application-forecasting-sarima" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="stage-4-model-application-forecasting-sarima"><span class="header-section-number">7.4</span> Stage 4 — Model Application: Forecasting (SARIMA)</h2>
+<section id="stage-4-model-application-forecasting-sarima" class="level3" data-number="5.7.4">
+<h3 data-number="5.7.4" class="anchored" data-anchor-id="stage-4-model-application-forecasting-sarima"><span class="header-section-number">5.7.4</span> Stage 4 — Model Application: Forecasting (SARIMA)</h3>
 <p>Use the best model (refitted to the full IPI series) to generate a 12-step-ahead forecast:</p>
 <div class="cell">
 <details class="code-fold">
@@ -1997,10 +1986,10 @@ Figure&nbsp;18: SARIMA forecast for IPI Manufacturing. The best model (selected 
 <hr>
 </section>
 </section>
-<section id="summary" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Summary</h1>
-<section id="box-jenkins-methodology-four-stages" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="box-jenkins-methodology-four-stages"><span class="header-section-number">8.1</span> Box-Jenkins Methodology — Four Stages</h2>
+<section id="summary" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="summary"><span class="header-section-number">5.8</span> Summary</h2>
+<section id="box-jenkins-methodology-four-stages" class="level3" data-number="5.8.1">
+<h3 data-number="5.8.1" class="anchored" data-anchor-id="box-jenkins-methodology-four-stages"><span class="header-section-number">5.8.1</span> Box-Jenkins Methodology — Four Stages</h3>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -2038,8 +2027,8 @@ Figure&nbsp;18: SARIMA forecast for IPI Manufacturing. The best model (selected 
 </tbody>
 </table>
 </section>
-<section id="acf-and-pacf-quick-reference" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="acf-and-pacf-quick-reference"><span class="header-section-number">8.2</span> ACF and PACF — Quick Reference</h2>
+<section id="acf-and-pacf-quick-reference" class="level3" data-number="5.8.2">
+<h3 data-number="5.8.2" class="anchored" data-anchor-id="acf-and-pacf-quick-reference"><span class="header-section-number">5.8.2</span> ACF and PACF — Quick Reference</h3>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -2082,8 +2071,8 @@ Figure&nbsp;18: SARIMA forecast for IPI Manufacturing. The best model (selected 
 </tbody>
 </table>
 </section>
-<section id="information-criteria-summary" class="level2" data-number="8.3">
-<h2 data-number="8.3" class="anchored" data-anchor-id="information-criteria-summary"><span class="header-section-number">8.3</span> Information Criteria Summary</h2>
+<section id="information-criteria-summary" class="level3" data-number="5.8.3">
+<h3 data-number="5.8.3" class="anchored" data-anchor-id="information-criteria-summary"><span class="header-section-number">5.8.3</span> Information Criteria Summary</h3>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -2119,8 +2108,8 @@ Figure&nbsp;18: SARIMA forecast for IPI Manufacturing. The best model (selected 
 <hr>
 </section>
 </section>
-<section id="references" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> References</h1>
+<section id="references" class="level2" data-number="5.9">
+<h2 data-number="5.9" class="anchored" data-anchor-id="references"><span class="header-section-number">5.9</span> References</h2>
 <ul>
 <li>Mohd Alias Lazim (2013). <em>Introductory Business Forecasting: A Practical Approach</em> (3rd ed.). UPENA, UiTM. ISBN: 978-983-3643.</li>
 <li>Hyndman, R.J. and Athanasopoulos, G. (2018). <em>Forecasting: Principles and Practice</em> (2nd ed.). OTexts. Available at <a href="https://otexts.com/fpp2/" class="uri">https://otexts.com/fpp2/</a>.</li>
@@ -2128,6 +2117,7 @@ Figure&nbsp;18: SARIMA forecast for IPI Manufacturing. The best model (selected 
 </ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Chapter 3: Econometric Modelling – STA572: Time Series Analysis and Forecasting</title>
+<title>c3-econometric-modelling – STA572: Time Series Analysis and Forecasting</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -204,116 +204,105 @@ window.Quarto = {
     <h2 id="toc-title">Contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a>
+  <li><a href="#econometric-modelling" id="toc-econometric-modelling" class="nav-link active" data-scroll-target="#econometric-modelling"><span class="header-section-number">3</span> Econometric Modelling</a>
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">3.1</span> Introduction</a>
   <ul class="collapse">
-  <li><a href="#definition-and-concepts" id="toc-definition-and-concepts" class="nav-link" data-scroll-target="#definition-and-concepts"><span class="header-section-number">1.1</span> Definition and Concepts</a></li>
-  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose"><span class="header-section-number">1.2</span> Purpose</a></li>
-  <li><a href="#applications-of-econometric-modelling" id="toc-applications-of-econometric-modelling" class="nav-link" data-scroll-target="#applications-of-econometric-modelling"><span class="header-section-number">1.3</span> Applications of Econometric Modelling</a></li>
+  <li><a href="#definition-and-concepts" id="toc-definition-and-concepts" class="nav-link" data-scroll-target="#definition-and-concepts"><span class="header-section-number">3.1.1</span> Definition and Concepts</a></li>
+  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose"><span class="header-section-number">3.1.2</span> Purpose</a></li>
+  <li><a href="#applications-of-econometric-modelling" id="toc-applications-of-econometric-modelling" class="nav-link" data-scroll-target="#applications-of-econometric-modelling"><span class="header-section-number">3.1.3</span> Applications of Econometric Modelling</a></li>
   </ul></li>
-  <li><a href="#basic-structure-of-econometric-model" id="toc-basic-structure-of-econometric-model" class="nav-link" data-scroll-target="#basic-structure-of-econometric-model"><span class="header-section-number">2</span> Basic Structure of Econometric Model</a>
+  <li><a href="#basic-structure-of-econometric-model" id="toc-basic-structure-of-econometric-model" class="nav-link" data-scroll-target="#basic-structure-of-econometric-model"><span class="header-section-number">3.2</span> Basic Structure of Econometric Model</a>
   <ul class="collapse">
-  <li><a href="#general-form" id="toc-general-form" class="nav-link" data-scroll-target="#general-form"><span class="header-section-number">2.1</span> General Form</a></li>
-  <li><a href="#linear-multiple-regression-model-no-lags" id="toc-linear-multiple-regression-model-no-lags" class="nav-link" data-scroll-target="#linear-multiple-regression-model-no-lags"><span class="header-section-number">2.2</span> Linear Multiple Regression Model (No Lags)</a></li>
-  <li><a href="#general-model-with-lag-variables" id="toc-general-model-with-lag-variables" class="nav-link" data-scroll-target="#general-model-with-lag-variables"><span class="header-section-number">2.3</span> General Model with Lag Variables</a></li>
+  <li><a href="#general-form" id="toc-general-form" class="nav-link" data-scroll-target="#general-form"><span class="header-section-number">3.2.1</span> General Form</a></li>
+  <li><a href="#linear-multiple-regression-model-no-lags" id="toc-linear-multiple-regression-model-no-lags" class="nav-link" data-scroll-target="#linear-multiple-regression-model-no-lags"><span class="header-section-number">3.2.2</span> Linear Multiple Regression Model (No Lags)</a></li>
+  <li><a href="#general-model-with-lag-variables" id="toc-general-model-with-lag-variables" class="nav-link" data-scroll-target="#general-model-with-lag-variables"><span class="header-section-number">3.2.3</span> General Model with Lag Variables</a></li>
   </ul></li>
-  <li><a href="#fundamental-of-ols-technique" id="toc-fundamental-of-ols-technique" class="nav-link" data-scroll-target="#fundamental-of-ols-technique"><span class="header-section-number">3</span> Fundamental of OLS Technique</a>
+  <li><a href="#fundamental-of-ols-technique" id="toc-fundamental-of-ols-technique" class="nav-link" data-scroll-target="#fundamental-of-ols-technique"><span class="header-section-number">3.3</span> Fundamental of OLS Technique</a>
   <ul class="collapse">
-  <li><a href="#ordinary-least-squares-ols" id="toc-ordinary-least-squares-ols" class="nav-link" data-scroll-target="#ordinary-least-squares-ols"><span class="header-section-number">3.1</span> Ordinary Least Squares (OLS)</a></li>
-  <li><a href="#deriving-the-ols-estimators-simple-regression" id="toc-deriving-the-ols-estimators-simple-regression" class="nav-link" data-scroll-target="#deriving-the-ols-estimators-simple-regression"><span class="header-section-number">3.2</span> Deriving the OLS Estimators (Simple Regression)</a></li>
+  <li><a href="#ordinary-least-squares-ols" id="toc-ordinary-least-squares-ols" class="nav-link" data-scroll-target="#ordinary-least-squares-ols"><span class="header-section-number">3.3.1</span> Ordinary Least Squares (OLS)</a></li>
+  <li><a href="#deriving-the-ols-estimators-simple-regression" id="toc-deriving-the-ols-estimators-simple-regression" class="nav-link" data-scroll-target="#deriving-the-ols-estimators-simple-regression"><span class="header-section-number">3.3.2</span> Deriving the OLS Estimators (Simple Regression)</a></li>
   </ul></li>
-  <li><a href="#issues-in-the-econometric-construction" id="toc-issues-in-the-econometric-construction" class="nav-link" data-scroll-target="#issues-in-the-econometric-construction"><span class="header-section-number">4</span> Issues in the Econometric Construction</a>
+  <li><a href="#issues-in-the-econometric-construction" id="toc-issues-in-the-econometric-construction" class="nav-link" data-scroll-target="#issues-in-the-econometric-construction"><span class="header-section-number">3.4</span> Issues in the Econometric Construction</a>
   <ul class="collapse">
-  <li><a href="#variable-selection-criteria" id="toc-variable-selection-criteria" class="nav-link" data-scroll-target="#variable-selection-criteria"><span class="header-section-number">4.1</span> Variable Selection Criteria</a>
+  <li><a href="#variable-selection-criteria" id="toc-variable-selection-criteria" class="nav-link" data-scroll-target="#variable-selection-criteria"><span class="header-section-number">3.4.1</span> Variable Selection Criteria</a>
   <ul class="collapse">
-  <li><a href="#steps-for-model-specification" id="toc-steps-for-model-specification" class="nav-link" data-scroll-target="#steps-for-model-specification"><span class="header-section-number">4.1.1</span> Steps for Model Specification</a></li>
+  <li><a href="#steps-for-model-specification" id="toc-steps-for-model-specification" class="nav-link" data-scroll-target="#steps-for-model-specification"><span class="header-section-number">3.4.1.1</span> Steps for Model Specification</a></li>
   </ul></li>
-  <li><a href="#model-cost" id="toc-model-cost" class="nav-link" data-scroll-target="#model-cost"><span class="header-section-number">4.2</span> Model Cost</a></li>
-  <li><a href="#model-complexity" id="toc-model-complexity" class="nav-link" data-scroll-target="#model-complexity"><span class="header-section-number">4.3</span> Model Complexity</a></li>
-  <li><a href="#future-values-of-independent-variables" id="toc-future-values-of-independent-variables" class="nav-link" data-scroll-target="#future-values-of-independent-variables"><span class="header-section-number">4.4</span> Future Values of Independent Variables</a></li>
+  <li><a href="#model-cost" id="toc-model-cost" class="nav-link" data-scroll-target="#model-cost"><span class="header-section-number">3.4.2</span> Model Cost</a></li>
+  <li><a href="#model-complexity" id="toc-model-complexity" class="nav-link" data-scroll-target="#model-complexity"><span class="header-section-number">3.4.3</span> Model Complexity</a></li>
+  <li><a href="#future-values-of-independent-variables" id="toc-future-values-of-independent-variables" class="nav-link" data-scroll-target="#future-values-of-independent-variables"><span class="header-section-number">3.4.4</span> Future Values of Independent Variables</a></li>
   </ul></li>
-  <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions"><span class="header-section-number">5</span> Assumptions</a>
+  <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions"><span class="header-section-number">3.5</span> Assumptions</a>
   <ul class="collapse">
-  <li><a href="#assumptions-pertaining-to-the-model" id="toc-assumptions-pertaining-to-the-model" class="nav-link" data-scroll-target="#assumptions-pertaining-to-the-model"><span class="header-section-number">5.1</span> Assumptions Pertaining to the Model</a></li>
-  <li><a href="#assumptions-pertaining-to-the-error-term" id="toc-assumptions-pertaining-to-the-error-term" class="nav-link" data-scroll-target="#assumptions-pertaining-to-the-error-term"><span class="header-section-number">5.2</span> Assumptions Pertaining to the Error Term</a></li>
-  <li><a href="#specification-error" id="toc-specification-error" class="nav-link" data-scroll-target="#specification-error"><span class="header-section-number">5.3</span> Specification Error</a></li>
+  <li><a href="#assumptions-pertaining-to-the-model" id="toc-assumptions-pertaining-to-the-model" class="nav-link" data-scroll-target="#assumptions-pertaining-to-the-model"><span class="header-section-number">3.5.1</span> Assumptions Pertaining to the Model</a></li>
+  <li><a href="#assumptions-pertaining-to-the-error-term" id="toc-assumptions-pertaining-to-the-error-term" class="nav-link" data-scroll-target="#assumptions-pertaining-to-the-error-term"><span class="header-section-number">3.5.2</span> Assumptions Pertaining to the Error Term</a></li>
+  <li><a href="#specification-error" id="toc-specification-error" class="nav-link" data-scroll-target="#specification-error"><span class="header-section-number">3.5.3</span> Specification Error</a></li>
   </ul></li>
-  <li><a href="#model-estimation-procedure" id="toc-model-estimation-procedure" class="nav-link" data-scroll-target="#model-estimation-procedure"><span class="header-section-number">6</span> Model Estimation Procedure</a>
+  <li><a href="#model-estimation-procedure" id="toc-model-estimation-procedure" class="nav-link" data-scroll-target="#model-estimation-procedure"><span class="header-section-number">3.6</span> Model Estimation Procedure</a>
   <ul class="collapse">
-  <li><a href="#two-main-strategies" id="toc-two-main-strategies" class="nav-link" data-scroll-target="#two-main-strategies"><span class="header-section-number">6.1</span> Two Main Strategies</a></li>
-  <li><a href="#general-to-specific-backward-stepwise" id="toc-general-to-specific-backward-stepwise" class="nav-link" data-scroll-target="#general-to-specific-backward-stepwise"><span class="header-section-number">6.2</span> General-to-Specific (Backward Stepwise)</a></li>
-  <li><a href="#specific-to-general-forward-stepwise" id="toc-specific-to-general-forward-stepwise" class="nav-link" data-scroll-target="#specific-to-general-forward-stepwise"><span class="header-section-number">6.3</span> Specific-to-General (Forward Stepwise)</a></li>
+  <li><a href="#two-main-strategies" id="toc-two-main-strategies" class="nav-link" data-scroll-target="#two-main-strategies"><span class="header-section-number">3.6.1</span> Two Main Strategies</a></li>
+  <li><a href="#general-to-specific-backward-stepwise" id="toc-general-to-specific-backward-stepwise" class="nav-link" data-scroll-target="#general-to-specific-backward-stepwise"><span class="header-section-number">3.6.2</span> General-to-Specific (Backward Stepwise)</a></li>
+  <li><a href="#specific-to-general-forward-stepwise" id="toc-specific-to-general-forward-stepwise" class="nav-link" data-scroll-target="#specific-to-general-forward-stepwise"><span class="header-section-number">3.6.3</span> Specific-to-General (Forward Stepwise)</a></li>
   </ul></li>
-  <li><a href="#statistical-validation-and-testing-procedure" id="toc-statistical-validation-and-testing-procedure" class="nav-link" data-scroll-target="#statistical-validation-and-testing-procedure"><span class="header-section-number">7</span> Statistical Validation and Testing Procedure</a>
+  <li><a href="#statistical-validation-and-testing-procedure" id="toc-statistical-validation-and-testing-procedure" class="nav-link" data-scroll-target="#statistical-validation-and-testing-procedure"><span class="header-section-number">3.7</span> Statistical Validation and Testing Procedure</a>
   <ul class="collapse">
-  <li><a href="#general-fitness-f-test" id="toc-general-fitness-f-test" class="nav-link" data-scroll-target="#general-fitness-f-test"><span class="header-section-number">7.1</span> General Fitness (F-Test)</a></li>
-  <li><a href="#regression-coefficients-t-test" id="toc-regression-coefficients-t-test" class="nav-link" data-scroll-target="#regression-coefficients-t-test"><span class="header-section-number">7.2</span> Regression Coefficients (t-Test)</a></li>
-  <li><a href="#goodness-of-fit-r2-and-adjusted-r2" id="toc-goodness-of-fit-r2-and-adjusted-r2" class="nav-link" data-scroll-target="#goodness-of-fit-r2-and-adjusted-r2"><span class="header-section-number">7.3</span> Goodness of Fit (<span class="math inline">\(R^2\)</span> and Adjusted <span class="math inline">\(R^2\)</span>)</a></li>
-  <li><a href="#heteroscedasticity" id="toc-heteroscedasticity" class="nav-link" data-scroll-target="#heteroscedasticity"><span class="header-section-number">7.4</span> Heteroscedasticity</a></li>
-  <li><a href="#serial-correlation-autocorrelation" id="toc-serial-correlation-autocorrelation" class="nav-link" data-scroll-target="#serial-correlation-autocorrelation"><span class="header-section-number">7.5</span> Serial Correlation (Autocorrelation)</a>
+  <li><a href="#general-fitness-f-test" id="toc-general-fitness-f-test" class="nav-link" data-scroll-target="#general-fitness-f-test"><span class="header-section-number">3.7.1</span> General Fitness (F-Test)</a></li>
+  <li><a href="#regression-coefficients-t-test" id="toc-regression-coefficients-t-test" class="nav-link" data-scroll-target="#regression-coefficients-t-test"><span class="header-section-number">3.7.2</span> Regression Coefficients (t-Test)</a></li>
+  <li><a href="#goodness-of-fit-r2-and-adjusted-r2" id="toc-goodness-of-fit-r2-and-adjusted-r2" class="nav-link" data-scroll-target="#goodness-of-fit-r2-and-adjusted-r2"><span class="header-section-number">3.7.3</span> Goodness of Fit (<span class="math inline">\(R^2\)</span> and Adjusted <span class="math inline">\(R^2\)</span>)</a></li>
+  <li><a href="#heteroscedasticity" id="toc-heteroscedasticity" class="nav-link" data-scroll-target="#heteroscedasticity"><span class="header-section-number">3.7.4</span> Heteroscedasticity</a></li>
+  <li><a href="#serial-correlation-autocorrelation" id="toc-serial-correlation-autocorrelation" class="nav-link" data-scroll-target="#serial-correlation-autocorrelation"><span class="header-section-number">3.7.5</span> Serial Correlation (Autocorrelation)</a>
   <ul class="collapse">
-  <li><a href="#consequences-of-autocorrelation" id="toc-consequences-of-autocorrelation" class="nav-link" data-scroll-target="#consequences-of-autocorrelation"><span class="header-section-number">7.5.1</span> Consequences of Autocorrelation</a></li>
-  <li><a href="#durbin-watson-test" id="toc-durbin-watson-test" class="nav-link" data-scroll-target="#durbin-watson-test"><span class="header-section-number">7.5.2</span> Durbin-Watson Test</a></li>
+  <li><a href="#consequences-of-autocorrelation" id="toc-consequences-of-autocorrelation" class="nav-link" data-scroll-target="#consequences-of-autocorrelation"><span class="header-section-number">3.7.5.1</span> Consequences of Autocorrelation</a></li>
+  <li><a href="#durbin-watson-test" id="toc-durbin-watson-test" class="nav-link" data-scroll-target="#durbin-watson-test"><span class="header-section-number">3.7.5.2</span> Durbin-Watson Test</a></li>
   </ul></li>
-  <li><a href="#multicollinearity" id="toc-multicollinearity" class="nav-link" data-scroll-target="#multicollinearity"><span class="header-section-number">7.6</span> Multicollinearity</a>
+  <li><a href="#multicollinearity" id="toc-multicollinearity" class="nav-link" data-scroll-target="#multicollinearity"><span class="header-section-number">3.7.6</span> Multicollinearity</a>
   <ul class="collapse">
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">7.6.1</span> Example</a></li>
-  <li><a href="#consequences" id="toc-consequences" class="nav-link" data-scroll-target="#consequences"><span class="header-section-number">7.6.2</span> Consequences</a></li>
-  <li><a href="#detection-variance-inflation-factor-vif" id="toc-detection-variance-inflation-factor-vif" class="nav-link" data-scroll-target="#detection-variance-inflation-factor-vif"><span class="header-section-number">7.6.3</span> Detection — Variance Inflation Factor (VIF)</a></li>
-  <li><a href="#remedial-actions" id="toc-remedial-actions" class="nav-link" data-scroll-target="#remedial-actions"><span class="header-section-number">7.6.4</span> Remedial Actions</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#forecasting-using-econometric-models-in-r" id="toc-forecasting-using-econometric-models-in-r" class="nav-link" data-scroll-target="#forecasting-using-econometric-models-in-r"><span class="header-section-number">8</span> Forecasting Using Econometric Models in R</a>
-  <ul class="collapse">
-  <li><a href="#worked-example-forecasting-new-car-registrations-in-malaysia" id="toc-worked-example-forecasting-new-car-registrations-in-malaysia" class="nav-link" data-scroll-target="#worked-example-forecasting-new-car-registrations-in-malaysia"><span class="header-section-number">8.1</span> Worked Example: Forecasting New Car Registrations in Malaysia</a>
-  <ul class="collapse">
-  <li><a href="#data-overview" id="toc-data-overview" class="nav-link" data-scroll-target="#data-overview"><span class="header-section-number">8.1.1</span> Data Overview</a></li>
-  <li><a href="#variable-names" id="toc-variable-names" class="nav-link" data-scroll-target="#variable-names"><span class="header-section-number">8.1.2</span> Variable Names</a></li>
-  <li><a href="#creating-the-lag-variable" id="toc-creating-the-lag-variable" class="nav-link" data-scroll-target="#creating-the-lag-variable"><span class="header-section-number">8.1.3</span> Creating the Lag Variable</a></li>
-  </ul></li>
-  <li><a href="#model-1-full-model-all-variables-no-lag" id="toc-model-1-full-model-all-variables-no-lag" class="nav-link" data-scroll-target="#model-1-full-model-all-variables-no-lag"><span class="header-section-number">8.2</span> Model 1 — Full Model (All Variables, No Lag)</a></li>
-  <li><a href="#model-2-add-lag-of-dependent-variable" id="toc-model-2-add-lag-of-dependent-variable" class="nav-link" data-scroll-target="#model-2-add-lag-of-dependent-variable"><span class="header-section-number">8.3</span> Model 2 — Add Lag of Dependent Variable</a></li>
-  <li><a href="#model-3-remove-gdp" id="toc-model-3-remove-gdp" class="nav-link" data-scroll-target="#model-3-remove-gdp"><span class="header-section-number">8.4</span> Model 3 — Remove GDP</a></li>
-  <li><a href="#model-4-remove-income" id="toc-model-4-remove-income" class="nav-link" data-scroll-target="#model-4-remove-income"><span class="header-section-number">8.5</span> Model 4 — Remove Income</a></li>
-  <li><a href="#model-5-remove-total-population" id="toc-model-5-remove-total-population" class="nav-link" data-scroll-target="#model-5-remove-total-population"><span class="header-section-number">8.6</span> Model 5 — Remove Total Population</a></li>
-  <li><a href="#model-6-remove-cpi" id="toc-model-6-remove-cpi" class="nav-link" data-scroll-target="#model-6-remove-cpi"><span class="header-section-number">8.7</span> Model 6 — Remove CPI</a></li>
-  <li><a href="#model-7-final-model-remove-total-export" id="toc-model-7-final-model-remove-total-export" class="nav-link" data-scroll-target="#model-7-final-model-remove-total-export"><span class="header-section-number">8.8</span> Model 7 — Final Model (Remove Total Export)</a></li>
-  <li><a href="#the-final-estimated-equation" id="toc-the-final-estimated-equation" class="nav-link" data-scroll-target="#the-final-estimated-equation"><span class="header-section-number">8.9</span> The Final Estimated Equation</a>
-  <ul class="collapse">
-  <li><a href="#interpretation-of-coefficients" id="toc-interpretation-of-coefficients" class="nav-link" data-scroll-target="#interpretation-of-coefficients"><span class="header-section-number">8.9.1</span> Interpretation of Coefficients</a></li>
-  </ul></li>
-  <li><a href="#forecasting-with-the-final-model" id="toc-forecasting-with-the-final-model" class="nav-link" data-scroll-target="#forecasting-with-the-final-model"><span class="header-section-number">8.10</span> Forecasting with the Final Model</a>
-  <ul class="collapse">
-  <li><a href="#point-forecast-for-2023" id="toc-point-forecast-for-2023" class="nav-link" data-scroll-target="#point-forecast-for-2023"><span class="header-section-number">8.10.1</span> Point Forecast for 2023</a></li>
-  <li><a href="#model-selection-summary-table" id="toc-model-selection-summary-table" class="nav-link" data-scroll-target="#model-selection-summary-table"><span class="header-section-number">8.10.2</span> Model Selection Summary Table</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">3.7.6.1</span> Example</a></li>
+  <li><a href="#consequences" id="toc-consequences" class="nav-link" data-scroll-target="#consequences"><span class="header-section-number">3.7.6.2</span> Consequences</a></li>
+  <li><a href="#detection-variance-inflation-factor-vif" id="toc-detection-variance-inflation-factor-vif" class="nav-link" data-scroll-target="#detection-variance-inflation-factor-vif"><span class="header-section-number">3.7.6.3</span> Detection — Variance Inflation Factor (VIF)</a></li>
+  <li><a href="#remedial-actions" id="toc-remedial-actions" class="nav-link" data-scroll-target="#remedial-actions"><span class="header-section-number">3.7.6.4</span> Remedial Actions</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">9</span> Summary</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">10</span> References</a></li>
+  <li><a href="#forecasting-using-econometric-models-in-r" id="toc-forecasting-using-econometric-models-in-r" class="nav-link" data-scroll-target="#forecasting-using-econometric-models-in-r"><span class="header-section-number">3.8</span> Forecasting Using Econometric Models in R</a>
+  <ul class="collapse">
+  <li><a href="#worked-example-forecasting-new-car-registrations-in-malaysia" id="toc-worked-example-forecasting-new-car-registrations-in-malaysia" class="nav-link" data-scroll-target="#worked-example-forecasting-new-car-registrations-in-malaysia"><span class="header-section-number">3.8.1</span> Worked Example: Forecasting New Car Registrations in Malaysia</a>
+  <ul class="collapse">
+  <li><a href="#data-overview" id="toc-data-overview" class="nav-link" data-scroll-target="#data-overview"><span class="header-section-number">3.8.1.1</span> Data Overview</a></li>
+  <li><a href="#variable-names" id="toc-variable-names" class="nav-link" data-scroll-target="#variable-names"><span class="header-section-number">3.8.1.2</span> Variable Names</a></li>
+  <li><a href="#creating-the-lag-variable" id="toc-creating-the-lag-variable" class="nav-link" data-scroll-target="#creating-the-lag-variable"><span class="header-section-number">3.8.1.3</span> Creating the Lag Variable</a></li>
+  </ul></li>
+  <li><a href="#model-1-full-model-all-variables-no-lag" id="toc-model-1-full-model-all-variables-no-lag" class="nav-link" data-scroll-target="#model-1-full-model-all-variables-no-lag"><span class="header-section-number">3.8.2</span> Model 1 — Full Model (All Variables, No Lag)</a></li>
+  <li><a href="#model-2-add-lag-of-dependent-variable" id="toc-model-2-add-lag-of-dependent-variable" class="nav-link" data-scroll-target="#model-2-add-lag-of-dependent-variable"><span class="header-section-number">3.8.3</span> Model 2 — Add Lag of Dependent Variable</a></li>
+  <li><a href="#model-3-remove-gdp" id="toc-model-3-remove-gdp" class="nav-link" data-scroll-target="#model-3-remove-gdp"><span class="header-section-number">3.8.4</span> Model 3 — Remove GDP</a></li>
+  <li><a href="#model-4-remove-income" id="toc-model-4-remove-income" class="nav-link" data-scroll-target="#model-4-remove-income"><span class="header-section-number">3.8.5</span> Model 4 — Remove Income</a></li>
+  <li><a href="#model-5-remove-total-population" id="toc-model-5-remove-total-population" class="nav-link" data-scroll-target="#model-5-remove-total-population"><span class="header-section-number">3.8.6</span> Model 5 — Remove Total Population</a></li>
+  <li><a href="#model-6-remove-cpi" id="toc-model-6-remove-cpi" class="nav-link" data-scroll-target="#model-6-remove-cpi"><span class="header-section-number">3.8.7</span> Model 6 — Remove CPI</a></li>
+  <li><a href="#model-7-final-model-remove-total-export" id="toc-model-7-final-model-remove-total-export" class="nav-link" data-scroll-target="#model-7-final-model-remove-total-export"><span class="header-section-number">3.8.8</span> Model 7 — Final Model (Remove Total Export)</a></li>
+  <li><a href="#the-final-estimated-equation" id="toc-the-final-estimated-equation" class="nav-link" data-scroll-target="#the-final-estimated-equation"><span class="header-section-number">3.8.9</span> The Final Estimated Equation</a>
+  <ul class="collapse">
+  <li><a href="#interpretation-of-coefficients" id="toc-interpretation-of-coefficients" class="nav-link" data-scroll-target="#interpretation-of-coefficients"><span class="header-section-number">3.8.9.1</span> Interpretation of Coefficients</a></li>
+  </ul></li>
+  <li><a href="#forecasting-with-the-final-model" id="toc-forecasting-with-the-final-model" class="nav-link" data-scroll-target="#forecasting-with-the-final-model"><span class="header-section-number">3.8.10</span> Forecasting with the Final Model</a>
+  <ul class="collapse">
+  <li><a href="#point-forecast-for-2023" id="toc-point-forecast-for-2023" class="nav-link" data-scroll-target="#point-forecast-for-2023"><span class="header-section-number">3.8.10.1</span> Point Forecast for 2023</a></li>
+  <li><a href="#model-selection-summary-table" id="toc-model-selection-summary-table" class="nav-link" data-scroll-target="#model-selection-summary-table"><span class="header-section-number">3.8.10.2</span> Model Selection Summary Table</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">3.9</span> Summary</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">3.10</span> References</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Chapter 3: Econometric Modelling</h1>
-</div>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
+<section id="econometric-modelling" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Econometric Modelling</h1>
 <p>Set up the R programming environment for Chapter 3.</p>
 <div class="cell" data-tbl-cap="R programming environment setup">
 <details class="code-fold">
@@ -365,10 +354,10 @@ window.Quarto = {
  $ GDP                              : num  1.78e+10 1.89e+10 2.08e+10 2.27e+10 2.54e+10 ...</code></pre>
 </div>
 </div>
-<section id="introduction" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
-<section id="definition-and-concepts" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="definition-and-concepts"><span class="header-section-number">1.1</span> Definition and Concepts</h2>
+<section id="introduction" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">3.1</span> Introduction</h2>
+<section id="definition-and-concepts" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="definition-and-concepts"><span class="header-section-number">3.1.1</span> Definition and Concepts</h3>
 <p><strong>Econometric modelling</strong> is a branch of economics that employs statistical methods to analyse economic phenomena, forecast future trends, and evaluate economic policies. It combines <strong>economic theory</strong>, <strong>mathematics</strong>, and <strong>statistical techniques</strong> to quantify and understand the relationships between economic variables.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -384,8 +373,8 @@ Note
 </div>
 </div>
 </section>
-<section id="purpose" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="purpose"><span class="header-section-number">1.2</span> Purpose</h2>
+<section id="purpose" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="purpose"><span class="header-section-number">3.1.2</span> Purpose</h3>
 <p>Econometric models are used to:</p>
 <ul>
 <li>Test economic theories and hypotheses.</li>
@@ -394,8 +383,8 @@ Note
 <li>Make informed decisions in business, finance, and public policy.</li>
 </ul>
 </section>
-<section id="applications-of-econometric-modelling" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="applications-of-econometric-modelling"><span class="header-section-number">1.3</span> Applications of Econometric Modelling</h2>
+<section id="applications-of-econometric-modelling" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="applications-of-econometric-modelling"><span class="header-section-number">3.1.3</span> Applications of Econometric Modelling</h3>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -437,10 +426,10 @@ Note
 <hr>
 </section>
 </section>
-<section id="basic-structure-of-econometric-model" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Basic Structure of Econometric Model</h1>
-<section id="general-form" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="general-form"><span class="header-section-number">2.1</span> General Form</h2>
+<section id="basic-structure-of-econometric-model" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="basic-structure-of-econometric-model"><span class="header-section-number">3.2</span> Basic Structure of Econometric Model</h2>
+<section id="general-form" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="general-form"><span class="header-section-number">3.2.1</span> General Form</h3>
 <p>The variables used in econometric models are:</p>
 <ul>
 <li><strong>Dependent variable</strong> (<span class="math inline">\(y_t\)</span>): the variable we want to explain or forecast.</li>
@@ -450,8 +439,8 @@ Note
 <p><span class="math display">\[y_t = f(x_{1t},\, x_{2t},\, \ldots,\, x_{mt}) \tag{1}\]</span></p>
 <p>Equation (1) states that the level of <span class="math inline">\(y_t\)</span> is influenced by the behaviour of variables <span class="math inline">\(x_{1t}, x_{2t}, \ldots, x_{mt}\)</span>, and the relationship is established from historical data.</p>
 </section>
-<section id="linear-multiple-regression-model-no-lags" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="linear-multiple-regression-model-no-lags"><span class="header-section-number">2.2</span> Linear Multiple Regression Model (No Lags)</h2>
+<section id="linear-multiple-regression-model-no-lags" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="linear-multiple-regression-model-no-lags"><span class="header-section-number">3.2.2</span> Linear Multiple Regression Model (No Lags)</h3>
 <p>The standard multiple linear regression model is:</p>
 <p><span class="math display">\[y_t = \beta_0 + \beta_1 x_{1t} + \beta_2 x_{2t} + \cdots + \beta_m x_{mt} + \varepsilon_t \tag{2}\]</span></p>
 <p>In compact summation form:</p>
@@ -464,8 +453,8 @@ Note
 <li>The <span class="math inline">\(x_{it}\)</span> matrix is assumed non-stochastic (fixed), and <span class="math inline">\(y_t\)</span> is a random variable.</li>
 </ul>
 </section>
-<section id="general-model-with-lag-variables" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="general-model-with-lag-variables"><span class="header-section-number">2.3</span> General Model with Lag Variables</h2>
+<section id="general-model-with-lag-variables" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="general-model-with-lag-variables"><span class="header-section-number">3.2.3</span> General Model with Lag Variables</h3>
 <p>A more general model, the <strong>Autoregressive Distributed Lag (ADL)</strong> model, allows both lagged values of the dependent variable and lagged values of the independent variables:</p>
 <p><span class="math display">\[y_t = \beta_0 + \beta_1 x_{1t} + \cdots + \beta_m x_{mt} + \phi_1 y_{t-1} + \cdots + \phi_p y_{t-p} + \omega_{11} x_{1(t-1)} + \cdots + \omega_{pm} x_{m(t-j)} + \varepsilon_t \tag{4}\]</span></p>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -484,16 +473,16 @@ Note
 <hr>
 </section>
 </section>
-<section id="fundamental-of-ols-technique" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Fundamental of OLS Technique</h1>
-<section id="ordinary-least-squares-ols" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="ordinary-least-squares-ols"><span class="header-section-number">3.1</span> Ordinary Least Squares (OLS)</h2>
+<section id="fundamental-of-ols-technique" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="fundamental-of-ols-technique"><span class="header-section-number">3.3</span> Fundamental of OLS Technique</h2>
+<section id="ordinary-least-squares-ols" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="ordinary-least-squares-ols"><span class="header-section-number">3.3.1</span> Ordinary Least Squares (OLS)</h3>
 <p><strong>Ordinary Least Squares (OLS)</strong> is the standard method for estimating the parameters of a linear regression model. Its main objective is to <strong>minimise the sum of squared errors</strong>:</p>
 <p><span class="math display">\[\text{Minimise} \quad \sum_{t=1}^{n} \varepsilon_t^2 = \sum_{t=1}^{n} (y_t - \hat{y}_t)^2\]</span></p>
 <p>where <span class="math inline">\(\varepsilon_t = y_t - \hat{y}_t\)</span> is the residual at time <span class="math inline">\(t\)</span>.</p>
 </section>
-<section id="deriving-the-ols-estimators-simple-regression" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="deriving-the-ols-estimators-simple-regression"><span class="header-section-number">3.2</span> Deriving the OLS Estimators (Simple Regression)</h2>
+<section id="deriving-the-ols-estimators-simple-regression" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="deriving-the-ols-estimators-simple-regression"><span class="header-section-number">3.3.2</span> Deriving the OLS Estimators (Simple Regression)</h3>
 <p>Consider a regression model with one independent variable:</p>
 <p><span class="math display">\[y_t = \beta_0 + \beta_1 x_{1t} + \varepsilon_t \tag{5}\]</span></p>
 <p>The fitted equation is:</p>
@@ -527,18 +516,18 @@ Note
 <hr>
 </section>
 </section>
-<section id="issues-in-the-econometric-construction" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Issues in the Econometric Construction</h1>
-<section id="variable-selection-criteria" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="variable-selection-criteria"><span class="header-section-number">4.1</span> Variable Selection Criteria</h2>
+<section id="issues-in-the-econometric-construction" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="issues-in-the-econometric-construction"><span class="header-section-number">3.4</span> Issues in the Econometric Construction</h2>
+<section id="variable-selection-criteria" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="variable-selection-criteria"><span class="header-section-number">3.4.1</span> Variable Selection Criteria</h3>
 <p>Variables included in the model must satisfy two conditions:</p>
 <ol type="1">
 <li><strong>Statistical significance</strong> — the variable must have a meaningful statistical relationship with <span class="math inline">\(y_t\)</span>.</li>
 <li><strong>Theoretical (logical) justification</strong> — the relationship must be supported by economic theory.</li>
 </ol>
 <p>Variable selection is the procedure of choosing a subset (from all possible subsets) of independent variables. The common criterion is to <strong>minimise the squared error</strong> while maintaining theoretical coherence.</p>
-<section id="steps-for-model-specification" class="level3" data-number="4.1.1">
-<h3 data-number="4.1.1" class="anchored" data-anchor-id="steps-for-model-specification"><span class="header-section-number">4.1.1</span> Steps for Model Specification</h3>
+<section id="steps-for-model-specification" class="level4" data-number="3.4.1.1">
+<h4 data-number="3.4.1.1" class="anchored" data-anchor-id="steps-for-model-specification"><span class="header-section-number">3.4.1.1</span> Steps for Model Specification</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -567,24 +556,24 @@ Note
 </table>
 </section>
 </section>
-<section id="model-cost" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="model-cost"><span class="header-section-number">4.2</span> Model Cost</h2>
+<section id="model-cost" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="model-cost"><span class="header-section-number">3.4.2</span> Model Cost</h3>
 <ul>
 <li>As model complexity increases, data requirements and computational costs increase.</li>
 <li>More sophisticated models require more time, specialised software, and greater expertise.</li>
 <li>A parsimonious model is preferred when it achieves comparable predictive performance at lower cost.</li>
 </ul>
 </section>
-<section id="model-complexity" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="model-complexity"><span class="header-section-number">4.3</span> Model Complexity</h2>
+<section id="model-complexity" class="level3" data-number="3.4.3">
+<h3 data-number="3.4.3" class="anchored" data-anchor-id="model-complexity"><span class="header-section-number">3.4.3</span> Model Complexity</h3>
 <ul>
 <li>Simple linear models are easy to interpret and visualise.</li>
 <li>Models with many independent variables are difficult to envisage and may overfit the data.</li>
 <li><strong>Principle of parsimony</strong>: if two models have the same explanatory power, prefer the simpler one.</li>
 </ul>
 </section>
-<section id="future-values-of-independent-variables" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="future-values-of-independent-variables"><span class="header-section-number">4.4</span> Future Values of Independent Variables</h2>
+<section id="future-values-of-independent-variables" class="level3" data-number="3.4.4">
+<h3 data-number="3.4.4" class="anchored" data-anchor-id="future-values-of-independent-variables"><span class="header-section-number">3.4.4</span> Future Values of Independent Variables</h3>
 <p>A key practical challenge in multi-variable forecasting:</p>
 <p><span class="math display">\[\hat{y}_{t+1} = \hat{\beta}_0 + \hat{\beta}_1 x_{1(t+1)} + \hat{\beta}_2 x_{2(t+1)}\]</span></p>
 <p>To forecast <span class="math inline">\(y_{t+1}\)</span>, the analyst must also have (or forecast) <span class="math inline">\(x_{1(t+1)}\)</span> and <span class="math inline">\(x_{2(t+1)}\)</span>.</p>
@@ -604,10 +593,10 @@ Note
 <hr>
 </section>
 </section>
-<section id="assumptions" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Assumptions</h1>
-<section id="assumptions-pertaining-to-the-model" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="assumptions-pertaining-to-the-model"><span class="header-section-number">5.1</span> Assumptions Pertaining to the Model</h2>
+<section id="assumptions" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="assumptions"><span class="header-section-number">3.5</span> Assumptions</h2>
+<section id="assumptions-pertaining-to-the-model" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="assumptions-pertaining-to-the-model"><span class="header-section-number">3.5.1</span> Assumptions Pertaining to the Model</h3>
 <p>For OLS estimates to have desirable properties (unbiasedness, efficiency), the following model-level assumptions must hold:</p>
 <ol type="1">
 <li><strong>Linearity</strong> — <span class="math inline">\(y_t\)</span> is a linear function of the independent variables.</li>
@@ -616,8 +605,8 @@ Note
 <li><strong>Sufficient sample size</strong> — the number of observations <span class="math inline">\(n\)</span> must exceed the number of regressors <span class="math inline">\(m\)</span>.</li>
 </ol>
 </section>
-<section id="assumptions-pertaining-to-the-error-term" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="assumptions-pertaining-to-the-error-term"><span class="header-section-number">5.2</span> Assumptions Pertaining to the Error Term</h2>
+<section id="assumptions-pertaining-to-the-error-term" class="level3" data-number="3.5.2">
+<h3 data-number="3.5.2" class="anchored" data-anchor-id="assumptions-pertaining-to-the-error-term"><span class="header-section-number">3.5.2</span> Assumptions Pertaining to the Error Term</h3>
 <ol type="1">
 <li><strong>IID errors</strong> — the error terms <span class="math inline">\(\varepsilon_t\)</span> are identically and independently distributed.</li>
 <li><strong>Homoscedasticity</strong> — <span class="math inline">\(\text{Var}(\varepsilon_t) = \sigma^2\)</span> is constant for all <span class="math inline">\(t\)</span>.</li>
@@ -626,8 +615,8 @@ Note
 <li><strong>Normality</strong> — <span class="math inline">\(\varepsilon_t \sim N(0, \sigma^2)\)</span>.</li>
 </ol>
 </section>
-<section id="specification-error" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="specification-error"><span class="header-section-number">5.3</span> Specification Error</h2>
+<section id="specification-error" class="level3" data-number="3.5.3">
+<h3 data-number="3.5.3" class="anchored" data-anchor-id="specification-error"><span class="header-section-number">3.5.3</span> Specification Error</h3>
 <p>A model is <strong>correctly specified</strong> if it includes the correct set of independent variables. Common misspecification situations are:</p>
 <table class="caption-top table">
 <colgroup>
@@ -662,10 +651,10 @@ Note
 <hr>
 </section>
 </section>
-<section id="model-estimation-procedure" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Model Estimation Procedure</h1>
-<section id="two-main-strategies" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="two-main-strategies"><span class="header-section-number">6.1</span> Two Main Strategies</h2>
+<section id="model-estimation-procedure" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="model-estimation-procedure"><span class="header-section-number">3.6</span> Model Estimation Procedure</h2>
+<section id="two-main-strategies" class="level3" data-number="3.6.1">
+<h3 data-number="3.6.1" class="anchored" data-anchor-id="two-main-strategies"><span class="header-section-number">3.6.1</span> Two Main Strategies</h3>
 <p>Two main strategies exist for estimating an econometric model:</p>
 <table class="caption-top table">
 <colgroup>
@@ -690,8 +679,8 @@ Note
 </tbody>
 </table>
 </section>
-<section id="general-to-specific-backward-stepwise" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="general-to-specific-backward-stepwise"><span class="header-section-number">6.2</span> General-to-Specific (Backward Stepwise)</h2>
+<section id="general-to-specific-backward-stepwise" class="level3" data-number="3.6.2">
+<h3 data-number="3.6.2" class="anchored" data-anchor-id="general-to-specific-backward-stepwise"><span class="header-section-number">3.6.2</span> General-to-Specific (Backward Stepwise)</h3>
 <p>The General-to-Specific approach is based on the <strong>principle of parsimony</strong>:</p>
 <blockquote class="blockquote">
 <p><em>If there are two or more competing explanations of the same phenomenon, each having the same explanatory power, choose the simpler one.</em></p>
@@ -726,8 +715,8 @@ Note
 <li>If multicollinearity exists, the offending variable (usually with the highest VIF) is a candidate for removal.</li>
 </ul>
 </section>
-<section id="specific-to-general-forward-stepwise" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="specific-to-general-forward-stepwise"><span class="header-section-number">6.3</span> Specific-to-General (Forward Stepwise)</h2>
+<section id="specific-to-general-forward-stepwise" class="level3" data-number="3.6.3">
+<h3 data-number="3.6.3" class="anchored" data-anchor-id="specific-to-general-forward-stepwise"><span class="header-section-number">3.6.3</span> Specific-to-General (Forward Stepwise)</h3>
 <p><strong>Procedure:</strong></p>
 <ol type="1">
 <li><p>Start with the simplest model, e.g.: <span class="math display">\[y_t = \beta_0 + \beta_1 x_{1t} + \varepsilon_t \quad \text{or} \quad y_t = \phi_0 + \phi_1 y_{t-1} + \varepsilon_t\]</span></p></li>
@@ -750,8 +739,8 @@ Note
 <hr>
 </section>
 </section>
-<section id="statistical-validation-and-testing-procedure" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Statistical Validation and Testing Procedure</h1>
+<section id="statistical-validation-and-testing-procedure" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="statistical-validation-and-testing-procedure"><span class="header-section-number">3.7</span> Statistical Validation and Testing Procedure</h2>
 <p>Failure to satisfy any of the following tests indicates that a model assumption is violated. Remedial action should then be taken: reformulate the model, include new variables, obtain more data, or apply variable transformations.</p>
 <table class="caption-top table">
 <colgroup>
@@ -799,8 +788,8 @@ Note
 </tr>
 </tbody>
 </table>
-<section id="general-fitness-f-test" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="general-fitness-f-test"><span class="header-section-number">7.1</span> General Fitness (F-Test)</h2>
+<section id="general-fitness-f-test" class="level3" data-number="3.7.1">
+<h3 data-number="3.7.1" class="anchored" data-anchor-id="general-fitness-f-test"><span class="header-section-number">3.7.1</span> General Fitness (F-Test)</h3>
 <p>The F-test evaluates the <strong>overall significance</strong> of the model:</p>
 <ul>
 <li><span class="math inline">\(H_0\)</span>: All slope coefficients are zero (<span class="math inline">\(\beta_1 = \beta_2 = \cdots = \beta_m = 0\)</span>).</li>
@@ -808,8 +797,8 @@ Note
 </ul>
 <p><strong>Decision:</strong> If the <span class="math inline">\(p\)</span>-value from the F-test is less than 0.05, the model has overall fit and at least one variable is significant. Proceed to examine individual coefficients using t-tests. Otherwise, the model is considered poorly fit.</p>
 </section>
-<section id="regression-coefficients-t-test" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="regression-coefficients-t-test"><span class="header-section-number">7.2</span> Regression Coefficients (t-Test)</h2>
+<section id="regression-coefficients-t-test" class="level3" data-number="3.7.2">
+<h3 data-number="3.7.2" class="anchored" data-anchor-id="regression-coefficients-t-test"><span class="header-section-number">3.7.2</span> Regression Coefficients (t-Test)</h3>
 <p>After confirming the model is overall significant via the F-test, examine each individual coefficient <span class="math inline">\(\beta_1, \beta_2, \ldots, \beta_m\)</span>:</p>
 <ul>
 <li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\beta_i = 0\)</span> (variable <span class="math inline">\(i\)</span> has no effect on <span class="math inline">\(y\)</span>)</li>
@@ -817,8 +806,8 @@ Note
 </ul>
 <p><strong>Decision:</strong> If <span class="math inline">\(p &lt; 0.05\)</span>, retain the variable. Otherwise, consider removing it from the model.</p>
 </section>
-<section id="goodness-of-fit-r2-and-adjusted-r2" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="goodness-of-fit-r2-and-adjusted-r2"><span class="header-section-number">7.3</span> Goodness of Fit (<span class="math inline">\(R^2\)</span> and Adjusted <span class="math inline">\(R^2\)</span>)</h2>
+<section id="goodness-of-fit-r2-and-adjusted-r2" class="level3" data-number="3.7.3">
+<h3 data-number="3.7.3" class="anchored" data-anchor-id="goodness-of-fit-r2-and-adjusted-r2"><span class="header-section-number">3.7.3</span> Goodness of Fit (<span class="math inline">\(R^2\)</span> and Adjusted <span class="math inline">\(R^2\)</span>)</h3>
 <p>The <strong>coefficient of determination</strong> <span class="math inline">\(R^2\)</span> measures the proportion of total variation in <span class="math inline">\(y_t\)</span> explained by the regression:</p>
 <p><span class="math display">\[R^2 = 1 - \frac{\text{SSR}}{\text{SST}} = 1 - \frac{\sum_{t=1}^{n}(y_t - \hat{y}_t)^2}{\sum_{t=1}^{n}(y_t - \bar{y})^2}\]</span></p>
 <p><span class="math inline">\(R^2 \in [0, 1]\)</span>, where 0 indicates no fit and 1 indicates perfect fit.</p>
@@ -826,8 +815,8 @@ Note
 <p><span class="math display">\[\bar{R}^2 = 1 - \frac{(1 - R^2)(n - 1)}{n - m - 1}\]</span></p>
 <p>where <span class="math inline">\(n\)</span> is the number of observations and <span class="math inline">\(m\)</span> is the number of independent variables. Adjusted <span class="math inline">\(R^2\)</span> penalises for adding variables and is the preferred measure of goodness of fit.</p>
 </section>
-<section id="heteroscedasticity" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="heteroscedasticity"><span class="header-section-number">7.4</span> Heteroscedasticity</h2>
+<section id="heteroscedasticity" class="level3" data-number="3.7.4">
+<h3 data-number="3.7.4" class="anchored" data-anchor-id="heteroscedasticity"><span class="header-section-number">3.7.4</span> Heteroscedasticity</h3>
 <p><strong>Homoscedasticity</strong> means the variance of the error term is constant: <span class="math display">\[\text{Var}(\varepsilon_t) = \sigma^2 \quad \text{for all } t\]</span></p>
 <p>If this assumption is violated, the errors are <strong>heteroscedastic</strong> — their variance changes over time or across observations. Consequences:</p>
 <ul>
@@ -837,20 +826,20 @@ Note
 </ul>
 <p><strong>Breusch-Pagan Test:</strong> - <span class="math inline">\(H_0\)</span>: Error variance is constant (homoscedastic). - <span class="math inline">\(H_1\)</span>: Error variance is non-constant (heteroscedastic). - <strong>Decision:</strong> If <span class="math inline">\(p &gt; 0.05\)</span>, no heteroscedasticity problem. If <span class="math inline">\(p &lt; 0.05\)</span>, heteroscedasticity is present — consider transforming the dependent variable (e.g., log transformation).</p>
 </section>
-<section id="serial-correlation-autocorrelation" class="level2" data-number="7.5">
-<h2 data-number="7.5" class="anchored" data-anchor-id="serial-correlation-autocorrelation"><span class="header-section-number">7.5</span> Serial Correlation (Autocorrelation)</h2>
+<section id="serial-correlation-autocorrelation" class="level3" data-number="3.7.5">
+<h3 data-number="3.7.5" class="anchored" data-anchor-id="serial-correlation-autocorrelation"><span class="header-section-number">3.7.5</span> Serial Correlation (Autocorrelation)</h3>
 <p>The error terms must be uncorrelated across time: <span class="math display">\[\text{Cov}(\varepsilon_t, \varepsilon_{t-s}) = 0 \quad \text{for all } s \neq 0\]</span></p>
 <p>The most common form is <strong>first-order autocorrelation</strong>: <span class="math display">\[\varepsilon_t = \rho \varepsilon_{t-1} + \nu_t \tag{17}\]</span></p>
-<section id="consequences-of-autocorrelation" class="level3" data-number="7.5.1">
-<h3 data-number="7.5.1" class="anchored" data-anchor-id="consequences-of-autocorrelation"><span class="header-section-number">7.5.1</span> Consequences of Autocorrelation</h3>
+<section id="consequences-of-autocorrelation" class="level4" data-number="3.7.5.1">
+<h4 data-number="3.7.5.1" class="anchored" data-anchor-id="consequences-of-autocorrelation"><span class="header-section-number">3.7.5.1</span> Consequences of Autocorrelation</h4>
 <p>By repeated substitution of equation (17):</p>
 <p><span class="math display">\[\varepsilon_t = \rho \varepsilon_{t-1} + \nu_t = \rho^k \varepsilon_{t-k} + \sum_{j=0}^{k-1} \rho^j \nu_{t-j} \tag{18}\]</span></p>
 <p>Under perfect correlation (<span class="math inline">\(\rho = 1\)</span>): <span class="math display">\[\varepsilon_t = \varepsilon_{t-k} + \sum_{j=1}^{k-1} \nu_{t-j} \tag{19}\]</span></p>
 <p><span class="math display">\[\text{Var}(\varepsilon_t) = \sigma^2_\varepsilon + k\sigma^2_\nu\]</span></p>
 <p>Since the variance of <span class="math inline">\(\varepsilon_t\)</span> <strong>grows with <span class="math inline">\(k\)</span></strong>, forecast accuracy deteriorates as the forecast horizon increases. When <span class="math inline">\(\rho = 0\)</span>, <span class="math inline">\(\text{Var}(\varepsilon_t) = \sigma^2_\varepsilon\)</span> is constant and there is no serial correlation.</p>
 </section>
-<section id="durbin-watson-test" class="level3" data-number="7.5.2">
-<h3 data-number="7.5.2" class="anchored" data-anchor-id="durbin-watson-test"><span class="header-section-number">7.5.2</span> Durbin-Watson Test</h3>
+<section id="durbin-watson-test" class="level4" data-number="3.7.5.2">
+<h4 data-number="3.7.5.2" class="anchored" data-anchor-id="durbin-watson-test"><span class="header-section-number">3.7.5.2</span> Durbin-Watson Test</h4>
 <p><span class="math display">\[DW = \frac{\sum_{t=2}^{n}(\varepsilon_t - \varepsilon_{t-1})^2}{\sum_{t=1}^{n} \varepsilon_t^2} \tag{20}\]</span></p>
 <table class="caption-top table">
 <thead>
@@ -880,25 +869,25 @@ Note
 </ul>
 </section>
 </section>
-<section id="multicollinearity" class="level2" data-number="7.6">
-<h2 data-number="7.6" class="anchored" data-anchor-id="multicollinearity"><span class="header-section-number">7.6</span> Multicollinearity</h2>
+<section id="multicollinearity" class="level3" data-number="3.7.6">
+<h3 data-number="3.7.6" class="anchored" data-anchor-id="multicollinearity"><span class="header-section-number">3.7.6</span> Multicollinearity</h3>
 <p><strong>Multicollinearity</strong> occurs when two or more independent variables are linearly related to each other.</p>
-<section id="example" class="level3" data-number="7.6.1">
-<h3 data-number="7.6.1" class="anchored" data-anchor-id="example"><span class="header-section-number">7.6.1</span> Example</h3>
+<section id="example" class="level4" data-number="3.7.6.1">
+<h4 data-number="3.7.6.1" class="anchored" data-anchor-id="example"><span class="header-section-number">3.7.6.1</span> Example</h4>
 <p>Consider <span class="math inline">\(y_t = \beta_0 + \beta_1 x_{1t} + \beta_2 x_{2t} + \varepsilon_t\)</span> where <span class="math inline">\(x_{1t} = 2x_{2t}\)</span>:</p>
 <p><span class="math display">\[y_t = \beta_0 + 2\beta_1 x_{2t} + \beta_2 x_{2t} + \varepsilon_t = \beta_0 + (2\beta_1 + \beta_2)x_{2t} + \varepsilon_t\]</span></p>
 <p>It is impossible to separate the individual effects of <span class="math inline">\(x_{1t}\)</span> and <span class="math inline">\(x_{2t}\)</span> — their contributions are <strong>confounded</strong>.</p>
 </section>
-<section id="consequences" class="level3" data-number="7.6.2">
-<h3 data-number="7.6.2" class="anchored" data-anchor-id="consequences"><span class="header-section-number">7.6.2</span> Consequences</h3>
+<section id="consequences" class="level4" data-number="3.7.6.2">
+<h4 data-number="3.7.6.2" class="anchored" data-anchor-id="consequences"><span class="header-section-number">3.7.6.2</span> Consequences</h4>
 <ul>
 <li>Standard errors of the coefficients become inflated.</li>
 <li>Individual variables appear insignificant (high <span class="math inline">\(p\)</span>-values) despite the model having a high <span class="math inline">\(R^2\)</span>.</li>
 <li>Signs of coefficients may be reversed relative to theoretical expectations.</li>
 </ul>
 </section>
-<section id="detection-variance-inflation-factor-vif" class="level3" data-number="7.6.3">
-<h3 data-number="7.6.3" class="anchored" data-anchor-id="detection-variance-inflation-factor-vif"><span class="header-section-number">7.6.3</span> Detection — Variance Inflation Factor (VIF)</h3>
+<section id="detection-variance-inflation-factor-vif" class="level4" data-number="3.7.6.3">
+<h4 data-number="3.7.6.3" class="anchored" data-anchor-id="detection-variance-inflation-factor-vif"><span class="header-section-number">3.7.6.3</span> Detection — Variance Inflation Factor (VIF)</h4>
 <p><span class="math display">\[\text{VIF}_i = \frac{1}{1 - R_i^2}\]</span></p>
 <p>where <span class="math inline">\(R_i^2\)</span> is the <span class="math inline">\(R^2\)</span> from regressing variable <span class="math inline">\(i\)</span> on all other independent variables.</p>
 <table class="caption-top table">
@@ -924,8 +913,8 @@ Note
 </tbody>
 </table>
 </section>
-<section id="remedial-actions" class="level3" data-number="7.6.4">
-<h3 data-number="7.6.4" class="anchored" data-anchor-id="remedial-actions"><span class="header-section-number">7.6.4</span> Remedial Actions</h3>
+<section id="remedial-actions" class="level4" data-number="3.7.6.4">
+<h4 data-number="3.7.6.4" class="anchored" data-anchor-id="remedial-actions"><span class="header-section-number">3.7.6.4</span> Remedial Actions</h4>
 <ol type="1">
 <li><strong>Do nothing</strong> if it does not affect model performance or forecasting accuracy.</li>
 <li><strong>Drop the offending variable</strong> — choose the one with the least theoretical support or the highest VIF.</li>
@@ -935,14 +924,14 @@ Note
 </section>
 </section>
 </section>
-<section id="forecasting-using-econometric-models-in-r" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Forecasting Using Econometric Models in R</h1>
-<section id="worked-example-forecasting-new-car-registrations-in-malaysia" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="worked-example-forecasting-new-car-registrations-in-malaysia"><span class="header-section-number">8.1</span> Worked Example: Forecasting New Car Registrations in Malaysia</h2>
+<section id="forecasting-using-econometric-models-in-r" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="forecasting-using-econometric-models-in-r"><span class="header-section-number">3.8</span> Forecasting Using Econometric Models in R</h2>
+<section id="worked-example-forecasting-new-car-registrations-in-malaysia" class="level3" data-number="3.8.1">
+<h3 data-number="3.8.1" class="anchored" data-anchor-id="worked-example-forecasting-new-car-registrations-in-malaysia"><span class="header-section-number">3.8.1</span> Worked Example: Forecasting New Car Registrations in Malaysia</h3>
 <p>This section demonstrates the complete step-by-step procedure for building an econometric model for forecasting purposes.</p>
 <p><strong>Objective:</strong> Develop an econometric model to forecast the demand for cars in Malaysia, measured by the <strong>Number of New Car Registrations (’000)</strong>.</p>
-<section id="data-overview" class="level3" data-number="8.1.1">
-<h3 data-number="8.1.1" class="anchored" data-anchor-id="data-overview"><span class="header-section-number">8.1.1</span> Data Overview</h3>
+<section id="data-overview" class="level4" data-number="3.8.1.1">
+<h4 data-number="3.8.1.1" class="anchored" data-anchor-id="data-overview"><span class="header-section-number">3.8.1.1</span> Data Overview</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
@@ -1079,8 +1068,8 @@ Figure&nbsp;1: Number of new car registrations in Malaysia, 1969–2022
 </div>
 </div>
 </section>
-<section id="variable-names" class="level3" data-number="8.1.2">
-<h3 data-number="8.1.2" class="anchored" data-anchor-id="variable-names"><span class="header-section-number">8.1.2</span> Variable Names</h3>
+<section id="variable-names" class="level4" data-number="3.8.1.2">
+<h4 data-number="3.8.1.2" class="anchored" data-anchor-id="variable-names"><span class="header-section-number">3.8.1.2</span> Variable Names</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
@@ -1148,8 +1137,8 @@ Figure&nbsp;1: Number of new car registrations in Malaysia, 1969–2022
 </tbody>
 </table>
 </section>
-<section id="creating-the-lag-variable" class="level3" data-number="8.1.3">
-<h3 data-number="8.1.3" class="anchored" data-anchor-id="creating-the-lag-variable"><span class="header-section-number">8.1.3</span> Creating the Lag Variable</h3>
+<section id="creating-the-lag-variable" class="level4" data-number="3.8.1.3">
+<h4 data-number="3.8.1.3" class="anchored" data-anchor-id="creating-the-lag-variable"><span class="header-section-number">3.8.1.3</span> Creating the Lag Variable</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
@@ -1162,8 +1151,8 @@ Figure&nbsp;1: Number of new car registrations in Malaysia, 1969–2022
 <hr>
 </section>
 </section>
-<section id="model-1-full-model-all-variables-no-lag" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="model-1-full-model-all-variables-no-lag"><span class="header-section-number">8.2</span> Model 1 — Full Model (All Variables, No Lag)</h2>
+<section id="model-1-full-model-all-variables-no-lag" class="level3" data-number="3.8.2">
+<h3 data-number="3.8.2" class="anchored" data-anchor-id="model-1-full-model-all-variables-no-lag"><span class="header-section-number">3.8.2</span> Model 1 — Full Model (All Variables, No Lag)</h3>
 <p>The first model includes all seven independent variables. This is the <strong>general model</strong> in the General-to-Specific procedure.</p>
 <p><span class="math display">\[\hat{y}_t = \hat{\beta}_0 + \hat{\beta}_1(\text{Unemployment}) + \hat{\beta}_2(\text{CPI}) + \hat{\beta}_3(\text{BLR}) + \hat{\beta}_4(\text{GDP}) + \hat{\beta}_5(\text{Export}) + \hat{\beta}_6(\text{Population}) + \hat{\beta}_7(\text{Income})\]</span></p>
 <div class="cell">
@@ -1320,8 +1309,8 @@ Note
 </div>
 <hr>
 </section>
-<section id="model-2-add-lag-of-dependent-variable" class="level2" data-number="8.3">
-<h2 data-number="8.3" class="anchored" data-anchor-id="model-2-add-lag-of-dependent-variable"><span class="header-section-number">8.3</span> Model 2 — Add Lag of Dependent Variable</h2>
+<section id="model-2-add-lag-of-dependent-variable" class="level3" data-number="3.8.3">
+<h3 data-number="3.8.3" class="anchored" data-anchor-id="model-2-add-lag-of-dependent-variable"><span class="header-section-number">3.8.3</span> Model 2 — Add Lag of Dependent Variable</h3>
 <p>Adding <span class="math inline">\(y_{t-1}\)</span> (lag 1 of car registrations) is the standard remedy for serial correlation.</p>
 <p><span class="math display">\[\hat{y}_t = \hat{\beta}_0 + \hat{\beta}_1(\text{Unemployment}) + \hat{\beta}_2(\text{CPI}) + \hat{\beta}_3(\text{BLR}) + \hat{\beta}_4(\text{GDP}) + \hat{\beta}_5(\text{Export}) + \hat{\beta}_6(\text{Population}) + \hat{\beta}_7(\text{Income}) + \hat{\phi}_1 y_{t-1}\]</span></p>
 <div class="cell">
@@ -1400,7 +1389,7 @@ F-statistic: 269.6 on 8 and 44 DF,  p-value: &lt; 2.2e-16</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code> lag Autocorrelation D-W Statistic p-value
-   1    -0.002775646      1.853213    0.16
+   1    -0.002775646      1.853213   0.154
  Alternative hypothesis: rho != 0</code></pre>
 </div>
 <details class="code-fold">
@@ -1444,8 +1433,8 @@ Note
 </div>
 <hr>
 </section>
-<section id="model-3-remove-gdp" class="level2" data-number="8.4">
-<h2 data-number="8.4" class="anchored" data-anchor-id="model-3-remove-gdp"><span class="header-section-number">8.4</span> Model 3 — Remove GDP</h2>
+<section id="model-3-remove-gdp" class="level3" data-number="3.8.4">
+<h3 data-number="3.8.4" class="anchored" data-anchor-id="model-3-remove-gdp"><span class="header-section-number">3.8.4</span> Model 3 — Remove GDP</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
@@ -1521,7 +1510,7 @@ F-statistic: 307.4 on 7 and 45 DF,  p-value: &lt; 2.2e-16</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code> lag Autocorrelation D-W Statistic p-value
-   1      0.03327008      1.751804     0.1
+   1      0.03327008      1.751804    0.07
  Alternative hypothesis: rho != 0</code></pre>
 </div>
 <details class="code-fold">
@@ -1565,8 +1554,8 @@ Note
 </div>
 <hr>
 </section>
-<section id="model-4-remove-income" class="level2" data-number="8.5">
-<h2 data-number="8.5" class="anchored" data-anchor-id="model-4-remove-income"><span class="header-section-number">8.5</span> Model 4 — Remove Income</h2>
+<section id="model-4-remove-income" class="level3" data-number="3.8.5">
+<h3 data-number="3.8.5" class="anchored" data-anchor-id="model-4-remove-income"><span class="header-section-number">3.8.5</span> Model 4 — Remove Income</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
@@ -1639,7 +1628,7 @@ F-statistic: 365.1 on 6 and 46 DF,  p-value: &lt; 2.2e-16</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code> lag Autocorrelation D-W Statistic p-value
-   1      0.04457492      1.745045   0.118
+   1      0.04457492      1.745045   0.094
  Alternative hypothesis: rho != 0</code></pre>
 </div>
 <details class="code-fold">
@@ -1682,8 +1671,8 @@ Note
 </div>
 <hr>
 </section>
-<section id="model-5-remove-total-population" class="level2" data-number="8.6">
-<h2 data-number="8.6" class="anchored" data-anchor-id="model-5-remove-total-population"><span class="header-section-number">8.6</span> Model 5 — Remove Total Population</h2>
+<section id="model-5-remove-total-population" class="level3" data-number="3.8.6">
+<h3 data-number="3.8.6" class="anchored" data-anchor-id="model-5-remove-total-population"><span class="header-section-number">3.8.6</span> Model 5 — Remove Total Population</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
@@ -1754,7 +1743,7 @@ F-statistic: 447.1 on 5 and 47 DF,  p-value: &lt; 2.2e-16</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code> lag Autocorrelation D-W Statistic p-value
-   1      0.05141295      1.734915    0.16
+   1      0.05141295      1.734915   0.132
  Alternative hypothesis: rho != 0</code></pre>
 </div>
 <details class="code-fold">
@@ -1797,8 +1786,8 @@ Note
 </div>
 <hr>
 </section>
-<section id="model-6-remove-cpi" class="level2" data-number="8.7">
-<h2 data-number="8.7" class="anchored" data-anchor-id="model-6-remove-cpi"><span class="header-section-number">8.7</span> Model 6 — Remove CPI</h2>
+<section id="model-6-remove-cpi" class="level3" data-number="3.8.7">
+<h3 data-number="3.8.7" class="anchored" data-anchor-id="model-6-remove-cpi"><span class="header-section-number">3.8.7</span> Model 6 — Remove CPI</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
@@ -1868,7 +1857,7 @@ F-statistic: 570.8 on 4 and 48 DF,  p-value: &lt; 2.2e-16</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code> lag Autocorrelation D-W Statistic p-value
-   1      0.05149487      1.734734   0.152
+   1      0.05149487      1.734734   0.166
  Alternative hypothesis: rho != 0</code></pre>
 </div>
 <details class="code-fold">
@@ -1912,8 +1901,8 @@ Note
 </div>
 <hr>
 </section>
-<section id="model-7-final-model-remove-total-export" class="level2" data-number="8.8">
-<h2 data-number="8.8" class="anchored" data-anchor-id="model-7-final-model-remove-total-export"><span class="header-section-number">8.8</span> Model 7 — Final Model (Remove Total Export)</h2>
+<section id="model-7-final-model-remove-total-export" class="level3" data-number="3.8.8">
+<h3 data-number="3.8.8" class="anchored" data-anchor-id="model-7-final-model-remove-total-export"><span class="header-section-number">3.8.8</span> Model 7 — Final Model (Remove Total Export)</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
@@ -1980,7 +1969,7 @@ F-statistic: 529.2 on 3 and 49 DF,  p-value: &lt; 2.2e-16</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code> lag Autocorrelation D-W Statistic p-value
-   1     -0.06392779      1.755684   0.166
+   1     -0.06392779      1.755684   0.214
  Alternative hypothesis: rho != 0</code></pre>
 </div>
 <details class="code-fold">
@@ -2088,8 +2077,8 @@ Note
 </div>
 <hr>
 </section>
-<section id="the-final-estimated-equation" class="level2" data-number="8.9">
-<h2 data-number="8.9" class="anchored" data-anchor-id="the-final-estimated-equation"><span class="header-section-number">8.9</span> The Final Estimated Equation</h2>
+<section id="the-final-estimated-equation" class="level3" data-number="3.8.9">
+<h3 data-number="3.8.9" class="anchored" data-anchor-id="the-final-estimated-equation"><span class="header-section-number">3.8.9</span> The Final Estimated Equation</h3>
 <p>The final estimated model is:</p>
 <p><span class="math display">\[\hat{y}_t = 264.94 - 16.68\, x_{1t} - 13.84\, x_{2t} + 0.78\, y_{t-1}\]</span></p>
 <p>where:</p>
@@ -2099,8 +2088,8 @@ Note
 <li><span class="math inline">\(x_{2t}\)</span> = Base Lending Rate, BLR (%) in year <span class="math inline">\(t\)</span>,</li>
 <li><span class="math inline">\(y_{t-1}\)</span> = lag 1 of new car registrations (’000).</li>
 </ul>
-<section id="interpretation-of-coefficients" class="level3" data-number="8.9.1">
-<h3 data-number="8.9.1" class="anchored" data-anchor-id="interpretation-of-coefficients"><span class="header-section-number">8.9.1</span> Interpretation of Coefficients</h3>
+<section id="interpretation-of-coefficients" class="level4" data-number="3.8.9.1">
+<h4 data-number="3.8.9.1" class="anchored" data-anchor-id="interpretation-of-coefficients"><span class="header-section-number">3.8.9.1</span> Interpretation of Coefficients</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -2141,10 +2130,10 @@ Note
 <hr>
 </section>
 </section>
-<section id="forecasting-with-the-final-model" class="level2" data-number="8.10">
-<h2 data-number="8.10" class="anchored" data-anchor-id="forecasting-with-the-final-model"><span class="header-section-number">8.10</span> Forecasting with the Final Model</h2>
-<section id="point-forecast-for-2023" class="level3" data-number="8.10.1">
-<h3 data-number="8.10.1" class="anchored" data-anchor-id="point-forecast-for-2023"><span class="header-section-number">8.10.1</span> Point Forecast for 2023</h3>
+<section id="forecasting-with-the-final-model" class="level3" data-number="3.8.10">
+<h3 data-number="3.8.10" class="anchored" data-anchor-id="forecasting-with-the-final-model"><span class="header-section-number">3.8.10</span> Forecasting with the Final Model</h3>
+<section id="point-forecast-for-2023" class="level4" data-number="3.8.10.1">
+<h4 data-number="3.8.10.1" class="anchored" data-anchor-id="point-forecast-for-2023"><span class="header-section-number">3.8.10.1</span> Point Forecast for 2023</h4>
 <p>Given:</p>
 <ul>
 <li>Unemployment Rate for 2023: <span class="math inline">\(x_{1,2023} = 3.3\%\)</span></li>
@@ -2213,8 +2202,8 @@ Note
 </div>
 </div>
 </section>
-<section id="model-selection-summary-table" class="level3" data-number="8.10.2">
-<h3 data-number="8.10.2" class="anchored" data-anchor-id="model-selection-summary-table"><span class="header-section-number">8.10.2</span> Model Selection Summary Table</h3>
+<section id="model-selection-summary-table" class="level4" data-number="3.8.10.2">
+<h4 data-number="3.8.10.2" class="anchored" data-anchor-id="model-selection-summary-table"><span class="header-section-number">3.8.10.2</span> Model Selection Summary Table</h4>
 <div class="cell">
 <details class="code-fold">
 <summary>Show R Code</summary>
@@ -2299,42 +2288,42 @@ Table&nbsp;2: Summary of all models in the General-to-Specific procedure
 <td style="text-align: left;">Model 2</td>
 <td style="text-align: left;">&lt;U+2014&gt; (add lag1)</td>
 <td style="text-align: left;">0.9764</td>
-<td style="text-align: left;">0.140</td>
+<td style="text-align: left;">0.144</td>
 <td style="text-align: left;">0.020</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Model 3</td>
 <td style="text-align: left;">GDP removed</td>
 <td style="text-align: left;">0.9763</td>
-<td style="text-align: left;">0.058</td>
+<td style="text-align: left;">0.082</td>
 <td style="text-align: left;">0.044</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Model 4</td>
 <td style="text-align: left;">Income removed</td>
 <td style="text-align: left;">0.9768</td>
-<td style="text-align: left;">0.110</td>
+<td style="text-align: left;">0.082</td>
 <td style="text-align: left;">0.039</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Model 5</td>
 <td style="text-align: left;">Total Population removed</td>
 <td style="text-align: left;">0.9772</td>
-<td style="text-align: left;">0.136</td>
+<td style="text-align: left;">0.106</td>
 <td style="text-align: left;">0.033</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Model 6</td>
 <td style="text-align: left;">CPI removed</td>
 <td style="text-align: left;">0.9777</td>
-<td style="text-align: left;">0.144</td>
+<td style="text-align: left;">0.142</td>
 <td style="text-align: left;">0.018</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Model 7</td>
 <td style="text-align: left;">Total Export removed</td>
 <td style="text-align: left;">0.9682</td>
-<td style="text-align: left;">0.196</td>
+<td style="text-align: left;">0.190</td>
 <td style="text-align: left;">0.220</td>
 </tr>
 </tbody>
@@ -2348,8 +2337,8 @@ Table&nbsp;2: Summary of all models in the General-to-Specific procedure
 </section>
 </section>
 </section>
-<section id="summary" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> Summary</h1>
+<section id="summary" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="summary"><span class="header-section-number">3.9</span> Summary</h2>
 <p>This chapter covered the complete framework for <strong>econometric modelling</strong> in time series forecasting. The key takeaways are:</p>
 <ol type="1">
 <li><p><strong>Model Structure:</strong> Econometric models relate a dependent variable to multiple independent (explanatory) variables, grounded in economic theory. The ADL model incorporates both current and lagged variables.</p></li>
@@ -2366,8 +2355,8 @@ Table&nbsp;2: Summary of all models in the General-to-Specific procedure
 </ol>
 <hr>
 </section>
-<section id="references" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> References</h1>
+<section id="references" class="level2" data-number="3.10">
+<h2 data-number="3.10" class="anchored" data-anchor-id="references"><span class="header-section-number">3.10</span> References</h2>
 <ul>
 <li>Mohd Alias Lazim (2013). <em>Introductory Business Forecasting: A Practical Approach</em>, 3rd ed.&nbsp;UPENA, UiTM. ISBN: 978-983-3643.</li>
 <li>Department of Statistics Malaysia. Open Data Catalogue. <a href="https://open.dosm.gov.my/data-catalogue" class="uri">https://open.dosm.gov.my/data-catalogue</a></li>
@@ -2377,6 +2366,7 @@ Table&nbsp;2: Summary of all models in the General-to-Specific procedure
 </ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
