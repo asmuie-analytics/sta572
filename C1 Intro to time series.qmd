@@ -415,7 +415,7 @@ ggplot(df_u, aes(x = Year, y = u_rate)) +
            label = "COVID-19 (2020)\nShock / Turning Point?",
            colour = "#fc8d59", fill = "white", size = 3.2, label.size = 0.3) +
   labs(title = "Turning Points in Malaysia's Unemployment Rate (1982-2020)",
-       subtitle = "Peak (up-triangle) = trend reverses downward  |  Trough (down-triangle) = trend reverses upward",
+       subtitle = "Red triangle = Peak (reverses down)   |   Green triangle = Trough (reverses up)",
        x = "Year", y = "Unemployment Rate (%)") +
   theme_minimal(base_size = 12)
 ```
