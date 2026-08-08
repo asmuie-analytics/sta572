@@ -581,7 +581,7 @@ We demonstrate the full four-stage Box-Jenkins procedure using **S&P 500 E-mini 
 
 autoplot(as.ts(est_snp)) +
   labs(title = "S&P 500 Futures (ES=F) - Estimation Set",
-       subtitle = "Daily adjusted close price, Apr–Oct 2025",
+       subtitle = "Daily adjusted close price, Apr-Oct 2025",
        x = "Observation", y = "Price (USD)") +
   theme_minimal(base_size = 12)
 ```
