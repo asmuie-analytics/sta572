@@ -37,6 +37,7 @@ format:
     toc-depth: 4
     toc-title: "Contents"
     number-sections: true
+    number-depth: 3
     theme: cosmo
     highlight-style: github
     code-fold: true
