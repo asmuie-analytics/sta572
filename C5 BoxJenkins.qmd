@@ -21,7 +21,7 @@ library(fable)
 library(tsibble)
 library(feasts)
 library(dplyr)
-library(quantmod)
+library(xts)
 
 # ── load IPI Malaysia data (Manufacturing, section C, absolute index) ──────────
 ipi_raw  <- read.csv("data/ipi_1d.csv", check.names = FALSE)

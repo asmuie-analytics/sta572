@@ -55,8 +55,8 @@ install.packages(c(
   "lmtest", "car",
   # Table formatting (Chapter 1)
   "kableExtra",
-  # Live market data (Chapter 5)
-  "quantmod"
+  # Time series objects (Chapter 5)
+  "xts"
 ))
 ```
 
@@ -71,7 +71,7 @@ install.packages(c(
 | `ggplot2`, `ggpubr`, `gridExtra` | C1–C5 | Graphics |
 | `lmtest`, `car` | C3 | Regression diagnostics |
 | `kableExtra` | C1 | Formatted tables |
-| `quantmod` | C5 | Download S&P 500 data from Yahoo Finance |
+| `xts` | C5 | Time series objects for S&P 500 data |
 
 ::: {.callout-note}
 **Source code** for all chapters is available on GitHub:
